@@ -1,0 +1,296 @@
+---
+title: "Créer un blog avec Jekyll"
+date: Dec 08 2023
+# categories:
+#   - outils
+description: "Jekyll, un générateur de site statique idéal pour créer son blog"
+banner: "/images/pankaj-patel-u2Ru4QBXA5Q-unsplash.jpg"
+readingtime: "5 min"
+author: "Pankaj Patel"
+authorlink: "https://unsplash.com/fr/@pankajpatel?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+unsplashlink: "https://unsplash.com/fr/photos/monitor-acceso-che-mostra-il-linguaggio-di-programmazione-u2Ru4QBXA5Q?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+showCreditPhoto: true
+---
+
+Lorsqu'on souhaite créer un site web sans pour autant se plonger dans un CMS comme WordPress ou Drupal, on trouve rapidement de multiples solutions qui sont des générateurs de site statique. L'idée de ce blog me trotte dans la tête depuis un moment et je connaissais l'existence des Github Pages. C'est en consultant la documentation Github à ce sujet que j'ai découvert Jekyll.
+
+La documentation étant assez fruste, j'ai approfondi mes recherches et ai réuni un grand nombre d'informations, mais aucune de mes sources n'avait de mode d'emploi complet pour Jekyll. La documentation officielle est elle-même difficile à exploiter pour débuter un projet. Comme à mon habitude, j'ai compilé toutes les informations glanées sur le sujet pour en faire un tutoriel.
+
+&nbsp;
+
+## Création du projet
+
+Voici les étapes à suivre pour mettre en place un blog avec Jekyll :
+
+- installer Ruby avec le Windows installer avec devkit avec les options par défaut (par [ici](https://rubyinstaller.org/))
+- vérifier l’installation de Ruby en saisissant la commande `ruby -v` dans un terminal
+- lancer la génération du projet en saisissant la commande `jekyll letitredemonblog` dans un terminal
+- lancer le projet en saisissant les commandes `cd letitredemonblog` puis `jekyll serve --livereload`. Une fois la commande exécutée votre terminal vous indique l’url à laquelle est disponible votre site web (par défaut localhost:4000).
+
+Votre blog est prêt !
+
+Pour le moment votre blog existe seulement en local, pour le mettre en ligne il faudra aller [ici](https://docs.github.com/fr/pages/getting-started-with-github-pages/creating-a-github-pages-site), dans la documentation Github.
+
+La page d’accueil comporte plusieurs éléments, un lien vers un post, un lien vers une page à propos, une navbar simpliste ainsi qu’un footer.
+
+Améliorer notre blog va nous faire examiner de plus près les entrailles de notre projet.
+
+&nbsp;
+
+## Structure
+
+Un projet Jekyll est constitué de plusieurs packages aux rôles distincts sur la capture d'écran suivante.
+
+![Alt text](/images/jekyll-arborescence.png)
+&nbsp;
+
+### Includes
+
+Les fichiers contenus dans le package \_includes sont des extraits de code html qui peuvent être inclus au sein d’une autre page. On peut inclure un fichier grâce à son nom, mais on peut également passer des paramètres à cet extrait de code afin de générer du html avec une ou plusieurs variables. Sur ce site les vidéos sont incluses dans les pages ainsi, l'extrait de code permettant de rendre la vidéo responsive.
+
+`{% include navbar.html %}`
+
+`{% include video.html path='powertoys-fancy-zones.webm' %}`
+
+Cela permet d’alléger les fichiers html et évite de dupliquer du code au sein de votre projet. Modifier un extrait modifiera l'ensemble des endroits où est appelé cet extrait.
+
+Les fichiers du dossier \_layouts sont les fichiers html contenant la trame de vos pages. Le fichier créé par défaut contient la structure de base d’une page html.
+
+&nbsp;
+
+### Layouts
+
+Les fichiers du package \_layouts sont des fichiers de mise en page. Par défaut le layout de base généré est le fichier layout.html, qui contient la structure de base d'un fichier html :
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+  </head>
+  <body>
+    {% include nav.html %}
+    <main>{{ content }}</main>
+    <script src="/assets/js/main.js"></script>
+  </body>
+</html>
+```
+
+On créera généralement un layout par type de pages que l'on souhaite générer. Dans mon cas, j'ai un layout pour les posts, un layout pour les catégories etc.
+
+Les variables utilisées dans un layout seront valorisées lors de la compilation du projet et la génération des pages par Jekyll.
+
+&nbsp;
+
+### Posts
+
+Les posts sont des fichiers Markdown qui sont constitué d'un en-tête appelé FrontMatter et d'un contenu (désigné par content dans les layouts). Dans votre blog, ce seront vos articles.
+
+Le FrontMatter regroupe l'ensemble des métadonnées d'un article : layout, titre, catégorie, date, résumé etc. Ces métadonnées seront accessibles depuis l'extérieur des fichiers et permettront d'afficher les informations relatives à un article depuis la page d'accueil, ou depuis la page de la catégorie correspondante.
+&nbsp;
+
+```
+---
+layout: post
+title: "Créer un blog avec Jekyll"
+date: 2023-11-03 14:42:45 +0100
+categories:
+- open source
+excerpt: "Jekyll, un générateur de site statique idéal pour créer son blog"
+banner: "bannière.png"
+readingtime: "5 min"
+skip_toc: true
+---
+```
+
+&nbsp;
+Le contenu du fichier vient à la suite du FrontMatter avec l'ensemble des éléments Markdown nécessaires à sa mise en page (titres, médias, extraits de code etc.).
+
+&nbsp;
+
+### Site
+
+Le package \_site contient l'ensemble des fichiers générés par Jekyll, il faut donc absolument ne pas travailler dans ce dossier, car à chaque compilation l'ensemble de ces fichiers est régénéré. Je l'ai appris à mes dépens au début de mon projet.
+
+&nbsp;
+![Contenu du répertoire _site.](/images/jekyll-site-package.png)
+&nbsp;
+
+### Assets
+
+Le dossier assets va servir à stocker les fichiers statiques nécessaires au site, que ce soient les feuilles de styles, les fichiers JavaScript, ou encore les images de notre site. Lors de la génération du site le contenu du répertoire sera simplement copié et collé au sein du dossier \_site.
+
+&nbsp;
+
+## Fichiers à la racine
+
+L'arborescence de notre projet n'est pas uniquement constituée de ces packages, il y a également plusieurs fichiers à la racine du projet :
+
+- index.html : la page d'accueil
+- about.html : la page à propos
+- 404.html : la page d'erreur 404 (ressource non trouvée)
+- \_config.yml : le fichier de configuration du site
+- Gemfile : le fichier qui référence l'ensemble des gemmes utilisés par le projet
+
+Arrêtons nous sur les fichiers fondamentaux, le Gemfile ainsi que le fichier de configuration du projet.
+
+&nbsp;
+
+### Gemfile
+
+Les projets Ruby, comme la plupart des projets, ont besoin de dépendances pour fonctionner, ces dépendances ayant des versions spécifiques. Le Gemfile a pour rôle de référencer l'ensemble des dépendances d'un projet avec leurs versions. C'est sur ce fichier que vas se baser **Bundler**, le gestionnaire de dépendances Ruby pour installer le nécessaire pour faire fonctionner un projet.
+
+&nbsp;
+![Structure du fichier Gemfile du projet.](/images/jekyll-gemfile.png)
+&nbsp;
+
+### \_config.yml
+
+Comme son nom l'indique le fichier \_config.yml contient les informations de notre site web :
+
+- le titre
+- l'url
+- l'adresse e-mail de l'auteur
+- les noms d'utilisateur LinkedIn, Github etc.
+- la configuration des plugins
+- la configuration des collections
+- les options de génération
+- le thème
+
+Le fichier a la structure suivante :
+
+&nbsp;
+
+```yaml
+title: Mon Site Jekyll
+description: "Un site Jekyll de démonstration"
+url: "https://monsitejekyll.com"
+author: John Doe
+
+plugins:
+  - jekyll-feed
+
+theme: minima
+
+exclude:
+  - exclusions/
+  - Gemfile
+  - Gemfile.lock
+
+custom_variable: "Ceci est une variable personnalisée"
+
+collections:
+  articles:
+    output: true
+    permalink: /:title
+```
+
+&nbsp;
+
+On retrouve un paramètre nommé **theme** qui permet de préciser le nom du thème du site si on souhaite en utiliser un. Lors de la génération du projet le thème sera installé dans un dossier externe au projet. On peut retrouver leur emplacement avec cette commande :
+
+```bash
+bundle info --path minima
+```
+
+&nbsp;
+
+## Le thème
+
+Il existe une multitude de thèmes pour Jekyll que vous pouvez trouver [ici](http://jekyllthemes.org/) par exemple. Un thème contient un ensemble de fichiers, layouts, includes, assets à partir desquels le site va être généré. Pour modifier votre site il ne faut **surtout pas** modifier le thème en lui-même, mais créer un fichier au même nom que celui que vous aimeriez modifier dans votre thème avec votre propre contenu. Le fichier doit se trouver dans le même package que le fichier du thème lui-même.
+
+On peut voir juste ici le contenu du fichier layouts/layout.html du thème minima. On voit qu'il diffère de ce qu'on avait dans le layout par défaut généré lors de la création du projet.
+
+```html
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+  {%- include head.html -%}
+  <body>
+    {%- include header.html -%}
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+         {{content}}
+      </div>
+    </main>
+    {%- include footer.html -%}
+  </body>
+</html>
+```
+
+Le fichier suivant, \_layouts/layout.html correspond aux besoins de mon site :
+
+```html
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+  {%- include head.html -%}
+  <body>
+    {%- include header.html -%}
+    <main class="page-content" aria-label="Content">
+      <div class="row d-flex flex-row-reverse">
+        <div class="col md-6"><div class="wrapper">
+           {{content}}
+        </div></div>
+        <div class="col md-3 text-end" style="position:fixed">{% include toc.html content=page.content skip_toc=page.skip_toc%}</div>
+      </div>
+    </main>
+    {%- include footer.html -%}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>
+```
+
+La modification du thème vous forcera à recompiler votre projet pour voir chaque modification, alors que la modification de vos fichiers personnalisés sera prise en compte à la volée et les changements seront immédiatement visibles dans votre navigateur Web.
+
+Lors de la génération du site, Jekyll prendra les fichiers de votre projet s'ils existent pour les layouts, les includes etc. et ira chercher les fichiers manquants dans les fichiers du thème pour les copier dans le répertoire **\_site**.
+
+&nbsp;
+
+## Les collections
+
+Les collections permettent de structurer et d'organiser le contenu d'un site web. Par défaut Jekyll sait gérer plusieurs collections :
+
+- les posts
+- les pages
+- les brouillons (drafts)
+- les layouts
+- les includes
+
+Les fichiers d'une collection se trouvent dans un même dossier ainsi que le montre l'architecture du projet. La collection de posts se situe dans le dossier \_posts. Il en sera de même pour toutes les collections. Pour déclarer une nouvelle collection ça se passe dans le \_config.yml, qui comporte une section collections :
+
+```yaml
+collections:
+  articles:
+    output: true
+    permalink: /:title
+```
+
+On peut déterminer également les propriétés des collections dans ce fichier. Il faudra également créer un nouveau dossier dans l'arborescence du projet avec le nom de la collection précédé par un underscore, ici **\_articles**.
+
+On peut noter que les drafts sont gérés par défaut par Jekyll, et qu'on peut afficher son site web avec l'option `--drafts` afin qu'ils soient pris en compte lors de la génération du site.
+
+&nbsp;
+
+## Liquid
+
+En parcourant les fichiers de votre projet, vous avez sûrement remarqué des blocs contenant du code comme `{% include nav.html %}` ou encore `{{ content }}`. Ce code est un langage couramment utilisé dans les générateurs de sites statiques, Liquid. Il permet de rendre les pages dynamiques ainsi que d'afficher des données.
+
+Il contient un grand nombre d'instructions différentes que nous ne détaillerons pas ici (mais qui le sont [là](https://shopify.dev/docs/api/liquid)). Sachez cependant que Jekyll nous permet d'utiliser entre autres :
+
+- if/else
+- boucles for
+- l'affichage de variables
+- les filtres (ajouter une majuscule au début d'un mot, formater une date)
+
+Il n'est pas nécessaire de se plonger dans la documentation de Liquid pour commencer son blog, mais vous arriverez rapidement à devoir comprendre comment intégrer un extrait html dans une page, à conditionner un affichage, à boucler sur les éléments d'une collection, à filtrer des éléments selon une de leurs propriétés.
+
+Vous pouvez retenir qu'un bloc de code ressemble à ceci `{% mon code %}` et que l'affichage d'une variable se fait comme cela `{{ ma_variable }}`. Accéder à l'une des propriétés d'un élément de collection se fait ainsi `{{ post.title }}`.
+
+&nbsp;
+
+## Conclusion
+
+Jekyll est un moyen simple d'utilisation pour réaliser un site web comme un blog, et permet de garder le contrôle sur le code que l'on écrit contrairement à un CMS comme WordPress. Je pense que pour mettre en place le projet initial (création du projet jusqu'à sa première exécution réussie) j'ai dû passer environ une journée dessus.
+
+Il m'a fallu environ une semaine pour mieux comprendre le fonctionnement global de Jekyll, ensuite j'ai pu creuser les notions en lien avec mes problématiques progressivement, une paire d'heures permettant largement d'expérimenter une nouvelle fonctionnalité ou de développer une preuve de concept (POC, Proof Of Concept).

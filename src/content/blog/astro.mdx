@@ -1,0 +1,384 @@
+---
+title: "Créer un blog avec Astro"
+date: Dec 10 2023
+# categories:
+#   - outils
+description: "Astro, un compilateur de site web statique d'une simplicité enfantine"
+banner: "/images/pankaj-patel-u2Ru4QBXA5Q-unsplash.jpg"
+readingtime: "5 min"
+author: "Pankaj Patel"
+authorlink: "https://unsplash.com/fr/@pankajpatel?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+unsplashlink: "https://unsplash.com/fr/photos/monitor-acceso-che-mostra-il-linguaggio-di-programmazione-u2Ru4QBXA5Q?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+showCreditPhoto: true
+---
+
+La création de ce blog m'a dans un premier temps fait découvrir le compilateur de site web statique Jekyll ([voir cet article](localhost:4321/blog/jekyll/)).
+La phase de découverte a été assez longue, et j'ai été amené à rencontrer des difficultés liées à combiner du CSS personnalisé à l'utilisation de Bootstrap 5.
+Les difficultés croissantes rencontrées, malgré les fonctionnalités intéressantes, notamment la gestion des catégories, m'a amené à tester un autre outil, Astro.
+
+&nbsp;
+
+## Pré-requis
+
+2 éléments sont nécessaires :
+
+- NodeJS
+- Un éditeur de code (Visual Studio Code dans mon cas, appelé VSCode par la suite)
+
+Avant de vous initier à Astro, vous allez avoir besoin d'installer **NodeJS** (si ce n'est pas déjà fait 😊). Si tel n'est pas le cas, vous pouvez vous rendre à [cette adresse](https://nodejs.org/en/download/current) pour télécharger l'installateur qui correspond à votre système d'exploitation.
+
+Une fois les étapes d'installation de NodeJS passées, dans un terminal (un nouveau, sinon ça ne fonctionnera pas), saisir `node -v` ou `node --version`.
+Le terminal devrait afficher la version de NodeJS installée sur votre ordinateur (dans mon cas, v20.9.0).
+
+Cette vérification faite, vous pouvez passer à la création de votre blog à proprement parler.
+
+&nbsp;
+
+## Créez votre blog
+
+Avec Node est également installé le bien connu gestionnaire de packages **npm** (Node Package Manager). Ce gestionnaire de packages va vous permettre d'installer en local (sur votre machine) les composants logiciels nécessaires à votre projet.
+
+Vous avez effectué le plus gros du travail, tout se passe maintenant dans votre terminal :
+
+- Rendez-vous dans le dossier dans lequel vous souhaitez générer votre projet `cd monDossier/monSousDossier` (dossier impérativement vide, contrainte d'Astro)
+- Saisissez `npm astro@latest`, validez puis saisissez `y` pour installer `create-astro`.
+- Saisissez le nom de votre projet
+- Choisissez votre template (touches 🔼 et 🔽 de votre clavier).
+- Installez les dépendances
+- N'installez pas TypeScript
+- N'initialisez pas de repository Git.
+
+Dans VSCode
+
+- Sélectionnez le dossier au nom de votre projet.
+- Ouvrez un terminal et saisissez `npm run dev`.
+
+C'est gagné ! Votre blog est disponible à l'adresse indiquée dans le terminal, à l'adresse **localhost:4321** par défaut.
+
+Une fois votre blog lancé, l'enregistrement d'un fichier entraînera le rafraîchissement immédiat de l'ensemble du site, ce qui permet de voir rapidement vos dernières modifications.
+
+Intéressons-nous maintenant à la structure de notre projet.
+
+&nbsp;
+
+## Structure du projet
+
+À première vue notre projet Astro contient peu de choses, quelques répertoires :
+
+- node_modules
+- public
+- src
+
+Ainsi que quelques fichiers à la racine du projet :
+
+- astro.config.mjs
+- package.json / package-lock.json
+- README.md
+- tsconfig.json
+
+Détaillons le rôle et le contenu de ces différents éléments.
+
+### node_modules
+
+Ce dossier sert au stockage des dépendances du projet, c'est-à-dire l'ensemble des scripts JavaScript nécessaires au bon fonctionnement du projet.
+
+### public
+
+Le dossier public a pour rôle le stockage des ressources statiques du site (images, vidéos, polices d'écriture etc.).
+
+### src
+
+Le répertoire src contient quant à lui le code source du site, l'ensemble des fichiers constituant les éléments nécessaires à la structure du site, les pages web, les partial html, les fichiers de style, les trames des pages.
+
+Dans notre cas, il contiendra les packages suivants :
+
+- /components ➡ les composants html de notre site (crédits photographiques, en-tête, pied de page etc.)
+- /pages ➡ les pages qui composent le squelette du site (page d'accueil, à propos etc.)
+- /content ➡ nos articles au format .mdx (format qui étend les fonctionnalités originelles du markdown en permettant notamment l'utilisation de composants externes)
+- /layouts ➡ les trames de nos pages (articles, catégories)
+
+&nbsp;
+
+### Les fichiers à la racine
+
+#### astro.config.mjs
+
+C'est un fichier de configuration propre à Astro, qui permet de personnaliser les options par défaut du projet.
+
+#### package.json / package-lock.json
+
+Le fichier package.json n'est pas propre à Astro, il est au contraire commun à tous les projets utilisant des packages node.
+Il référence également l'ensemble des dépendances du projet, avec leurs versions respectives. C'est grâce à lui que npm est capable de réinstaller toutes ces dépendances sur une machine.
+
+Le fichier package-lock.json est quant à lui un instantané de ce qui a été installé lors de la dernière installation du projet, lors du dernier `npm install`.
+Contrairement au package.json, avec lequel npm va pouvoir installer des versions plus récentes de certaines dépendances, le fichier lock va lui forcer à installer les versions exactes de l'ensemble de ces dépendances, qu'il existe de nouvelles versions de celles-ci ou non.
+
+#### config.ts
+
+Ce fichier permet de configurer le projet sous plusieurs aspects :
+
+- définition les méta-données du projet (nom, version, description, auteur etc.)
+- configuration des plugins
+- répertoires source et de sortie
+- définition des variables d'environnement
+- gestion des options de compilation et d'optimisation
+
+Ceci n'est pas une liste exhaustive, mais c'est un bon début 😊.
+
+#### README
+
+Son contenu est généralement un résumé du rôle d'un projet, ou l'explication de son fonctionnement. Ici, il s'agit d'un petit guide pour bien démarrer avec Astro.
+
+#### tsconfig.json
+
+Ce fichier sert à l'éditeur de code utilisé à savoir comment interpréter un projet. Pour en savoir plus, vous pouvez vous référer à la page correspondante de la documentation d'Astro, [ici](https://docs.astro.build/fr/guides/typescript/).
+
+&nbsp;
+
+## .mdx vs .md
+
+Astro intègre nativement le mdx dans ces projets, mais de quoi s'agit-il ?
+
+Le mdx (Markdown with JSX) est en quelque sorte le grand frère du md (Markdown). Il apporte de nombreuses fonctionnalités liées au JSX (JvaScript XML) :
+
+- l'intégration de composants html dans les fichiers mdx
+- l'ajout d'éléments dynamiques dans les fichiers mdx
+- la prise en charge de la logique conditionnelle
+- la réutilisation des composants
+
+En résumé, là où le Markdown est essentiellement une syntaxe simple et statique, le Markdown with JSX va être plus complexe mais également plus flexible et dynamique.
+
+Typiquement, les crédits photographiques présents à la fin de chaque article sont générés par un composant html alimenté par le frontmatter de chaque article.
+
+&nbsp;
+
+## Les collections
+
+De manière similaire à Jekyll, Astro gère des collections. Une collection est un ensemble de fichiers similaires situés dans le même sous-répertoire du package **/content**. Lors de la génération du projet, Astro a configuré la collection blog dans le fichier **config.ts**, qui correspond aux fichiers du répertoire /content/blog.
+
+Si vous souhaitez manipuler plusieurs types d'éléments (de fichiers), vous pouvez créer une nouvelle collection en ajoutant une entrée dans le fichier config.ts, avec ses propriétés. Les attributs d'une collection peuvent être des chaînes de caractères, des nombres, des dates, des booléens. Voici la configuration de mes articles de blog.
+
+```
+import { defineCollection, z } from 'astro:content';
+
+const blog = defineCollection({
+	// Type-check frontmatter using a schema
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+		// Transform string to Date object
+		date: z.coerce.date().optional(),
+		banner: z.string().optional(),
+		author: z.string().optional(),
+		authorLink: z.string().optional(),
+		unsplashLink: z.string().optional(),
+		showCreditPhoto: z.boolean().optional(),
+	}),
+});
+
+export const collections = { blog };
+```
+
+On voit que ma collection se nomme blog, que chaque élément possède obligatoirement un titre, une description, ainsi qu'un ensemble d'attributs optionnels (informations relatives aux crédits photographiques, variables d'affichage etc.). 
+
+```
+---
+title: "Créer un blog avec Astro"
+date: Dec 10 2023
+description: "Astro, un compilateur de site web statique d'une simplicité enfantine"
+banner: "/images/banner.jpg"
+readingtime: "5 min"
+author: "John Doe"
+authorlink: "http://..."
+unsplashlink: "http://..."
+showCreditPhoto: true
+---
+```
+
+Chaque article possède un frontmatter dans lequel sont valorisés des attributs qui sont utilisés à l'extérieur de l'article, pour l'affichage sur la page d'accueil, pour les liens intégrés aux crédits photographiques etc. On peut voir ici comment sont utilisées les informations du frontmatter pour afficher la liste des articles.
+
+```html
+<body>
+    <Header />
+    <main>
+      <section>
+        <ul>
+          {
+            posts.map((post) => (
+              <li>
+                <a href={`/blog/${post.slug}/`}>
+                  <img width={720} height={360} src={post.data.banner} alt="" />
+                  <h4 class="title">{post.data.title}</h4>
+                  <p class="date">
+                    <FormattedDate date={post.data.date} />
+                  </p>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </main>
+    <Footer />
+  </body>
+```
+
+On voit ici qu'on récupère la collection de posts du site et que pour chaque post on génère une balise li avec la bannière de l'article, son titre, sa date etc. On peut utiliser toutes les informations définies dans le frontmatter de chaque article.
+
+Si vous mettez en place des catégories, vous passerez probablement par la création d'une autre collection qui aura ses propres attributs, son propre layout, ses propres composants.
+
+&nbsp;
+
+## Les layouts
+
+Un fichier de layout (mise en page) permet de centraliser le squelette de pages similaires, de disposer les différents éléments de notre page comme désiré. Pour un article de blog on aura la structure suivante :
+
+- composant head
+- composant header
+- contenu de l'article (contenu de votre fichier .mdx)
+- composant crédits photographiques (alimenté par le frontmatter du fichier mdx)
+- footer
+
+Ainsi, la structure de vos articles n'a pas besoin d'être gérée au sein de chaque article, mais une seule fois dans le fichier de mise en page. L'affichage des composants peut être conditionné au sein d'un layout, et le passage de paramètres à un composant a lieu dans ce layout.
+
+&nbsp;
+
+## Les composants
+
+Le principal atout du mdx est de permettre l'utilisation de composants. Mais comment fait-on pour créer un composant ?
+
+En réalité, vous utilisez des composants depuis le début sans le savoir, ils sont là depuis le début. L'en-tête (head, header) et le pied-de-page (footer) de votre blog sont des composants. Ils se trouvent dans le répertoire **/src/components** de votre projet.
+
+Un composant est un fichier .astro qui contient un fragment de html, destiné à être utilisé à de multiples endroits dans votre blog. On peut distinguer deux types de composants :
+
+- composant statique
+- composant dynamique
+
+Attention : les fichiers doivent impérativement être au format .mdx et non au format .md, sans quoi vos composants ne seront pas pris en compte.
+
+&nbsp;
+
+### Composants statiques
+
+Le contenu d'un composant statique est fixe, il est utilisé tel quel dans les autres pages (balise footer par exemple).
+
+```html
+---
+const today = new Date();
+---
+
+<footer>
+  &copy; {today.getFullYear()} Ludovic Déan. All rights reserved.
+  <div class="social-links">
+    <a href="https://github.com/withastro/astro" target="_blank">
+      <span class="sr-only">Go to Astro's GitHub repo</span>
+      <svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32" astro-icon="social/github" >
+        <path fill="currentColor" d="le contenu de mon svg"></path>
+      </svg>
+    </a>
+  </div>
+</footer>
+<style>
+  mesClassesCSS {
+  }
+</style>
+```
+
+Pour appeler un composant, on a besoin de l'importer dans le frontmatter de notre layout puis d'inclure la balise html correspondante dans le layout.
+
+```html
+---
+import Footer from "../components/Footer.astro";
+---
+
+<footer />
+```
+
+L'utilité de ce type de composant reste toutefois limité, car on ne peut pas l'adapter au contexte dans lequel on l'appelle. C'est ce que vont permettre les composants dynamiques.
+
+&nbsp;
+
+### Composants dynamiques
+
+Le contenu d'un composant dynamique est variable, chaque page qui l'appelle lui fournit des paramètres qu'il va utiliser (CreditPhoto va recevoir plusieurs paramètres).
+
+```html
+---
+const { authorLink, author, unsplashLink } = Astro.props;
+---
+
+<div>
+  <h3>Crédits photographiques</h3>
+  Photo de <a href="{lienAuteur}">{auteur}</a> sur
+  <a href="{lienUnsplash}">Unsplash</a>
+</div>
+```
+
+L'appel de ce composant sera réalisé de la même manière que pour un composant statique, sauf que nous allons cette fois-ci lui passer des paramètres (lienAuteur, auteur et lienUnsplash).
+
+```html
+---
+lienAuteur: http://...
+auteur: Untel
+lienUnsplash: http://...
+
+import Footer from "../components/Footer.astro";
+---
+
+<CreditPhoto
+  lienAuteur={lienAuteur}
+  auteur={auteur}
+  lienUnsplash={lienUnsplash}
+/>
+```
+
+Qu'il soit statique ou dynamique, on peut conditionner l'affichage d'un composant. La variable de gestion d'affichage est valorisée dans le frontmatter de chaque fichier et exploitée dans le fichier layout.
+
+```html
+---
+showComposant: true
+---
+
+{ showCreditPhoto && (
+<CreditPhoto
+  author="{author}"
+  authorLink="{authorLink}"
+  unsplashLink="{unsplashLink}"
+/>
+) }
+```
+
+Ici, si showCreditPhoto vaut true, alors on affiche le composant CreditPhoto en lui passant les paramètres nécessaires.
+
+Certaines problématiques nécessitent des éléments plus complexes, et comme réinventer la roue n'est pas toujours la meilleure idée, il est préférable de se tourner vers des solutions externes.
+&nbsp;
+
+## Les plugins
+
+Les intégrations (plugins) Astro sont là pour répondre à des problématiques communes à de nombreux projets. Ces plugins sont répertoriés [ici](https://astro.build/integrations/), et un moteur de recherche permet de cibler les éléments affichés.
+
+Sans trop rentrer dans le détail, on y trouve toutes sortes d'intégrations comme :
+
+- pour les frameworks front :
+  - React
+  - Vue
+  - Svelte
+- pour le style :
+  - TailwindCSS
+  - BootStrap
+- pour optimiser les performances de votre site :
+  - imagetools
+  - picperf
+- pour gérer le déploiement :
+  - vercel
+  - netlify
+
+Vos besoins n'étant probablement pas uniques au monde, vous trouverez probablement votre bonheur parmi les nombreux plugins existant, et qui sait, peut-être créerez-vous votre propre plugin ?
+
+&nbsp;
+
+## Conclusion
+
+Astro m'a été vanté par un collègue au fait de mon projet de blog, notamment par rapport à sa simplicité. Mon expérience avec Astro est véritablement réussie, la prise en main de l'outil étant assez rapide, avec une courbe d'apprentissage assez douce. On obtient rapidement un résultat intéressant sans avoir véritablement mis les mains dans le cambouis.
+
+Si vous avez un projet de site web statique, je ne peux que vous recommander chaudement Astro, d'autant que la documentation est très fournie et très claire. Plus qu'une chose à faire, lancez-vous 😉 !

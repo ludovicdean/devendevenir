@@ -1,0 +1,9 @@
+---
+const { authorLink, author, unsplashLink } = Astro.props;
+---
+
+<div>
+  <h3>Crédits photographiques</h3>
+   Photo de <a href={authorLink}>{author}</a> sur
+  <a href={unsplashLink}>Unsplash</a>
+</div>

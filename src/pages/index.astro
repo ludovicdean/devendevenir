@@ -1,0 +1,34 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Header title={SITE_TITLE} />
+    <main>
+      <h1>Dev En Devenir</h1>
+      <p>
+        Un blog écrit <strong>par</strong> un développeur
+        <strong>pour</strong> les développeurs !
+      </p>
+      <p>
+        Quand je ne trouve pas d'infos je compile les infos que je trouve et
+        j'écris l'article que j'aurais aimé trouver 😅
+      </p>
+      <p>
+        Des questions purement techniques (et technologiques) sur le
+        fonctionnement d'un ordinateur jusqu'aux outils de documentation, en
+        passant par la mise en place de test, la rédaction de ces articles me
+        permet de poser mes idées et de m'en imprégner durablement.
+      </p>
+    </main>
+    <Footer />
+  </body>
+</html>

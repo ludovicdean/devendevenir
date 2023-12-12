@@ -1,0 +1,130 @@
+---
+title: "PowerToys, un ami qui vous veut du bien"
+date: 2023-11-03 14:42:45 +0100
+categories: outils
+description: Windows a des limites, dépassez-les grâce à PowerToys, une application qui pimpera votre PC en quelques clics.
+image: "/images/powertoys.png"
+banner: "/images/hal-gatewood-powertoys-unsplash.jpg"
+readingtime: "5 min"
+author: Hal Gatewood
+authorlink: "https://unsplash.com/fr/@halacious?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+unsplashlink: "https://unsplash.com/fr/photos/tastiera-del-computer-nera-Pr578ZCufII?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+showCreditPhoto: true
+---
+
+import Video from "../../components/Video.astro";
+
+Après quelques années à travailler sur des ordinateurs sous Windows j'ai fréquemment
+rencontré des problématiques d'affichage dès lors que l'on a plus d'un écran. La
+multiplicité des périphériques d'affichage a l'avantage de pouvoir conserver plusieurs
+fenêtres simultanément visibles.
+
+En revanche, disposer correctement ces fenêtres sans s'arracher les cheveux à chaque démarrage est une véritable gageure.
+Ce problème semble être parvenu aux oreilles de Microsoft, qui a créé l'application PowerToys, qui règle ce problème parmi tant d'autres.
+
+&nbsp;
+
+## Alors c'est quoi PowerToys ?
+
+Powertoys c'est une application disponible [ici](https://learn.microsoft.com/fr-fr/windows/powertoys/), qui permet de répondre à un ensemble de problématiques liées à l'utilisation avancée d'un ordinateur :
+
+- Gestion de fenêtres toujours visibles
+- Gestion de l'activité de l'ordinateur
+- Gestion des fenêtres
+- Modules complémentaires de l'explorateur de fichiers
+- Gestion du clavier
+
+A l'instar de Notion qui est le maestro de l'info, PowerToys est le chef d'orchestre ultime pour votre ordinateur, qui va rajouter des fonctionnalités difficiles à quitter après y avoir goûté. Après ce rapide passage en revue des capacités de PowerToys, il est temps d'aborder plus en détail chacun de ses modules.
+
+![Page d'accueil de PowerToys](/images/powertoys-homepage.png)
+&nbsp;
+
+## Au paradis des fenêtres
+
+Mon métier m'amène à travailler avec des écrans multiples, généralement 3 (PC portable + 2 écrans) et de multiples applications que je souhaite garder visibles (Teams, e-mails, éditeur de code etc.). Comment conserver toutes ces fenêtres en faisant uniquement appel aux capacités de Windows ? Appuyer sur la touche **Windows** puis une flèche pour gérer par moitié ou quart d'écran est vite limité. C'est ici que Fancy Zones entre sur le ring et vient nous sauver la mise.
+
+<video
+  autoplay="autoplay"
+  loop="loop"
+  style="width:100%"
+  src="/images/powertoys-fancy-zones.webm"
+></video>
+&nbsp;
+
+Vous pouvez définir autant de zones que vous le souhaitez pour chacun de vos écrans. Il vous suffira ensuite lorsque vous déplacez une fenêtre de maintenir la touche **Maj** pour que les zones s'affichent. Quand le focus passe sur une zone, vous pouvez relâcher le clic, la fenêtre s'ajustera automatiquement à cette zone. Fini les mails ou les messages Teams ratés, vos fenêtres restent ouvertes.
+
+&nbsp;
+
+## On se réveille !
+
+Vos activités vous demandent de garder votre ordinateur actif ? PowerToys peut prendre le pas sur la gestion de l'alimentation avec son module Awake. L'activation du module permet d'accéder aux options d'alimentation et de les personnaliser selon vos besoins.
+
+<video
+  autoplay="autoplay"
+  loop="loop"
+  style="width:100%"
+  src="/images/powertoys-awake.webm"
+></video>
+&nbsp;
+
+## J'adore cette couleur mais c'était quoi déjà ?
+
+Le développement web peut nous amener à rechercher des couleurs pour un site, ou a reproduire des couleurs qui nous plaisent. Il n'est pas toujours facile de retrouver les teintes exactes que l'on recherche. Ici encore PowerToys propose un outil qui résout ce type de problème, Color Picker.
+
+<video
+  autoplay="autoplay"
+  loop="loop"
+  style="width:100%"
+  src="/images/powertoys-color-picker.webm"
+></video>
+&nbsp;
+
+## Pimpez votre explorateur de fichiers
+
+Trouver un fichier, l'ouvrir, le parcourir, réaliser que ce n'est pas le bon, le fermer, recommencer. Fini le calvaire, les extensions de l'explorateur de fichier sont faites pour vous. Vous pouvez sélectionner pour quels types de fichiers vous souhaitez activer l'aperçu.
+
+![Paramétrage des extensions de l'explorateur de fichiers Windows](/images/powertoys-explorateur-fichiers.png)
+
+&nbsp;
+
+Il suffit d'appuyer sur **Alt+P** pour s'assurer que l'aperçu est bien activé dans l'explorateur de fichiers. Lorsqu'on sélectionne un fichier, son aperçu est généré dans la partie droite de l'écran. La largeur de l'aperçu peut être modifiée.
+
+<video
+  autoplay="autoplay"
+  loop="loop"
+  style="width:100%"
+  src="/images/powertoys-apercu.webm"
+></video>
+&nbsp;
+
+## À tous les virtuoses du clavier
+
+Parmi les développeurs il existe une espèce rare, les fous du clavier. Ils ont cette capacité insensée de passer leur journée sur un PC en passant moins de 10 minutes la main sur leur souris. Comment font-ils ? Aucune idée, les magiciens ne révèlent jamais leurs secrets. PowerToys nous propose un gestionnaire de clavier, qui permet de remapper des touches.
+
+<video
+  autoplay="autoplay"
+  loop="loop"
+  style="width:100%"
+  src="/images/powertoys-keyboard-manager.webm"
+></video>
+&nbsp;
+
+Vous avez la possibilité de remapper les touches de votre clavier à l'échelle de votre ordinateur (peu adapté, ou en évitant les touches seules) ou à l'échelle d'une seule application, il faut alors utiliser le menu du bas de la fenêtre.
+
+## À nos amis photographes
+
+Quand je trie des photos il m'arrive de souhaiter renommer un ensemble de fichiers avec le même nom suivi d'un numéro. Cela peut être fastidieux quand le volume de fichiers devient important. Ici encore PowerToys nous facilite la vie grâce à PowerRename, qui est disponible dans le menu contextuel de l'explorateur lorsqu'on fait un clic droit sur un ensemble de fichiers.
+
+<video
+  autoplay="autoplay"
+  loop="loop"
+  style="width:100%"
+  src="/images/powertoys-power-rename.webm"
+></video>
+&nbsp;
+
+## Conclusion
+
+Comme vous l'avez vu PowerToys regorge de fonctionnalités, que je n'ai pas toutes développées ici mais feront peut-être l'objet d'un second article.
+Charge à vous de faire de PowerToys votre bras droit afin de simplifier votre quotidien. L'application n'en est qu'à sa version 0.75.1 et est régulièrement mise à jour.
+Il a récemment été évoqué la possibilité que PowerToys soit intégrée nativement à Windows 11. Affaire à suivre !

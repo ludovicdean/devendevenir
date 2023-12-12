@@ -1,0 +1,282 @@
+---
+title: "Le Markdown, le futur de la documentation"
+date: Nov 02 2023
+# categories:
+#   - documentation
+#   - outils
+description: Faire de la documentation as code, c'est possible, avec la syntaxe Markdown. Ne quittez plus votre éditeur de code préféré, et concentrez-vous sur le fonds plus que la forme
+banner: "/images/markus-winkler-hxCIfi47FgQ-unsplash.jpg"
+readingtime: "6 min"
+author: "Markus Winkler"
+authorlink: "https://unsplash.com/fr/@markuswinkler?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+unsplashlink: "https://unsplash.com/fr/photos/machine-a-ecrire-noir-et-blanc-sur-tableau-blanc-hxCIfi47FgQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+showCreditPhoto: true
+---
+
+Depuis les débuts de l’informatique l’un des outils que nous utilisions le plus était probablement le traitement de texte, qu’il s’agisse de Microsoft Word, d’OpenOffice Writer ou encore Apple Pages. L’avènement d’internet a désormais déporté nos usages vers le web et nombreux sont les outils qui permettent de rédiger de la documentation sans avoir besoin d’un client lourd. Markdown est défini comme un langage de balisage léger.
+
+&nbsp;
+
+## Vive Markdown, mais pourquoi ?
+
+Markdown présente l’avantage d’avoir une “grammaire” simple, qui ne nécessite pas de connaître un logiciel spécifique mais simplement des éléments de langage pris en charge par la plupart des navigateurs.
+
+Autre avantage non négligeable, il est compatible avec le html, notamment lorsqu’on commence à atteindre les limites de la syntaxe Markdown (gestion de colonnes, alignement du texte). Un développeur ne devrait donc pas être dépaysé lors de ses débuts avec le Markdown.
+
+Cherry on the cake, contrairement à leurs homologues .docx
+
+Si on récapitule de quoi on a besoin lorsqu’on fait du traitement de texte basique on retrouve les éléments suivants :
+
+- du texte simple
+- des titres de différent style selon leur importance
+- des éléments d’emphase (italique, gras, barré)
+- des blocs (citation, code)
+- des listes (numérotées ou non)
+- des médias (liens, images)
+- des tableaux
+
+Dans le mille ! Markdown intègre tous ces éléments, dans sa version initiale. Il faut savoir qu’il existe également des syntaxes étendues selon les plateformes, on aura du Markdown à la sauce Github, du Multi-Markdown etc.
+
+&nbsp;
+
+## Devenez un expert Markdown et écrivez comme vous codez
+
+J’ai découvert la syntaxe Markdown via les fichiers Readme que l’on trouve à la racine des dépôts Github. Mais c’est lors de la conversion de fichiers de spécifications techniques que je me suis réellement frotté à ce langage, qui est devenu mon outil favori de création de contenu. Un fichier Markdown a généralement l'extension **.md**.
+
+&nbsp;
+
+## Le texte simple
+
+Dans un fichier Markdown le texte simple n'a pas de balises, il se suffit à lui-même. Pour créer des paragraphes, il faut une ligne vide entre les deux paragraphes.
+
+Ici les deux phrases qui suivent sont sur 2 lignes consécutives :
+
+```
+> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam malesuada enim at leo tempor placerat.
+> Morbi fringilla, felis viverra ultrices iaculis, tortor orci sollicitudin magna, nec venenatis mauris nunc nec quam.
+```
+
+> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam malesuada enim at leo tempor placerat.
+> Morbi fringilla, felis viverra ultrices iaculis, tortor orci sollicitudin magna, nec venenatis mauris nunc nec quam.
+
+Cette fois-ci les deux lignes sont séparées par une ligne vide :
+
+```
+> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam malesuada enim at leo tempor placerat.
+>
+> Morbi fringilla, felis viverra ultrices iaculis, tortor orci sollicitudin magna, nec venenatis mauris nunc nec quam.
+```
+
+> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam malesuada enim at leo tempor placerat.
+>
+> Morbi fringilla, felis viverra ultrices iaculis, tortor orci sollicitudin magna, nec venenatis mauris nunc nec quam.
+
+&nbsp;
+
+## Les titres
+
+Le html nous a appris à utiliser les balises `<h1>` à `<h6>` pour écrire nos titres, Markdown nous donne la possibilité de les écrire avec # pour le titre le plus élevé, ###### pour le titre le plus bas. Attention, il doit y avoir un espace entre les dièses et le titre, sinon ce n'est pas pris en compte.
+
+```
+# Titre 1
+```
+
+# Titre 1
+
+```
+# Titre 2
+```
+
+## Titre 2
+
+```
+# Titre 3
+```
+
+### Titre 3
+
+```
+# Titre 4
+```
+
+#### Titre 4
+
+```
+# Titre 5
+```
+
+##### Titre 5
+
+```
+# Titre 6
+```
+
+###### Titre 6
+
+Cet éventail de titres vous permettra sans aucun doute de structurer vos documents sans avoir à trouver d'autre type de titres.
+
+&nbsp;
+
+## L'emphase
+
+Pour mettre en évidence certains termes, certaines phrases dans vos documents, vous aurez certainement besoin de texte en gras, en italique, barré.
+
+`**Texte en gras**`
+**Texte en gras**
+
+`_Texte en italique_`
+_Texte en italique_
+
+`~~Texte barré~~`
+~~Texte barré~~
+
+Le soulignement n'existe pas en Markdown, il faudra utiliser une balise `<u>` pour souligner du texte.
+
+&nbsp;
+
+## Les blocs
+
+Selon le type de documents que l'on produit on peut avoir besoin de présenter des citations, ou des blocs de code.
+
+&nbsp;
+
+### Les citations
+
+Chaque ligne d'un bloc de citation doit commencer par un chevron fermant et un espace (> ).
+
+La gestion des paragraphes est la même que pour le texte simple.
+
+```
+
+> Une citation
+> sans paragraphes
+>
+> Une autre citation
+>
+> Avec des paragraphes
+
+```
+
+> Une citation
+> sans paragraphes
+>
+> Une autre citation
+>
+> Avec des paragraphes
+
+&nbsp;
+
+### Le code
+
+Les développeurs sont fréquemment amenés à reporter des extraits de code dans des documents. Markdown permet de mettre en évidence le code avec sa **coloration syntaxique** simplement.
+
+Le bloc de code doit débuter et se terminer par 3 accents graves **AltGr+7**. Le langage en début de bloc permet d'activer la coloration syntaxique, ce qui n'est en revanche pas toujours pris en charge par les moteurs de rendu.
+
+````
+``` Java
+System.Out.Println("Hello World !")
+```
+````
+
+```Java
+System.Out.Println("Hello World !")
+```
+
+&nbsp;
+
+## Les listes
+
+Le besoin de lister des éléments est assez fréquent, voici comment le faire en Markdown. Un élément de liste est toujours en début de ligne et commence par :
+
+- un tiret -
+- une astérisque \*
+- un plus +
+
+Une sous-liste est créée en augmentant le retrait du symbole en début de ligne :
+
+```
+Une liste :
+- avec un élément
+  - avec un sous-élément
+    - avec un sous-élément
+```
+
+Une liste :
+
+- avec un élément
+  - avec un sous-élément
+    - avec un sous-sous-élément
+
+Une liste peut également être numérotée. Chaque élément doit être précédé d'un chiffre suivi d'un point et d'un espace
+
+```
+1. Un élément
+72. Un deuxième élément
+3. Un troisième élément
+```
+
+1. Un élément
+2. Un deuxième élément
+3. Un troisième élément
+
+Le nombre avant le point est indifférent, Markdown rendra la numérotation correcte.
+
+&nbsp;
+
+## Les médias
+
+D'un lien à une image, de nombreux éléments peuvent venir enrichir vos contenus avec une syntaxe d'une simplicité enfantine.
+
+```
+[Cliquer ici pour suivre le lien](http://www.google.fr)
+```
+
+[Cliquer ici pour suivre le lien](http://www.google.fr)
+
+```
+![Texte alternatif de l'image](/images/markdown-image.jpg)
+```
+
+![Texte alternatif de l'image](/images/markdown-image.jpg)
+
+Photo de <a href="https://unsplash.com/fr/@inakihxz?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Iñaki del Olmo</a> sur <a href="https://unsplash.com/fr/photos/titoli-assortiti-di-libri-accatastati-negli-scaffali-NIJuEQw0RKg?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+
+On peut combiner les deux éléments pour rendre une image cliquable et qu'elle renvoie vers un lien.
+
+```
+[![Texte alternatif de l'image](/images/markdown-image.jpg)](https:www.google.fr)
+```
+
+[![Texte alternatif de l'image](/images/markdown-image.jpg)](https:www.google.fr)
+
+Le Markdown ne permet pas pour le moment d'insérer une vidéo de manière simple, il faut alors utiliser du html.
+
+&nbsp;
+
+## Les tableaux
+
+Certaines informations nécessitent d'être présentées sous la forme d'un tablau. Là encore le Markdown a une solution pour nous.
+
+```
+| Personne    | Entreprise | Profession |  Ville |
+| ----------- | :--------- | :--------: | -----: |
+| Jean Martin | Le fournil | Boulanger  | Rennes |
+```
+
+| Personne    | Entreprise | Profession |  Ville |
+| ----------- | :--------- | :--------: | -----: |
+| Jean Martin | Le fournil | Boulanger  | Rennes |
+
+La première ligne contient les en-têtes des colonnes du tableau. La deuxième ligne gère l'alignement du contenu des cellules dans la colonne, respectivement :
+
+- `------` et `:-----` alignement à gauche
+- `:----:` centré
+- `-----:` alignement à droite
+
+&nbsp;
+
+## Conclusion
+
+Le Markdown constitue à mon sens une nouvelle façon d'écrire, de documenter, qui nécessite un apprentissage assez court. Son éventail de fonctionnalités couvre la plupart des besoins courants lorsqu'on crée de la documentation, le html palliera facilement à ses manques.
+
+De plus en plus pris en charge sur le web, il pourrait bien devenir un standard dans son domaine. Au-delà de ses limites il existe des versions étendues de Markdown qui enrichissent considérablement ses capacités, notamment le RMarkdown, qui permet de créer des diaporamas as code.
