@@ -5,8 +5,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://ludovic.dean.github.io',
-	base: '/astro-blog',
+	site: 'https://ludovic.dean.github.io/astro-blog',
 	integrations: [mdx(), sitemap()],
 	output: "static"
 });
