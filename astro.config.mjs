@@ -8,4 +8,5 @@ export default defineConfig({
 	site: 'https://ludovic.dean.github.io.com',
 	base: '/blog',
 	integrations: [mdx(), sitemap()],
+	output: "static"
 });
