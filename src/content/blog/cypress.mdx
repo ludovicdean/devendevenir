@@ -1,0 +1,331 @@
+---
+title: "Ajouter des tests e2e à votre projet"
+date: Dec 26 2023
+description: "Les tests permettent de sécuriser le fonctionnement d'une application, notamment les tests de bout en bout. Créez les vôtres avec Cypress !"
+banner: "/images/ferenc-almasi-pW3TdRsH8yM-unsplash.jpg"
+readingtime: "5 min"
+author: "Ferenc Almasi"
+authorlink: "https://unsplash.com/fr/@flowforfrank?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+unsplashlink: "https://unsplash.com/fr/photos/texte-blanc-sur-fond-violet-pW3TdRsH8yM?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+showCreditPhoto: true
+---
+import Video from "../../components/Video.astro";
+
+Une application, un site web sont avant tout destinés à être utilisés par les bien-nommés "utilisateurs". Devoir faire une qualification complète de ses applications après chaque modification peut rapidement devenir fastidieuse.
+
+Alors pourquoi pas automatiser ces frais, en utilisant un outil capable d'exécuter les mêmes actions qu'un utilisateur pour les réaliser à notre place ?
+
+Une fois vos tests mis en place, plus de doutes, plus d'oublis d'une partie reculée de l'application, les tests e2e sont là pour **tout** vérifier.
+
+## Pré-requis
+
+Comme toujours vous aurez besoin d'un éditeur de code comme Visual Studio Code ou un autre, peu importe ce que vous avez, ainsi que d'un terminal.
+
+Si ce n'est pas déjà le cas sur votre machine, vous devrez installer NodeJS. Vous trouvrez le nécessaire [ici](https://nodejs.org/en/download/current).
+
+Afin de vérifier que l'installation s'est bien passée, ouvrez votre terminal et saisissez `node -v`. Si tout s'est bien passé, votre terminal affichera la version de NodeJS installée.
+
+Ceci étant fait, créez un dossier pour votre nouveau projet Cypress, et rendez-vous dans ce dossier via votre terminal avec la commande `cd /le/chemin/de/mon/dossier`.
+
+Dernière étape de l'installation, saisissez la commande `npm install cypress`. Le téléchargement des modules se lance et vous n'avez plus qu'à attendre.
+
+## Démarrez votre projet
+
+Une fois l'installation terminée, ouvrez votre projet avec votre éditeur de code. Ouvrez un terminal et lancez la commande `npx cypress open`. Une fenêtre s'ouvre, c'est l'écran de démarrage de Cypress qui vous souhaite la bienvenue.
+![Page de démarrage de Cypress](/devendevenir/images/cypress-welcome-page.png)
+
+Suivez le guide, Cypress vous indique tout.
+
+<Video path="/devendevenir/images/cypress-starting.webm" />
+
+Si vous avez fait attention, l'arborescence de votre projet a changé. 
+
+## Structure du projet
+
+Alors qu'initialement votre projet n'était constitué que d'un dossier node_modules et de deux fichiers package.json et package-lock.json, de nouveaux éléments sont apparus.
+
+![Arborescence du projet Cypress](/devendevenir/images/cypress-arborescence.png)
+
+Le dossier cypress contient les éléments suivants :
+
+- un dossier e2e contenant de multiples exemples de tests de complexité variable
+- un dossier fixtures contenant un exemple de données de test au format json
+- un dossier support contenant :
+  - des exemples de commandes Cypress.
+  - un exemple de fichier de configuration e2e.js, qui est exécuté avant chaque exécution des tests.
+
+Lorsque vous démarrez le projet, la fenêtre qui s'ouvre affiche tout simplement le contenu du dossier cypress/e2e, fichiers de test **xxx.cy.js** et sous-dossiers compris.
+
+Quand vous cliquez sur un fichier, une nouvelle page s'ouvre, et l'exécution des tests (de ce fichier) se lance automatiquement.
+
+![Page de test de Cypress](/devendevenir/images/cypress-test-page.png)
+
+Avoir des tests qui fonctionnent mais sur un site qui n'est pas le vôtre, c'est intéressant mais ce n'est pas votre but. Conservez les fichiers pour mémoire ou supprimez-les, il est temps de créer vos propres tests.
+
+## À quoi ça ressemble un test Cypress ?
+
+Les fichiers de tests peuvent avoir différents formats (pour en savoir plus, allez `[ici](https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests)), .js, .ts, les options sont nombreuses.
+Pour ma part j'ai travaillé avec des fichiers .js. Les fichiers générés par cypress sont situés dans le dossier e2e, il est possible de structurer son projet avec un ensemble de sous-dossiers afin de s'y retrouver.
+Les fichiers sont nommés en  selon le format **mon_fichier.cy.js**, ce qui corespond à l'écriture "snake case". Les mots sont en minuscules et séparés par des "_".
+
+La structure d'un fichier est la suivante :
+
+```javascript
+
+describe('example to-do app', () => {
+  beforeEach(() => {
+    cy.visit('https://example.cypress.io/todo')
+  })
+
+  it('displays two todo items by default', () => {
+    cy.get('.todo-list li').should('have.length', 2)
+    cy.get('.todo-list li').first().should('have.text', 'Pay electric bill')
+    cy.get('.todo-list li').last().should('have.text', 'Walk the dog')
+  })
+
+  it('can add new todo items', () => {
+    const newItem = 'Feed the cat'
+    cy.get('[data-test=new-todo]').type(`${newItem}{enter}`)
+    cy.get('.todo-list li')
+      .should('have.length', 3)
+      .last()
+      .should('have.text', newItem)
+  })
+})
+
+```
+
+Le fichier possède :
+- une fonction describe() qui prend en argument une chaîne de caractère qui décrit le contexte de l'ensemble des tests du fichier, et en deuxième argument 
+- une fonction anonyme qui contient elle-même 
+- une suite de fonctions qui constituent le contexte de préparation des tests et les tests en eux-mêmes.
+
+En résumé :
+
+```javascript
+describe('description',() => {
+  beforeEach(() => {
+    // préparation des tests
+  })
+  it('description du test', () => {
+    // actions du test
+  })
+})
+```
+
+Bon OK, un test c'est fait comme ça, mais moi je veux visiter une page, cliquer sur un bouton, vérifier que je suis arrivé au bon endroit, que ma navbar a les bons éléments etc.
+Ne vous emballez pas, on va y aller à petits pas.
+
+## Les commandes Cypress
+
+Pour votre plus grand bonheur, Cypress comporte un grand nombre de fonctionnalités natives que nous pouvons utiliser directement dans nos tests, en les préfixant avec `cy.log('exemple')`.
+
+Je vais maintenant vous présenter les commandes Cypress que j'ai utilisé lorsque j'ai voulu réaliser des tests e2e sur mon blog.
+
+### visit()
+
+Son nom l'indique, c'est souvent le point de départ de nos tests, la commande qui nous permet de nous rendre sur la page que nous souhaitons tester. Elle prend en paramètre l'URL de la page en question.
+
+```javascript
+  beforeEach(() => {
+    cy.visit("site.url")
+  })
+```
+
+Plutôt que d'utiliser cette commande dans chaque test, on peut plus simplement l'exécuter dans le beforeEach() du fichier, ce qui exécutera cette commande en premier lieu pour chaque test.
+
+On peut ensuite distinguer trois types de commandes :
+- recherche
+- action
+- assertions
+
+### Les commandes de recherche d'éléments
+
+#### get()
+
+Cette commande permet de récupérer un élément présent dans le code html de la page que l'on teste grâce à un sélecteur passé en paramètre. Le sélecteur peut être :
+
+- le nom d'une balise (h1, p etc.)
+
+```javascript
+  it('get avec le nom de la balise', () => {
+    cy.get('h1')
+  })
+```
+
+- le nom d'une classe (.maClasse, .monAutreClasse)
+
+```javascript
+  it('get avec la classe de la balise', () => {
+    cy.get('.title')
+  })
+```
+
+- l'identifiant d'une balise (#maBalise)
+
+```javascript
+  it('get avec l`\'id de la balise', () => {
+    cy.get('#titre')
+  })
+```
+
+- le texte d'un attribut de balise (a[href*="texte"])
+
+```javascript
+  it('get avec le contenu d''un attribut', () => {
+    cy.get('a[href*="texte"]')
+  })
+```
+
+- la combinaison des trois précédents éléments
+
+On peut également rechercher une balise contenue dans une autre et préciser sa position (ul li:first).
+
+```javascript
+  it('get un élément et son premier enfant', () => {
+    cy.get('ul li:first"]')
+  })
+```
+Cette commande consitue généralement la première étape d'un test, il faut ensuite vérifier que les caractéristiques de l'élément recherché sont les bonnes. C'est le rôle de la prochaine commande, should().
+
+#### find()
+
+La commande find() a pratiquement le même rôle que get(), à l'exception près qu'elle effectue la recherche à partir de l'élément courant contrairement à la commande get(), qui recherche à partir de l'élément racine de la page.
+Comme la recherche s'effectue sur l'élément courant, on ne peut pas écrire `cy.find("monSélecteur")`, on devra plutôt écrire `cy.get("monAutreSélecteur").find("monSélecteur")`.
+
+#### eq()
+
+La commande eq() a pour but de vous permettre de récupérer l'énième élément d'une liste d'éléments récupérée par l'usage de get() ou find().
+
+```javascript
+  it('get le deuxième élément d''une liste', () => {
+    cy.get('sélecteur').eq(1)
+  })
+```
+
+#### contains()
+
+La commande contains() permet de récupérer un élément en fonction de son contenu. On peut préciser la recherche pour la rendre plus ou moins spécifique avec des options.
+
+```javascript
+  it('get un élément avec son texte sans tenir compte de la casse', () => {
+    cy.contains("Texte", { matchCase: false })
+  })
+```
+
+Maintenant que vous savez récupérer un élément de votre page, vous souhaitez probablement interagir avec lui.
+
+### Les commandes d'action
+
+Les commandes d'action vont nous permettre d'interagir avec les éléments de notre page, cliquer sur un élément, sélectionner un élément, remplir un formulaire etc. Les possibilités sont larges, je vais vous présenter ici celles que j'ai pu utiliser.
+
+#### click()
+
+Fondamental dès lors qu'on travaille sur un ordinateur, le clic est une action qui doit pouvoir être reproduite pour tester une application. Comme la commande find() vue plus haut, elle ne peut pas être utilisée ainsi `cy.click()`. Elle sera utilisée de la manière suivante `cy.get("sélecteur").click()`.
+On peut également utiliser des mots-clés pour indiquer où cliquer (topLeft, center, bottomRight etc.).
+
+#### select()
+
+Pour sélectionner une option dans un menu déroulant, on doit utiliser la commande select().
+
+```javascript
+cy.get("select").find("option")
+```
+
+Cette action va sélectionner puis cliquer sur l'élément en question.
+
+#### check() / uncheck()
+
+Ces commandes ont pour rôle de cocher / décocher des cases à cocher ou des boutons radio dans un formulaire.
+
+```javascript
+cy.get("caseACocher").check()
+cy.get("boutonRadio").uncheck()
+```
+
+#### type() / clear()
+
+Ces commandes permettent de remplir / vider un champ de type input.
+
+```javascript
+cy.get("input").type("texte")
+cy.get("input").clear()
+```
+
+Les interactions étant maintenant possibles, il est temps que le résultat de ces interactions est le bon.
+
+### Les assertions
+
+Les commandes d'assertion ont le rôle de vérifier que ce qu'elles reçoivent en entrée correspond bien aux critères qu'on leur passe en paramètre.
+
+#### should()
+
+La commande should() est appliquée à un élément récupéré dans votre page html. On va passer en paramètre des critères permettant de vérifier l'intégrité de l'élément inspecté.
+
+Elle permet d'effectuer plusieurs vérifications sur le même élément, on peut enchaîner les assertions les unes après les autres.
+
+```javascript
+cy.get('selecteur')
+  .should('exist')
+  .should('be.visible')
+  .should('have.length.greaterThan', 0)
+  .should('have.class', 'maClasse')
+```
+
+Le premier argument de la commande should() est une chaîne de caractère correspondant à une condition à remplir pour que le test réussisse. Les termes acceptés sont nombreux et proviennent de 3 bibliothèques d'assertions, Chai, Sinon-Chai et Chai-jQuery.
+
+Pour l'exemple précédent, les assertions vérifient que l'élément existe, qu'il est visible, qu'il possède au moins un élément et possède la classe CSS maClasse.
+
+Il existe une très grande variété d'opérateurs utilisables avec la commande should(), ceux-ci étant issus de plusieurs bibliothèques d'assertions (Chai, Sinon-Chai, Chai-jQuery).
+Cet article ne prétend pas être exhaustif, et pour ceux qui chercheraient une liste exhaustive de ces opérateurs, c'est [ici](https://docs.cypress.io/guides/references/assertions).
+
+## L'asynchronisme 
+
+Avec Cypress, vous serez confrontés à des problèmes liés à l'asynchronisme des commandes. Cela signifie que certaines commandes peuvent s'exécuter alors que la précédente n'est pas terminée, ce qui peut provoquer des problèmes comme d'essayer de cliquer sur un élément dont le chargement n'est pas terminé. Ce type de problème fera immanquablement planter vos tests.
+
+Heureusement, Cypress nous offre un moyen de limiter les problèmes, notamment avec la commande then(). Cette fonction attendra la fin de l'exécution de la commande avec laquelle elle s'enchaîne pour effectuer la suite du traitement.
+
+```javascript
+cy.get("select").find("option").eq(i).invoke("text").then((categoryName) => {
+  cy.get("h1").contains(categoryName)
+})
+```
+
+Les assertions permettent également de forcer Cypress à attendre le chargement d'un élément.
+
+L'utilisation d'alias est une autre manière de forcer l'exécution synchrone des opérations.
+
+```javascript
+cy.get('#name').type('xxxx').as('nameInput');
+cy.get('@nameInput').should('have.value', 'xxxx');
+```
+
+## Créez vos propres commandes Cypress
+
+Pour tester votre application ou votre site, certaines opérations doivent être effectuées dans des contextes très différents. Par exemple, la connexion à votre application doit être réalisée en plusieurs points de vos tests.
+
+Afin de centraliser votre code et de le rendre facilement réutilisable, il est possible de créer vos propres commandes Cypress.
+Dans les fichiers d'exemple générés à la création de votre projet se trouve dans le dossier /support un fichier commands.js. Il fournit des exemples de commandes personnalisées.
+
+```javascript
+Cypress.Commands.add('maCommande', (param1, param2) => { ... })
+```
+
+Une commande existante peut également être surchargée afin de faire correspondre ses actions à votre cas d'usage. On réécrit une commande Cypress comme suit.
+
+```javascript
+Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+```
+
+Une fois votre commande créée, il vous suffira d'importer la commande depuis les fichiers dans lesquels vous souhaitez l'utiliser pour qu'elle soit accessible.
+
+```javascript
+import { maCommande } from "../support/commands"
+
+cy.maCommande("param1","param2")
+```
+
+## Conclusion
+
+Cet article n'est qu'une rapide présentation des possibilités de Cypress, il vous reste bien des choses à découvrir, notamment la gestion du viewport, qui permet de tester si notre application est responsive et de vérifier que tous les éléments sont bien visibles.
+Il ne vous reste plus qu'à vous lancer, et pourquoi pas créer un projet de test pour vérifier de temps à autre l'intégrité de votre site web. C'était d'ailleurs ce qui m'a incité à tester Cypress, vérifier l'état de mon site de manière automatique (le blog construit avec Jekyll à ce moment-là).

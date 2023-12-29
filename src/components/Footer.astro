@@ -3,7 +3,7 @@ const today = new Date();
 ---
 
 <footer>
-  &copy; {today.getFullYear()} Ludovic Déan. All rights reserved.
+  <p>&copy; {today.getFullYear()} Ludovic Déan. All rights reserved.</p>
   <div class="social-links">
     <a href="https://github.com/withastro/astro" target="_blank">
       <span class="sr-only">Go to Astro's GitHub repo</span>
@@ -27,6 +27,9 @@ const today = new Date();
     background: linear-gradient(var(--gray-gradient)) no-repeat;
     color: rgb(var(--gray));
     text-align: center;
+  }
+  p {
+    justify-content: center;
   }
   .social-links {
     display: flex;
