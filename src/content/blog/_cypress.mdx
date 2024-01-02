@@ -325,6 +325,20 @@ import { maCommande } from "../support/commands"
 cy.maCommande("param1","param2")
 ```
 
+Nous avons créé ici uniquement des commandes parents, c'est à dire des commandes qui s'utilisent accolés avec cy., mais il existe également des commandes enfants. Les commandes enfants sont appelées sur un élément déjà récupéré et utilisent celui-ci comme entrée.
+
+```javascript
+Cypress.Commands.add('maCommandeEnfant', { prevSubject: 'element'}, (subject, options) => { ... })
+```
+
+On utilisera une commande enfant de la manière suivante, chaînée avec une autre commande (parent ou enfant selon les cas).
+
+```javascript
+import { maCommande, maCommandeEnfant } from "../support/commands"
+
+cy.maCommande("param1","param2").maCommandeEnfant()
+```
+
 ## Conclusion
 
 Cet article n'est qu'une rapide présentation des possibilités de Cypress, il vous reste bien des choses à découvrir, notamment la gestion du viewport, qui permet de tester si notre application est responsive et de vérifier que tous les éléments sont bien visibles.
