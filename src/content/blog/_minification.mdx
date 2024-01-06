@@ -1,0 +1,124 @@
+---
+title: "La minification des fichiers"
+date: Mar 08 2023
+description: "Garantir le fonctionnement d'une application à chaque étape de son développement est une priorité, Karate peut vous aider."
+banner: "/images/jungwoo-hong-cYUMaCqMYvI-unsplash.jpg"
+author: Jungwoo Hong
+authorlink: https://unsplash.com/fr/@hjwinunsplsh?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash
+unsplashlink: https://unsplash.com/fr/photos/plusieurs-fleches-blanches-pointant-vers-le-haut-sur-un-mur-en-bois-cYUMaCqMYvI?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash
+showCreditPhoto: true
+---
+
+Aujourd'hui, dans un monde qui vit littéralement sur internet, rien de pire qu'un site web qui mets du temps à s'afficher. Un temps de chargement excessif peut même décourager les plus exigeants des utilisateurs.
+
+Le temps de chargement d'un site est bien entendu en lien avec plusieurs aspects, notamment le poids de la page et celui des fichiers qui lui sont associés.
+
+Pour diminuer ce temps de chargement, il est fréquent d'avoir recours à des fichiers "minifiés".
+
+Mais au fait, de quoi s'agit-il ?
+
+
+## C'est quoi minifier un fichier ?
+
+Minifier un fichier, c'est supprimer la totalité des caractères non utiles à la lecture du code par une machine, par un navigateur.
+Cela passe notamment par la suppression des espaces, sauts de lignes, tabulations qui facilitent la lecture du code pour nous, humains, et le renommage des méthodes et des variables avec des noms constitués de seulement quelques caractères, voire un unique caractère.
+
+Supprimer ces caractères ne supprime aucune informations, cela permet de "compacter" celles-ci et donc de réduire leur temps de chargement.
+
+Quels types de fichiers sont concernés ? Presque tous les fichiers d'un site web, ou en tout cas les principaux :
+
+- html
+- css
+- javascript
+
+
+## Et concrètement, à quoi ça ressemble un fichier minifié ?
+
+Prenons l'exemple d'un fichier css. Son contenu lorsqu'un développeur l'écrit ressemble à ceci :
+
+```css
+body {
+  font-family: "Arial", sans-serif;
+  margin: 20px;
+  padding: 0;
+  background-color: #f0f0f0;
+}
+
+h1 {
+  color: #333;
+  text-align: center;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+```
+
+Le fichier est lisible, compréhensible pour toute personne connaissant le CSS.
+
+Voyons maintenant à quoi ressemble le contenu du fichier une fois minifié :
+
+```css
+body{font-family:"Arial",sans-serif;margin:20px;padding:0;background-color:#f0f0f0}h1{color:#333;text-align:center}.container{width:80%;margin:0 auto}.button{background-color:#007bff;color:#fff;padding:10px 20px;border:none;border-radius:5px;cursor:pointer}
+```
+
+On perd tout de suite en terme de lisibilité n'est-ce pas ?
+
+Prenons un autre exemple, un fichier javascript. Écrit par un développeur, du code javascript peut ressembler à ceci :
+
+```javascript
+function greet(name) {
+  console.log("Hello, " + name + "!");
+}
+
+let numbers = [1, 2, 3, 4, 5];
+
+for (let i = 0; i < numbers.length; i++) {
+  console.log(numbers[i]);
+}
+
+document.getElementById("myButton").addEventListener("click", function() {
+  alert("Button clicked!");
+});
+
+```
+
+Voyons comment on économise de la place avec la minification, et le résultat obtenu :
+
+```javascript
+function greet(n){console.log("Hello, "+n+"!")}let numbers=[1,2,3,4,5];for(let i=0;i<numbers.length;i++){console.log(numbers[i])}document.getElementById("myButton").addEventListener("click",function(){alert("Button clicked!")});
+```
+
+## Comment estimer le gain obtenu ?
+
+Comparer la taille des fichiers minifiés et non minifiés est un bon moyen d'estimer le gain lié à la minification.
+
+Ici, on obtient les résultats suivants :
+
+|Type de fichier|Taille du fichier minifié (octets)|Taille du fichier non minifié (octets)|Gain|
+|-|-|-|-|
+|CSS|257|356|28%|
+|Javascript|228|288|21%|
+
+Bien entendu, le gain est à mettre en regard de la taille de nos fichiers, mais lorsque les feuilles de style et les fichiers javascript font quelques milliers de lignes, l'opération devient plus impactante pour les performances de votre site.
+
+## Comment minifie-t-on un fichier ?
+
+Il est évidemment exclu de minifier des fichiers à la main, il existe de nombreux outils en ligne qui sont capables de minifier vos fichiers pour vous. Qu'il s'agisse de sites web, de plugins ou d'extensions de navigateur, de multiples outils s'offrent à vous.
+
+Et pour distinguer un fichier CSS "classique" d'un fichier CSS minifié, nul besoin de les ouvrir, on intercale ".min." entre le nom du fichier et son extension.
+
+## Conclusion
+
+Et voilà ! Vous en savez plus sur ce qu'est la minification des fichiers. Plus qu'à tester cela de votre côté et l'angoisse liée au fait d'entendre "fichier minifié" aura disparu !
+
