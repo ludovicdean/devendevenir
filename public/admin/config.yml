@@ -8,6 +8,7 @@ backend:
   squash_merge: true
   open_authoring: false
   site_url: "http://devendevenir.netlify.app"
+  auth_endpoint: api/auth
 
 publish_mode: editorial_workflow
 
