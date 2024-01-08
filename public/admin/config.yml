@@ -5,7 +5,6 @@ backend:
   name: github
   branch: main
   repo: ludovicdean/devendevenir
-  branch: main
   squash_merge: true
   open_authoring: false
   site_url: "https://devendevenir.netlify.app"
