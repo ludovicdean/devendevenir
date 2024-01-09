@@ -1,0 +1,49 @@
+# Add Local Admin on : http://localhost:4321/admin/index.html
+local_backend: true
+
+backend:
+  name: github
+  branch: main
+  repo: ludovicdean/devendevenir
+  squash_merge: true
+  open_authoring: false
+  site_url: "https://devendevenir.netlify.app"
+  auth_endpoint: api/auth
+
+publish_mode: editorial_workflow
+
+media_folder: 'public/images' # Media files will be stored in the repo under static/images
+public_folder: 'public' # The src attribute for uploaded media will begin with /images
+
+collections:
+  - name: 'blog'
+    label: 'Blog'
+    folder: 'src/content/blog'
+    create: true
+    slug: '{{slug}}'
+    preview_path: blog/{{slug}}
+    fields:
+      - { name: "title", widget: "string", label: "Titre" }
+      - { name: "description", widget: "string", label: "Description" }
+      - { name: "date", widget: "datetime", label: "Date de l'article" }
+      - { name: "updatedDate", widget: "datetime", label: "Date de mise à jour de l'article", default: false }
+      - { name: "banner", widget: "string", label: "Bannière de l'article" }
+      - { name: "author", widget: "string", label: "Auteur de la bannière", default: false }
+      - { name: "authorlink", widget: "string", label: "Lien Unsplash de l'auteur de la bannière", default: false }
+      - { name: "unsplashlink", widget: "string", label: "Lien Unsplash de la bannière", default: false }
+      - { name: "url", widget: "string", label: "Url externe", default: false }
+      - { name: "showCreditPhoto", widget: "string", label: "Afficher les crédits photographiques" }
+      - label: "Body"
+        name: "body"
+        widget: "markdown"
+        default: |
+          ## Main Content
+
+          lorem Ipsum
+
+          ### Before you type here
+
+          * Chose a new image
+          * Set a title
+          * Add a publish date
+          * Add a description (optional)
