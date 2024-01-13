@@ -4,12 +4,29 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection } from "astro:content";
-import FormattedDate from "../components/FormattedDate.astro";
+import PostCard from "../components/PostCard.astro";
 const base = import.meta.env.BASE_URL;
 
 const posts = (await getCollection("blog")).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
+
+const allTags = posts.map((post) => post.data.tags).flat();
+
+var tags = allTags.reduce(function (acc, tag: string) {
+  acc[tag] = (acc[tag] || 0) + 1;
+  return acc;
+}, {});
+function slugify(str) {
+  return String(str)
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9 -]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+}
 ---
 
 <!doctype html>
@@ -50,18 +67,14 @@ const posts = (await getCollection("blog")).sort(
       ul li a {
         display: block;
       }
-      .title {
-        margin: 0;
-        color: rgb(var(--black));
-        line-height: 1;
-      }
       .date {
         margin: 0;
         color: rgb(var(--gray));
         font-size: smaller;
       }
       ul li a:hover h4,
-      ul li a:hover .date {
+      ul li a:hover .date,
+      span a:hover {
         color: rgb(var(--accent));
       }
       ul a:hover img {
@@ -74,12 +87,6 @@ const posts = (await getCollection("blog")).sort(
         ul li {
           width: 100%;
           text-align: center;
-        }
-        ul li:first-child {
-          margin-bottom: 0;
-        }
-        ul li:first-child .title {
-          font-size: 1.563em;
         }
       }
     </style>
@@ -102,39 +109,37 @@ const posts = (await getCollection("blog")).sort(
         passant par la mise en place de test, la rédaction de ces articles me
         permet de poser mes idées et de m'en imprégner durablement.
       </p>
+      <div style="padding-bottom:1em;">
+        |
+        {
+          Object.entries(tags).map(([key, val]) => (
+            <span style="display:inline; font-size:0.9em">
+              <span>
+                <a
+                  href={`${base + "/tags/" + slugify(key)}/`}
+                  style="text-decoration:none"
+                >
+                  {key}
+                </a>
+              </span>
+              <span>{val} |</span>
+            </span>
+          ))
+        }
+      </div>
 
       <section>
         <ul>
           {
             posts.map((post) => (
               <li>
-                {post.data.url ? (
-                  <a href={post.data.url}>
-                    <img
-                      width={720}
-                      height={360}
-                      src={base + post.data.banner}
-                      alt=""
-                    />
-                    <h4 class="title">{post.data.title}</h4>
-                    <p class="date">
-                      <FormattedDate date={post.data.date} />
-                    </p>
-                  </a>
-                ) : (
-                  <a href={`${base + "/blog/" + post.slug}/`}>
-                    <img
-                      width={720}
-                      height={360}
-                      src={base + post.data.banner}
-                      alt=""
-                    />
-                    <h4 class="title">{post.data.title}</h4>
-                    <p class="date">
-                      <FormattedDate date={post.data.date} />
-                    </p>
-                  </a>
-                )}
+                <PostCard
+                  externalurl={post.data.url}
+                  banner={post.data.banner}
+                  title={post.data.title}
+                  date={post.data.date}
+                  slug={post.slug}
+                />
               </li>
             ))
           }

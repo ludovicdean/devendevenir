@@ -17,7 +17,15 @@ const blog = defineCollection({
 		unsplashlink: z.string().optional(),
 		url: z.string().optional(),
 		showCreditPhoto: z.boolean().optional(),
+		tags: z.array(z.string()).optional()
 	}),
 });
 
-export const collections = { blog };
+const tags = defineCollection({
+	schema: z.object({
+		name: z.string(),
+		description: z.string()
+	})
+})
+
+export const collections = { blog, tags };
