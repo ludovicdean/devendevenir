@@ -64,13 +64,7 @@ const similarPosts = posts.filter(
     {
         similarPosts.map((post) => (
             <li>
-                <PostCard
-                    externalurl={post.data.url}
-                    banner={post.data.banner}
-                    title={post.data.title}
-                    date={post.data.date}
-                    slug={post.slug}
-                />
+                <PostCard post={post} />
             </li>
             // <li>
             //     {post.data.url ? (

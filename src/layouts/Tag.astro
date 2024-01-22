@@ -25,13 +25,7 @@ const filteredPosts = posts.filter((post) => post.data.tags?.includes(name));
                 {
                     filteredPosts.map((post) => (
                         <li>
-                            <PostCard
-                                externalurl={post.data.url}
-                                banner={post.data.banner}
-                                title={post.data.title}
-                                date={post.data.date}
-                                slug={post.slug}
-                            />
+                            <PostCard post={post} />
                         </li>
                     ))
                 }

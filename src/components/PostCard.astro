@@ -1,8 +1,38 @@
 ---
 import FormattedDate from "./FormattedDate.astro";
-const { externalurl, banner, title, date, slug } = Astro.props;
+const { post } = Astro.props;
 const base = import.meta.env.BASE_URL;
 ---
+
+{
+    post.data.url ? (
+        <a href={post.data.url} target="_blank">
+            <img
+                width={720}
+                height={360}
+                src={base + post.data.banner}
+                alt=""
+            />
+            <h4 class="title">{post.data.title}</h4>
+            <p class="date">
+                <FormattedDate date={post.data.date} />
+            </p>
+        </a>
+    ) : (
+        <a href={`${base + "/blog/" + post.slug}/`}>
+            <img
+                width={720}
+                height={360}
+                src={base + post.data.banner}
+                alt=""
+            />
+            <h4 class="title">{post.data.title}</h4>
+            <p class="date">
+                <FormattedDate date={post.data.date} />
+            </p>
+        </a>
+    )
+}
 
 <style>
     a {
@@ -29,22 +59,3 @@ const base = import.meta.env.BASE_URL;
         line-height: 1;
     }
 </style>
-{
-    externalurl ? (
-        <a href={externalurl} target="_blank">
-            <img width={720} height={360} src={base + banner} alt="" />
-            <h4 class="title">{title}</h4>
-            <p class="date">
-                <FormattedDate date={date} />
-            </p>
-        </a>
-    ) : (
-        <a href={`${base + "/blog/" + slug}/`}>
-            <img width={720} height={360} src={base + banner} alt="" />
-            <h4 class="title">{title}</h4>
-            <p class="date">
-                <FormattedDate date={date} />
-            </p>
-        </a>
-    )
-}
