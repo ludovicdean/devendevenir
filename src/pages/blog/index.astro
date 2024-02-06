@@ -15,6 +15,23 @@ const posts = (await getCollection("blog")).sort(
 <html lang="en">
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <section>
+        <ul>
+          {
+            posts.map((post) => (
+              <li>
+                <PostCard post={post} />
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </main>
+    <Footer />
     <style>
       main {
         width: 960px;
@@ -85,22 +102,5 @@ const posts = (await getCollection("blog")).sort(
         }
       }
     </style>
-  </head>
-  <body>
-    <Header />
-    <main>
-      <section>
-        <ul>
-          {
-            posts.map((post) => (
-              <li>
-                <PostCard post={post} />
-              </li>
-            ))
-          }
-        </ul>
-      </section>
-    </main>
-    <Footer />
   </body>
 </html>

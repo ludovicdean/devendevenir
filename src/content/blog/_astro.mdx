@@ -9,7 +9,7 @@ readingtime: "5 min"
 author: "Arnel Hasanovic"
 authorlink: "https://unsplash.com/fr/@arnelhasanovic?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
 unsplashlink: "https://unsplash.com/fr/photos/macbook-air-a-cote-dune-lampe-detude-doree-et-de-livres-a-spirale-MNd-Rka1o0Q?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
-showCreditPhoto: true
+isArticle: true
 ---
 
 La création de ce blog m'a dans un premier temps fait découvrir le compilateur de site web statique Jekyll. Ce choix a été guidé par la documentation de github pour la création de pages statiques.
@@ -165,7 +165,7 @@ const blog = defineCollection({
 		author: z.string().optional(),
 		authorLink: z.string().optional(),
 		unsplashLink: z.string().optional(),
-		showCreditPhoto: z.boolean().optional(),
+		isArticle: z.boolean().optional(),
 	}),
 });
 
@@ -188,7 +188,7 @@ readingtime: "5 min"
 author: "John Doe"
 authorlink: "http://..."
 unsplashlink: "http://..."
-showCreditPhoto: true
+isArticle: true
 ---
 ```
 
@@ -359,7 +359,7 @@ Qu'il soit statique ou dynamique, on peut conditionner l'affichage d'un composan
 showComposant: true
 ---
 
-{ showCreditPhoto && (
+{ isArticle && (
 <CreditPhoto
   lienAuteur={lienAuteur}
   auteur={auteur}
@@ -368,7 +368,7 @@ showComposant: true
 ) }
 ```
 
-Ici, si showCreditPhoto vaut true, alors on affiche le composant CreditPhoto en lui passant les paramètres nécessaires.
+Ici, si isArticle vaut true, alors on affiche le composant CreditPhoto en lui passant les paramètres nécessaires.
 
 Certaines problématiques nécessitent des éléments plus complexes, et comme réinventer la roue n'est pas toujours la meilleure idée, il est préférable de se tourner vers des solutions externes.
 

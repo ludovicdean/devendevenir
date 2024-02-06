@@ -32,7 +32,7 @@ collections:
       - { name: "authorlink", widget: "string", label: "Lien Unsplash de l'auteur de la bannière", default: false }
       - { name: "unsplashlink", widget: "string", label: "Lien Unsplash de la bannière", default: false }
       - { name: "url", widget: "string", label: "Url externe", default: false }
-      - { name: "showCreditPhoto", widget: "string", label: "Afficher les crédits photographiques" }
+      - { name: "isArticle", widget: "string", label: "Afficher les crédits photographiques" }
       - label: "Body"
         name: "body"
         widget: "markdown"

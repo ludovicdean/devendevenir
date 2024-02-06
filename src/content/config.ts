@@ -16,7 +16,7 @@ const blog = defineCollection({
 		authorlink: z.string().optional(),
 		unsplashlink: z.string().optional(),
 		url: z.string().optional(),
-		showCreditPhoto: z.boolean().optional(),
+		isArticle: z.boolean().optional(),
 		tags: z.array(z.string()).optional()
 	}),
 });
