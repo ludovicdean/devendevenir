@@ -29,7 +29,12 @@ const { title, description } = Astro.props;
 <meta name="generator" content={Astro.generator} />
 
 <!-- Font preloads -->
-<link href={atkinsonregular} as="font" type="font/woff" crossorigin="anonymous" />
+<link
+  href={atkinsonregular}
+  as="font"
+  type="font/woff"
+  crossorigin="anonymous"
+/>
 <link href={atkinsonbold} as="font" type="font/woff" crossorigin="anonymous" />
 
 <!-- Canonical URL -->
@@ -51,3 +56,9 @@ const { title, description } = Astro.props;
 <meta property="twitter:url" content={Astro.url} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
+
+<!-- LinkedIn -->
+<meta property="og:title" content={title} />
+<!-- <meta property="og:image" content="//media.example.com/ 1234567.jpg" /> -->
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalURL} />
