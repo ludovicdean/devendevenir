@@ -16,7 +16,7 @@ const atkinsonbold = base + "/fonts/atkinson-bold.woff";
 const favicon16 = base + "/favicon-16x16.png";
 const favicon32 = base + "/favicon-32x32.png";
 const favicon96 = base + "/favicon-96x96.png";
-const { title, description } = Astro.props;
+const { title, description, image } = Astro.props;
 ---
 
 <!-- Global Metadata -->
@@ -59,6 +59,6 @@ const { title, description } = Astro.props;
 
 <!-- LinkedIn -->
 <meta property="og:title" content={title} />
-<!-- <meta property="og:image" content="//media.example.com/ 1234567.jpg" /> -->
+<meta property="og:image" content={image} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonicalURL} />
