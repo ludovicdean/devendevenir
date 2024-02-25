@@ -1,15 +1,16 @@
 ---
 import { Icon } from "astro-iconify";
+import { LINKEDIN_LINK, GITHUB_LINK } from "../consts";
 const { context } = Astro.props;
 ---
 
-<a href="https://www.linkedin.com/in/ludovic-dean/">
+<a href={LINKEDIN_LINK}>
     <Icon name="mdi:linkedin" style="height: 2em" />
 </a>
 
 {
     context == "footer" && (
-        <a href="https://github.com/ludovicdean/astro-blog">
+        <a href={GITHUB_LINK}>
             <Icon name="mdi:github" style="height: 2em" />
         </a>
     )
