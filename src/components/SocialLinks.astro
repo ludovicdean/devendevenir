@@ -1,0 +1,28 @@
+---
+import { Icon } from "astro-iconify";
+const { context } = Astro.props;
+---
+
+<a href="https://www.linkedin.com/in/ludovic-dean/">
+    <Icon name="mdi:linkedin" style="height: 2em" />
+</a>
+
+{
+    context == "footer" && (
+        <a href="https://github.com/ludovicdean/astro-blog">
+            <Icon name="mdi:github" style="height: 2em" />
+        </a>
+    )
+}
+
+<style>
+    a {
+        text-decoration: none;
+        color: rgb(var(--gray));
+    }
+    a:hover {
+        color: rgb(var(--gray-dark));
+        transform: scale(1.2);
+        transition: all 0.5s;
+    }
+</style>
