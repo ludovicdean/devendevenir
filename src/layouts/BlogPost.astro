@@ -6,6 +6,7 @@ import Footer from "../components/Footer.astro";
 import CreditPhoto from "../components/CreditPhoto.astro";
 import RelatedArticles from "../components/RelatedArticles.astro";
 import TagsList from "../components/TagsList.astro";
+import CallToAction from "../components/CallToAction.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
@@ -25,7 +26,10 @@ const base = import.meta.env.BASE_URL;
 
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} image={base + banner} />
+    <BaseHead title={title} description={description} />
+    <meta property="og:image" content={base + banner} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
   </head>
 
   <body>
@@ -46,7 +50,9 @@ const base = import.meta.env.BASE_URL;
           </div>
           {isArticle && <TagsList tags={tags} context="post" />}
           <slot />
-          <hr />
+          <section>
+            <CallToAction />
+          </section>
           {
             isArticle && (
               <>
