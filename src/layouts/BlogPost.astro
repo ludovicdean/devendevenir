@@ -22,12 +22,13 @@ const {
 } = Astro.props;
 
 const base = import.meta.env.BASE_URL;
+const ogImage = base + banner;
 ---
 
 <html lang="en">
   <head>
     <BaseHead title={title} description={description} />
-    <meta property="og:image" content={base + banner} />
+    <meta property="og:image" content={ogImage} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
   </head>
