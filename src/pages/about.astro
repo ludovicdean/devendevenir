@@ -1,9 +1,9 @@
 ---
 import Layout from "../layouts/BlogPost.astro";
-hideCreditPhoto: true;
+const test = new Date("2024-08-01T00:00:00");
 ---
 
-<Layout title="À propos" description="">
+<Layout title="À propos" description="" date={test}>
   <div style="justify-content:center;padding:0% 20%">
     <img src="/devendevenir/images/portrait.jpg" />
   </div>

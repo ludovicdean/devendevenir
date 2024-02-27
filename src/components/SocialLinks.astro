@@ -5,13 +5,13 @@ const { context } = Astro.props;
 ---
 
 <a href={LINKEDIN_LINK}>
-    <Icon name="mdi:linkedin" style="height: 2em" />
+    <Icon name="linkedin" style="height: 2em" />
 </a>
 
 {
     context == "footer" && (
         <a href={GITHUB_LINK}>
-            <Icon name="mdi:github" style="height: 2em" />
+            <Icon name="github" style="height: 2em" />
         </a>
     )
 }
