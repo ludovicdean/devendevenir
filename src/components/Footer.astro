@@ -3,26 +3,17 @@ import SocialLinks from "./SocialLinks.astro";
 const today = new Date();
 ---
 
-<footer>
-  <p>&copy; {today.getFullYear()} Ludovic Déan. All rights reserved.</p>
-  <div class="social-links">
+<footer class="p-10 text-center">
+  <p class="justify-center">
+    &copy; {today.getFullYear()} Ludovic Déan. All rights reserved.
+  </p>
+  <div class="flex justify-center gap-x-1 mt-2">
     <SocialLinks context="footer" />
   </div>
 </footer>
 <style>
   footer {
-    padding: 2em 1em 6em 1em;
     background: linear-gradient(var(--gray-gradient)) no-repeat;
     color: rgb(var(--gray));
-    text-align: center;
-  }
-  p {
-    justify-content: center;
-  }
-  .social-links {
-    display: flex;
-    justify-content: center;
-    gap: 1em;
-    margin-top: 1em;
   }
 </style>

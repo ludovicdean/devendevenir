@@ -12,6 +12,18 @@ const similarPosts = posts.filter(
 );
 ---
 
+{similarPosts.length > 0 && <h3>Articles en lien</h3>}
+
+<ul>
+    {
+        similarPosts.map((post) => (
+            <li>
+                <PostCard post={post} />
+            </li>
+        ))
+    }
+</ul>
+
 <style>
     ul {
         display: flex;
@@ -58,33 +70,3 @@ const similarPosts = posts.filter(
         }
     }
 </style>
-{similarPosts.length > 0 && <h3>Articles en lien</h3>}
-
-<ul>
-    {
-        similarPosts.map((post) => (
-            <li>
-                <PostCard post={post} />
-            </li>
-            // <li>
-            //     {post.data.url ? (
-            //         <a href={post.data.url}>
-            //             <img src={base + post.data.banner} alt="" />
-            //             <h4 class="title">{post.data.title}</h4>
-            //             <p class="date">
-            //                 <FormattedDate date={post.data.date} />
-            //             </p>
-            //         </a>
-            //     ) : (
-            //         <a href={`${base + "/blog/" + post.slug}/`}>
-            //             <img src={base + post.data.banner} alt="" />
-            //             <h4 class="title">{post.data.title}</h4>
-            //             <p class="date">
-            //                 <FormattedDate date={post.data.date} />
-            //             </p>
-            //         </a>
-            //     )}
-            // </li>
-        ))
-    }
-</ul>

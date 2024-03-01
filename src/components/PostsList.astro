@@ -23,24 +23,20 @@ const { posts, context } = Astro.props;
         margin: 0;
         padding: 0;
     }
-    ul li {
+    li {
         width: calc(50% - 1rem);
-    }
-    ul li * {
         text-decoration: none;
         transition: 0.2s ease;
     }
-    ul li img {
+    li img {
         margin-bottom: 0.5rem;
         border-radius: 12px;
     }
-    ul li a {
+    li a {
         display: block;
     }
     .date {
-        margin: 0;
         color: rgb(var(--gray));
-        font-size: smaller;
     }
     ul li a:hover h4,
     ul li a:hover .date,
