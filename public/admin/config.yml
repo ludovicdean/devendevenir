@@ -9,6 +9,7 @@ backend:
   open_authoring: false
   site_url: "https://devendevenir.netlify.app"
   auth_endpoint: api/auth
+  auth_type: pkce
 
 publish_mode: editorial_workflow
 
