@@ -14,7 +14,7 @@ const base = import.meta.env.BASE_URL;
   href={base + href}
   class:list={[className, { active: isActive }]}
   {...props}
-  class="inline-block no-underline active:bolder active:no-underline"
+  class="inline-block no-underline py-5 px-3 active:bolder active:no-underline"
 >
   <slot />
 </a>
