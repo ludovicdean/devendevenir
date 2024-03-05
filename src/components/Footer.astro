@@ -3,7 +3,9 @@ import SocialLinks from "./SocialLinks.astro";
 const today = new Date();
 ---
 
-<footer class="p-10 text-center">
+<footer
+  class="p-10 text-center bg-gradient-to-t from-gray-light to-gray-light-100 shadow"
+>
   <p class="justify-center">
     &copy; {today.getFullYear()} Ludovic Déan. All rights reserved.
   </p>
@@ -11,9 +13,3 @@ const today = new Date();
     <SocialLinks context="footer" />
   </div>
 </footer>
-<style>
-  footer {
-    background: linear-gradient(var(--gray-gradient)) no-repeat;
-    color: rgb(var(--gray));
-  }
-</style>

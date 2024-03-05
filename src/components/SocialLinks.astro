@@ -6,7 +6,7 @@ const { context } = Astro.props;
 
 <a
     href={LINKEDIN_LINK}
-    class="no-underline hover:scale-125 transition-all duration-500"
+    class="no-underline hover:scale-125 transition-all duration-500 text-gray hover:gray-dark"
 >
     <Icon name="linkedin" class="size-12" />
 </a>
@@ -15,18 +15,9 @@ const { context } = Astro.props;
     context == "footer" && (
         <a
             href={GITHUB_LINK}
-            class="no-underline hover:scale-125 transition-all duration-500"
+            class="no-underline hover:scale-125 transition-all duration-500 text-gray hover:gray-dark"
         >
             <Icon name="github" class="size-12" />
         </a>
     )
 }
-
-<style>
-    a {
-        color: rgb(var(--gray));
-    }
-    a:hover {
-        color: rgb(var(--gray-dark));
-    }
-</style>

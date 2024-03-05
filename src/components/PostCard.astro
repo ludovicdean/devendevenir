@@ -6,12 +6,17 @@ const base = import.meta.env.BASE_URL;
 
 {
     post.data.url ? (
-        <a href={post.data.url} target="_blank" class="no-underline">
+        <a
+            href={post.data.url}
+            target="_blank"
+            class="no-underline text-black hover:text-accent"
+        >
             <img
                 width={720}
                 height={360}
                 src={base + post.data.banner}
                 alt=""
+                class="hover:box-shadow"
             />
             <h4 class="title">{post.data.title}</h4>
             <p class="date">
@@ -25,27 +30,14 @@ const base = import.meta.env.BASE_URL;
                 height={360}
                 src={base + post.data.banner}
                 alt=""
+                class="hover:box-shadow"
             />
-            <h4 class="title m-0 leading-10">{post.data.title}</h4>
+            <h4 class="title m-0 leading-10 text-black hover:text-accent">
+                {post.data.title}
+            </h4>
             <p class="date">
                 <FormattedDate date={post.data.date} />
             </p>
         </a>
     )
 }
-
-<style>
-    .date {
-        color: rgb(var(--gray));
-    }
-    a:hover h4,
-    a:hover .date {
-        color: rgb(var(--accent));
-    }
-    a:hover img {
-        box-shadow: var(--box-shadow);
-    }
-    .title {
-        color: rgb(var(--black));
-    }
-</style>

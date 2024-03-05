@@ -21,7 +21,7 @@ function slugify(str) {
                     <span class="px-4">
                         <a
                             href={`${base + "/tags/" + slugify(val)}/`}
-                            class="no-underline"
+                            class="no-underline text-accent hover:text-accent-dark"
                         >
                             {val}
                         </a>
@@ -36,7 +36,7 @@ function slugify(str) {
                     <span class="pl-4">
                         <a
                             href={`${base + "/tags/" + slugify(key)}/`}
-                            class="no-underline"
+                            class="no-underline text-accent hover:text-accent-dark"
                         >
                             {key}
                         </a>

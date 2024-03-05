@@ -63,22 +63,5 @@ const tags = allTags.reduce(function (acc, tag: string) {
         font-size: 2.369rem;
       }
     </style>
-<script>
-			declare global {
-				interface Window {
-					netlifyIdentity: any;
-				}
-			}
-
-			if (window.netlifyIdentity) {
-			  window.netlifyIdentity.on("init", ((user: any) => {
-				if (!user) {
-				  window.netlifyIdentity.on("login", () => {
-					document.location.href = "/admin/";
-				  });
-				}
-			  }));
-			}
-		  </script>
   </body>
 </html>
