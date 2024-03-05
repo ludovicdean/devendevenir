@@ -2,7 +2,7 @@
 local_backend: true
 
 backend:
-  name: github
+  name: git-gateway
   branch: main
   repo: ludovicdean/devendevenir
   squash_merge: true
