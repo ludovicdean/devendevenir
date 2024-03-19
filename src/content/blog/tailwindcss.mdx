@@ -1,0 +1,264 @@
+---
+title: "Tailwind CSS"
+date: Mar 05 2024
+tags: ["Framework"]
+description: "Les tests permettent de sécuriser le fonctionnement d'une application, notamment les tests de bout en bout. Créez les vôtres avec Cypress !"
+banner: "/images/ferenc-almasi-pW3TdRsH8yM-unsplash.jpg"
+readingtime: "5 min"
+author: "Ferenc Almasi"
+authorlink: "https://unsplash.com/fr/@flowforfrank?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+unsplashlink: "https://unsplash.com/fr/photos/texte-blanc-sur-fond-violet-pW3TdRsH8yM?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+isArticle: true
+---
+
+Tout site web est constitué de fichiers **html**, **CSS** et **Javascript** (ce n'est pas obligatoire, mais assez répandu 😁).
+Nous avons tous été confrontés à un élément récalcitrant, refusant de s'afficher comme souhaité malgré des pavés de CSS. Se passer totalement de CSS est une gageure, mais des outils sont là pour simplifier la gestion des styles.
+
+Tailwind CSS se définit comme un framework CSS utilitaire, composé de classes pré-existantes permettant de styliser nos pages à même le code html de celles-ci.
+
+Avant de rêver à des pages web au style magnifique et à la mise en page irréprochable, il convient de comprendre ce qu'est un framework CSS "utility first".
+
+## Un framework CSS "utility first", c'est quoi ?
+
+Un framework CSS tel que Tailwind a pour philosophie de fournir des classes pré-conçues, faites de manière à ce qu'une classe ne gère qu'un seul aspect du style (taille du texte, couleur, marge, etc.).
+L'un des avantages de ce framework est de faire disparaître la séparation entre les balises html et les styles qui les concernent. Cela permet d'accélérer considérablement le développement de pages web.
+
+À l'inverse, une bibliothèque comme Bootstrap fournit des composants pré-conçus. Une classe btn-primary permettant de styliser un bouton (généralement avec un arrière-plan bleu et un texte en blanc) en fixant la taille du texte, sa couleur, ses marges internes, le style et l'arrondi de sa bordure.
+Le parti-pris de Tailwind est d'utiliser des classes distinctes pour styliser le bouton, l'une pour la couleur d'arrière-plan, l'autre pour la couleur de la police.
+
+Cela permet de conserver des classes indépendantes, là où des classes gérant simultanément plusieurs aspects du style peuvent poser un problème à la modification.
+
+Un framework CSS peut également fournir des composants prêts à l'emploi, disponibles avec un simple copier-coller.
+
+Maintenant que nous avons compris ce qu'est un framework CSS et l'intérêt d'y avoir recours, rentrons dans le vif du sujet.
+
+## Débuter avec Tailwind CSS
+
+Pour débuter avec Tailwind, pas besoin de matériel sophistiqué, d'un ordinateur de compétition ou d'une carte graphique dernier cri. Un éditeur de code et un navigateur web suffiront dans un premier temps.
+
+Les méthodes pour ajouter Tailwind CSS à un projet sont multiples, il en existe un grand nombre, des plus génériques aux plus spécifiques. Entendez par là que certaines méthodes sont utilisables dans un grand nombre de contextes différents, là où d'autres sont exclusivement réservées à tel ou tel framework JavaScript.
+
+La [documentation officielle]("https://tailwindcss.com/docs/installation") est riche et bien faite et distingue 4 approches pour mettre en place le framework :
+
+- La CLI Tailwind (exécutable à installer sur son ordinateur, permet d'utiliser Tailwind sans installer NodeJS)
+- PostCSS
+- Les guides des frameworks existants (une vingtaine de référencés sur le site, de Laravel à Ruby on Rails, mais aussi Astro et Next.js)
+- Le CDN (lien direct vers les ressources)
+
+Je n'entrerai pas dans les détails de chaque méthode, la documentation est justement là pour ça. Je vais me concentrer ici sur l'installation via le CDN. Presque tout ce dont vous avez besoin est ici !
+
+```html
+    <script src="https://cdn.tailwindcss.com"></script>
+```
+
+L'extrait de code que vous voyez ici correspond au CDN (Content Delivery Network) de Tailwind CSS. Cette ligne de code permet à votre site d'accéder aux ressources de Tailwind les plus proches de vous. Cela permet entre autres de réduire le temps de réponse de votre site. La notion de CDN fera probablement l'objet d'un article dans les semaines à venir.
+
+D'ailleurs, si vous copiez le lien qui se trouve juste au-dessus, vous verrez s'afficher ce qui suit.
+
+!["Aperçu du CDN de Tailwind CSS"](/devendevenir/images/tailwind_cdn_content.png)
+
+Il s'agit littéralement du contenu de Tailwind CSS, que vous pouvez utiliser dès à présent. Créez un fichier html, ouvrez-le avec un éditeur de code et copiez le code présenté ci-dessous.
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Hello world!</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <h1 class="text-3xl font-bold underline">
+    Un titre avec des classes Tailwind
+  </h1>
+
+  <h1>Un titre sans classes Tailwind</h1>
+</body>
+</html>
+```
+
+Ouvrez votre fichier dans votre navigateur et... Bravo ! Vous y êtes, vous utilisez Tailwind CSS !
+
+!["Premier test avec Tailwind"](/devendevenir/images/tailwind_first_test.png)
+
+Regardons de plus près cette page web. Le premier titre de la page a une taille de police grande, est en gras et est souligné ! En comparaison, le titre juste en dessous qui est également un h1 semble beaucoup moins séduisant.
+Vous n'avez pas écrit la moindre ligne de CSS, vous avez juste fait un copier-coller d'un h1 avec une classe un peu étrange.
+
+Eh oui ! Avec Tailwind CSS, le style se présente sous la forme de classes prédéfinies que l'on ajoute directement à nos éléments. Plus besoin d'avoir un fichier CSS à part référencé en haut de la page pour gérer nos styles.
+
+Si le CSS ne vous est pas inconnu, les classes de notre titre vous rappelleront des propriétés CSS, c'est normal ! Ici `text-3xl` agrandit la taille de la police, `font-bold` rend le texte en gras et `underline` souligne notre texte.
+
+Ceci n'est qu'un bref aperçu de ce que peut faire Tailwind CSS, nous allons maintenant rentrer dans le vif du sujet.
+
+## Comment fonctionnent les classes Tailwind CSS ?
+
+Les classes Tailwind sont en quelque sorte des propriétés CSS raccourcies. Une classe `bg-slate-500` décrit en réalité un élément dont l'arrière-plan (background) est de couleur ardoise (slate) avec une teinte particulière (50 pour la couleur claire, 950 pour la couleur sombre).
+
+<table>
+    <tr>
+        <th>Tailwind</th>
+        <th>Hexadécimal</th>
+        <th>Teinte</th>
+    </tr>
+    <tr>
+        <td>slate-50</td>
+        <td>#f8fafc</td>
+        <td style="background-color:#f8fafc;width:auto"></td>
+    </tr>
+    <tr>
+        <td>slate-100</td>
+        <td>#f1f5f9</td>
+        <td style="background-color:#f1f5f9;width:auto"></td>
+    </tr>
+    <tr>
+        <td>slate-200</td>
+        <td>#e2e8f0</td>
+        <td style="background-color:#e2e8f0;width:auto"></td>
+    </tr>
+    <tr>
+        <td>slate-300</td>
+        <td>#cbd5e1</td>
+        <td style="background-color:#cbd5e1;width:auto"></td>
+    </tr>
+    <tr>
+        <td>slate-400</td>
+        <td>#94a3b8</td>
+        <td style="background-color:#94a3b8;width:auto"></td>
+    </tr>
+    <tr>
+        <td>slate-500</td>
+        <td>#64748b</td>
+        <td style="background-color:#64748b;width:auto"></td>
+    </tr>
+    <tr>
+        <td>slate-600</td>
+        <td>#475569</td>
+        <td style="background-color:#475569;width:auto"></td>
+    </tr>
+    <tr>
+        <td>slate-700</td>
+        <td>#334155</td>
+        <td style="background-color:#334155;width:auto"></td>
+    </tr>
+    <tr>
+        <td>slate-800</td>
+        <td>#1e293b</td>
+        <td style="background-color:#1e293b;width:auto"></td>
+    </tr>
+    <tr>
+        <td>slate-900</td>
+        <td>#0f172a</td>
+        <td style="background-color:#0f172a;width:auto"></td>
+    </tr>
+    <tr>
+        <td>slate-950</td>
+        <td>#020617</td>
+        <td style="background-color:#020617;width:auto"></td>
+    </tr>
+</table>
+
+De manière générale une classe Tailwind est constituée :
+
+- d'un préfixe qui décrit la propriété CSS concernée
+- de la valeur que l'on donne à cette propriété
+- d'un quantificateur de la valeur qui précède (facultatif)
+
+```html
+<p class="bg-red-500">Un paragraphe avec l'arrière-plan de couleur rouge à la teinte 500</p>
+<p class="text-red-500">Un paragraphe avec le texte en rouge à la teinte 500</p>
+```
+
+Si l'on souhaite appliquer d'autres éléments de style à notre paragraphe, on ajoutera une autre classe :
+
+```html
+<p class="bg-red-500 text-white">Un paragraphe avec l'arrière-plan de couleur rouge 500 et le texte en blanc</p>
+<p class="bg-red-500 text-white justify-center">Un paragraphe avec l'arrière-plan de couleur rouge 500 et le texte en blanc</p>
+```
+
+Si on veut ajouter plusieurs classes à notre texte, il faudra ajouter une nouvelle classe `text-xxx` à notre élément.
+
+L'écriture du style est beaucoup plus condensée que le contenu d'un fichier CSS.
+
+On peut également ajouter des modificateurs afin de modifier le style d'un élément par rapport à une action :
+
+- pseudo-classes (hover, focus, first-child...)
+- pseudo-éléments (before, after, placeholder...)
+- média queries (breakpoints, thème sombre)
+
+On peut combiner ces modificateurs pour répondre à des cas spécifiques :
+
+```html
+<button class="dark:md:hover:bg-fuchsia-600 ...">
+  Save changes
+</button>
+```
+
+Les couleurs de Tailwind CSS ne vous conviennent pas ? Configurez Tailwind !
+
+## Configurer Tailwind CSS
+
+Dans votre page web (si vous travaillez avec le CDN), vous pouvez ajouter une balise `<script><script>` qui vous permet de configurer Tailwind avec vos propres couleurs, vos propres espacements, etc. au même titre que la définition de vos variables CSS au début d'une feuille de style.
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Hello world!</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            maCouleur: '#da373d',
+            maCouleurDeHover: '#fff'
+          },
+          fontFamily: {
+                sans: ['Arial', 'sans-serif'],
+                serif: ['Verdana', 'serif'],
+              },
+              extend: {
+                spacing: {
+                  '8xl': '96rem',
+                  '9xl': '128rem',
+                },
+                borderRadius: {
+                  '8xl': '4rem',
+                }
+        }
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1 class="text-8xl font-bold underline text-maCouleur hover:text-maCouleurDeHover">
+    Hello world!
+  </h1>
+</body>
+</html>
+```
+
+Les éléments présents dans l'élément `extend: {...}` sont tous facultatifs, vous n'êtes pas obligés d'avoir une configuration pour tout. Vous pouvez simplement définir les couleurs de votre thème afin de les réutiliser ensuite sur votre page.
+
+Dernier intérêt de Tailwind CSS et non des moindres, il est performant et permet de réduire la taille des fichiers CSS générés.
+
+## Aller plus loin
+
+Tailwind propose également quelques plugins officiels, destinés à améliorer la gestion des styles dans des domaines très spécifiques :
+
+- La typographie (Typography)
+- Les formulaires (Forms)
+- L'affichage des médias (Aspect Ratio)
+- Les requêtes de conteneurs (Container Queries)
+
+Par ailleurs, de la même manière que Bootstrap, Tailwind a une bibliothèque de composants. Une petite partie de ces composants est gratuite, malheureusement les plus intéressants demandent de mettre la main au portefeuille. C'est à mon sens la seule faiblesse de Tailwind face à une bibliothèque CSS telle que Bootstrap, qui fournit un large éventail de composants prêts à l'emploi et gratuits.
+
+## Conclusion
+
+Nous y sommes, vous avez tout pour vous lancer avec Tailwind CSS ! Ce framework (version 3.4.1) est déjà extrêmement riche, et la prochaine version (4) promet encore plus de fonctionnalités bluffantes, avec une configuration réduite à sa plus stricte expression.
+Peut-être que la nouvelle version me donnera l'occasion d'actualiser cet article en détaillant les nouveautés les plus intéressantes 😁.
+
+A vous de jouer !
