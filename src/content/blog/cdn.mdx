@@ -1,0 +1,81 @@
+---
+title: "C'est quoi un CDN ?"
+date: Mar 15 2024
+tags: ["Outils", "I-culture"]
+description: Souvent évoqué, jamais précisément présenté, on entend régulièrement parler des CDN, mais de quoi s'agit-il ?
+banner: "/images/alina-grubnyak-ZiQkhI7417A-unsplash.jpg"
+readingtime: "6 min"
+author: "Alina Grubnyak"
+authorlink: "https://unsplash.com/fr/@alinnnaaaa?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+unsplashlink: "https://unsplash.com/fr/photos/photographie-en-contre-plongee-dune-structure-metallique-ZiQkhI7417A?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+isArticle: true
+---
+Photo de <a href="https://unsplash.com/fr/@alinnnaaaa?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Alina Grubnyak</a> sur <a href="https://unsplash.com/fr/photos/photographie-en-contre-plongee-dune-structure-metallique-ZiQkhI7417A?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+
+On présente souvent plusieurs manières d'ajouter certaines bibliothèques Javascript, certains frameworks CSS sur des projets. Parmi les multiples méthodes d'intégration proposées, l'une d'entre elles attire vite l'oeil en raison de la simplicité de mise en oeuvre, le CDN.
+
+Derrière ce sigle se cache une immense machinerie dont l'existence m'échappait jusque-là. Pour commencer, une traduction s'impose.
+
+## Comprendre le CDN
+
+Un CDN est un *Content Delivery Network*, autrement dit en français un Réseau de Diffusion de Contenu. Vous me direz, quel est le rapport entre un CDN et une bibliothèque CSS ou Javascript ?
+
+Le rapport, ou le lien, car c'est bien de cela qu'il s'agit, est un moyen d'accéder aux ressources (au contenu) du CDN sans avoir à héberger les fichiers correspondants au sein de son propre projet.
+
+Sans CDN, utiliser Bootstrap avec ses fichiers au sein du projet donnera ce code.
+
+```html
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/styles/bootstrap.min.css">
+  </head>
+  <body>
+    <p>Hello world!</p>
+  </body>
+</html>
+```
+
+Dans le cas d'une ressource externe, on ajoutera une balise `<link>` dont la source est une URL externe à notre projet comme le montre l'extrait de code suivant.
+
+```html
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+  <body>
+    <p>Hello world!</p>
+  </body>
+</html>
+```
+
+La principale différence entre les deux extraits de code ci-dessus est que dans le premier cas votre fichier CSS est **interne** à votre projet tandis que le fichier vers lequel pointe l'URL du CDN est **externe** à votre projet.
+
+Sans trop rentrer dans les détails, un réseau de diffusion de contenu est un réseau de serveurs, dispersés partout dans le monde, sur lesquels on trouve une copie de notre contenu. On parle parfois de dizaines de milliers de serveurs.
+
+Si un site est hébergé en France et consulté par quelqu'un aux antipodes (ok, c'est très peu probable que la personne y soit réellement, car les antipodes de la France métropolitaine sont au beau milieu du Pacifique), ou plus simplement au Pôle Sud, et que votre site utilise un CDN, ce n'est pas le fichier hébergé en France qui sera utilisé pour styliser votre site mais la plus proche et la plus accessible copie de ce fichier.
+
+Imaginons que votre site web est hébergé en France et que quelqu'un le visite au Pôle Sud.
+
+### Pas de CDN dans mes projets !
+
+Votre site ne fait pas appel à un CDN (les sources de Tailwind sont dans votre projet).
+
+Vos fichiers CSS vont devoir faire le trajet France-Pôle Sud tout comme le contenu de la page avant d'être affichés sur l'écran de votre visiteur. Ils devront donc parcourir la bagatelle d'environ 15 000 kilomètres !
+
+### Moi, j'en utilise des CDN !
+
+Votre site fait appel au CDN de Tailwind (vous n'utilisez pas vos propres sources pour Tailwind).
+
+Lorsque votre visiteur va arriver sur votre site, les ressources Tailwind seront chargées depuis le serveur le plus "proche", ou le plus accessible depuis le Pôle Sud. Si on se réfère à la page Wikipedia qui répertorie les lieux habités les plus au sud, on arrive à environ 4 000 kilomètres.
+
+Près de quatre fois moins de chemin à parcourir !
+
+En résumé, les ressources nécessaires pour afficher votre site web arriveront plus vite, car elles sont moins loin et plus accessibles que si elles étaient uniquement sur un serveur à l'autre bout du monde.
+
+## Conclusion
+
+À titre personnel, j'utilise des ressources hébergées par un CDN généralement pour leur simplicité d'utilisation. De plus, je n'ai pas de problématiques d'utilisateurs partout dans le monde (j'en ai tout au plus quelques-uns en France 😅).
+
+J'utilise plus volontiers des bibliothèques embarquées dans mes projets quand ils gagnent en complexité.
