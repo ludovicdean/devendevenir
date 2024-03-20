@@ -4,26 +4,20 @@ import { LINKEDIN_LINK, GITHUB_LINK } from "../consts";
 const { context } = Astro.props;
 ---
 
-<a href={LINKEDIN_LINK}>
-    <Icon name="linkedin" style="height: 2em" />
+<a
+    href={LINKEDIN_LINK}
+    class="no-underline hover:scale-125 transition-all duration-500 text-gray hover:gray-dark"
+>
+    <Icon name="linkedin" class="size-12" />
 </a>
 
 {
     context == "footer" && (
-        <a href={GITHUB_LINK}>
-            <Icon name="github" style="height: 2em" />
+        <a
+            href={GITHUB_LINK}
+            class="no-underline hover:scale-125 transition-all duration-500 text-gray hover:gray-dark"
+        >
+            <Icon name="github" class="size-12" />
         </a>
     )
 }
-
-<style>
-    a {
-        text-decoration: none;
-        color: rgb(var(--gray));
-    }
-    a:hover {
-        color: rgb(var(--gray-dark));
-        transform: scale(1.2);
-        transition: all 0.5s;
-    }
-</style>

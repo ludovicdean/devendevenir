@@ -51,34 +51,17 @@ const tags = allTags.reduce(function (acc, tag: string) {
     </main>
     <Footer />
     <style>
-      ul li:first-child {
+      li:first-child {
         width: 100%;
         margin-bottom: 1rem;
         text-align: center;
       }
-      ul li:first-child img {
+      li:first-child img {
         width: 100%;
       }
-      ul li:first-child .title {
+      li:first-child .title {
         font-size: 2.369rem;
       }
     </style>
-<script>
-			declare global {
-				interface Window {
-					netlifyIdentity: any;
-				}
-			}
-
-			if (window.netlifyIdentity) {
-			  window.netlifyIdentity.on("init", ((user: any) => {
-				if (!user) {
-				  window.netlifyIdentity.on("login", () => {
-					document.location.href = "/admin/";
-				  });
-				}
-			  }));
-			}
-		  </script>
   </body>
 </html>
