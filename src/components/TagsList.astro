@@ -15,10 +15,10 @@ function slugify(str) {
 
 {
     context == "post" ? (
-        <div class="pb-6">
+        <div class="pb-6 flex flex-wrap">
             {Object.entries(tags).map(([key, val]) => (
-                <span class="inline text-lg">
-                    <span class="px-4">
+                <span class="inline text-lg rounded-xl mx-2 px-2 my-2 bg-gray-light">
+                    <span>
                         <a
                             href={`${base + "/tags/" + slugify(val)}/`}
                             class="no-underline text-accent hover:text-accent-dark"
@@ -30,10 +30,10 @@ function slugify(str) {
             ))}
         </div>
     ) : (
-        <div class="pb-6">
+        <div class="pb-6 flex flex-wrap">
             {Object.entries(tags).map(([key, val]) => (
-                <span class="inline text-lg">
-                    <span class="pl-4">
+                <span class="inline text-lg rounded-xl mx-2 px-2 my-2 bg-gray-light">
+                    <span>
                         <a
                             href={`${base + "/tags/" + slugify(key)}/`}
                             class="no-underline text-accent hover:text-accent-dark"
