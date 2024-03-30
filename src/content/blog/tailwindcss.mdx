@@ -1,7 +1,8 @@
 ---
 title: "Tailwind CSS"
 date: Mar 20 2024
-tags: ["Framework"]
+tags:
+    - Framework
 description: "Plongez dans l'univers des frameworks utility-first et découvrez toute la puissance de Tailwind CSS !"
 banner: "/images/pankaj-patel-6JVlSdgMacE-unsplash.jpg"
 readingtime: "5 min"
@@ -9,8 +10,11 @@ author: "Pankaj Patel"
 authorlink: "https://unsplash.com/fr/@pankajpatel?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
 unsplashlink: "https://unsplash.com/fr/photos/langage-de-programmation-6JVlSdgMacE?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
 isArticle: true
+
 ---
-  
+import {Image} from "astro:assets";
+import test from "../../assets/tailwind_cdn_content.png";
+
 Tout site web est constitué de fichiers **html**, **CSS** et **Javascript** (ce n'est pas obligatoire, mais assez répandu 😁).
 Nous avons tous été confrontés à un élément récalcitrant, refusant de s'afficher comme souhaité malgré des pavés de CSS. Se passer totalement de CSS est une gageure, mais des outils sont là pour simplifier la gestion des styles.
 
@@ -55,8 +59,9 @@ L'extrait de code que vous voyez ici correspond au CDN (Content Delivery Network
 
 D'ailleurs, si vous copiez le lien qui se trouve juste au-dessus, vous verrez s'afficher ce qui suit.
 
-!["Aperçu du CDN de Tailwind CSS"](/devendevenir/images/tailwind_cdn_content.png)
 
+
+<Image src={test} alt="test" inferSize></Image>
 Il s'agit littéralement du contenu de Tailwind CSS, que vous pouvez utiliser dès à présent. Créez un fichier html, ouvrez-le avec un éditeur de code et copiez le code présenté ci-dessous.
 
 ```html
