@@ -10,11 +10,7 @@ author: "Pankaj Patel"
 authorlink: "https://unsplash.com/fr/@pankajpatel?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
 unsplashlink: "https://unsplash.com/fr/photos/langage-de-programmation-6JVlSdgMacE?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
 isArticle: true
-
 ---
-import {Image} from "astro:assets";
-import test from "../../assets/tailwind_cdn_content.png";
-
 Tout site web est constitué de fichiers **html**, **CSS** et **Javascript** (ce n'est pas obligatoire, mais assez répandu 😁).
 Nous avons tous été confrontés à un élément récalcitrant, refusant de s'afficher comme souhaité malgré des pavés de CSS. Se passer totalement de CSS est une gageure, mais des outils sont là pour simplifier la gestion des styles.
 
@@ -59,9 +55,8 @@ L'extrait de code que vous voyez ici correspond au CDN (Content Delivery Network
 
 D'ailleurs, si vous copiez le lien qui se trouve juste au-dessus, vous verrez s'afficher ce qui suit.
 
+!["Aperçu du CDN de Tailwind CSS"](/devendevenir/images/tailwind_cdn_content.png)
 
-
-<Image src={test} alt="test" inferSize></Image>
 Il s'agit littéralement du contenu de Tailwind CSS, que vous pouvez utiliser dès à présent. Créez un fichier html, ouvrez-le avec un éditeur de code et copiez le code présenté ci-dessous.
 
 ```html
@@ -101,11 +96,14 @@ Ceci n'est qu'un bref aperçu de ce que peut faire Tailwind CSS, nous allons mai
 Les classes Tailwind sont en quelque sorte des propriétés CSS raccourcies. Une classe `bg-slate-500` décrit en réalité un élément dont l'arrière-plan (background) est de couleur ardoise (slate) avec une teinte particulière (50 pour la couleur claire, 950 pour la couleur sombre).
 
 <table>
+    <thead>
     <tr>
         <th>Tailwind</th>
         <th>Hexadécimal</th>
         <th>Teinte</th>
     </tr>
+    </thead>
+    <tbody>
     <tr>
         <td>slate-50</td>
         <td>#f8fafc</td>
@@ -161,6 +159,7 @@ Les classes Tailwind sont en quelque sorte des propriétés CSS raccourcies. Une
         <td>#020617</td>
         <td style="background-color:#020617;width:auto"></td>
     </tr>
+    </tbody>
 </table>
 
 De manière générale une classe Tailwind est constituée :
