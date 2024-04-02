@@ -1,0 +1,54 @@
+---
+title: Connaissez-vous les "fallback fonts" ?
+date: Feb 20 2024
+tags:
+    - I-culture
+description: "Les polices de remplacement jouent un rôle fondamental dans l'affichages de nos sites web, découvrez lequel et comment en mettre en place sur vos projets."
+banner: "/images/arnel-hasanovic-MNd-Rka1o0Q-unsplash.jpg"
+readingtime: "5 min"
+author: "Amador Loureiro"
+authorlink: "https://unsplash.com/fr/@amadorloureiro?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+unsplashlink: "https://unsplash.com/fr/photos/lot-de-timbre-de-bois-de-lettre-BVyNlchWqzs?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+isArticle: true
+---
+La création de ce blog m’a permis de (re)découvrir à mes dépens ce qu’est une police de remplacement, ou **fallback font** pour les adeptes de la langue de Shakespeare. Lorsque je souhaitais faire lire certains articles à des proches, certains avaient une page blanche sur leur écran, notamment sur smartphone. Inquiet, j’ai fait appel à des collègues qui ont immédiatement identifié l’origine du problème, l’absence de police de remplacement.
+
+## C’est quoi une police de remplacement ?
+
+Une typographie de secours est, comme son nom l’indique, une police de caractères à utiliser en cas de problèmes.
+
+Mais quel type de problème peut nous pousser à utiliser une typographie de secours ? Eh bien l’absence de la police d’écriture d’un site web sur l’appareil qui accède à votre site.
+
+Lorsqu’un utilisateur consulte une page web, au chargement de la page le navigateur web recherche la police de caractères spécifiée dans les feuilles de styles du site. On a alors plusieurs possibilités :
+
+- La police existe sur l’appareil : le site web s’affiche normalement
+- La police n’existe pas sur l’appareil :
+  - Si aucune police de fallback n’est précisée dans les fichiers CSS → Le site affiche le site sans le contenu écrit avec la police spécifiée.
+  - Si une liste de polices de fallback est précisée dans les fichiers CSS → Le site parcourt les polices configurées jusqu’à trouver une police qui soit installée sur l’appareil.
+
+J’ai découvert à mes dépens que la présence de polices spécifiques sur un appareil est très variable, ayant même des différences entre 2 exemplaires rigoureusement identiques du même smartphone, l’un affichant mon blog normalement, l’autre affichant une page blanche.
+
+**Sans** police de remplacement votre CSS ressemblera à ceci :
+
+```css
+@font-face {
+	font-family: 'Atkinson';
+}
+```
+
+Si Atkinson n’est pas installé, vous pouvez dire au revoir à votre lecture du moment.
+
+**Avec** des polices de remplacement, votre CSS ressemblera à ceci :
+
+```css
+@font-face {
+	font-family: 'Atkinson', Arial, sans-serif;
+	src: url('/fonts/atkinson-regular.woff') format('woff');
+}
+```
+
+Si Atkinson n’es pas installé, votre navigateur ira chercher si vous avez la police Arial installée sur votre appareil. Si Arial n’est pas installée non plus, alors votre navigateur ira chercher la police par défaut de votre appareil.
+
+## Conclusion
+
+Vous savez maintenant tout ce qu’il faut savoir sur les polices de remplacement et comment éviter les problèmes d’affichage sur vos sites web !
