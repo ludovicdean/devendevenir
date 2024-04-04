@@ -1,0 +1,66 @@
+---
+title: "Découvrez Open Graph"
+date: Apr 17 2024
+tags:
+    - I-Culture
+description: "Mettre en valeur vos contenus vous importe ? Apprenez comment les partager tout en beauté avec Open Graph."
+banner: "/images/patrick-tomasso-Oaqk7qqNh_c-unsplash.jpg"
+author: "Patrick Tomasso"
+authorlink: "https://unsplash.com/fr/@impatrickt?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+unsplashlink: "https://unsplash.com/fr/photos/lot-a-livre-ouvert-Oaqk7qqNh_c?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+isArticle: true
+---
+
+Au cours du développement de Dev En Devenir, j’ai été confronté à quelques difficultés. L’une d’elles concerne la gestion des métadonnées de mes articles.
+
+## Les métadonnées, mais encore ?
+
+Les métadonnées sont en quelque sorte des informations détaillées accompagnant un fichier. Si ce n’est pas encore clair pour vous, cela ne saurait tarder.
+
+Dans le cas d’un fichier d’ordinateur, il s’agira de l’auteur, de la date de création du fichier, de la date de la dernière modification, les mots-clés qui y sont rattachés, la taille du fichier, etc.
+
+Dans le cas d’une photographie, les métadonnées contiendront par exemple la date et l’heure à laquelle vous avez pris cette photo, le nom du fichier, les réglages de votre appareil photo (focale, exposition, etc.).
+
+Tout cela vous donne une vision plus fine du fichier en question. Et Open Graph dans tout ça ?
+
+## Open Graph
+
+Open Graph est un protocole qui a été créé par Facebook, afin de normaliser l’utilisation des métadonnées des pages web pour leur partage sur le réseau social.
+
+## En quoi ça te concerne pour ton blog ?
+
+Dans le cas d’un site web (de mon blog), les métadonnées sont les informations qui vont permettre aux réseaux sociaux de générer un aperçu de mon article avec la bannière de l’article, son titre, le temps de lecture. Cet aperçu est généré lorsqu’on copie-colle un lien dans un éditeur de posts tel que celui de LinkedIn.
+
+![Aperçu généré grâce à Open Graph](/devendevenir/images/open-graph_screenshot.png)
+
+On pourrait penser que tout partage de lien génère un aperçu tel que celui-ci, mais en réalité ce n’est pas toujours le cas.
+
+En effet, pour générer un aperçu tel que celui-ci, il est nécessaire de préciser dans la structure même de notre page les informations nécessaires à la construction de celui-ci.
+
+## Et le code dans tout ça ?
+
+Le code nécessaire pour permettre la génération des aperçus sur les réseaux sociaux ressemble à ceci :
+
+```html
+<head>
+	<title>Mon titre</title>
+	<meta name="title" content="Mon titre" />
+	<meta name="description" content="Cette page parle de ceci" />
+
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="http://monurl.fr" />
+	<meta property="og:title" content="Mon titre" />
+	<meta property="og:description" content="Cette page parle de ceci" />
+	<meta property="og:image" content="/images/monimagedapercu.png" />
+</head>
+```
+
+Selon les réseaux sociaux visés, les balises `<meta>` pourront être différentes. Dans le cas de twitter, le préfixe "og" est remplacé par `twitter`, et certaines métadonnées ont un nom particulier (l'image `og:image` devient une `twitter:card`).
+
+Afin d'optimiser le partage de vos sites web, il faudra accumuler les méta-données spécifiques pour chaque réseau social concerné. Heureusement pour nous, les ressources sont nombreuses et une simple recherche dans notre moteur de recherche préféré suffira à vous donner les informations qui vous intéressent.
+
+Après avoir été initié par Facebook, l’usage de l’Open Graph Protocol s’est généralisé, et permet par exemple pour une entreprise d’adapter les aperçus de ses contenus au réseau social sur lequel elles diffusent leurs contenus.
+
+## Conclusion
+
+Maintenant que vous comprenez mieux à quoi sert le protocole Open Graph, vous n'avez plus qu'à vous y mettre pour améliorer le partage de vos sites web et de vos articles.
