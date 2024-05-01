@@ -52,12 +52,16 @@ const ogImage = site + base + banner;
           </div>
           {isArticle && <TagsList tags={tags} context="post" />}
           <slot />
-          <section>
+          {isArticle && (
+              <section>
             <CallToAction />
-          </section>
+          </section>)}
           {
             isArticle && (
               <>
+                <section>
+                  <CallToAction />
+                </section>
                 <CreditPhoto
                   author={author}
                   authorlink={authorlink}
