@@ -3,6 +3,9 @@ dist/
 # generated types
 .astro/
 
+# Webstorm specific files
+.idea
+
 # dependencies
 node_modules/
 
