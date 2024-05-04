@@ -13,7 +13,10 @@ unsplashlink : "https://unsplash.com/fr/photos/personne-discutant-debout-devant-
 isArticle : true
 ---
 
+import { Image } from "astro:assets";
 import Video from "@components/Video.astro";
+
+import arborescence from "@assets/revealjs-arborescence.png";
 
 Mon parcours m'a amené à réaliser de nombreuses présentations, bien souvent réalisées avec le sacro-saint PowerPoint, parfois même avec son cousin de la suite OpenOffice, Impress.
 Même si ces applications sont ergonomiques, elles ont les défauts de leurs qualités : elles recèlent bien trop de fonctionnalités au regard de ce pour quoi on les utilise.
@@ -65,7 +68,7 @@ Votre présentation est prête !
 
 Bon d'accord, ce n'est pas tout à fait **votre** présentation, il n'y a que deux slides etc. Mais, vous avez la base d'une présentation. Il est temps de regarder de plus près le contenu de notre projet.
 
-!["Arborescence d'un projet revealjs"](/devendevenir/images/revealjs-arborescence.png)
+<Image src={ arborescence } alt="Arborescence d'un projet revealjs" inferSize class="my-5"/>
 
 Le projet que nous avons cloné contient quelques fichiers de configuration, notamment les package.json et package-lock.json.
 On remarque un fichier que je rencontre pour la première fois, le fichier gulpfile.js. Ce fichier définit les actions à mener lors de certaines opérations dans le projet, compilation, minification, formatage du code etc.

@@ -11,6 +11,12 @@ authorlink : "https://unsplash.com/fr/@pankajpatel?utm_content=creditCopyText&ut
 unsplashlink : "https://unsplash.com/fr/photos/langage-de-programmation-6JVlSdgMacE?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
 isArticle : true
 ---
+
+import { Image } from "astro:assets";
+
+import cdn from "@assets/tailwind_cdn_content.png";
+import test from "@assets/tailwind_first_test.png";
+
 Tout site web est constitué de fichiers **html**, **CSS** et **Javascript** (ce n'est pas obligatoire, mais assez répandu 😁).
 Nous avons tous été confrontés à un élément récalcitrant, refusant de s'afficher comme souhaité malgré des pavés de CSS. Se passer totalement de CSS est une gageure, mais des outils sont là pour simplifier la gestion des styles.
 
@@ -55,7 +61,7 @@ L'extrait de code que vous voyez ici correspond au CDN (Content Delivery Network
 
 D'ailleurs, si vous copiez le lien qui se trouve juste au-dessus, vous verrez s'afficher ce qui suit.
 
-!["Aperçu du CDN de Tailwind CSS"](/devendevenir/images/tailwind_cdn_content.png)
+<Image src={ cdn } alt="Aperçu du CDN de Tailwind CSS" inferSize class="my-5" />
 
 Il s'agit littéralement du contenu de Tailwind CSS, que vous pouvez utiliser dès à présent. Créez un fichier html, ouvrez-le avec un éditeur de code et copiez le code présenté ci-dessous.
 
@@ -80,7 +86,7 @@ Il s'agit littéralement du contenu de Tailwind CSS, que vous pouvez utiliser d�
 
 Ouvrez votre fichier dans votre navigateur et... Bravo ! Vous y êtes, vous utilisez Tailwind CSS !
 
-!["Premier test avec Tailwind"](/devendevenir/images/tailwind_first_test.png)
+<Image src={ test } alt="Premier test avec Tailwind" inferSize class="my-5" />
 
 Regardons de plus près cette page web. Le premier titre de la page a une taille de police grande, est en gras et est souligné ! En comparaison, le titre juste en dessous qui est également un h1 semble beaucoup moins séduisant.
 Vous n'avez pas écrit la moindre ligne de CSS, vous avez juste fait un copier-coller d'un h1 avec une classe un peu étrange.

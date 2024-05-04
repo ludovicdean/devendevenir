@@ -12,6 +12,12 @@ unsplashlink : "https://unsplash.com/fr/photos/personne-utilisant-un-macbook-pro
 isArticle : true
 ---
 
+import { Image } from "astro:assets";
+
+import arborescence from "@assets/jekyll-arborescence.png";
+import site from "@assets/jekyll-site-package.png";
+import gemfile from "@assets/jekyll-gemfile.png";
+
 Lorsqu'on souhaite créer un site web sans pour autant se plonger dans un CMS comme WordPress ou Drupal, on trouve rapidement de multiples solutions qui sont des générateurs de site statique. L'idée de ce blog me trotte dans la tête depuis un moment et je connaissais l'existence des Github Pages. C'est en consultant la documentation Github à ce sujet que j'ai découvert Jekyll.
 
 La documentation étant assez fruste, j'ai approfondi mes recherches et ai réuni un grand nombre d'informations, mais aucune de mes sources n'avait de mode d'emploi complet pour Jekyll. La documentation officielle est elle-même difficile à exploiter pour débuter un projet. Comme à mon habitude, j'ai compilé toutes les informations glanées sur le sujet pour en faire un tutoriel.
@@ -41,8 +47,7 @@ Améliorer notre blog va nous faire examiner de plus près les entrailles de not
 
 Un projet Jekyll est constitué de plusieurs packages aux rôles distincts sur la capture d'écran suivante.
 
-![Alt text](/devendevenir/images/jekyll-arborescence.png)
-&nbsp;
+<Image src={ arborescence } alt="Arborescence d'un projet Jekyll" inferSize class="my-5" />
 
 ### Includes
 
@@ -114,9 +119,7 @@ Le contenu du fichier vient à la suite du FrontMatter avec l'ensemble des élé
 
 Le package \_site contient l'ensemble des fichiers générés par Jekyll, il faut donc absolument ne pas travailler dans ce dossier, car à chaque compilation l'ensemble de ces fichiers est régénéré. Je l'ai appris à mes dépens au début de mon projet.
 
-&nbsp;
-![Contenu du répertoire _site.](/devendevenir/images/jekyll-site-package.png)
-&nbsp;
+<Image src={ site } alt="Contenu du répertoire _site." inferSize class="my-5" />
 
 ### Assets
 
@@ -132,7 +135,7 @@ L'arborescence de notre projet n'est pas uniquement constituée de ces packages,
 - about.html : la page à propos
 - 404.html : la page d'erreur 404 (ressource non trouvée)
 - \_config.yml : le fichier de configuration du site
-- Gemfile : le fichier qui référence l'ensemble des gemmes utilisés par le projet
+- Gemfile : le fichier qui référence l'ensemble des gemmes utilisées par le projet
 
 Arrêtons nous sur les fichiers fondamentaux, le Gemfile ainsi que le fichier de configuration du projet.
 
@@ -142,9 +145,7 @@ Arrêtons nous sur les fichiers fondamentaux, le Gemfile ainsi que le fichier de
 
 Les projets Ruby, comme la plupart des projets, ont besoin de dépendances pour fonctionner, ces dépendances ayant des versions spécifiques. Le Gemfile a pour rôle de référencer l'ensemble des dépendances d'un projet avec leurs versions. C'est sur ce fichier que vas se baser **Bundler**, le gestionnaire de dépendances Ruby pour installer le nécessaire pour faire fonctionner un projet.
 
-&nbsp;
-![Structure du fichier Gemfile du projet.](/devendevenir/images/jekyll-gemfile.png)
-&nbsp;
+<Image src={ gemfile } alt="Arborescence d'un projet Jekyll" inferSize class="my-5" />
 
 ### \_config.yml
 

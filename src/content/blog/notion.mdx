@@ -13,6 +13,18 @@ unsplashlink : "https://unsplash.com/fr/photos/tastiera-del-computer-nera-Pr578Z
 isArticle : true
 ---
 
+import { Image } from "astro:assets";
+
+import homepage from "@assets/notion-homepage.png";
+import journal from "@assets/notion-journal-de-dev.png";
+import wiki from "@assets/notion-wiki.png";
+import search from "@assets/notion-search-result.png";
+import command from "@assets/notion-command-menu.png";
+import document from "@assets/notion-document-add.png";
+import link from "@assets/notion-link-menu.png";
+import board from "@assets/notion-board.png";
+import recipes from "@assets/notion-recipes.png";
+
 Au début de ma "nouvelle" vie professionnelle j'ai rapidement constaté que les développeurs étaient, sauf à quelques exceptions près, équipées d'un cahier et d'un stylo afin de prendre des notes sur leur travail, à propos des réunions etc. J'ai essayé d'utiliser un cahier, mais rien à faire, je n'ai jamais accroché, et les difficultés à retrouver des informations simplement m'ont poussé à abandonner cet outil.
 
 Pour dépasser le blocage quotidien déclenché par la question rituelle "Qu'est-ce que tu as fait hier Ludo ?". Il aura fallu d'innombrables "Euh...", "Attends j'ai noté quelque chose quelque part", "Poursuivez sans moi le temps que je retrouve" j'ai décidé de trouver une solution numérique à ce problème d'organisation et de mémoire.
@@ -65,7 +77,7 @@ Lors de la création de votre compte, votre espace de travail comporte déjà pl
 
 &nbsp;
 
-![Page d'accueil de votre espace de travail](/devendevenir/images/notion-homepage.png "Votre espace de travail")
+<Image src={ homepage } alt="Page d'accueil de votre espace de travail" inferSize class="my-5" />
 
 &nbsp;
 
@@ -111,7 +123,7 @@ J'ai choisi de structurer ce journal en créant une page Journal de dev qui cont
 
 &nbsp;
 
-![Arborescence de mon journal de développement](/devendevenir/images/notion-journal-de-dev.png "Journal de développement")
+<Image src={ journal } alt="Arborescence de mon journal de développement" inferSize class="my-5" />
 
 &nbsp;
 
@@ -133,7 +145,7 @@ J'ai créé à côté de mon journal de dev une page de wiki, qui est le point d
 
 &nbsp;
 
-![Arborescence de mon wiki](/devendevenir/images/notion-wiki.png "Mon wiki de développement")
+<Image src={ wiki } alt="Arborescence de mon wiki" inferSize class="my-5" />
 
 &nbsp;
 
@@ -151,7 +163,7 @@ Il faut souligner que certains éléments ont un impact négatif sur l'indexatio
 
 &nbsp;
 
-![Résultats d'une recherche](/devendevenir/images/notion-search-result.png "Utiliser la barre de recherche")
+<Image src={ search } alt="Résultats d'une recherche" inferSize class="my-5" />
 
 &nbsp;
 
@@ -197,7 +209,7 @@ L'une des forces de Notion est la palette de blocs qu'il offre à ses utilisateu
 
 &nbsp;
 
-![Menu des blocs de base](/devendevenir/images/notion-command-menu.png)
+<Image src={ command } alt="Menu des blocs de base" inferSize class="my-5" />
 
 &nbsp;
 
@@ -211,7 +223,7 @@ Conserver des informations est précieux, mais parmi ces informations se trouven
 
 &nbsp;
 
-![Ajout d'un document à une page Notion](/devendevenir/images/notion-document-add.png)
+<Image src={ document } alt="Ajout d'un document à une page Notion" inferSize class="my-5" />
 
 &nbsp;
 
@@ -225,7 +237,7 @@ Travailler sur un sujet en navigant sur le web peut nous amener à souhaiter con
 
 &nbsp;
 
-![Ajout d'un lien à une page Notion](/devendevenir/images/notion-link-menu.png)
+<Image src={ link } alt="Ajout d'un lien à une page Notion" inferSize class="my-5" />
 
 &nbsp;
 
@@ -251,7 +263,7 @@ Parmi les templates que propose Notion quand on initialise son espace de travail
 
 &nbsp;
 
-![Liste de tâches Notion](/devendevenir/images/notion-board.png)
+<Image src={ board } alt="Liste de tâches Notion" inferSize class="my-5" />
 
 &nbsp;
 
@@ -267,7 +279,7 @@ Fini les liens mémorisés sur Marmiton, Instagram et autres Pinterest, fini le 
 
 &nbsp;
 
-![Un livre de recettes avec Notion](/devendevenir/images/notion-recipes.png)
+<Image src={ recipes } alt="Un livre de recettes avec Notion" inferSize class="my-5" />
 
 &nbsp;
 

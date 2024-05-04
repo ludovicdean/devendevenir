@@ -13,7 +13,11 @@ unsplashlink : "https://unsplash.com/fr/photos/tastiera-del-computer-nera-Pr578Z
 isArticle : true
 ---
 
+import { Image } from "astro:assets";
 import Video from "@components/Video.astro";
+
+import homepage from "@assets/powertoys-homepage.png";
+import explorateur from "@assets/powertoys-explorateur-fichiers.png";
 
 Après quelques années à travailler sur des ordinateurs sous Windows j'ai fréquemment
 rencontré des problématiques d'affichage dès lors que l'on a plus d'un écran. La
@@ -37,7 +41,8 @@ Powertoys c'est une application disponible [ici](https://learn.microsoft.com/fr-
 
 A l'instar de Notion qui est le maestro de l'info, PowerToys est le chef d'orchestre ultime pour votre ordinateur, qui va rajouter des fonctionnalités difficiles à quitter après y avoir goûté. Après ce rapide passage en revue des capacités de PowerToys, il est temps d'aborder plus en détail chacun de ses modules.
 
-![Page d'accueil de PowerToys](/devendevenir/images/powertoys-homepage.png)
+<Image src={ homepage } alt="Page d'accueil de PowerToys." inferSize class="my-5" />
+
 &nbsp;
 
 ## Au paradis des fenêtres
@@ -68,8 +73,7 @@ Le développement web peut nous amener à rechercher des couleurs pour un site, 
 
 Trouver un fichier, l'ouvrir, le parcourir, réaliser que ce n'est pas le bon, le fermer, recommencer. Fini le calvaire, les extensions de l'explorateur de fichier sont faites pour vous. Vous pouvez sélectionner pour quels types de fichiers vous souhaitez activer l'aperçu.
 
-![Paramétrage des extensions de l'explorateur de fichiers Windows](/devendevenir/images/powertoys-explorateur-fichiers.png)
-
+<Image src={ explorateur } alt="Paramétrage des extensions de l'explorateur de fichiers Windows" inferSize class="my-5" />
 &nbsp;
 
 Il suffit d'appuyer sur **Alt+P** pour s'assurer que l'aperçu est bien activé dans l'explorateur de fichiers. Lorsqu'on sélectionne un fichier, son aperçu est généré dans la partie droite de l'écran. La largeur de l'aperçu peut être modifiée.
