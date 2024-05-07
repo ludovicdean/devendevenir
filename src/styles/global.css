@@ -18,7 +18,7 @@
 
 @font-face {
 	font-family: 'Atkinson', Arial, sans-serif;
-	src: url('../../public/fonts/atkinson-regular.woff') format('woff');
+	src: url('/src/assets/fonts/atkinson-regular.woff') format('woff');
 	src: url("/");
 	font-weight: 400;
 	font-style: normal;
@@ -27,7 +27,7 @@
 
 @font-face {
 	font-family: 'Atkinson', Arial, sans-serif;
-	src: url('../../public/fonts/atkinson-bold.woff') format('woff');
+	src: url('/src/assets/fonts/atkinson-bold.woff') format('woff');
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
