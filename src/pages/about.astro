@@ -1,10 +1,12 @@
 ---
 import Layout from "../layouts/BlogPost.astro";
+import { Image } from "astro:assets";
+import portrait from "/src/assets/portrait.jpg";
 ---
 
 <Layout title="À propos">
   <div style="justify-content:center;padding:0 15% 10%">
-    <img src="/devendevenir/images/portrait.jpg" />
+    <Image src={ portrait } alt="Portrait de l'auteur du blog." inferSize />
   </div>
   <p>
     No spoiler alert : je ne suis pas développeur depuis toujours. Initialement
