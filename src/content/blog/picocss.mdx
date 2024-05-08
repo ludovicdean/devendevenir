@@ -1,0 +1,102 @@
+---
+title : "PicoCSS, le framework CSS simplissime"
+date : May 08 2024
+tags :
+- Outils
+- I-culture
+description : Tailwind, Bootstrap, c'est bien, mais c'est parfois overkill. PicoCSS vous permet de créer un site web simple sans avoir à vous préoccuper du style, ou peu s'en faut !
+banner : "/images/alina-grubnyak-ZiQkhI7417A-unsplash.jpg"
+readingtime : "6 min"
+author : "Alina Grubnyak"
+authorlink : "https://unsplash.com/fr/@alinnnaaaa?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+unsplashlink : "https://unsplash.com/fr/photos/photographie-en-contre-plongee-dune-structure-metallique-ZiQkhI7417A?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+isArticle : true
+---
+
+PicoCSS est un framework CSS minimaliste. Il a pour objectif de faciliter le développement de page web sans pour autant renoncer à avoir du style.
+
+Comme tout outil dans le monde du développement, il faut passer par une étape inévitable, l'installation.
+
+## Débuter avec PicoCSS
+
+Comme toujours, il existe de multiples manières d’installer PicoCSS sur votre projet, au choix :
+
+- Installation manuelle
+- Utilisation du CDN
+- Installation avec npm
+
+### Installation manuelle
+
+Pour l’installation manuelle, vous devez :
+
+- télécharger PicoCSS [ici](https://picocss.com/docs)
+- copier le fichier dans le dossier /css de votre projet
+- référencer ce fichier dans la balise `<head></head>` de votre page web
+
+```html
+<head>
+    <link rel="stylesheet" href="/css/pico.min.css" />
+</head>
+```
+
+### Utilisation du CDN
+
+Si vous souhaitez utiliser le CDN de PicoCSS, vous devez :
+
+- copier l’extrait de code suivant
+- le coller dans la balise `<head></head>` de votre page.
+
+```html
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+/>
+```
+
+### Installation avec npm
+
+Si vous souhaitez installer PicoCSS avec npm, vous devez :
+
+- exécuter la commande suivante `npm install @picocss/pico`
+- puis importer PicoCSS dans votre fichier SCSS `@use "pico";`
+
+Il ne vous reste plus qu’à ajouter le starter html de PicoCSS et vous voilà prêt !
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="css/pico.min.css">
+    <title>Hello world!</title>
+  </head>
+  <body>
+    <main class="container">
+      <h1>Hello world!</h1>
+    </main>
+  </body>
+</html>
+```
+
+⚠️ Vérifiez bien l’attribut href de votre fichier sans quoi votre HTML n’aura aucun style 😅.
+
+## Poursuivre avec Pico
+
+L’apparence de base de votre page ne vous plaît pas ? Pico a tout prévu ! Une page est dédiée au choix de la palette de couleurs de votre site, ici https://picocss.com/docs/version-picker.
+
+En plus de votre thème, vous pourrez également choisir la version de PicoCSS que vous souhaitez utiliser :
+
+- regular (avec des classes)
+- class-less centered (sans classes, que des balises html avec des containers centrés)
+- class-less fluid (sans classes, que des balises html avec des containers fluides)
+
+### Pico regular
+
+Pico regular présente une utilisation similaire à celle de BootStrap
+Les versions class-less permettent certes de créer des pages web simples avec un style pré-existant, mais elles présentent un inconvénient majeur si vous souhaitez complexifier vos pages : les éléments possédant de multiples variantes telles que les boutons, qui peuvent être tour à tour des boutons par défaut (balise <button></button>), secondary (class=”secondary”), contrast (class=”contrast”), ne pourront être utilisés que dans leur version par défaut, celle qui est directement attachée à la balise HTML seule.
+
+Il faudra donc bien veiller aux conséquences de votre choix initial afin d'éviter les surprises ensuite.
+
+Pas de panique, la documentation du site est fournie et claire. De plus, il existe des exemples directement testables dans votre navigateur des différentes versions de PicoCSS. Elles vous permettront grâce à une Code Sandbox de tester en direct Pico, selon la version choisie.
