@@ -1,5 +1,5 @@
 ---
-title : "PicoCSS, le framework CSS simplissime"
+title : "PicoCSS, le framework CSS qui a du style"
 date : May 08 2024
 tags :
 - Outils
@@ -13,7 +13,7 @@ unsplashlink : "https://unsplash.com/fr/photos/photographie-en-contre-plongee-du
 isArticle : true
 ---
 
-PicoCSS est un framework CSS minimaliste. Il a pour objectif de faciliter le développement de page web sans pour autant renoncer à avoir du style.
+PicoCSS est un framework CSS minimaliste. Il a pour objectif de faciliter le développement de page web sans pour autant renoncer à avoir du style. Nous explorerons ici les possibilités de la version existant à la date de cet article, la 2.0.6.
 
 Comme tout outil dans le monde du développement, il faut passer par une étape inévitable, l'installation.
 
@@ -80,7 +80,7 @@ Il ne vous reste plus qu’à ajouter le starter html de PicoCSS et vous voilà 
 </html>
 ```
 
-⚠️ Vérifiez bien l’attribut href de votre fichier sans quoi votre HTML n’aura aucun style 😅.
+⚠ Vérifiez bien l’attribut href de votre fichier sans quoi votre HTML n’aura aucun style 😅.
 
 ## Poursuivre avec Pico
 
@@ -88,15 +88,137 @@ L’apparence de base de votre page ne vous plaît pas ? Pico a tout prévu ! Un
 
 En plus de votre thème, vous pourrez également choisir la version de PicoCSS que vous souhaitez utiliser :
 
-- regular (avec des classes)
-- class-less centered (sans classes, que des balises html avec des containers centrés)
-- class-less fluid (sans classes, que des balises html avec des containers fluides)
+- regular
+- conditional
+- class-less :
+    - centered container
+    - fluid container
 
 ### Pico regular
 
-Pico regular présente une utilisation similaire à celle de BootStrap
-Les versions class-less permettent certes de créer des pages web simples avec un style pré-existant, mais elles présentent un inconvénient majeur si vous souhaitez complexifier vos pages : les éléments possédant de multiples variantes telles que les boutons, qui peuvent être tour à tour des boutons par défaut (balise <button></button>), secondary (class=”secondary”), contrast (class=”contrast”), ne pourront être utilisés que dans leur version par défaut, celle qui est directement attachée à la balise HTML seule.
+Pico regular possède une dizaine de classes permettant de gérer l'affichage de certains éléments (container, grid) ou de déterminer le style d'un bouton (primary, secondary).
+
+L'exemple ci-dessous a été réalisé avec le thème orange de PicoCSS, en une dizaine de minutes.
+
+!["Page réalisée avec PicoCSS"](/devendevenir/images/PicoCSS-test.png)
+
+Si l'on se penche sur le code derrière cette page web, on peut observer plusieurs éléments.
+La balise head contient des liens vers 2 fichiers PicoCSS, l'un pour le thème, l'autre pour avoir accès à toutes les couleurs existantes. Vous ne pourrez utiliser les couleurs PicoCSS qu'en ajoutant à votre projet le fichier pico.colors.min.css.
+
+```html
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark" />
+    <!-- Centered viewport -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.orange.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css" />
+    <title>Accueil</title>
+</head>
+```
+
+Le corps de ma page web ne comporte que quelques classes, la quasi-totalité du style étant liée aux balises HTML elles-mêmes. La classe "container" permet que le contenu de la page soit centré par rapport au navigateur et qu'il y ait de l'espace de part et d'autre du contenu. La classe "grid" permet de créer un layout avec autant de colonnes qu"il y a d'éléments dans la balise qui porte la classe.
+
+```html
+<body class="container">
+    <p class="pico-background-red-100">Un blog écrit par un développeur pour les développeurs !</p>
+    <p>Quand je ne trouve pas d'infos je compile les infos que je trouve et j'écris l'article que j'aurais aimé trouver 😅</p>
+    <hr>
+    <h2>Articles</h2>
+    <div class="grid">
+        <article>
+            <header>Le titre de mon premier article</header>
+            Le résumé du sujet abordé dans l'article.
+            <footer><a>Catégorie 1</a>, <a>Catégorie 2</a></footer>
+        </article>
+        <article>
+            <header>Le titre de mon deuxième article</header>
+            Le résumé du sujet abordé dans l'article.
+            <footer><a>Catégorie 1</a>, <a>Catégorie 2</a></footer>
+        </article>
+        <article>
+            <header>Le titre de mon troisième article</header>
+            Le résumé du sujet abordé dans l'article.
+            <footer><a>Catégorie 2</a>, <a>Catégorie 3</a></footer>
+        </article>
+    </div>
+</body>
+```
+
+On peut également voir que le code du formulaire est également minimaliste.
+
+```html
+<form>
+    <h2>Me contacter</h2>
+    <label for="email">
+        <input type="email" id="email" placeholder="Email" autocomplete="email" />
+    </label>
+    <textarea name="bio" placeholder="Message" aria-label="Contenu du mail"></textarea>
+    <input type="submit" />
+</form>
+```
+
+### Pico conditional
+
+PicoCSS vous permet bien entendu d'utiliser des fichiers CSS personnalisés. La version "conditional styling" vous permettra de mélanger votre propre CSS à PicoCSS.
+
+L'ajout d'une classe `class="pico"` à un élément HTML permet d'indiquer que les éléments enfants de cette balise seront stylisés par PicoCSS. L'image suivante présente un formulaire avec un champ stylisé par PicoCSS tandis que le second possède l'affichage par défaut du navigateur.
+
+!["Formulaire stylisé avec ou sans PicoCSS"](/devendevenir/images/PicoCSS-conditional.png)
+
+```html
+<body>
+    <main class="container">
+        <h2>Formulaire de contact</h2>
+        <form class="container pico">
+            <input type="text" name="text" placeholder="Adresse mail" aria-label="Text" />
+        </form>
+        <form class="container">
+            <textarea name="text" placeholder="Votre message" aria-label="Text"></textarea>
+        </form>
+    </main>
+</body>
+```
+
+L'extrait de code ci-dessus montre que le premier formulaire possède le style PicoCSS en raison de la classe `pico` qu'il porte. Le deuxième formulaire quant à lui ne bénéficie pas du style PicoCSS, en raison de l'absence de la classe correspondante.
+
+⚠ Il est à noter que la classe `container` des formulaires a pour seul rôle d'ajouter un padding aux éléments correspondants et faciliter la lecture de la page.
+
+### Pico class-less
+
+Les versions class-less permettent de créer des pages web simples avec le thème que vous avez choisi, mais elles présentent un inconvénient majeur si vous souhaitez complexifier vos pages : les éléments possédant de multiples variantes telles que les boutons, qui peuvent être tour à tour des boutons par défaut (balise `<button></button>`), secondary (class=”secondary”), contrast (`class=”contrast”`), ne pourront être utilisés que dans leur version par défaut, celle qui est directement attachée à la balise HTML seule.
 
 Il faudra donc bien veiller aux conséquences de votre choix initial afin d'éviter les surprises ensuite.
 
 Pas de panique, la documentation du site est fournie et claire. De plus, il existe des exemples directement testables dans votre navigateur des différentes versions de PicoCSS. Elles vous permettront grâce à une Code Sandbox de tester en direct Pico, selon la version choisie.
+
+Il existe 2 versions class-less :
+
+- `centered-container` : les éléments seront centrés sur la page et ne prendront pas la totalité de la largeur de la page.
+- `fluid-container` : les éléments prendront à l'inverse la totalité de la largeur de la page.
+
+Là encore le sélecteur de versions est bien fait et vous permettra de faire votre choix en votre âme et conscience 😅.
+
+## Les composants Pico
+
+Toujours afin de nous faciliter la vie, PicoCSS nous propose une dizaine de composants pré-conçus, notamment les suivants :
+
+- Un accordéon
+- Une barre de navigation
+- Une carte (acceptant un header et/ou un footer)
+
+## Les variables CSS
+
+Vous souhaitez que votre site vous ressemble ? Aucun problème. PicoCSS vous permet de définir les valeurs que vous souhaitez donner aux variables PicoCSS.
+Le choix est large, vous disposez d'environ 130 variables CSS prédéfinies par PicoCSS.
+
+Toutes les variables propres au framework portent le préfixe `--pico` afin d'éviter toute interaction avec le reste de vos styles.
+
+Si vous mettez en place un thème clair et un thème sombre il faudra vous référer à la documentation afin de bien gérer vos variables.
+
+## Conclusion
+
+Notre tour du propriétaire s'achève ici, vous avez désormais les armes pour découvrir PicoCSS, et qui sait, peut-être même l'adopter pour vos projets ?
+
+
+## Conclusion
