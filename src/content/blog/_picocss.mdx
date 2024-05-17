@@ -2,8 +2,7 @@
 title : "PicoCSS, le framework CSS qui a du style"
 date : May 08 2024
 tags :
-- Outils
-- I-culture
+- Framework
 description : Tailwind, Bootstrap, c'est bien, mais c'est parfois overkill. PicoCSS vous permet de créer un site web simple sans avoir à vous préoccuper du style, ou peu s'en faut !
 banner : "/images/alina-grubnyak-ZiQkhI7417A-unsplash.jpg"
 readingtime : "6 min"
@@ -13,9 +12,10 @@ unsplashlink : "https://unsplash.com/fr/photos/photographie-en-contre-plongee-du
 isArticle : true
 ---
 
-PicoCSS est un framework CSS minimaliste. Il a pour objectif de faciliter le développement de page web sans pour autant renoncer à avoir du style. Nous explorerons ici les possibilités de la version existant à la date de cet article, la 2.0.6.
+PicoCSS est un framework CSS minimaliste. Il a pour objectif de faciliter le développement de page web sans pour autant renoncer à avoir du style.
+C'est l'allié parfait pour ébaucher une page web rapidement, sans trop plonger dans les méandres du CSS. Nous nous intéresserons ici à la version actuelle, la 2.0.6.
 
-Comme tout outil dans le monde du développement, il faut passer par une étape inévitable, l'installation.
+Comme pour tout outil dans le monde du développement, il faut passer par une étape inévitable, l'installation.
 
 ## Débuter avec PicoCSS
 
@@ -38,6 +38,8 @@ Pour l’installation manuelle, vous devez :
     <link rel="stylesheet" href="/css/pico.min.css" />
 </head>
 ```
+
+Assurez-vous d'adapter le chemin d'accès à votre fichier CSS !
 
 ### Utilisation du CDN
 
@@ -80,11 +82,20 @@ Il ne vous reste plus qu’à ajouter le starter html de PicoCSS et vous voilà 
 </html>
 ```
 
-⚠ Vérifiez bien l’attribut href de votre fichier sans quoi votre HTML n’aura aucun style 😅.
+Vérifiez bien l’attribut href de votre fichier sans quoi votre HTML n’aura aucun style 😅.
 
-## Poursuivre avec Pico
+## Le fonctionnement de PicoCSS
 
-L’apparence de base de votre page ne vous plaît pas ? Pico a tout prévu ! Une page est dédiée au choix de la palette de couleurs de votre site, ici https://picocss.com/docs/version-picker.
+La base même de PicoCSS est de s'appuyer sur des styles préconçus pour les éléments suivants :
+
+- balises html (p, h1, nav etc.)
+- types des balises (submit, reset)
+- état des balises (focus, hover)
+- hiérarchie des éléments (footer d'une card)
+
+PicoCSS combine ces trois types d'éléments afin de proposer la gamme la plus large possible de styles avec un minimum de classes.
+
+Si l’apparence de base de votre page ne vous plaît pas, Pico a tout prévu ! Une page est dédiée au choix de la palette de couleurs de votre site, ici https://picocss.com/docs/version-picker.
 
 En plus de votre thème, vous pourrez également choisir la version de PicoCSS que vous souhaitez utiliser :
 
@@ -93,6 +104,8 @@ En plus de votre thème, vous pourrez également choisir la version de PicoCSS q
 - class-less :
     - centered container
     - fluid container
+
+Commençons par le commencement, Pico regular.
 
 ### Pico regular
 
@@ -158,6 +171,8 @@ On peut également voir que le code du formulaire est également minimaliste.
 </form>
 ```
 
+Après avoir approfondi Pico regular, passons maintenant à Pico conditional.
+
 ### Pico conditional
 
 PicoCSS vous permet bien entendu d'utiliser des fichiers CSS personnalisés. La version "conditional styling" vous permettra de mélanger votre propre CSS à PicoCSS.
@@ -182,7 +197,9 @@ L'ajout d'une classe `class="pico"` à un élément HTML permet d'indiquer que l
 
 L'extrait de code ci-dessus montre que le premier formulaire possède le style PicoCSS en raison de la classe `pico` qu'il porte. Le deuxième formulaire quant à lui ne bénéficie pas du style PicoCSS, en raison de l'absence de la classe correspondante.
 
-⚠ Il est à noter que la classe `container` des formulaires a pour seul rôle d'ajouter un padding aux éléments correspondants et faciliter la lecture de la page.
+Il est à noter que la classe `container` des formulaires de l'exemple ci-dessus a pour seul rôle d'ajouter un padding aux éléments correspondants et faciliter la lecture de la page.
+
+Il s'agit d'une des seules classes de Pico, qui propose également des versions sans classes, qui s'appuie uniquement sur la sémantique des balises html pures.
 
 ### Pico class-less
 
@@ -199,6 +216,8 @@ Il existe 2 versions class-less :
 
 Là encore le sélecteur de versions est bien fait et vous permettra de faire votre choix en votre âme et conscience 😅.
 
+Le choix de version de Pico étant maintenant fait, découvrez les composants Pico.
+
 ## Les composants Pico
 
 Toujours afin de nous faciliter la vie, PicoCSS nous propose une dizaine de composants pré-conçus, notamment les suivants :
@@ -207,10 +226,14 @@ Toujours afin de nous faciliter la vie, PicoCSS nous propose une dizaine de comp
 - Une barre de navigation
 - Une carte (acceptant un header et/ou un footer)
 
+Les composants complètent efficacement le framework, en étendant encore ses possibilités, sans pour autant céder aux sirènes de la complexité.
+
+
+
 ## Les variables CSS
 
-Vous souhaitez que votre site vous ressemble ? Aucun problème. PicoCSS vous permet de définir les valeurs que vous souhaitez donner aux variables PicoCSS.
-Le choix est large, vous disposez d'environ 130 variables CSS prédéfinies par PicoCSS.
+Vous souhaitez que votre site vous ressemble encore plus ? Aucun problème. PicoCSS vous permet de définir les valeurs que vous souhaitez donner aux variables PicoCSS.
+Le choix est large, vous disposez d'environ 130 variables CSS prédéfinies par PicoCSS, de la définition de la famille de police aux couleurs primaire et secondaire.
 
 Toutes les variables propres au framework portent le préfixe `--pico` afin d'éviter toute interaction avec le reste de vos styles.
 
@@ -220,5 +243,4 @@ Si vous mettez en place un thème clair et un thème sombre il faudra vous réf�
 
 Notre tour du propriétaire s'achève ici, vous avez désormais les armes pour découvrir PicoCSS, et qui sait, peut-être même l'adopter pour vos projets ?
 
-
-## Conclusion
+PicoCSS est un outil prometteur, dont les dernières nouveautés (le sélecteur de version, le CSS conditionnel, la gestion des couleurs) sont de bon augure pour la suite.
