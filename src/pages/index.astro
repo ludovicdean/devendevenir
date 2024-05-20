@@ -5,18 +5,11 @@ import Footer from "@components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection } from "astro:content";
 import PostsList from "@components/PostsList.astro";
-import TagsList from "@components/TagsList.astro";
+import TagCloud from "@components/TagCloud.astro";
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
-
-const allTags = posts.map((post) => post.data.tags).flat();
-
-const tags = allTags.reduce(function (acc, tag: string) {
-  acc[tag] = (acc[tag] || 0) + 1;
-  return acc;
-}, {});
 ---
 
 <!doctype html>
@@ -44,7 +37,7 @@ const tags = allTags.reduce(function (acc, tag: string) {
       </p>
 
       <section>
-        <TagsList tags={tags} />
+        <TagCloud posts={posts} />
         <PostsList posts={posts} context="home" />
       </section>
     </main>
