@@ -14,8 +14,9 @@ const filteredPosts = posts.filter((post) => post.data.tags?.includes(name));
 ---
 
 <html lang="en">
-    <BaseHead title={name} description={description} />
-
+    <head>
+        <BaseHead title={name} description={description} />
+    </head>
     <body>
         <Header />
         <main>
