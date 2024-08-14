@@ -1,0 +1,116 @@
+---
+title : "Mocker une API en 5 minutes, c'est possible !"
+date : Sep 4 2024
+tags :
+    - Outils
+description : "Un projet démarre et vous n'avez pas de back-end sur lequel vous appuyer ? Découvrez vite json server !"
+banner : "/images/clay-banks-8q6e5hu3Ilc-unsplash.jpg"
+readingtime : "6 min"
+author : "Clay Banks"
+authorlink : "https://unsplash.com/fr/@claybanks?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+unsplashlink : "https://unsplash.com/fr/photos/un-ordinateur-portable-pose-sur-un-bureau-en-bois-8q6e5hu3Ilc?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+isArticle : true
+---
+Au début d'un projet de développement (professionnel ou personnel) on a souvent une idée du contenu que l'on souhaite présenter, mais on a rarement le back-end et la base de donnée qui vont avec.
+Est-on contraint de commencer forcément par le back-end de notre application pour autant ? Non, json-server va nous permettre d'entamer un projet front-end sans back-end.
+
+## Qu'est-ce que json server ?
+
+Il s'agit d'un package npm, entendez un projet pré-existant et disponible sur le gestionnaire de paquets npm. Inutile de réinventer la roue si quelqu'un d'autre l'a fait avant vous, autant réutiliser ce qui a déjà été fait.
+
+Ce package va mettre à votre disposition un ensemble de routes d'API en quelques minutes, à condition que votre structure de données soit déjà prête.
+
+## Pré-requis
+
+3 éléments sont nécessaires :
+
+- NodeJS
+- Un éditeur de code (Visual Studio Code dans mon cas)
+- Un terminal
+
+Avant d'utiliser json server, vous allez avoir besoin d'installer **NodeJS** (si ce n'est pas déjà fait 😊). Si ce n'est pas le cas, vous pouvez vous rendre [ici](https://nodejs.org/en/download/current) pour télécharger l'installateur qui correspond à votre système d'exploitation.
+
+Une fois l'installation terminée, dans un nouveau terminal, saisissez `node -v` ou `node --version`.
+Le terminal devrait afficher la version de NodeJS installée sur votre ordinateur (dans mon cas, v20.9.0).
+
+Cette vérification faite, vous pouvez passer à la création de votre prototype d'API.
+
+## Installer json server
+
+Comme pour tout package npm qui se respecte, l'installation se passe via votre terminal (dans le dossier visé pour le projet) avec la commande suivante :
+
+```bash
+npm install json-server
+```
+
+Si tout s'est bien passé, l'arborescence de votre projet devrait ressembler à cela :
+
+![Arborescence du projet json server.](/devendevenir/images/json-server-arborescence.png)
+
+Votre projet comporte maintenant 3 éléments :
+
+- un dossier node_modules, qui contient l'ensemble du code des dépendances de json server.
+- un fichier package.json qui indique les propriétés du projet.
+- un fichier package-lock.json, qui contient la liste de l'ensemble des dépendances et de leurs versions respectives qu'utilise json server.
+
+Ne reste plus qu'à créer votre fichier db.json. Pas besoin de partir de 0, la [documentation](https://github.com/typicode/json-server#readme) comporte un exemple de fichier db.json.
+
+```json
+{
+  "posts": [
+    { "id": "1", "title": "a title", "views": 100 },
+    { "id": "2", "title": "another title", "views": 200 }
+  ],
+  "comments": [
+    { "id": "1", "text": "a comment about post 1", "postId": "1" },
+    { "id": "2", "text": "another comment about post 1", "postId": "1" }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
+```
+
+Si vous ne fournissez pas d'id à vos éléments, json server le fera pour vous et en génèrera à votre place.
+
+## Votre API est prête, testez-la !
+
+Les éléments qui sont à la racine de notre fichier JSON constituent les routes que nous allons pouvoir utiliser, dans notre cas /posts, /comments et /profile. Json server écoute sur le port 3000 par défaut, les routes commenceront donc par http://localhost:3000.
+
+L'exemple fourni vous permet de disposer des routes suivantes :
+
+- /posts (GET, POST)
+- /posts/id (GET, PUT, PATCH, DELETE)
+- /comments (GET, POST)
+- /comments/id (GET, PUT, PATCH, DELETE)
+- /profile (GET, POST, PUT, PATCH)
+
+Plus encore, vous pouvez passer toutes sortes de paramètres à votre URL afin d'effectuer diverses opérations :
+
+- conditions sur la valeur d'un attribut
+- récupération de données paginées
+- tri selon un paramètre donné
+
+Vous pourrez également personnaliser vos routes. Il faudra alors créer un fichier routes.json que vous passerez en option de la commande suivante :
+
+```bash
+json-server db.json --routes routes.json
+```
+
+Pour tester vos routes, vous pouvez utiliser :
+
+- un appel curl via l'invite de commande sur la route http://localhost:3000/posts
+- un appel via votre navigateur web
+- un appel depuis votre front-end
+- une application comme Postman, ou encore Bruno
+
+Le port par défaut est le port 3000.
+
+La CLI (Command Line Interface, Interface de Ligne de Commande dans la langue de Molière) de json server dispose d'une grande variété d'options afin de modifier la configuration, le port utilisé, le dossier où se trouvent vos fichiers statiques etc. Vous trouverez la liste exhaustive de ces options [ici](https://github.com/typicode/json-server/tree/v0?tab=readme-ov-file#cli-usage).
+
+En résumé, que vous souhaitiez simuler des appels à une API via une autre API ou que vous souhaitiez fournir des données à un front-end sans être bloqué par le développement de votre back-end, json server sera votre meilleur allié.
+
+## Conclusion
+
+Json server est un outil simple d'utilisation, avec une mise en place rapide qui vous permettra de réaliser des tests d'un front-end vers un back-end, ou encore d'une API vers une autre API sans être bloqué par l'un de ces éléments.
+Bien entendu, ce n'est pas adapté à la réalisation d'une API de production, cela reste un outil destiné au début du développement d'une application.
