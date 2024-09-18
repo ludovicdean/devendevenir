@@ -1,0 +1,130 @@
+---
+title : "Tailblocks, votre allié pour une page web simple et rapide"
+date : Sep 16 2024
+tags :
+- Outils
+description : "Vous connaissez Tailwind CSS ? Eh bien Tailblocks vous propose des composants Tailwind responsive, prêts à l'emploi et gratuits !"
+banner : "/images/iker-urteaga-TL5Vy1IM-uA-unsplash.jpg"
+readingtime : "6 min"
+author : "Iker Urteaga"
+authorlink : "https://unsplash.com/fr/@iurte?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+unsplashlink : "https://unsplash.com/fr/photos/lot-de-blocs-de-construction-bleus-TL5Vy1IM-uA?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+isArticle : true
+---
+Si vous avez déjà fureté sur le site de Tailwind CSS, vous avez sûrement jeté un oeil aux composants qu’il propose. Ces composants sont très esthétiques, agréables à l’oeil, mais ils présentent un inconvénient majeur, leur prix.
+
+Dès que l’on souhaite accéder à leur code, on se heurte à une interface nous invitant à sortir notre carte bancaire afin d’obtenir les composants nous ayant tapé dans l’oeil.
+
+C’est ici qu’intervient Tailblocks !
+
+## C’est quoi Tailblocks ?
+
+Tailblocks c’est un [site web](https://tailblocks.cc/) qui a pour but de fournir des composants Tailwind CSS responsive, prêts à l’emploi, et modifiables à l’envi !
+
+## Comment utiliser Tailblocks ?
+
+Le plus difficile pour obtenir les composants que propose Tailblocks est de résister à l’envie de faire un simple copier-coller du code et de regarder notre fichier dans un navigateur.
+
+Ne faites pas ça, vous n’êtes pas prêt 😅. Avouez, vous avez tenté ^^. Moi aussi, je vous le confesse 🤣. Pressé de voir le rendu de votre nouveau composant, j'ai oublié un détail qui a son importance : Tailwind CSS !
+
+Vous avez cru qu’on vous fournissait des composants sans rien devoir faire ? Non, on a besoin de vous pour faire plus que de changer le lorem ipsum de votre composant.
+
+Il faut bien évidemment que votre page comporte déjà Tailwind CSS, ou un moyen de faire appel à ses scripts !
+
+Allez, maintenant que j’ai éventé le “secret”, il est plus que temps de vous montrer à quoi ressemblera votre page si vous faites bien les choses. Dans un premier temps, la structure de votre page ressemble à ceci :
+
+```html
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+	Votre composant ira ici !
+</body>
+</html>
+```
+
+Vous aurez reconnu la balise `<script></script>` qui contient le lien vers le Réseau de Partage de Contenu (CDN, ou Content Delivery Network en VO).
+
+Comme indiqué juste ici, vous n’avez plus qu’à coller le code de votre composant et à actualiser votre page web.
+
+```html
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<section class="text-gray-600 body-font">
+  <div class="container px-5 py-24 mx-auto flex flex-col">
+    <div class="lg:w-4/6 mx-auto">
+      <div class="rounded-lg h-64 overflow-hidden">
+        <img alt="content" class="object-cover object-center h-full w-full" src="https://dummyimage.com/1200x500">
+      </div>
+      <div class="flex flex-col sm:flex-row mt-10">
+        <div class="sm:w-1/3 text-center sm:pr-8 sm:py-8">
+          <div class="w-20 h-20 rounded-full inline-flex items-center justify-center bg-gray-200 text-gray-400">
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10" viewBox="0 0 24 24">
+              <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <div class="flex flex-col items-center text-center justify-center">
+            <h2 class="font-medium title-font mt-4 text-gray-900 text-lg">Phoebe Caulfield</h2>
+            <div class="w-12 h-1 bg-indigo-500 rounded mt-2 mb-4"></div>
+            <p class="text-base">Raclette knausgaard hella meggs normcore williamsburg enamel pin sartorial venmo tbh hot chicken gentrify portland.</p>
+          </div>
+        </div>
+        <div class="sm:w-2/3 sm:pl-8 sm:py-8 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">
+          <p class="leading-relaxed text-lg mb-4">Meggings portland fingerstache lyft, post-ironic fixie man bun banh mi umami everyday carry hexagon locavore direct trade art party. Locavore small batch listicle gastropub farm-to-table lumbersexual salvia messenger bag. Coloring book flannel truffaut craft beer drinking vinegar sartorial, disrupt fashion axe normcore meh butcher. Portland 90's scenester vexillologist forage post-ironic asymmetrical, chartreuse disrupt butcher paleo intelligentsia pabst before they sold out four loko. 3 wolf moon brooklyn.</p>
+          <a class="text-indigo-500 inline-flex items-center">Learn More
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>
+```
+
+Sur votre écran, vous devriez obtenir un rendu proche de ceci :
+
+![Exemple de composant Tailblocks](/devendevenir/images/tailblocks.png)
+
+J'ai pris un composant peu volumineux afin d'éviter un énorme pavé de code.
+
+## Oui, mais on trouve quoi comme composants ?
+
+Tailblocks propose actuellement 63 composants (peut-être pour un moment, l’activité du dépôt Github semble à l’arrêt depuis quelques années déjà. Vous trouverez les essentiels d’un site web :
+
+- barre de navigation
+- pied de page
+- formulaire de contact
+- call to action
+- trombinoscope
+- témoignages
+- FAQ
+- galerie
+
+L’intérêt de ces composants ? Obtenir rapidement un rendu propre pour une page web simple. De plus, ils sont nativement responsive, ce que vous pouvez voir en utilisant les boutons dédiés dans la barre de navigation du site web.
+
+À titre personnel, j’ai récemment eu l’occasion de présenter une page web construite avec des composants Tailblocks afin de lui montrer à quoi pourrait ressembler la structure de son site.
+
+## Pourquoi utiliser Tailblocks ?
+
+À mon sens, le meilleur usage à faire de Tailblocks est de l’utiliser pour réaliser une maquette rapide pour un projet, pour créer votre page statique avec quelques infos joliment présentées.
+
+Il ne s’agit pas de tout faire avec Tailblocks, mais d’obtenir un rendu propre rapidement sans trop mettre les mains dans le cambouis.
+
+## Conclusion
+
+Au même titre que PicoCSS (dans l’usage, pas dans le fonctionnement), Tailblocks est un outil simple d’usage et rapide à mettre en oeuvre afin de monter la v1 d’une page, de positionner ses éléments sans trop perdre de temps. À vous de jouer maintenant !
