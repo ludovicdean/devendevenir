@@ -1,6 +1,7 @@
 ---
 title : "Notion, un outil aussi simple que puissant"
 date : Jan 24 2024
+updatedDate : Sep 18 2024
 tags :
     - Outils
     - Méthodologie
@@ -13,15 +14,37 @@ unsplashlink : "https://unsplash.com/fr/photos/tastiera-del-computer-nera-Pr578Z
 isArticle : true
 ---
 
-Au début de ma "nouvelle" vie professionnelle j'ai rapidement constaté que les développeurs étaient, sauf à quelques exceptions près, équipées d'un cahier et d'un stylo afin de prendre des notes sur leur travail, à propos des réunions etc. J'ai essayé d'utiliser un cahier, mais rien à faire, je n'ai jamais accroché, et les difficultés à retrouver des informations simplement m'ont poussé à abandonner cet outil.
 
-Pour dépasser le blocage quotidien déclenché par la question rituelle "Qu'est-ce que tu as fait hier Ludo ?". Il aura fallu d'innombrables "Euh...", "Attends j'ai noté quelque chose quelque part", "Poursuivez sans moi le temps que je retrouve" j'ai décidé de trouver une solution numérique à ce problème d'organisation et de mémoire.
+import Video from "@components/Video.astro";
+
+Au début de ma "nouvelle" vie professionnelle, j'ai rapidement constaté que les développeurs étaient, sauf à quelques exceptions près, équipées d'un cahier et d'un stylo afin de prendre des notes sur leur travail, à propos des réunions, etc. J'ai essayé d'utiliser un cahier, mais rien à faire, je n'ai jamais accroché, et les difficultés à retrouver des informations simplement m'ont poussé à abandonner cet outil.
+
+Pour dépasser le blocage quotidien déclenché par la question rituelle "Qu'as-tu fait hier Ludo ?". Il aura fallu d'innombrables "Euh...", "Attends, j'ai noté quelque chose quelque part", "Poursuivez sans moi le temps que je retrouve" j'ai décidé de trouver une solution numérique à ce problème d'organisation et de mémoire.
 
 La solution s'est présentée sous la forme d'un outil que j'avais déjà croisé dans une ancienne vie sans prendre le temps de m'y plonger, Notion.
 
 Je vais essayer ici de faire un tour d'horizon de l'outil qui m'est aujourd'hui indispensable à titre privé comme à titre professionnel, puis j'aborderai l'utilisation que j'en fais au quotidien.
 
 &nbsp;
+
+## Nouveautés
+
+En 9 mois, Notion a connu quelques versions dites "mineures", qui ont pour certaines tous les atouts d'une version majeure ! Pour être précis, 2024 a vu jusqu'ici se succéder pas moins de 6 versions mineures, de 2.37 début janvier à 2.44 à la date de cet article.
+
+Les dernières versions en date sont inégales en termes de fonctionnalités, certaines pourraient passer inaperçues hormis pour les experts de l'application, tandis que d'autres constituent de vraies petites révolutions à l'échelle de l'application. Retour sur les dernières innovations :
+
+- 2.38 : amélioration des calendriers
+- 2.39 : amélioration de la barre latérale
+- 2.40 : amélioration de la page d'accueil
+
+Des versions intéressantes, mais sans "breaking change", sans changement majeur. Les versions suivantes ont quant à elles offert de véritables nouveautés, décuplant le potentiel de l'application :
+
+- 2.41 : l'IA déjà intégrée à Notion sort de sa boîte, et peut maintenant chercher des informations sur les autres services que vous utilisez (Google Drive, Slack, Jira, etc.)
+- 2.42 : les Notion Sites arrivent et propulsent l'application aux sommets ! Crée une page web n'a jamais été aussi simple. Découvrez pourquoi [ici](#les-sites-notion).
+- 2.43 : les suggestions de modifications deviennent simples, découvrez-cela [ici](#les-suggestions).
+- 2.44 : les graphiques viennent compléter l'arsenal de Notion. Difficile de tirer des conclusions à partir d'une base de données sans représentation visuelle de ces données. Désormais Notion vous fournit les outils pour le faire. Seul bémol, l'outil est payant 😭.
+
+Avant de cliquer sur le lien juste au-dessus, vous pouvez également retrouver une nouvelle section portant sur les [automatisations](#les-automatisations) que propose Notion, ou comment décupler les capacités de Notion en le faisant communiquer avec vos autres outils.
 
 ## C'est quoi Notion ?
 
@@ -105,7 +128,7 @@ Mes deux principales utilisations de Notion à titre professionnel sont les suiv
 
 ### Journal de dev
 
-A l'instar d'un journal intime, un journal de développement est un outil qui permet de noter quotidiennement les actions réalisées, les pistes explorées pour répondre à une problématique, les questions générées par la tâche du moment.
+À l'instar d'un journal intime, un journal de développement est un outil qui permet de noter quotidiennement les actions réalisées, les pistes explorées pour répondre à une problématique, les questions générées par la tâche du moment.
 
 J'ai choisi de structurer ce journal en créant une page Journal de dev qui contient une page par mois, chaque page mensuelle contenant une page par jour de travail.
 
@@ -117,13 +140,13 @@ J'ai choisi de structurer ce journal en créant une page Journal de dev qui cont
 
 Le fractionnement de l'information se fait donc par pages dans mon cas. Rien ne vous empêche, si vous notez peu de choses, de vous contenter d'une page par mois, vous pourrez alors structurer votre page avec un titre faisant ressortir la date par rapport au reste de vos notes. J'ai pris le parti de multiplier les pages afin d'éviter d'avoir une immense page sur laquelle je passerais mon temps à faire défiler pour y retrouver une information.
 
-A ce propos, Notion a l'avantage de prendre en charge la syntaxe Markdown, que mon métier nous amène à pratiquer régulièrement. Cet article est d'ailleurs rédigé avec cette syntaxe.
+À ce propos, Notion a l'avantage de prendre en charge la syntaxe Markdown, que mon métier nous amène à pratiquer régulièrement. Cet article est d'ailleurs rédigé avec cette syntaxe.
 
 &nbsp;
 
 ### Wiki
 
-Quand on arrive sur un nouveau projet on est généralement submergé d'informations aussi nombreuses qu'importantes. Il ne serait pas pertinent de les incorporer à mon journal de dev puisque je serai amené à y revenir régulièrement. On peut donc créer plusieurs sections, à l'organisation spécifique au type d'informations qu'on souhaite y stocker.
+Quand on arrive sur un nouveau projet, on est généralement submergé d'informations aussi nombreuses qu'importantes. Il ne serait pas pertinent de les incorporer à mon journal de dev puisque je serai amené à y revenir régulièrement. On peut donc créer plusieurs sections, à l'organisation spécifique au type d'informations qu'on souhaite y stocker.
 
 &nbsp;
 
@@ -217,9 +240,9 @@ Conserver des informations est précieux, mais parmi ces informations se trouven
 
 #### Les liens
 
-Travailler sur un sujet en navigant sur le web peut nous amener à souhaiter conserver des liens intéressants, ou pas encore parcourus. Là encore Notion nous apporte une solution aussi esthétique que pratique. Lorsqu'on copie-colle un lien sur une page Notion, un menu s'ouvre et nous propose 3 options :
+Travailler sur un sujet en naviguant sur le web peut nous amener à souhaiter conserver des liens intéressants, ou pas encore parcourus. Là encore Notion nous apporte une solution aussi esthétique que pratique. Lorsqu'on copie-colle un lien sur une page Notion, un menu s'ouvre et nous propose 3 options :
 
-- Ignorer permet de coller le lien cliquable brut, utile mais peu esthétique.
+- Ignorer permet de coller le lien cliquable brut, utile, mais peu esthétique.
 - Créer un aperçu visuel du lien ajoute un bloc avec titre, description du lien et miniature.
 - Intégrer dans cette page permet d'obtenir un bloc contenant l'ensemble de la page, consultable sans avoir à quitter Notion.
 
@@ -233,7 +256,61 @@ A l'usage, l'option la plus intéressante reste la deuxième, le lien est dispon
 
 &nbsp;
 
-## Comment utiliser Notion quand on est pas développeur ?
+#### Les sites Notion
+
+Arrivés avec la version 2.42, ils permettent de publier une page web à partir d'une page Notion. Je vous vois déjà vous demander "Comment ???"
+
+Une image valant plus qu'un long discours, voici la démonstration des actions à effectuer.
+
+<Video path="/devendevenir/images/notion-sites.webm" />
+
+Une fois publié, un site peut être mis hors ligne si vous souhaitez le modifier avant de le rendre de nouveau disponible.
+
+<Video path="/devendevenir/images/notion-sites-hors-ligne.webm" />
+
+Quand le site est hors ligne, si une autre personne tente d'y accéder, elle se heurtera à un écran d'authentification qui l'empêchera d'accéder à la page. Pratique, non ?
+
+Si vous profitez d'un abonnement payant à Notion, vous pourrez également profiter de quelques outils supplémentaires, qui vous permettront de personnaliser votre site :
+
+- choix du thème clair/sombre
+- aspect de l'en-tête
+- gestion des raccourcis vers d'autres pages
+
+#### Les automatisations
+
+Aspect que j'ai omis d'aborder dans la première version de cet article (mais déjà présent lors de sa publication), les automatisations de Notion vers d'autres applications. Elles sont arrivées avec la version 2.33 de Notion, et évoluent régulièrement depuis.
+
+Quand vous travaillez en équipe, que vous gérez votre projet sur Notion et que vous échangez sur un réseau social externe, il peut se passer des jours sans que des changements réalisés sur Notion ne soient vus par votre équipe.
+
+Pour éviter ça, et plus largement pour étendre les capacités de Notion à communiquer avec d'autres outils, il est possible de mettre en place des automatisations. Les détailler toutes serait fastidieux, je vais simplement vous présenter une automatisation que j'ai mise en place dans le cadre d'un projet.
+
+Ce projet était géré sur Notion, avec une base de données. Par ailleurs, je communiquais avec d'autres personnes autour de ce projet via un réseau social. J'avais pris l'habitude de poster un message à chaque fois que j'ajoutais ou modifiais un élément. C'est un fonctionnement possible, mais répétitif.
+
+J'avais déjà entendu parler d'automatisations possibles entre 2 applications, et ai cherché s'il en existait entre ce réseau social et Notion 🔎.
+
+La réponse est oui !
+
+Pour chercher les automatisations possibles, vous pouvez vous référer à cette [page](https://www.notion.so/fr/integrations).
+
+Vous pouvez mettre en place des notifications sur un réseau social pour chaque modification de votre base de données Notion. Réciproquement, il est possible de créer un nouvel élément de base de données depuis Slack qui sera enregistré sur Notion.
+
+Quelle que soit l'automatisation qui vous intéresse, votre flux de travail gagnera en efficacité et présentera beaucoup moins de points de friction pour vous et vos collègues.
+
+Une grande variété d'intégrations existe, dans un vaste panel de catégories :
+
+- Collaboration (Lucidchart, Figma, Canva)
+- Gestion de projets (Jira, Trello, Miro)
+- Ingénierie (Github, Gitlab)
+
+À vous d'aller explorer toutes ces intégrations et de trouver celles qui vous conviennent ! Chacune d'entre elles bénéficie d'un guide de mise en place pour la partie Notion, il vous faudra trouver l'équivalent pour l'outil auquel vous vous connectez afin de le configurer correctement et de commencer à profiter des nouvelles possibilités qui s'offrent à vous !
+
+#### Les suggestions
+
+Collaborer sur un projet n'est pas toujours simple, mais apporter ses suggestions est toujours intéressant. Notion a pris cela en compte et permet désormais de faire des suggestions en quelques clics.
+
+<Video path="/devendevenir/images/notion-suggestions.webm" />
+
+## Comment utiliser Notion quand on n'est pas développeur ?
 
 Pas besoin d'être développeur pour utiliser Notion, l'application regorge de fonctionnalités intéressantes. A titre personnel j'utilise Notion pour :
 
@@ -271,13 +348,13 @@ Fini les liens mémorisés sur Marmiton, Instagram et autres Pinterest, fini le 
 
 &nbsp;
 
-Ici vous voyez un extrait de mon livre de recettes personnel. Chaque recette possède sa propre page avec ses étapes de préparation, des tags permettant de rechercher les recettes par type, viande, légume, féculent, le lien de la recette originale si je ne l'ai pas encore transposée, un champ qui indique si une recette a été appréciée ainsi que la liste de ses ingrédients.
+Voici un extrait de mon livre de recettes personnel. Chaque recette possède sa propre page avec ses étapes de préparation, des tags permettant de rechercher les recettes par type, viande, légume, féculent, le lien de la recette originale si je ne l'ai pas encore transposée, un champ qui indique si une recette a été appréciée ainsi que la liste de ses ingrédients.
 
 Ceci me permet de constituer ma liste de course plus facilement, sans avoir besoin de consulter chaque recette individuellement.
 
-En plus de cette base de données, j'ai une page qui me sert de menu hebdomadaire sur laquelle je reporte les recettes de la semaine. A partir de cette base de données on peut créer de multiples vues selon les critères de tri que l'on souhaite appliquer, par tag par exemple ici. Tout se passe alors dans le menu qui apparaît au niveau du bouton Nouveau
+En plus de cette base de données, j'ai une page qui me sert de menu hebdomadaire sur laquelle je reporte les recettes de la semaine. À partir de cette base de données, on peut créer de multiples vues selon les critères de tri que l'on souhaite appliquer, par tag par exemple ici. Tout se passe alors dans le menu qui apparaît au niveau du bouton Nouveau
 
-Pour ces éléments je suis parti des exemples proposés à l'initialisation du workspace, vous pouvez bien évidemment créer vos bases de données indépendamment de ces exemples.
+Pour ces éléments, je suis parti des exemples proposés à l'initialisation du workspace, vous pouvez bien évidemment créer vos bases de données indépendamment de ces exemples.
 
 &nbsp;
 
