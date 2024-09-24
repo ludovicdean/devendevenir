@@ -53,17 +53,8 @@ console.log(base);
           <div class="title">
             <h1>{title}</h1>
             <p class="date">
-              {updatedDate ? (
-                  <>
-                    <span>Mis à jour le </span>
-                    <FormattedDate date={updatedDate} />
-                  </>
-              ) : (
-                  <>
                     <span>Publié le </span>
                     <FormattedDate date={date} />
-                  </>
-              )}
             </p>
             <hr />
           </div>
