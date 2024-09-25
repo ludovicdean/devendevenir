@@ -26,7 +26,6 @@ const {
 const base = import.meta.env.BASE_URL;
 const site = import.meta.env.SITE;
 const ogImage = site + base + banner;
-console.log(base);
 ---
 
 <html lang="en">
@@ -51,10 +50,6 @@ console.log(base);
         <div class="prose">
           <div class="title">
             <h1>{title}</h1>
-            <p class="date">
-                    <span>Publié le </span>
-                    <FormattedDate date={date} />
-            </p>
             <hr />
           </div>
           {isArticle && <TagsList tags={tags} context="post" />}
