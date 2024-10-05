@@ -2,19 +2,18 @@
 title : "L'encodage"
 date : Sep 04 2024
 tags :
-- News
+- I-Culture
 description : Mais pourquoi ces symboles apparaissent parfois ? �, Ã© et autres étrangetés.
-banner : "/images/markus-winkler-k_Am9hKISLM-unsplash.jpg"
+banner : "/images/markus-spiske-iar-afB0QQw-unsplash.jpg"
 readingtime : "6 min"
-author : "Markus Winkler"
-authorlink : "https://unsplash.com/fr/@markuswinkler?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
-unsplashlink : "https://unsplash.com/fr/photos/machine-a-ecrire-verte-et-blanche-sur-table-en-bois-marron-k_Am9hKISLM?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+author : "Markus Spiske"
+authorlink : "https://unsplash.com/fr/@markusspiske?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+unsplashlink : "https://unsplash.com/fr/photos/photo-du-film-matrix-iar-afB0QQw?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
 isArticle : true
 ---
-
 Développeur ou non, vous avez sûrement vu plus d’une fois ce type d’étrangetés sur un site web, ou dans un fichier de votre ordinateur. Surgi de nulle part, un mot contenant Ã© en lieu et place d’un caractère accentué (été devient Ã©tÃ© par exemple).
 
-Je me suis posé la question de l’origine de ces caractères bizarres bien avant de m’intéresser au développement, mais j’étais encore chimiste à l’époque (personne n’est parfait) et n’ai pas cherché l’explication. Je l’ai récemment obtenue au cours d’une conférence donnée au BreizhCamp par Guillaume Collic dont l’enregistremen₺est disponible ici (https://www.youtube.com/@BreizhCamp).
+Je me suis posé la question de l’origine de ces caractères bizarres bien avant de m’intéresser au développement, mais j’étais encore chimiste à l’époque (personne n’est parfait) et n’ai pas cherché l’explication. Je l’ai récemment obtenue au cours d’une conférence donnée au BreizhCamp par Guillaume Collic dont l’enregistrement est disponible ici (https://www.youtube.com/@BreizhCamp).
 
 Répondre à cette question implique d’aborder une notion fondamentale en informatique, qu’est-ce que l’encodage ?
 
@@ -31,32 +30,32 @@ Encoder un message, des données, c’est quelque part traduire dans un autre �
 
 Avant d’aborder l’une des premières tentatives d’encodage, arrêtons-nous sur la notion de bits. Un bit peut prendre 2 valeurs distinctes, 0 et 1. Avec 1 bit, vous avez donc 2 choix, 1 et 0. Ajoutez un bit supplémentaire et vous doubles le nombre de combinaisons. Comme le montre le tableau suivant, les possibilités s’étendent considérablement à chaque ajout de bit.
 
-<table>
+<table className="mb-4">
     <tbody>
     <tr>
-        <td>Nombre de bits</td>
-        <td>Combinaisons possibles</td>
-        <td>Combinaisons</td>
+        <td className="border-2 px-8">Nombre de bits</td>
+        <td className="border-2 px-8">Combinaisons possibles</td>
+        <td className="border-2 px-8">Combinaisons</td>
     </tr>
     <tr>
-        <td>1</td>
-        <td>2</td>
-        <td>1 0</td>
+        <td className="border-2 px-8">1</td>
+        <td className="border-2 px-8">2</td>
+        <td className="border-2 px-8">1 0</td>
     </tr>
     <tr>
-        <td>2</td>
-        <td>4</td>
-        <td>11 10 01 00</td>
+        <td className="border-2 px-8">2</td>
+        <td className="border-2 px-8">4</td>
+        <td className="border-2 px-8">11 10 01 00</td>
     </tr>
     <tr>
-        <td>3</td>
-        <td>8</td>
-        <td>111 110 101 100 011 010 001 000</td>
+        <td className="border-2 px-8">3</td>
+        <td className="border-2 px-8">8</td>
+        <td className="border-2 px-8">111 110 101 100 011 010 001 000</td>
     </tr>
     <tr>
-        <td>4</td>
-        <td>16</td>
-        <td>1111 1110 1101 1100 1011 1010 1001 1000 0111 0110 0101 0100 0011 0010 0001 0000</td>
+        <td className="border-2 px-8">4</td>
+        <td className="border-2 px-8">16</td>
+        <td className="border-2 px-8">1111 1110 1101 1100 1011 1010 1001 1000 0111 0110 0101 0100 0011 0010 0001 0000</td>
     </tr>
     </tbody>
 </table>
@@ -150,7 +149,7 @@ Ce nouvel encodage est né avec la volonté d’accorder les méthodes d’encod
 
 L’encodage Unicode a pour but d’uniformiser l’encodage de la totalité des symboles utilisés dans le monde, indifféremment de la langue, de la culture etc. Là où nous parlions de quelques centaines de caractères pour l’ASCII, on arrive ici à 1 114 112 caractères possibles.
 
-Cette fois, nous n’avons pas une puissance de 2 car l’organisation des tables Unicode est différente des autres, les caractères sont répartis en 17 plans, chaque plan possédant 2^16 ou 65536 caractères.
+Cette fois, nous n’avons pas une puissance de 2, car l’organisation des tables Unicode est différente des autres, les caractères sont répartis en 17 plans, chaque plan possédant 2^16 ou 65536 caractères.
 
 En lieu et place d’un encodage sur 8 bits, ou 1 octet, on a mis au point un encodage sur 1 à 4 octets, totalement rétrocompatible avec l’ASCII. C’est à dire que les caractères de 0 à 127 sont rigoureusement les mêmes qu’en ASCII, mais qu’à partir du caractère 128 on ajoute un octet supplémentaire. Quand on arrive au 8ème chiffre de ce second octet on passe au troisième, et on répète encore l’opération pour arriver au 4ème octet.
 
@@ -167,38 +166,66 @@ Un peu plus lourd que la notation ASCII, mais cette fois-ci aucun caractère ne 
 
 Dans les faits, il existe plusieurs manières d’utiliser l’encodage Unicode, avec les encodages UTF-8, UTF-16 et UTF-32. Arrêtons-nous sur l’UTF-8, le plus couramment utilisé à l’heure actuelle.
 
-<table>
+<table className="mb-4">
+    <thead>
     <tr>
         <td></td>
-        <td>UTF-8</td>
-        <td>UTF-16</td>
-        <td>UTF-32</td>
+        <td className="border-2 px-4">UTF-8</td>
+        <td className="border-2 px-4">UTF-16</td>
+        <td className="border-2 px-4">UTF-32</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td className="border-2 px-4">octets par caractère</td>
+        <td className="border-2 px-4">1 - 4</td>
+        <td className="border-2 px-4">2 -4</td>
+        <td className="border-2 px-4">4</td>
     </tr>
     <tr>
-        <td>nombre d’octets par caractère</td>
-        <td>1 - 4</td>
-        <td>2 -4</td>
-        <td>4</td>
+        <td className="border-2 px-4">compatibilité ASCII</td>
+        <td className="border-2 px-4"><div className"w-full bg-black rounded-full h-2.5">
+            <div className"bg-blue-600 h-2.5 rounded-full" style="width: 100%"></div>
+        </div></td>
+        <td className="border-2 px-4"><div className="w-full bg-black rounded-full h-2.5">
+            <div className"bg-blue-600 h-2.5 rounded-full" style="width: 50%"></div>
+        </div></td>
+        <td className="border-2 px-4"><div className"w-full bg-black rounded-full h-2.5">
+            <div className"bg-blue-600 h-2.5 rounded-full" style="width: 10%"></div>
+        </div></td>
     </tr>
     <tr>
-        <td>rétrocompatibilité ASCII</td>
-        <td>totale</td>
-        <td>partielle</td>
-        <td>faible</td>
+        <td className="border-2 px-4">mémoire (langues latines)</td>
+        <td className="border-2 px-4"><div className="w-full bg-black rounded-full h-2.5">
+            <div className="bg-blue-600 h-2.5 rounded-full" style="width: 10%"></div>
+        </div></td>
+        <td className="border-2 px-4"><div className="w-full bg-black rounded-full h-2.5">
+            <div className="bg-blue-600 h-2.5 rounded-full" style="width: 100%"></div>
+        </div></td>
+        <td className="border-2 px-4"><div className="w-full bg-black rounded-full h-2.5">
+            <div className="bg-blue-600 h-2.5 rounded-full" style="width: 100%"></div>
+        </div></td>
     </tr>
     <tr>
-        <td>mémoire</td>
-        <td>économe pour les textes en langues latines, coûteux pour les textes en langues asiatiques</td>
-        <td>coûteux pour les  textes en langues latines, efficace pour les textes en langues asiatiques</td>
-        <td>dispendieux dans tous les cas</td>
+        <td className="border-2 px-4">mémoire (langues asiatiques)</td>
+        <td className="border-2 px-4"><div className="w-full bg-black rounded-full h-2.5">
+            <div className="bg-blue-600 h-2.5 rounded-full" style="width: 100%"></div>
+        </div></td>
+        <td className="border-2 px-4"><div className="w-full bg-black rounded-full h-2.5">
+            <div className="bg-blue-600 h-2.5 rounded-full" style="width: 10%"></div>
+        </div></td>
+        <td className="border-2 px-4"><div className="w-full bg-black rounded-full h-2.5">
+            <div className="bg-blue-600 h-2.5 rounded-full" style="width: 100%"></div>
+        </div></td>
     </tr>
+    </tbody>
 </table>
 
 Si dans les années 2000 UTF-8 représentait 80% du web, à l’heure actuelle nous sommes à près de 98,3% du web.
 
 Mais pourquoi ça déraille alors que c’est si efficace ?
 
-## Mais pourquoi ça dÃ©raille parfois ?
+## Les dessous d'un ratÃ©
 
 Parfois un “é” devient “Ã©”. Pas de rapport entre les deux, mais pourquoi observe-t-on cette transformation ?
 
@@ -206,7 +233,7 @@ Un indice : tous les encodages n’utilisent pas le même nombre d’octets pour
 
 Un autre ? Ce type de problème se produit souvent entre l’UTF-8 et l’ASCII.
 
-Il faut regarder de plus près comment est encodé un e accent aigu en UTF-8 : il est encodé sur 2 octets, plus exactement comme ceci :
+Il faut regarder de plus près l'encodage d'un e accent aigu en UTF-8 : il est encodé sur 2 octets, comme ceci :
 
 ```html
 caractère : é
@@ -226,7 +253,7 @@ En développement, l’encodage des données est la première chose qu’on vous
 
 ## Conclusion
 
-Indispensable à l’ère du web, il est important de prendre conscience des conséquences que peuvent avoir les erreurs d’encodage (avant Unicode, une facture américaine envoyée au Royaume-Uni affichait les prix en £ et non en $, sans changer le montant. Intéressant, non ?
+Indispensable à l’ère du web, il est important de prendre conscience des conséquences que peuvent avoir les erreurs d’encodage (avant Unicode, une facture américaine envoyée au Royaume-Uni affichait les prix en £ et non en $, sans changer le montant). Intéressant, non ?
 
 Actuellement, un problème d'encodage peut empêcher la lecture d'un fichier, son interprétation par une application, et provoquer des erreurs dans une application. La prochaine fois que vous verrez un document ou un site web avec des caractères étranges, vous vous direz "C'est un problème d'encodage !".
 
