@@ -6,6 +6,8 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection } from "astro:content";
 import PostsList from "@components/PostsList.astro";
 import TagsList from "@components/TagsList.astro";
+import NewCard from "../components/NewCard.astro";
+import NewPostsList from "../components/NewPostsList.astro";
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => (b.data.updatedDate ?? b.data.date).valueOf() - (a.data.updatedDate ?? a.data.date).valueOf(),
@@ -42,10 +44,10 @@ const tags = allTags.reduce(function (acc, tag: string) {
         passant par la mise en place de test, la rédaction de ces articles me
         permet de poser mes idées et de m'en imprégner durablement.
       </p>
-
+        <NewPostsList posts={posts} />
       <section>
         <TagsList tags={tags} />
-        <PostsList posts={posts} context="home" />
+        <!--<PostsList posts={posts} context="home" />-->
       </section>
     </main>
     <Footer />
