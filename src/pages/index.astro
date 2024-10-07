@@ -44,25 +44,12 @@ const tags = allTags.reduce(function (acc, tag: string) {
         passant par la mise en place de test, la rédaction de ces articles me
         permet de poser mes idées et de m'en imprégner durablement.
       </p>
-        <NewPostsList posts={posts} />
+
       <section>
         <TagsList tags={tags} />
-        <!--<PostsList posts={posts} context="home" />-->
+        <NewPostsList posts={posts} />
       </section>
     </main>
     <Footer />
-    <style>
-      li:first-child {
-        width: 100%;
-        margin-bottom: 1rem;
-        text-align: center;
-      }
-      li:first-child img {
-        width: 100%;
-      }
-      li:first-child .title {
-        font-size: 2.369rem;
-      }
-    </style>
-  </body>
+      </body>
 </html>
