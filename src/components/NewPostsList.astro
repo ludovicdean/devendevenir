@@ -1,25 +1,12 @@
 ---
 import NewCard from "./NewCard.astro";
+import TitleCard from "./TitleCard.astro";
 const { posts } = Astro.props;
 const base = import.meta.env.BASE_URL;
 ---
 <ul class="flex flex-wrap gap-4">
-    <li class="relative w-full md:w-[calc(100%-0.5rem)]">
-        <a href={posts[0].data.url ?? `${base + "/blog/" + posts[0].slug}/`} class="no-underline">
-        <img src={ base + posts[0].data.banner } class="w-full h-auto object-cover">
-        <div class="absolute bottom-0 right-0 bg-slate-900 bg-opacity-50 w-full rounded-b-lg">
-            <p class="text-white text-2xl font-bold py-2 px-4 text-right mb-0">{posts[0].data.title}</p>
-        </div>
-        </a>
-    </li>
+<TitleCard post={posts[0]} />
     {posts.slice(1).map((post) => (
-            <li class="relative w-full md:w-[calc(50%-0.5rem)] h-64">
-                <a href={post.data.url ?? `${base + "/blog/" + post.slug}/`} class="no-underline">
-                <img src={ base + post.data.banner } class="h-full object-cover">
-                <div class="absolute bottom-0 right-0 bg-slate-900 bg-opacity-50 w-full rounded-b-lg">
-                    <p class="text-white text-lg font-bold py-1 px-2 text-right mb-0">{post.data.title}</p>
-                </div>
-                </a>
-            </li>
+            <NewCard post={post} />
     ))}
 </ul>
