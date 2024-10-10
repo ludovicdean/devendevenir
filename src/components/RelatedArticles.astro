@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import PostCard from "./PostCard.astro";
+import SmallCard from "./SmallCard.astro";
 
 const { tags, title } = Astro.props;
 const posts = await getCollection("blog");
@@ -9,64 +9,15 @@ posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const similarPosts = posts.filter(
     (e) => tags.some((t) => e.data.tags?.includes(t)) && e.data.title !== title,
-);
+).slice(0,4);
 ---
 
 {similarPosts.length > 0 && <h3>Articles en lien</h3>}
 
-<ul>
+<ul class="flex flex-wrap gap-4 list-none p-0">
     {
         similarPosts.map((post) => (
-            <li>
-                <PostCard post={post} />
-            </li>
+                <SmallCard post={post} />
         ))
     }
 </ul>
-
-<style>
-    ul {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2rem;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-    }
-    ul li {
-        width: calc(50% - 1rem);
-    }
-    ul li * {
-        text-decoration: none;
-        transition: 0.2s ease;
-    }
-    ul li img {
-        margin-bottom: 0.5rem;
-        border-radius: 12px;
-    }
-    ul li a {
-        display: block;
-    }
-    .date {
-        margin: 0;
-        color: rgb(var(--gray));
-        font-size: smaller;
-    }
-    ul li a:hover h4,
-    ul li a:hover .date,
-    span a:hover {
-        color: rgb(var(--accent));
-    }
-    ul a:hover img {
-        box-shadow: var(--box-shadow);
-    }
-    @media (max-width: 720px) {
-        ul {
-            gap: 0.5em;
-        }
-        ul li {
-            width: 100%;
-            text-align: center;
-        }
-    }
-</style>

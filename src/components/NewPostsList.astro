@@ -1,12 +1,12 @@
 ---
-import NewCard from "./NewCard.astro";
-import TitleCard from "./TitleCard.astro";
+import SmallCard from "./SmallCard.astro";
+import LargeCard from "./LargeCard.astro";
 const { posts } = Astro.props;
 const base = import.meta.env.BASE_URL;
 ---
 <ul class="flex flex-wrap gap-4">
-<TitleCard post={posts[0]} />
+<LargeCard post={posts[0]}/>
     {posts.slice(1).map((post) => (
-            <NewCard post={post} />
+<SmallCard post={post} />
     ))}
 </ul>
