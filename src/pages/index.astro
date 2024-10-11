@@ -5,7 +5,7 @@ import Footer from "@components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection } from "astro:content";
 import TagsList from "@components/TagsList.astro";
-import NewPostsList from "../components/NewPostsList.astro";
+import PostsList from "../components/PostsList.astro";
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => (b.data.updatedDate ?? b.data.date).valueOf() - (a.data.updatedDate ?? a.data.date).valueOf(),
@@ -45,7 +45,7 @@ const tags = allTags.reduce(function (acc, tag: string) {
 
       <section>
         <TagsList tags={tags} />
-        <NewPostsList posts={posts} />
+        <PostsList posts={posts} />
       </section>
     </main>
     <Footer />
