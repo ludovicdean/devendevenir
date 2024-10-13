@@ -1,0 +1,37 @@
+---
+interface TableData {
+    headers: string[];
+    rows: (string | number)[][];
+}
+
+interface Props {
+    data: TableData;
+}
+
+const { data } = Astro.props;
+---
+
+<div class="overflow-x-auto">
+    <table class="min-w-full bg-white border border-gray-300">
+        <thead>
+        <tr class="bg-gray-100">
+            {data.headers.map((header) => (
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        {header}
+                    </th>
+            ))}
+        </tr>
+        </thead>
+        <tbody>
+        {data.rows.map((row) => (
+                <tr class="border-b border-gray-200">
+                    {row.map((cell) => (
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {cell}
+                            </td>
+                    ))}
+                </tr>
+        ))}
+        </tbody>
+    </table>
+</div>

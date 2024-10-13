@@ -17,11 +17,11 @@ function slugify(str) {
     context == "post" ? (
         <div class="pb-6 flex flex-wrap">
             {Object.entries(tags).map(([key, val]) => (
-                <span class="inline text-lg rounded-xl mx-2 px-2 my-2 bg-gray-light">
+                <span class="inline text-lg rounded-xl mx-2 px-2 my-2 bg-slate-900 hover:animate-pulse">
                     <span>
                         <a
                             href={`${base + "/tags/" + slugify(val)}/`}
-                            class="no-underline text-accent hover:text-accent-dark"
+                            class="no-underline text-white font-bold text-accent hover:text-white"
                         >
                             {val}
                         </a>
@@ -32,16 +32,16 @@ function slugify(str) {
     ) : (
         <div class="pb-6 flex flex-wrap">
             {Object.entries(tags).map(([key, val]) => (
-                <span class="inline text-lg rounded-xl mx-2 px-2 my-2 bg-gray-light">
+                <span class="inline text-lg rounded-xl mx-2 px-2 my-2 bg-slate-900  hover:animate-pulse">
                     <span>
                         <a
                             href={`${base + "/tags/" + slugify(key)}/`}
-                            class="no-underline text-accent hover:text-accent-dark"
+                            class="no-underline text-white font-bold text-accent hover:text-white"
                         >
                             {key}
                         </a>
                     </span>
-                    <span class="pr-4 pl-3">{val}</span>
+                    <span class="pr-4 pl-3 text-yellow-400">{val}</span>
                 </span>
             ))}
         </div>
