@@ -36,9 +36,15 @@ const base = import.meta.env.BASE_URL;
     const menu = document.getElementById('navbar-default');
     const navLinks = document.querySelectorAll('.nav-link');
 
-    button.addEventListener('click', function() {
-      menu.classList.toggle('hidden');
-      const expanded = button.getAttribute('aria-expanded') === 'true' || false;
-      button.setAttribute('aria-expanded', !expanded);
-    });
+    if(button !== null && button !== undefined){
+      button.addEventListener('click', function() {
+        if(menu !== null && menu !== undefined){
+          menu.classList.toggle('hidden');
+        }
+
+        const expanded = button.getAttribute('aria-expanded') === 'true';
+        button.setAttribute('aria-expanded', (!expanded).toString());
+      });
+    }
+
   });</script>
