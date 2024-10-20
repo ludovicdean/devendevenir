@@ -23,7 +23,7 @@ const base = import.meta.env.BASE_URL;
     <div id="overlay" class="fixed inset-0 bg-gray-800 bg-opacity-50 z-40 hidden md:hidden"></div>
 
     <!-- Card pour le menu mobile -->
-    <div id="mobileMenu" class="fixed left-0 right-0 top-[80px] flex justify-center z-40 hidden md:hidden">
+    <div id="mobileMenu" class="fixed left-0 right-0 top-[80px] flex justify-center z-40 hidden md:hidden transition-all duration-300 ease-out opacity-0 -translate-y-5 pointer-events-none">
       <div class="bg-slate-900 opacity-90 rounded-lg shadow-lg w-10/12 max-w-md p-6 mt-4">
         <nav>
           <ul class="list-none font-medium flex flex-col space-y-2 items-center">
@@ -65,7 +65,6 @@ const base = import.meta.env.BASE_URL;
     }
   </style>
 
-  <!-- Script JavaScript -->
   <script>
     const menuToggle = document.getElementById('menuToggle');
     const mobileMenu = document.getElementById('mobileMenu');
@@ -74,18 +73,18 @@ const base = import.meta.env.BASE_URL;
     const closeIcon = document.getElementById('closeIcon');
 
     function toggleMenu() {
-      mobileMenu.classList.toggle('hidden');
-      mobileMenu.classList.toggle('active');
-      overlay.classList.toggle('hidden');
+      mobileMenu?.classList.toggle('hidden');
+      mobileMenu?.classList.toggle('active');
+      overlay?.classList.toggle('hidden');
       document.body.classList.toggle('overflow-hidden');
 
       // Basculer entre les icônes
-      menuIcon.classList.toggle('hidden');
-      closeIcon.classList.toggle('hidden');
+      menuIcon?.classList.toggle('hidden');
+      closeIcon?.classList.toggle('hidden');
     }
 
-    menuToggle.addEventListener('click', toggleMenu);
-    overlay.addEventListener('click', toggleMenu);
+    menuToggle?.addEventListener('click', toggleMenu);
+    overlay?.addEventListener('click', toggleMenu);
 
     // Fermer le menu lorsqu'un lien est cliqué
     document.querySelectorAll('#mobileMenu a').forEach(link => {
