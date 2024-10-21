@@ -48,7 +48,7 @@ body {
 }
 
 main {
-	width: 720px;
+	width: 900px;
 	max-width: calc(100% - 2em);
 	margin: auto;
 	padding: 3em 1em;
@@ -96,15 +96,7 @@ a {
 	text-decoration: none;
 }
 
-a:hover {
-	color: var(--accent);
-}
-
 p {
-	margin-bottom: 1em;
-}
-
-.prose p {
 	margin-bottom: 1em;
 }
 

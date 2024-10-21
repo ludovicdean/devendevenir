@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import BaseHead from "@components/BaseHead.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
-import PostCard from "@components/PostCard.astro";
+import SmallCard from "@components/SmallCard.astro";
 
 const { name, description } = Astro.props;
 
@@ -21,85 +21,14 @@ const filteredPosts = posts.filter((post) => post.data.tags?.includes(name));
         <main>
             <h2>{name}</h2>
             <p>{description}</p>
-            <ul id="articles">
+            <ul class="flex flex-wrap gap-4">
                 {
                     filteredPosts.map((post) => (
-                        <li>
-                            <PostCard post={post} />
-                        </li>
+                            <SmallCard post={post} />
                     ))
                 }
             </ul>
         </main>
         <Footer />
-        <style>
-            main {
-                width: 720px;
-                max-width: calc(100% - 2em);
-                margin: auto;
-                padding: 3em 1em;
-            }
-            .prose {
-                width: 720px;
-                max-width: calc(100% - 2em);
-                margin: auto;
-                padding: 1em;
-                color: rgb(var(--gray-dark));
-            }
-            .title {
-                margin-bottom: 1em;
-                padding: 0;
-                line-height: 1;
-            }
-            .date {
-                margin-bottom: 0.5em;
-                color: rgb(var(--gray));
-            }
-            ul {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 2rem;
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-            }
-            ul li {
-                width: calc(50% - 1rem);
-            }
-            ul li * {
-                text-decoration: none;
-                transition: 0.2s ease;
-            }
-            ul li img {
-                margin-bottom: 0.5rem;
-                border-radius: 12px;
-            }
-            ul li a {
-                display: block;
-            }
-            .title {
-                display: block;
-                margin: 0;
-                color: rgb(var(--black));
-                line-height: 1;
-            }
-            .date {
-                margin: 0;
-                color: rgb(var(--gray));
-                font-size: smaller;
-            }
-            ul li a:hover h4,
-            ul li a:hover .date {
-                color: rgb(var(--accent));
-            }
-            ul a:hover img {
-                box-shadow: var(--box-shadow);
-            }
-            @media (max-width: 720px) {
-                ul {
-                    gap: 0.5em;
-                }
-            }
-        </style>
     </body>
 </html>
