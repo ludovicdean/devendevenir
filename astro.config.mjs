@@ -11,6 +11,6 @@ export default defineConfig({
   site: 'https://ludovic.dean.github.io',
   base: '/devendevenir',
   integrations: [mdx(), sitemap(), tailwind(), icon()],
-  output: "static",
+  output: "server",
   adapter: netlify()
 });
