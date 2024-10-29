@@ -1,6 +1,6 @@
 ---
 title : "Mocker une API en 5 minutes, c'est possible !"
-date : Sep 4 2024
+date : Oct 30 2024
 tags :
     - Outils
 description : "Un projet démarre et vous n'avez pas de back-end sur lequel vous appuyer ? Découvrez vite json server !"
@@ -75,7 +75,7 @@ Si vous ne fournissez pas d'id à vos éléments, json server le fera pour vous 
 
 ## Votre API est prête, testez-la !
 
-Les éléments qui sont à la racine de notre fichier JSON constituent les routes que nous allons pouvoir utiliser, dans notre cas /posts, /comments et /profile. Json server écoute sur le port 3000 par défaut, les routes commenceront donc par http://localhost:3000.
+Les éléments qui sont à la racine de notre fichier JSON constituent les routes que nous allons pouvoir utiliser, dans notre cas /posts, /comments et /profile. Json server écoute sur le port 3000 par défaut, les routes commenceront donc par `http://localhost:3000`.
 
 L'exemple fourni vous permet de disposer des routes suivantes :
 
@@ -99,7 +99,7 @@ json-server db.json --routes routes.json
 
 Pour tester vos routes, vous pouvez utiliser :
 
-- un appel curl via l'invite de commande sur la route http://localhost:3000/posts
+- un appel curl via l'invite de commande sur la route `http://localhost:3000/posts`
 - un appel via votre navigateur web
 - un appel depuis votre front-end
 - une application comme Postman, ou encore Bruno
