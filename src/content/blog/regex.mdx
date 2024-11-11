@@ -1,0 +1,168 @@
+---
+title : ""
+date : Dec 31 2030
+tags :
+- I-culture
+description : ""
+banner : "/images/gaelle-marcel-9DZY0mO98xU-unsplash.jpg"
+author : ""
+authorlink : ""
+unsplashlink : ""
+isArticle : true
+---
+Une fois n'est pas coutume, l'introduction de cet article va comporter une image, qui, à elle seule représente le désamour des développeurs pour les expressions régulières !
+
+![""](/devendevenir/images/regex_meme.png)
+
+Malheureusement, le dev de droite est resté coincé avec sa regex pendant 2 ans, et maintenant il élève des chèvres au fin fond du Cantal ! Pour éviter la surpopulation d’éleveurs de chèvres dans le Cantal, il faut dédiaboliser les regex et apprendre à mieux les connaître.
+
+## L'origine des regex
+
+Les regex puisent leurs origines aux États-Unis, dans des équipes de recherche travaillant sur le système nerveux. De ces travaux, Stephen Cole Kleene, logicien de son état, a décrit les modèles neuronaux découverts en termes d’ensembles réguliers. On le considère comme l’inventeur des expressions régulières.
+
+D'accord, je vois vaguement d'où ça vient, mais ça ressemble à quoi ?
+
+## Regex : niveau 1
+
+Quand vous recherchez un mot, le nom d’une variable, une phrase dans une page web, en général, vous faites un Ctrl+F afin d’ouvrir un champ de recherche qui recherche pour vous les occurences d’un mot dans cette page.
+
+Ce champ de recherche utilise une regex afin de retrouver le mot saisi !
+
+L’expression régulière la plus simple est donc un mot, une phrase, une suite de caractères quelconques (lettres, chiffres, symboles).
+
+```
+expression régulière : régulier
+mots détectés : régulier
+```
+
+Vraiment ? C’est ça une expression régulière ???
+
+NON, ce n’est pas “que” ça, c’est une expression régulière réduite à sa plus simple expression. Si on va au bout de l'idée, un simple caractère est une expression régulière. La force des regex, c’est qu’elles permettent de rechercher des ensembles de chaînes de caractères plus ou moins spécifiques.
+
+Du coup, comment on peut rechercher à la fois régulier et régulières ? Il faut alors s’intéresser à la structure des regex.
+
+## Regex : niveau 2
+
+Dans un premier temps, on peut rechercher le premier mot, puis le second. Pas très pratique dès que le document est un peu long, et ça fait repasser 2 fois au même endroit (pour peu qu’on ait seulement 2 termes proches).
+
+Ce qui fait la force des regex, c’est qu’elles n’analysent pas un texte par bloc, mais par groupes de chaînes de caractères. Quand on y regarde de plus près, on se rend compte que les 2 mots ont des caractéristiques communes.
+
+```
+régulier
+régulière
+(réguli) e ou è (r) e ou rien
+```
+
+On commence à voir se dessiner des groupes de caractères communs, séparés par d'autres groupes de caractères qui varient dans une gamme de possibilités limitées.
+
+### Les groupes de caractères
+
+Dans une regex, un groupe de caractères est représenté par les caractères qu'il contient (normal me direz-vous 😅) entre parenthèses.
+
+Pour rechercher les mots "régulier" et "régulière" dans un texte, on pourra utiliser l'expression régulière suivante :
+
+```
+(réguli)
+```
+
+Vous trouverez effectivement les occurences de "régulier" et de régulière", mais vous trouverez également les occurences de "régulièrement", "réguliez", et je vous passe les 3 possibilités restantes.
+
+Il y a peu de chances que "régulièrement" et "réguliez" soient fondamentaux dans votre recherche, vous voulez donc être plus spécifique.
+
+Pour cela, nous allons aborder les méta-caractères.
+
+### Les méta-caractères
+
+Vous ne le savez pas encore, mais vous avez déjà vu 2 de ces méta-caractères dans cet article. Une idée ?
+
+Les parenthèses qui délimitent un groupe de caractères sont des méta-caractères, c'est-à-dire des caractères qui donnent un sens, une fonction aux différents éléments d'une regex.
+
+Parfois, on est amené à rechercher deux mots se trouvant dans une même phrase, mais n'étant jamais consécutifs pour des raisons grammaticales. Rechercher un élément, puis l'autre ne vous aidera pas à trouver ce que vous cherchez. Dans ce type de cas, vous pouvez utiliser la combinaison de 2 méta-caractères :
+
+```
+regex : Dans une regex(.*)contient
+résultat : Dans une regex, un groupe de caractères est représenté par les caractères qu'il contient
+```
+
+Les méta-caractères utilisés représentent respectivement :
+- un seul caractère, quel qu'il soit `.`
+- 0 à n fois le caractère qui le précède `*`
+
+Ces méta-caractères ne sont pas les seuls, on trouve également les suivants :
+
+- `+` représente 1 à n fois le caractère qui le précède `dev+` ➡ `dev, devv, devvv`
+- `?` représente 0, 1 ou n occurences du caractère ou du groupe qui le précède `dev?` ➡ `de, dev, devv`
+- `^` représente le début d'une ligne `^dev` ➡ `dev, deva, devb, develop` en début de ligne mais pas `adev`
+- `$` représente la fin d'une ligne `devenir$` ➡ `dev en devenir`
+- `|` représente l'élément à gauche ou celui à droite de la barre `devenir|deviner` ➡ `devenir, deviner`
+- `\` permet d'échapper un méta-caractère, afin de le rechercher en tant que caractère classique
+- `\b` indique la limite d'un mot `\bdev\b` ➡ `dev` mais pas `devenir`
+- `{m}` représente le nombre exact d'occurences de l'élément qui le précède `1{3}` ➡ `111`
+- `{m, n}` représente l'intervalle d'occurences recherché (1 à 3 par exemple) `1{3, 4}` ➡ `111, 1111`
+- `{m,}` représente l'intervalle d'occurences recherché à m minimum (2 minimum par exemple) `1{2,}` ➡ `11, 111, 1111`
+- `[abc]` correspond à l'un des caractères `[dev]` ➡ `d, e, v`
+- `[^abc]` correspond à aucun de ces caractères `[^dev]` ➡ `ni d, ni e, ni v`
+
+Il existe également des groupes de caractères particuliers, permettant de traiter des groupes plus larges :
+
+- `[A-Za-z]` correspond à toutes les lettres de l'alphabet, majuscules et minuscules non accentuées
+- `[0-9]` correspond aux chiffres
+- `\d` correspond également aux chiffres
+- `\w` correspond aux caractères alphanumériques et l'underscore
+- `\s` correspond à un ou plusieurs espaces, tabulations ou retours à la ligne
+- `\n` correspond à un saut de ligne
+
+Même s'il ne paraît pas évident de prime abord que tous ces éléments sont ici pour nous faciliter la vie, on peut essayer de les combiner afin d'avoir un aperçu de leur utilité.
+
+## Boss final : construire une regex
+
+Les cas sont infinis. Ma première confrontation avec les regex remonte à la conversion de spécifications fonctionnelles de plusieurs dizaines de pages au format docx vers un format md.
+
+Quand vous avez des règles métier par dizaines, qui possèdent une définition et de multiples ancres, mieux vaut vous intéresser aux regex sinon vous allez souffrir pour résoudre votre problème.
+
+Sur un site web, les formulaires sont de parfaits exemples. Ils doivent s'assurer que votre adresse mail a le bon format, ainsi que votre numéro de téléphone. Mais du coup, c'est quoi les regex derrière ces formulaires ?
+
+Une adresse mail a le format suivant : devendevenir@devendevenir.fr. Si on compare plusieurs adresses mail, on constate qu'elles ont toutes la même structure :
+
+```
+utilisateur@domaine.extension
+```
+
+La norme RFC 3696 précise les caractères spéciaux que peut contenir une adresse email. La norme est très permissive, et de nombreux services appliquent des restrictions supplémentaires. Nous allons donc considérer que l'utilisateur d'un email peut contenir un point, un underscore ou un tiret.
+
+Décomposons chaque partie de notre adresse email sous la forme d'une expression régulière :
+
+```
+début de la chaîne de caractères : ^
+utilisateur : [a-zA-Z0-9._-]
+séparation entre utilisateur et domaine : @
+domaine : [a-zA-Z0-9.-]
+séparation entre domaine et extension : \.
+extension : [a-zA-Z]{2,}
+fin de la chaîne de caractères : $
+```
+
+Pris séparément, les fragments de la regex sont compréhensibles, tandis que la forme complète est beaucoup plus impressionnante et semble donc plus complexe.
+
+```
+^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$
+```
+
+Si on reprend chaque partie de la regex, on peut voir les contraintes suivantes :
+
+- l'utilisateur peut avoir n'importe quel caractère alphanumérique en plus du point, de l'underscore et du tiret comme dit plus haut.
+- l'arobase est obligatoire.
+- le domaine peut avoir n'importe quel caractère alphanumérique en plus du point et du tiret.
+- l'extension comporte uniquement des lettres, et au minimum 2. C'est cette partie qui marque la fin de la chaîne de caractères.
+
+## Regex : cheat sheet
+
+Je ne suis pas toujours convaincu de l'utilité de l'IA dans certains domaines, mais force est de constater que la génération d'expressions régulières (dans des cas simples).
+
+Par ailleurs, il existe de nombreux sites web permettant de construire, tester et débugger des expressions régulières. On citera ici notamment [regex101](https://regex101.com/), qui est un redoutable outil pour qui est à l'aise avec l'anglais.
+
+## Conclusion
+
+On ne croise pas tous les jours des expressions régulières, mais depuis que je suis développeur, je les ai déjà cotoyé 3 fois en 4 ans, dans des contextes très différents.
+
+Maintenant que vous les comprenez mieux, ne vous reste plus qu'à les apprivoiser !
