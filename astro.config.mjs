@@ -9,7 +9,7 @@ import icon from "astro-icon"
 export default defineConfig({
   //site: 'https://ludovic.dean.github.io',
   site: 'https://devendevenir-ten.vercel.app/',
-  base: '/devendevenir',
+  base: '',
   integrations: [mdx(), sitemap(), tailwind(), icon()],
   output: "static"
 });
