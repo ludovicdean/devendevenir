@@ -7,8 +7,7 @@ import icon from "astro-icon"
 
 // https://astro.build/config
 export default defineConfig({
-  //site: 'https://ludovic.dean.github.io',
-  site: 'https://devendevenir-ten.vercel.app/',
+  site: 'https://ludovic.dean.github.io',
   base: '',
   integrations: [mdx(), sitemap(), tailwind(), icon()],
   output: "static"
