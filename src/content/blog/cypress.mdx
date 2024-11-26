@@ -1,6 +1,6 @@
 ---
 title : "Ajouter des tests e2e à votre projet"
-date : Dec 26 2023
+date : Nov 27 2024
 tags :
     - Test
 description : "Les tests permettent de sécuriser le fonctionnement d'une application, notamment les tests de bout en bout. Créez les vôtres avec Cypress !"
@@ -21,9 +21,9 @@ Une fois vos tests mis en place, plus de doutes, plus d'oublis d'une partie recu
 
 ## Pré-requis
 
-Comme toujours vous aurez besoin d'un éditeur de code comme Visual Studio Code ou un autre, peu importe ce que vous avez, ainsi que d'un terminal.
+Comme toujours, vous aurez besoin d'un éditeur de code comme Visual Studio Code ou un autre, peu importe ce que vous avez, ainsi que d'un terminal.
 
-Si ce n'est pas déjà le cas sur votre machine, vous devrez installer NodeJS. Vous trouvrez le nécessaire [ici](https://nodejs.org/en/download/current).
+Si ce n'est pas déjà le cas sur votre machine, vous devrez installer NodeJS. Vous trouverez le nécessaire [ici](https://nodejs.org/en/download/current).
 
 Afin de vérifier que l'installation s'est bien passée, ouvrez votre terminal et saisissez `node -v`. Si tout s'est bien passé, votre terminal affichera la version de NodeJS installée.
 
@@ -67,8 +67,8 @@ Avoir des tests qui fonctionnent mais sur un site qui n'est pas le vôtre, c'est
 ## À quoi ça ressemble un test Cypress ?
 
 Les fichiers de tests peuvent avoir différents formats (pour en savoir plus, allez `[ici](https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests)), .js, .ts, les options sont nombreuses.
-Pour ma part j'ai travaillé avec des fichiers .js. Les fichiers générés par cypress sont situés dans le dossier e2e, il est possible de structurer son projet avec un ensemble de sous-dossiers afin de s'y retrouver.
-Les fichiers sont nommés en  selon le format **mon_fichier.cy.js**, ce qui corespond à l'écriture "snake case". Les mots sont en minuscules et séparés par des "_".
+Pour ma part, j'ai travaillé avec des fichiers .js. Les fichiers générés par cypress sont situés dans le dossier e2e, il est possible de structurer son projet avec un ensemble de sous-dossiers afin de s'y retrouver.
+Les fichiers sont nommés selon le format **mon_fichier.cy.js**, ce qui corespond à l'écriture "snake case". Les mots sont en minuscules et séparés par des "_".
 
 La structure d'un fichier est la suivante :
 
@@ -115,7 +115,7 @@ describe('description',() => {
 })
 ```
 
-Bon OK, un test c'est fait comme ça, mais moi je veux visiter une page, cliquer sur un bouton, vérifier que je suis arrivé au bon endroit, que ma navbar a les bons éléments etc.
+Bon OK, un test c'est fait comme ça, mais moi, je veux visiter une page, cliquer sur un bouton, vérifier que je suis arrivé au bon endroit, que ma navbar a les bons éléments etc.
 Ne vous emballez pas, on va y aller à petits pas.
 
 ## Les commandes Cypress
@@ -145,9 +145,11 @@ On peut ensuite distinguer trois types de commandes :
 
 #### get()
 
-Cette commande permet de récupérer un élément présent dans le code html de la page que l'on teste grâce à un sélecteur passé en paramètre. Le sélecteur peut être :
+Cette commande permet de récupérer un élément présent dans le code html de la page que l'on teste grâce à un sélecteur passé en paramètre. Le sélecteur peut être l'un des éléments suivants.
 
-- le nom d'une balise (h1, p etc.)
+##### Le nom d'une balise
+
+Exemple : `h1`, `p`.
 
 ```javascript
   it('get avec le nom de la balise', () => {
@@ -155,7 +157,9 @@ Cette commande permet de récupérer un élément présent dans le code html de 
   })
 ```
 
-- le nom d'une classe (.maClasse, .monAutreClasse)
+##### Le nom d'une classe
+
+Exemple : `.maClasse`, `.monAutreClasse`.
 
 ```javascript
   it('get avec la classe de la balise', () => {
@@ -163,7 +167,9 @@ Cette commande permet de récupérer un élément présent dans le code html de 
   })
 ```
 
-- l'identifiant d'une balise (#maBalise)
+##### L'identifiant d'une balise
+
+Exemple : `#maBalise`.
 
 ```javascript
   it('get avec l`\'id de la balise', () => {
@@ -171,7 +177,9 @@ Cette commande permet de récupérer un élément présent dans le code html de 
   })
 ```
 
-- le texte d'un attribut de balise (a[href*="texte"])
+##### Le texte d'un attribut de balise
+
+Exemple : `a[href*="texte"]`.
 
 ```javascript
   it('get avec le contenu d''un attribut', () => {
@@ -179,16 +187,18 @@ Cette commande permet de récupérer un élément présent dans le code html de 
   })
 ```
 
-- la combinaison des trois précédents éléments
+##### La combinaison des trois précédents éléments
 
-On peut également rechercher une balise contenue dans une autre et préciser sa position (ul li:first).
+On peut également rechercher une balise contenue dans une autre et préciser sa position.
+
+Exemple : `ul li:first`.
 
 ```javascript
   it('get un élément et son premier enfant', () => {
     cy.get('ul li:first"]')
   })
 ```
-Cette commande consitue généralement la première étape d'un test, il faut ensuite vérifier que les caractéristiques de l'élément recherché sont les bonnes. C'est le rôle de la prochaine commande, should().
+Cette commande constitue généralement la première étape d'un test, il faut ensuite vérifier que les caractéristiques de l'élément recherché sont les bonnes. C'est le rôle de la prochaine commande, should().
 
 #### find()
 
@@ -234,7 +244,7 @@ Pour sélectionner une option dans un menu déroulant, on doit utiliser la comma
 cy.get("select").find("option")
 ```
 
-Cette action va sélectionner puis cliquer sur l'élément en question.
+Cette action va ouvrir un menu déroulant, sélectionner l'élément désigné puis cliquer sur cet élément.
 
 #### check() / uncheck()
 
@@ -345,3 +355,5 @@ cy.maCommande("param1","param2").maCommandeEnfant()
 
 Cet article n'est qu'une rapide présentation des possibilités de Cypress, il vous reste bien des choses à découvrir, notamment la gestion du viewport, qui permet de tester si notre application est responsive et de vérifier que tous les éléments sont bien visibles.
 Il ne vous reste plus qu'à vous lancer, et pourquoi pas créer un projet de test pour vérifier de temps à autre l'intégrité de votre site web. C'était d'ailleurs ce qui m'a incité à tester Cypress, vérifier l'état de mon site de manière automatique (le blog construit avec Jekyll à ce moment-là).
+
+Il ne me reste plus qu'à créer un projet de test destiné à vérifier l'intégrité des liens de mon blog et la cohérence de son contenu !
