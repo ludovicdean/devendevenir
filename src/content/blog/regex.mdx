@@ -24,7 +24,7 @@ D'accord, je vois vaguement d'où ça vient, mais ça ressemble à quoi ?
 
 ## Regex : niveau 1
 
-Quand vous recherchez un mot, le nom d’une variable, une phrase dans une page web, en général, vous faites un Ctrl+F afin d’ouvrir un champ de recherche qui recherche pour vous les occurences d’un mot dans cette page.
+Quand vous recherchez un mot, le nom d’une variable, une phrase dans une page web, en général, vous faites un Ctrl+F afin d’ouvrir un champ de recherche qui recherche pour vous les occurrences d’un mot dans cette page.
 
 Ce champ de recherche utilise une regex afin de retrouver le mot saisi !
 
@@ -55,9 +55,11 @@ régulière
 
 On commence à voir se dessiner des groupes de caractères communs, séparés par d'autres groupes de caractères qui varient dans une gamme de possibilités limitées.
 
+`réguli` n'est pas un mot, il s'agit maintenant d'un groupe de caractères.
+
 ### Les groupes de caractères
 
-Dans une regex, un groupe de caractères est représenté par les caractères qu'il contient (normal me direz-vous 😅) entre parenthèses.
+Dans une regex, un groupe de caractères est représenté par un groupe de caractères entre parenthèses.
 
 Pour rechercher les mots "régulier" et "régulière" dans un texte, on pourra utiliser l'expression régulière suivante :
 
@@ -65,7 +67,7 @@ Pour rechercher les mots "régulier" et "régulière" dans un texte, on pourra u
 (réguli)
 ```
 
-Vous trouverez effectivement les occurences de "régulier" et de régulière", mais vous trouverez également les occurences de "régulièrement", "réguliez", et je vous passe les 3 possibilités restantes.
+Vous trouverez effectivement les occurrences de "régulier" et de régulière", mais vous trouverez également les occurrences de "régulièrement", "réguliez", et je vous passe les 3 possibilités restantes.
 
 Il y a peu de chances que "régulièrement" et "réguliez" soient fondamentaux dans votre recherche, vous voulez donc être plus spécifique.
 
@@ -88,18 +90,20 @@ Les méta-caractères utilisés représentent respectivement :
 - un seul caractère, quel qu'il soit `.`
 - 0 à n fois le caractère qui le précède `*`
 
+Combinés, `.*` permettent donc de rechercher une cha$ine de caractères quelle que soit sa nature.
+
 Ces méta-caractères ne sont pas les seuls, on trouve également les suivants :
 
-- `+` représente 1 à n fois le caractère qui le précède `dev+` ➡ `dev, devv, devvv`
-- `?` représente 0, 1 ou n occurences du caractère ou du groupe qui le précède `dev?` ➡ `de, dev, devv`
-- `^` représente le début d'une ligne `^dev` ➡ `dev, deva, devb, develop` en début de ligne mais pas `adev`
-- `$` représente la fin d'une ligne `devenir$` ➡ `dev en devenir`
-- `|` représente l'élément à gauche ou celui à droite de la barre `devenir|deviner` ➡ `devenir, deviner`
-- `\` permet d'échapper un méta-caractère, afin de le rechercher en tant que caractère classique
-- `\b` indique la limite d'un mot `\bdev\b` ➡ `dev` mais pas `devenir`
-- `{m}` représente le nombre exact d'occurences de l'élément qui le précède `1{3}` ➡ `111`
-- `{m, n}` représente l'intervalle d'occurences recherché (1 à 3 par exemple) `1{3, 4}` ➡ `111, 1111`
-- `{m,}` représente l'intervalle d'occurences recherché à m minimum (2 minimum par exemple) `1{2,}` ➡ `11, 111, 1111`
+- `+` : 1 à n fois le caractère qui le précède `dev+` ➡ `dev, devv, devvv`
+- `?` : 0, 1 ou n occurrences du caractère ou du groupe qui le précède `dev?` ➡ `de, dev, devv`
+- `^` : le début d'une ligne `^dev` ➡ `dev, deva, devb, develop` en début de ligne mais pas `adev`
+- `$` : la fin d'une ligne `devenir$` ➡ `dev en devenir`
+- `|` : l'élément à gauche ou celui à droite de la barre `devenir|deviner` ➡ `devenir, deviner`
+- `\` : permet d'échapper un méta-caractère, afin de le rechercher en tant que caractère classique
+- `\b` : indique la limite d'un mot `\bdev\b` ➡ `dev` mais pas `devenir`
+- `{m}` représente le nombre exact d'occurrences de l'élément qui le précède `1{3}` ➡ `111`
+- `{m, n}` représente l'intervalle d'occurrences recherché (1 à 3 par exemple) `1{3, 4}` ➡ `111, 1111`
+- `{m,}` représente l'intervalle d'occurrences recherché à m minimum (2 minimum par exemple) `1{2,}` ➡ `11, 111, 1111`
 - `[abc]` correspond à l'un des caractères `[dev]` ➡ `d, e, v`
 - `[^abc]` correspond à aucun de ces caractères `[^dev]` ➡ `ni d, ni e, ni v`
 
@@ -118,9 +122,11 @@ Même s'il ne paraît pas évident de prime abord que tous ces éléments sont i
 
 Les cas sont infinis. Ma première confrontation avec les regex remonte à la conversion de spécifications fonctionnelles de plusieurs dizaines de pages au format docx vers un format md.
 
-Quand vous avez des règles métier par dizaines, qui possèdent une définition et de multiples ancres, mieux vaut vous intéresser aux regex sinon vous allez souffrir pour résoudre votre problème.
+Quand vous avez des règles métier par dizaines, qui possèdent une définition et de multiples ancres, vous intéresser aux regex peut vous sauver la vie ! J'y ai été confronté, avec des documents de plusieurs dizaines de pages, truffés de références à des ancres ramenant à la définition de règles métier.
 
-Sur un site web, les formulaires sont de parfaits exemples. Ils doivent s'assurer que votre adresse mail a le bon format, ainsi que votre numéro de téléphone. Mais du coup, c'est quoi les regex derrière ces formulaires ?
+Sur un site web, les formulaires sont de parfaits exemples. Ils doivent s'assurer que votre adresse mail a le bon format, ainsi que votre numéro de téléphone. Avant de devenir développeur, jamais je ne m'étais posé la question de la technique employée pour détecter qu'il y a une erreur dans un formulaire, ou au contraire déterminer que la valeur renseignée est valide.
+
+Vous vous en doutez, la réponse est : les regex !
 
 Une adresse mail a le format suivant : devendevenir@devendevenir.fr. Si on compare plusieurs adresses mail, on constate qu'elles ont toutes la même structure :
 
@@ -163,6 +169,8 @@ Par ailleurs, il existe de nombreux sites web permettant de construire, tester e
 
 ## Conclusion
 
-On ne croise pas tous les jours des expressions régulières, mais depuis que je suis développeur, je les ai déjà cotoyé 3 fois en 4 ans, dans des contextes très différents.
+On ne croise pas tous les jours des expressions régulières, mais depuis que je suis développeur, je les ai déjà côtoyées 2 fois en 4 ans, dans des contextes très différents (conversion de spécifications fonctionnelles de docx vers md, analyse d'une image en base 64 défaillante dans un formulaire).
 
-Maintenant que vous les comprenez mieux, ne vous reste plus qu'à les apprivoiser !
+La première rencontre a été la plus difficile à cause du volume de texte concerné, tandis que la deuxième a été beaucoup plus facile, car le travail effectué la première fois m'a directement servi et facilité la tâche.
+
+Et la prochaine fois que vous recherchez 1 ou 2 termes dans un projet (variable, fonction, extrait de code), pensez-y. La plupart des IDE permettent l'utilisation de regex dans leurs outils de recherche et de remplacement.
