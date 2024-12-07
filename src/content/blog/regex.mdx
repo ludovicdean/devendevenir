@@ -1,5 +1,5 @@
 ---
-title : ""
+title : "Les regex, aussi effrayantes que puissantes"
 date : Dec 31 2030
 tags :
 - I-culture
@@ -14,13 +14,15 @@ Une fois n'est pas coutume, l'introduction de cet article va comporter une image
 
 ![""](/devendevenir/images/regex_meme.png)
 
-Malheureusement, le dev de droite est resté coincé avec sa regex pendant 2 ans, et maintenant il élève des chèvres au fin fond du Cantal ! Pour éviter la surpopulation d’éleveurs de chèvres dans le Cantal, il faut dédiaboliser les regex et apprendre à mieux les connaître.
+Malheureusement, le dev de droite est resté coincé avec sa regex pendant deux ans, et maintenant, il élève des chèvres au fin fond du Cantal ! Pour éviter la surpopulation d’éleveurs de chèvres dans le Cantal, il faut dédiaboliser les regex et apprendre à mieux les connaître.
 
 ## L'origine des regex
 
-Les regex puisent leurs origines aux États-Unis, dans des équipes de recherche travaillant sur le système nerveux. De ces travaux, Stephen Cole Kleene, logicien de son état, a décrit les modèles neuronaux découverts en termes d’ensembles réguliers. On le considère comme l’inventeur des expressions régulières.
+Les regex trouvent leur origine aux États-Unis, dans des équipes de recherche travaillant sur le système nerveux aux alentours des années 40. De ces travaux, Stephen Cole Kleene, logicien de son état, a décrit les modèles neuronaux découverts en termes d’ensembles réguliers. On le considère comme l’inventeur des expressions régulières.
 
-D'accord, je vois vaguement d'où ça vient, mais ça ressemble à quoi ?
+Mmmmmmmmh, ce n'est pas clair du tout ton affaire !
+
+Dissipons le brouillard qui entoure les regex, au travers d'un cas d'utilisation simple.
 
 ## Regex : niveau 1
 
@@ -37,15 +39,17 @@ mots détectés : régulier
 
 Vraiment ? C’est ça une expression régulière ???
 
-NON, ce n’est pas “que” ça, c’est une expression régulière réduite à sa plus simple expression. Si on va au bout de l'idée, un simple caractère est une expression régulière. La force des regex, c’est qu’elles permettent de rechercher des ensembles de chaînes de caractères plus ou moins spécifiques.
+OUI et NON, ce n’est pas “que” ça, c’est une expression régulière presque réduite à sa plus simple expression. Si on va au bout de l'idée, un simple caractère est une expression régulière. La force des regex, c’est qu’elles permettent de rechercher des ensembles de chaînes de caractères plus ou moins spécifiques.
 
-Du coup, comment on peut rechercher à la fois régulier et régulières ? Il faut alors s’intéresser à la structure des regex.
+Du coup, comment on peut rechercher à la fois les termes "régulier" et "régulières" ? Il faut plonger dans la mécanique des regex (j'aurais bien parlé de mécanique des expressions régulières, mais ça faisait trop de "réguliers" dans cette phrase 😅).
 
 ## Regex : niveau 2
 
-Dans un premier temps, on peut rechercher le premier mot, puis le second. Pas très pratique dès que le document est un peu long, et ça fait repasser 2 fois au même endroit (pour peu qu’on ait seulement 2 termes proches).
+Dans un premier temps, on peut rechercher le premier mot, puis le second. Pas très pratique dès que le document est un peu long, et ça fait repasser 2 fois au même endroit (pour peu qu’on ait seulement deux termes proches).
 
-Ce qui fait la force des regex, c’est qu’elles n’analysent pas un texte par bloc, mais par groupes de chaînes de caractères. Quand on y regarde de plus près, on se rend compte que les 2 mots ont des caractéristiques communes.
+Ce qui fait la force des regex, c’est qu’elles analysent les textes par groupes de chaînes de caractères, d'un simple caractère à autant de caractères qu'on le souhaite.
+
+Dans notre cas, on se rend compte que les 2 mots ont des caractéristiques communes.
 
 ```
 régulier
@@ -55,7 +59,7 @@ régulière
 
 On commence à voir se dessiner des groupes de caractères communs, séparés par d'autres groupes de caractères qui varient dans une gamme de possibilités limitées.
 
-`réguli` n'est pas un mot, il s'agit maintenant d'un groupe de caractères.
+`réguli` n'est plus un mot, il s'agit maintenant d'un groupe de caractères.
 
 ### Les groupes de caractères
 
@@ -64,7 +68,7 @@ Dans une regex, un groupe de caractères est représenté par un groupe de carac
 Pour rechercher les mots "régulier" et "régulière" dans un texte, on pourra utiliser l'expression régulière suivante :
 
 ```
-(réguli)
+réguli
 ```
 
 Vous trouverez effectivement les occurrences de "régulier" et de régulière", mais vous trouverez également les occurrences de "régulièrement", "réguliez", et je vous passe les 3 possibilités restantes.
@@ -86,35 +90,46 @@ regex : Dans une regex(.*)contient
 résultat : Dans une regex, un groupe de caractères est représenté par les caractères qu'il contient
 ```
 
-Les méta-caractères utilisés représentent respectivement :
-- un seul caractère, quel qu'il soit `.`
-- 0 à n fois le caractère qui le précède `*`
+Les méta-caractères utilisés sont les suivants :
+- `.` un seul caractère, quel qu'il soit
+- `*` 0 à n fois le caractère qui le précède
 
-Combinés, `.*` permettent donc de rechercher une cha$ine de caractères quelle que soit sa nature.
+Combinés, `.*` permettent donc de rechercher une chaîne de caractères de longueur quelconque, contenant des lettres, des chiffres, des signes de ponctuation, etc.
 
 Ces méta-caractères ne sont pas les seuls, on trouve également les suivants :
 
-- `+` : 1 à n fois le caractère qui le précède `dev+` ➡ `dev, devv, devvv`
-- `?` : 0, 1 ou n occurrences du caractère ou du groupe qui le précède `dev?` ➡ `de, dev, devv`
-- `^` : le début d'une ligne `^dev` ➡ `dev, deva, devb, develop` en début de ligne mais pas `adev`
-- `$` : la fin d'une ligne `devenir$` ➡ `dev en devenir`
-- `|` : l'élément à gauche ou celui à droite de la barre `devenir|deviner` ➡ `devenir, deviner`
-- `\` : permet d'échapper un méta-caractère, afin de le rechercher en tant que caractère classique
-- `\b` : indique la limite d'un mot `\bdev\b` ➡ `dev` mais pas `devenir`
-- `{m}` représente le nombre exact d'occurrences de l'élément qui le précède `1{3}` ➡ `111`
-- `{m, n}` représente l'intervalle d'occurrences recherché (1 à 3 par exemple) `1{3, 4}` ➡ `111, 1111`
-- `{m,}` représente l'intervalle d'occurrences recherché à m minimum (2 minimum par exemple) `1{2,}` ➡ `11, 111, 1111`
-- `[abc]` correspond à l'un des caractères `[dev]` ➡ `d, e, v`
-- `[^abc]` correspond à aucun de ces caractères `[^dev]` ➡ `ni d, ni e, ni v`
+
+| méta-caractère | explication                                                              | regex            | exemple                                                  |
+|----------------|--------------------------------------------------------------------------|------------------|----------------------------------------------------------|
+| `+`            | 1 à n fois le caractère qui le précède                                   | dev+             | dev, devv, devvv                                         |
+| `?`            | 0, 1 ou n occurrences du caractère ou du groupe qui le précède           | dev?             | de, dev, devv                                            |
+| `^`            | le début d'une ligne                                                     | ^dev             | dev, deva, devb, develop en début de ligne mais pas adev |
+| `$`            | la fin d'une ligne                                                       | devenir$         | dev en devenir                                           |
+| `\b`           | indique la limite d'un mot                                               | \bdev\b          | dev mais pas devenir                                     |
+| `\|`           | l'élément à gauche ou celui à droite de la barre                         | devenir\|deviner | devenir, deviner                                         |
+| `{m}`          | le nombre exact d'occurrences de l'élément qui le précède                | 1{3}             | 111                                                      |
+| `{m, n}`       | l'intervalle d'occurrences recherché (1 à 3 par exemple)                 | 1{3, 4}          | 111, 1111                                                |
+| `{m,}`         | l'intervalle d'occurrences recherché à m minimum (2 minimum par exemple) | 1{2,}            | 11, 111, 1111                                            |
+| `[abc]`        | l'un des caractères                                                      | [dev]            | d, e, v                                                  |
+| `[^abc]`       | aucun de ces caractères                                                  | [^dev]           | ni d, ni e, ni v                                         |
+| `\`            | caractère d'échappement d'un méta-caractère                              |                  |                                                          |
+
+
+
+D'autres éléments permettent de caractériser des ensembles de caractères plus larges, les groupes.
+
+### Les groupes de caractères
 
 Il existe également des groupes de caractères particuliers, permettant de traiter des groupes plus larges :
 
-- `[A-Za-z]` correspond à toutes les lettres de l'alphabet, majuscules et minuscules non accentuées
-- `[0-9]` correspond aux chiffres
-- `\d` correspond également aux chiffres
-- `\w` correspond aux caractères alphanumériques et l'underscore
-- `\s` correspond à un ou plusieurs espaces, tabulations ou retours à la ligne
-- `\n` correspond à un saut de ligne
+| groupe     | caractères représentés                                                      |
+|------------|-----------------------------------------------------------------------------|
+| `[A-Za-z]` | à toutes les lettres de l'alphabet, majuscules et minuscules non accentuées |
+| `[0-9]`    | les chiffres                                                                |
+| `\d`       | les chiffres                                                                |
+| `\w`       | caractères alphanumériques et l'underscore                                  |
+| `\s`       | un ou plusieurs espaces, tabulations ou retours à la ligne                  |
+| `\n`       | saut de ligne                                                               |
 
 Même s'il ne paraît pas évident de prime abord que tous ces éléments sont ici pour nous faciliter la vie, on peut essayer de les combiner afin d'avoir un aperçu de leur utilité.
 
