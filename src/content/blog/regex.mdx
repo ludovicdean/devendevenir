@@ -9,9 +9,33 @@ author : ""
 authorlink : ""
 unsplashlink : ""
 isArticle : true
+tableData1 :
+  headers : ['méta-caractère', 'explication', 'regex', 'exemple']
+  rows :
+  - ['+', '1 à n fois le caractère qui le précède', 'dev+', 'dev, devv, devvv']
+  - ['?', '0 ou n occurrences du caractère ou du groupe précédent', 'dev?', 'de, dev, devv']
+  - ['^', "le début d'une ligne", '^dev', 'dev, deva, devb, develop mais pas adev']
+  - ['$', "la fin d'une ligne", 'devenir$', 'dev en devenir']
+  - ['\b', "indique la limite d'un mot", '\bdev\b', 'dev mais pas devenir']
+  - ['\|', "l'élément à gauche ou celui à droite de la barre", 'devenir\|deviner', 'devenir, deviner']
+  - ['{m}', "le nombre d'occurrences de l'élément précédent", '1{3}', '111']
+  - ['{m, n}', "l'intervalle d'occurrences recherché", '1{3, 4}', '111, 1111']
+  - ['{m,}', "l'intervalle d'occurrences recherché à m minimum", '1{2,}', '11, 111, 1111']
+  - ['[abc]', "l'un des caractères", '[dev]', 'd, e, v']
+  - ['[^abc]', "aucun de ces caractères", '[^dev]', 'ni d, ni e, ni v']
+  - ['\', "caractère d'échappement d'un méta-caractère", '\^', '^']
+tableData2 :
+  headers : ['groupe', 'caractères représentés']
+  rows :
+  - ['[A-Za-z]', "à toutes les lettres de l'alphabet, majuscules et minuscules non accentuées"]
+  - ['[0-9]', "les chiffres"]
+  - ['\d', "les chiffres"]
+  - ['\w', "caractères alphanumériques et l'underscore"]
+  - ['\s', "un ou plusieurs espaces, tabulations ou retours à la ligne"]
+  - ['\n', "saut de ligne"]
 ---
-import DataTable from "../../components/DataTable.astro";
 
+import DataTable from "../../components/DataTable.astro";
 
 Une fois n'est pas coutume, l'introduction de cet article va comporter une image, qui, à elle seule représente le désamour des développeurs pour les expressions régulières !
 
@@ -64,9 +88,7 @@ On commence à voir se dessiner des groupes de caractères communs, séparés pa
 
 `réguli` n'est plus un mot, il s'agit maintenant d'un groupe de caractères.
 
-### Les groupes de caractères
-
-Dans une regex, un groupe de caractères est représenté par un groupe de caractères entre parenthèses.
+### Fragmenter pour mieux rechercher
 
 Pour rechercher les mots "régulier" et "régulière" dans un texte, on pourra utiliser l'expression régulière suivante :
 
@@ -93,16 +115,11 @@ regex : Dans une regex(.*)contient
 résultat : Dans une regex, un groupe de caractères est représenté par les caractères qu'il contient
 ```
 
-Les méta-caractères utilisés sont les suivants :
-- `.` un seul caractère, quel qu'il soit
-- `*` 0 à n fois le caractère qui le précède
-
 Combinés, `.*` permettent donc de rechercher une chaîne de caractères de longueur quelconque, contenant des lettres, des chiffres, des signes de ponctuation, etc.
 
 Ces méta-caractères ne sont pas les seuls, on trouve également les suivants :
 
-<DataTable />
-
+<DataTable data={ frontmatter.tableData1} />
 
 D'autres éléments permettent de caractériser des ensembles de caractères plus larges, les groupes.
 
@@ -110,14 +127,7 @@ D'autres éléments permettent de caractériser des ensembles de caractères plu
 
 Il existe également des groupes de caractères particuliers, permettant de traiter des groupes plus larges :
 
-| groupe     | caractères représentés                                                      |
-|------------|-----------------------------------------------------------------------------|
-| `[A-Za-z]` | à toutes les lettres de l'alphabet, majuscules et minuscules non accentuées |
-| `[0-9]`    | les chiffres                                                                |
-| `\d`       | les chiffres                                                                |
-| `\w`       | caractères alphanumériques et l'underscore                                  |
-| `\s`       | un ou plusieurs espaces, tabulations ou retours à la ligne                  |
-| `\n`       | saut de ligne                                                               |
+<DataTable data={ frontmatter.tableData2} />
 
 Même s'il ne paraît pas évident de prime abord que tous ces éléments sont ici pour nous faciliter la vie, on peut essayer de les combiner afin d'avoir un aperçu de leur utilité.
 
