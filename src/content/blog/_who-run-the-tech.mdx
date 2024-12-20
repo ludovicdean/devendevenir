@@ -1,0 +1,121 @@
+---
+title : "Who Run The Tech"
+date : Dec 31 2030
+tags :
+- Events
+description : ""
+banner : "/images/daria-nepriakhina-9uEHFjGXnCE-unsplash.jpg"
+author : "Daria Nepriakhina 🇺🇦"
+authorlink : "https://unsplash.com/fr/@epicantus?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+unsplashlink : "https://unsplash.com/fr/photos/femme-assise-tout-en-regardant-allume-lordinateur-portable-sur-la-table-9uEHFjGXnCE?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+isArticle : true
+---
+
+Après avoir raté la première édition (2023), j’avais décidé de longue date de participer à la seconde (pas de débat seconde/deuxième par pitié !), et j’ai eu la chance de pouvoir le faire grâce à mon entreprise, [Max Digital Services](https://maxds.fr/).
+
+Who Run The Tech, c’est une journée de conférences techniques organisée par [l’ESTIMnumérique](https://estimnumerique.com/), qui a lieu à Rennes fin novembre. L’idée de cet évènement est de mettre en avant les femmes dans la tech, en leur donnant l’occasion de présenter des sujets très variés (de l’inclusion dans les jeux vidéos à l’OSINT). Chose unique dans le paysage des conférences dites “tech”, toutes les interventions sont données par des femmes.
+
+## Le plus dur, c’est de choisir
+
+Difficile de faire un choix quand les trois-quarts des sujets vous intéressent, il faudrait avoir le don d’ubiquité afin d’assister à toutes les conférences et de participer à tous les ateliers proposés !
+
+Cette année, c’est pas moins de 11 conférences, 14 quickies et 3 ateliers qui étaient proposés par l’évènement !
+
+Parfois, on retrouve une ancienne collègue dont on écoute l’intervention, ou encore on rencontre la créatrice d’un blog sur lequel on vient de faire sa première contribution. Dans ce cas on sait facilement quoi faire, mais pour le reste, c’est vraiment difficile de choisir.
+Les ateliers étaient tentants, mais les inscriptions ayant lieu le matin, il faut avoir déterminé avant d’arriver le programme de sa journée. Ce n’était pas mon cas, j’ai donc dû laisser tomber 😭.
+
+Contraintes horaires obligent, j’ai dû faire l’impasse sur les keynotes d’ouverture et de fermeture.
+
+## Une matinée de quickies
+
+Installé à l’étage de la chambre du commerce et de l’industrie, j’ai passé ma matinée à enchaîner les sujets, avec 5 quickies qui m’ont tous apporté des dizaines d’idées (d’articles, de projets etc.).
+
+### Les composants Gitlab
+
+Je ne suis a priori pas grand amateur de CI/CD (plus par peur que par réel désintérêt), mais Alice Simon a su rendre le sujet abordable, en reprenant les bases des pipelines Gitlab et la création de composants via des exemples concrets.
+
+En quelques mots, les composants Gitlab remplacent les templates Gitlab. On peut créer ses propres composants Gitlab, que l’on peut également partager dans un [catalogue CICD](https://gitlab.com/explore/catalog), alimenté par les utilisateurs ainsi que par Gitlab.
+
+Tout l’intérêt des composants est d’éviter de construire des monolithes de CICD. On peut découper un pipeline en combinant plusieurs composants auxquels on peut passer des paramètres etc.
+
+## Les PWA, révolution de l’UX ?
+
+Khadija ABDELOUALI présente les PWA, en partant de la réflexion initiale ayant mené à leur apparition : comment viser un large éventail de plateformes tout en évitant de développer une version d'application par plateforme ?
+
+Elle aborde également leurs avantages (qui ne résident pas uniquement en leur compatibilité avec Android, iOS etc.), mais nuance en montrant que tous les cas d’usages ne sont pas pertinents.
+
+On retiendra que le minimum vital d’une application qui se prend pour une PWA réside en 2 éléments :
+
+- un fichier manifest.json qui déclare les éléments visuels de l’application (icône, etc.)
+- un service worker servant d’intermédiaire entre le navigateur et le réseau
+
+Une présentation limpide, qui résume parfaitement les enjeux rencontrés lors de la création d'une application et les arguments à prendre en compte avant de trancher la question suivante : PWA ou PAS ?
+
+## Les devtools
+
+En venant à Who Run the Tech, je ne m'attendais pas à un numéro de magicien, et pourtant ça a bien été le cas ! Mathilde Renversade nous a présenté des morceaux choisis au sein des devtools (version navigateurs construits autour de Chromium, désolé Safari).
+
+Quelques raccourcis clavier pour commencer, puis on entre dans le vif du sujet. On découvre que les devtools comportent 2 types d'outils :
+- des panels, ou onglets Elements, Console, Sources etc.
+- des drawers, ou tiroirs (simulation de réseau lent, animations etc.)
+
+De vraies découvertes, notamment le workspace, qui permet de sélectionner un dossier sur sa machine, de modifier le fichier sur votre IDE et de voir directement les modifications dans le navigateur.
+
+Et le "Ooooooooooooooooh" de la conférence revient à la démonstration de cette ligne de code :
+
+```javascript
+console.document.designMode='on'
+```
+
+La magie de cette ligne de code réside en sa capacité à rendre une page web totalement éditable façon traitement de texte !
+
+## Waku, un React minimaliste
+Aline Leroy, dite La Dev de la Toile, nous présente le minimalisme dans le code, au travers du framework React Waku.
+Waku adopte une certaine sobriété avec des choix simples, notamment sur les mode de rendu (CSR, SSR, SSG), la gestion du routing (les routes sont le reflet de l'arborescence des pages).
+L'installation initiale ne contient que le nécessaire, à nous de choisir ensuite si l'on poursuit dans la voie du minimalisme.
+
+Petite touche très appréciée, l'évocation de l'équation de champ d'Einstein pour mettre en évidence la simplicité de cette équation face à la forme illisible qu'on connaissait précédemment et faire le parallèle avec Waku, qui donne une grande simplicité à des choses normalement d'une certaine complexité. Et petit bonus pour moi, j'ai rencontré la créatrice d'un [blog](https://ladevdelatoile.com/) auquel j'ai contribué quelques jours auparavant.
+
+## Fausses bonnes intégrations
+Cette fois, je retrouve une oratrice que j'ai cotoyé pendant près d'un an, Amy N'diaye, qui s'intéresse aux fausses bonnes intégrations dans le développement web côté front.
+Au travers d'un panneau de liège aux tentacules de ficelle rouge, elle navigue d'erreur en erreur, expliquant le pourquoi du comment et comment faire la même chose mais en mieux !
+
+C'est ainsi qu'on apprend que Safari comprend l'attribut `role` des listes, et pourquoi text-wrap pose de sérieux problèmes. Bref, un guide de bonnes pratiques à garder près de soi pour éviter de faire pleurer d'hypothétiques successeurs sur nos projets !
+
+Une pause s'impose, nos neurones et mon clavier ont suffisamment chauffé jusqu'ici, une escale sur le trottoir d'en face nous permet de reprendre des forces avant de replonger dans le monde de la "tech" !
+
+## Le feature flipping, avantages et limites
+Dorra Bartaguiz nous présente ici une technique de développement permettant de rendre l'apparition de nouvelles fonctionnalités dans une application totalement transparente pour les utilisateurs.
+Plébiscitée par un grand nombre de développeurs, notre oratrice nous met en garde sur l'abus de feature flipping, qui peut mener à rendre dépendantes des fonctionnalités très éloignées les unes des autres, et déstabiliser ainsi les applications.
+
+Suit une présentation détaillée des alternatives au feature flipping, notamment :
+- le trunk based development (développement basé sur le tronc).
+- le DDD (Domain Driven Development).
+- le branchement par abstraction (branch by abstraction)
+
+Un exposé dense, mais passionnant sur le feature flipping et ses alternatives.
+
+## Décoder nos pipelines Gitlab
+Hafsa El Maizi souhaite nous initier, nous développeurs, qui voyons souvent les pipelines hors scope de notre métier, à la mécanique des pipelines, ces drôles de bêtes que nous préférons ignorer tant elles paraissent obscures (en tout cas, pour moi 😅). Le pari est remporté, car une fois sorti de la conférence, j'étais convaincu, et prêt à essayer de construire des pipelines afin de passer de la théorie à la pratique.
+
+On part du tout début, de la définition d'un pipeline, dans laquelle on explicite les termes CI/CD (Intégration continue / déploiement continu). On parle conditionnement d'opérations selon les branches etc.
+
+Une introduction idéale pour un développeur comme moi, et une manière de commencer à apprivoiser ces étranges outils.
+
+## Le TDD dans le front
+Faustine Godbillot nous présente les différents types de tests que l'on peut mettre en place sur un projet front, des tests end to end aux tests unitaires. Elle nous montre pourquoi certains types de tests sont plus adaptés à la pratique du TDD (Test Driven Development) au travers d'une démonstration réussie (et contrairement à l'annonce de début de conférences, ses qualités artistiques ne sont pas si mauvaises que cela !).
+
+## L'OSINT
+Amal Dalhoumi nous fait (re)-découvrir l'OSINT (open-source intelligence, renseignement en source ouverte dans la langue de Molière). Tout d'abord son histoire, qui remonte à bien plus loin qu'on ne le pense habituellement, situant ses origines en 1941. À quoi ressemblait l'OSINT à cette époque ? La recherche d'informations dans les journaux, à la radio etc.
+
+De nos jours les sources d'informations sont infiniment plus vastes, et nous laissons tous des miettes facilement récupérables à qui le veut. Cette discipline est aussi puissante pour des actions réalisées avec de bonnes intentions (investigation, catastrophes naturelles) que pour des actions réalisées avec de mauvaises intentions (phishing, usurpation d'identité).
+
+Le point culminant de la présentation est sans conteste la démonstration des informations recueillies en 30 minutes par l'oratrice !
+
+## C'est pour bientôt
+Les captations des différentes conférences évoquées dans cet article ne sont pas en ligne pour le moment, nul doute que vous pourrez les retrouver sur la chaîne YouTube de [l'ESTIMNumérique](https://www.youtube.com/@estimnumerique) d'ici peu. 
+
+## Conclusion
+Cette journée m'a, une nouvelle fois, démontré que les conférences techniques ne sont pas un Everest pour développeur junior, bien au contraire. Il peut s'agir d'un véritable tremplin pour envisager de nouvelles idées, tester de nouveaux outils.
+
+Pourvu que l'évènement soit reconduit pour 2025, pour ma part, s'il l'est, j'y serai 😍 !
