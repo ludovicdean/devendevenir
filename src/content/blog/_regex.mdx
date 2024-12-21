@@ -4,23 +4,23 @@ date : Dec 31 2030
 tags :
 - I-culture
 description : ""
-banner : "/images/gaelle-marcel-9DZY0mO98xU-unsplash.jpg"
-author : ""
-authorlink : ""
-unsplashlink : ""
+banner : "/images/kristian-strand-p8gzCnZf39k-unsplash.jpg"
+author : "Kristian Strand"
+authorlink : "https://unsplash.com/fr/@kristianstrand?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+unsplashlink : "https://unsplash.com/fr/photos/photographie-a-plat-du-lot-de-timbres-p8gzCnZf39k?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
 isArticle : true
 tableData1 :
   headers : ['méta-caractère', 'explication', 'regex', 'exemple']
   rows :
   - ['+', '1 à n fois le caractère qui le précède', 'dev+', 'dev, devv, devvv']
   - ['?', '0 ou n occurrences du caractère ou du groupe précédent', 'dev?', 'de, dev, devv']
-  - ['^', "le début d'une ligne", '^dev', 'dev, deva, devb, develop mais pas adev']
+  - ['^', "le début d'une ligne", '^dev', 'dev, deva, devb']
   - ['$', "la fin d'une ligne", 'devenir$', 'dev en devenir']
   - ['\b', "indique la limite d'un mot", '\bdev\b', 'dev mais pas devenir']
-  - ['\|', "l'élément à gauche ou celui à droite de la barre", 'devenir\|deviner', 'devenir, deviner']
+  - ['|', "l'élément de gauche ou celui de droite", 'devenir\|deviner', 'devenir, deviner']
   - ['{m}', "le nombre d'occurrences de l'élément précédent", '1{3}', '111']
   - ['{m, n}', "l'intervalle d'occurrences recherché", '1{3, 4}', '111, 1111']
-  - ['{m,}', "l'intervalle d'occurrences recherché à m minimum", '1{2,}', '11, 111, 1111']
+  - ['{n,}', "nombre minimum d'occurrences à n", '1{2,}', '11, 111, 1111']
   - ['[abc]', "l'un des caractères", '[dev]', 'd, e, v']
   - ['[^abc]', "aucun de ces caractères", '[^dev]', 'ni d, ni e, ni v']
   - ['\', "caractère d'échappement d'un méta-caractère", '\^', '^']
@@ -34,7 +34,6 @@ tableData2 :
   - ['\s', "un ou plusieurs espaces, tabulations ou retours à la ligne"]
   - ['\n', "saut de ligne"]
 ---
-
 import DataTable from "../../components/DataTable.astro";
 
 Une fois n'est pas coutume, l'introduction de cet article va comporter une image, qui, à elle seule représente le désamour des développeurs pour les expressions régulières !
@@ -47,9 +46,7 @@ Malheureusement, le dev de droite est resté coincé avec sa regex pendant deux 
 
 Les regex trouvent leur origine aux États-Unis, dans des équipes de recherche travaillant sur le système nerveux aux alentours des années 40. De ces travaux, Stephen Cole Kleene, logicien de son état, a décrit les modèles neuronaux découverts en termes d’ensembles réguliers. On le considère comme l’inventeur des expressions régulières.
 
-Mmmmmmmmh, ce n'est pas clair du tout ton affaire !
-
-Dissipons le brouillard qui entoure les regex, au travers d'un cas d'utilisation simple.
+Mmmmmmmmh, ce n'est pas clair du tout ton affaire ! Dissipons le brouillard qui entoure les regex, au travers d'un cas d'utilisation simple.
 
 ## Regex : niveau 1
 
@@ -76,7 +73,7 @@ Dans un premier temps, on peut rechercher le premier mot, puis le second. Pas tr
 
 Ce qui fait la force des regex, c’est qu’elles analysent les textes par groupes de chaînes de caractères, d'un simple caractère à autant de caractères qu'on le souhaite.
 
-Dans notre cas, on se rend compte que les 2 mots ont des caractéristiques communes.
+Dans notre cas, on se rend compte que les deux mots ont des caractéristiques communes.
 
 ```
 régulier
@@ -96,7 +93,7 @@ Pour rechercher les mots "régulier" et "régulière" dans un texte, on pourra u
 réguli
 ```
 
-Vous trouverez effectivement les occurrences de "régulier" et de régulière", mais vous trouverez également les occurrences de "régulièrement", "réguliez", et je vous passe les 3 possibilités restantes.
+Vous trouverez effectivement les occurrences de "régulier" et de régulière", mais vous trouverez également les occurrences de "régulièrement", "réguliez", et je vous passe les trois possibilités restantes.
 
 Il y a peu de chances que "régulièrement" et "réguliez" soient fondamentaux dans votre recherche, vous voulez donc être plus spécifique.
 
@@ -104,7 +101,7 @@ Pour cela, nous allons aborder les méta-caractères.
 
 ### Les méta-caractères
 
-Vous ne le savez pas encore, mais vous avez déjà vu 2 de ces méta-caractères dans cet article. Une idée ?
+Vous ne le savez pas encore, mais vous avez déjà vu deux de ces méta-caractères dans cet article. Une idée ?
 
 Les parenthèses qui délimitent un groupe de caractères sont des méta-caractères, c'est-à-dire des caractères qui donnent un sens, une fonction aux différents éléments d'une regex.
 
@@ -135,7 +132,7 @@ Même s'il ne paraît pas évident de prime abord que tous ces éléments sont i
 
 Les cas sont infinis. Ma première confrontation avec les regex remonte à la conversion de spécifications fonctionnelles de plusieurs dizaines de pages au format docx vers un format md.
 
-Quand vous avez des règles métier par dizaines, qui possèdent une définition et de multiples ancres, vous intéresser aux regex peut vous sauver la vie ! J'y ai été confronté, avec des documents de plusieurs dizaines de pages, truffés de références à des ancres ramenant à la définition de règles métier.
+Quand vous avez des règles métier par dizaines, qui possèdent une définition et de multiples ancres, les regex peut vous sauver la vie ! J'y ai été confronté, avec des documents de plusieurs dizaines de pages, truffés de références à des ancres ramenant à la définition de règles métier.
 
 Sur un site web, les formulaires sont de parfaits exemples. Ils doivent s'assurer que votre adresse mail a le bon format, ainsi que votre numéro de téléphone. Avant de devenir développeur, jamais je ne m'étais posé la question de la technique employée pour détecter qu'il y a une erreur dans un formulaire, ou au contraire déterminer que la valeur renseignée est valide.
 
@@ -176,9 +173,9 @@ Si on reprend chaque partie de la regex, on peut voir les contraintes suivantes 
 
 ## Regex : cheat sheet
 
-Je ne suis pas toujours convaincu de l'utilité de l'IA dans certains domaines, mais force est de constater que la génération d'expressions régulières (dans des cas simples).
+Je ne suis pas toujours convaincu de l'utilité de l'IA dans certains domaines, mais force est de constater que la génération d'expressions régulières (dans des cas simples) est assez efficace.
 
-Par ailleurs, il existe de nombreux sites web permettant de construire, tester et débugger des expressions régulières. On citera ici notamment [regex101](https://regex101.com/), qui est un redoutable outil pour qui est à l'aise avec l'anglais.
+Par ailleurs, il existe de nombreux sites web permettant de construire, tester et débugger des expressions régulières. On citera notamment [regex101](https://regex101.com/), qui est un redoutable outil pour qui est à l'aise avec l'anglais. Ce site vous permettra de saisir une regex et de la tester. Vous pouvez également coller une expression régulière pour laquelle le site génèrera automatiquement une explication détaillant le rôle de chaque partie de votre regex.
 
 ## Conclusion
 
