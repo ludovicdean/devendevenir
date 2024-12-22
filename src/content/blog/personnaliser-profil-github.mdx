@@ -5,7 +5,6 @@ tags :
 - Vie de dev
 description : "Donnez un coup de neuf à votre profil Github"
 banner : "/images/gaelle-marcel-9DZY0mO98xU-unsplash.jpg"
-url : ""
 readingtime : "5 min"
 author : "Arnel Hasanovic"
 authorlink : ""
@@ -18,9 +17,9 @@ J’ai déjà vu des profils Github esthétiques, avec une présentation soigné
 
 ## Readme.md, vous connaissez ?
 
-Le readme (littéralement Lisez-moi) d’un projet, c’est, en théorie, un document qui présente le projet, les outils nécessaires etc.. Si le Markdown ne vous dit rien, allez [ici](https://ludovicdean.github.io/blog/markdown).
+Le readme (littéralement "Lisez-moi") d’un projet, c’est, en théorie, un document qui présente le projet, les outils nécessaires à son installation et bien d'autres informations. Si le Markdown ne vous dit rien, allez [ici](https://ludovicdean.github.io/blog/markdown).
 
-Si sur Github les bibliothèques et packages de tout acabit sont généralement très bien présentées, c’est autre chose dans les structures plus grandes (sic dans le monde professionnel).
+Si sur Github les bibliothèques et packages de tout acabit ont fréquemment des readme exhaustifs, dans des organisations plus grandes, on trouve souvent un fichier minimaliste, voire vide. Il revient alors au développeur de se débrouiller pour démarrer le projet, comprendre ses dépendances afin de l'utiliser pleinement.
 
 Maintenant que vous comprenez mieux ce qu’est le readme d’un projet, construisons le vôtre !
 
@@ -29,7 +28,6 @@ Maintenant que vous comprenez mieux ce qu’est le readme d’un projet, constru
 Voici la page permettant de créer un nouveau repository sur Github.
 
 ![Page de création d'un repository Github](/devendevenir/images/github-profile-create-new-repository.png)
-
 
 Les étapes à suivre pour créer votre profil personnalisable sont les suivantes :
 
@@ -43,7 +41,6 @@ Les étapes à suivre pour créer votre profil personnalisable sont les suivante
 Pour commencer la mue de votre profil, ouvrez le repository fraîchement créé et cliquez sur le bouton “Edit README” en haut à droite de la page.
 
 ![Editer le readme de votre profil Github](/devendevenir/images/github-profile-edit-readme.png)
-
 
 Votre README apparaît presque vide, un contenu succinct avec quelques exemples est auto-généré lors de la création du repository.
 
@@ -62,4 +59,36 @@ Certains éléments reviennent fréquemment sur les profils Github déjà person
 
 ### Les badges
 
-On va utiliser ici un site web, qui propose également son outil sous forme de package npm afin de générer des badges tels que ceux-ci :
+On va utiliser ici [un site web](shields.io), qui propose également son outil sous forme de package npm afin de générer des badges tels que ceux-ci :
+
+![Static Badge](https://img.shields.io/badge/Ludovic%20Déan-DevEnDevenir-yellow)
+
+![Static Badge](https://img.shields.io/badge/Chargement-90%25-yellow)
+
+Les badges présentés ici sont des badges statiques, le badge est récupéré au chargement de la page par un appel à l'API de shields.io. Les badges statiques prennent jusqu'à 3 paramètres :
+
+- le label
+- le message
+- la couleur
+
+L'URL qui se cache derrière le premier badge a la structure suivante `https://img.shields.io/badge/Ludovic%20Déan-DevEnDevenir-yellow`. On voit que les paramètres sont séparés par un tiret et les espaces remplacés par `%20`. Voici l'aspect de mon profil après ajout de badges.
+
+![Profil Github personnalisé avec des badges.](/devendevenir/images/github-badges.png)
+
+Pour nous, l'utilisation de Shields.io s'arrêtera là, mais l'outil recèle bien des facettes, notamment les badges dynamiques JSON. Je vous laisse creuser, pour revenir maintenant à notre profil.
+
+## Aller plus loin
+
+Mon profil est plus coloré avec les badges, certes, mais on pourrait peut-être faire mieux ?
+
+Oui, c'est possible ! Pour faire mieux, on peut utiliser des widgets créés par des développeurs, permettant de mettre en valeur toutes sortes de données, provenant de Github (statistiques de l'utilisateur) comme de sources externes. Une recherche sur votre moteur de recherche préféré avec les mots-clés "widgets readme github" vous permettra de trouver LE widget qui est fait pour vous. Du widget qui affiche le dernier post de votre blog au nombre de visiteurs sur votre profil, les possibilités sont très larges et c'est à vous de voir à quel point vous voulez personnaliser votre readme.
+
+![Profil Github personnalisé avec des widgets.](/devendevenir/images/github-widgets.png)
+
+Pour ma part, j'ai utilisé différents widgets, permettant d'afficher certains projets, certaines statistiques de mon profil sous un format plus agréable. J'ai utilisé les ressources des projets Github suivants :
+
+- https://github.com/dhyeythumar/awesome-readme-tools
+- https://github.com/abhisheknaiidu/awesome-github-profile-readme
+
+
+
