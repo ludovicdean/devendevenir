@@ -1,0 +1,19 @@
+---
+title : "C'est quoi un hash"
+date : Dec 31 2050
+tags :
+- I-culture
+description : "Vous utilisez des hash au quotidien, mais vous ignorez ce que c'est ? Découvrons-le ensemble !"
+banner : "/images/gaelle-marcel-9DZY0mO98xU-unsplash.jpg"
+---
+
+A l'heure de l'informatique quantique, ils commencent à trembler devant leur relative fragilité, mais notre monde, submergé d'identifiants et de mots de passe en regorge, je veux parler des hash. Pour notre sécurité et la sécurité des applications, on a l'habitude de ne PAS stocker les mots de passe des utilisateurs d'une application en clair. Un simple coup d'oeil et un développeur aurait accès d'un coup de baguette magique à vos données, sans avoir besoin de vous demander l'autorisation ? Impensable, et c'est ici qu'arrivent les hash !
+
+## C'est quoi un hash ?
+
+Un hash, c'est ce qu'on stocke dans nos bases de données en lieu et place de votre mot de passe. Bien hardi celui qui saura dire que 095d15cc4fc6c4b1a36fb0a03b04f4a8 correspond à "devendevenir" en clair. Une application n'a littéralement pas besoin de connaître votre mot de passe, elle a besoin de savoir que le mot de passe que vous lui avez envoyé, une fois haché, est égal au hash stocké dans sa base de données. Comment peut-on en être sûr ?
+
+Il faut se pencher sur la génération d'un hash pour comprendre l'intérêt de la technique.
+
+## D'où vient la notion de hash ?
+
