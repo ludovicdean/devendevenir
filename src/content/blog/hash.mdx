@@ -19,10 +19,14 @@ Il faut se pencher sur la génération d'un hash pour comprendre l'intérêt de 
 
 La notion de hachage des données est née dans les années 90, avec Ronald Rivest, qui a décrit l'algorithme MD-4 dans une publication que vous pouvez retrouver [ici](https://link.springer.com/chapter/10.1007/3-540-38424-3_22). Il décrit ici une fonction de hachage comme un algorithme qui prend en entrée un message de longueur arbitraire et produit une sortie de 128 bits (longueur fixe) décrit comme l'empreinte digitale, ou message résumé (message digest, d'où MD dans MD-4). Tout l'intérêt de cette fonction réside dans le fait que l'exécuter pour "chiffrer" un texte est peu coûteux, mais que l'inverse est pratiquement impossible, ou infaisable dans un temps raisonnable. Par ailleurs, il est presque impossible que deux textes différents produisent le même résultat.
 
+Une image valant mille mots, imaginez qu'on fasse un smoothie avec toutes sortes de fruits. On ne sera pas capable de reconstituer les fruits à partir du smoothie dans un temps raisonnable. Remplacez les fruits par votre mot de passe, le smoothie remplacera le hash de votre mot de passe.
+
 ## L'ère "industrielle"
 
 La NSA a créé en 1995 une fonction de hachage appelée SHA-1 (Secure Hash Algorithm 1). Il a été démontré une dizaine d'années plus tard qu'il existait des collisions dans l'algorithme SHA-1 (deux textes donnant le même résultat). Ceci brisait l'unicité de la fonction de hachage et posait de nombreux problèmes de sécurité, une personne pouvant se faire passer pour une autre grâce à cette faille.
 
 ## De nos jours
 
-Actuellement, on utilise l'algorithme SHA-256, qui offre un bon équilibre entre sécurité et performance.
+La principale problématique autour des algorithmes de hachage est de trouver des algorithmes sécurisés et performants. En effet, si le hachage d'un mot de passe doit prendre 10 secondes à chaque fois qu'on se connecte à une application, on risque de perdre des utilisateurs. A l'inverse, le système doit être robuste, sans quoi il sera très vite déserté par les utilisateurs.
+
+L'algorithme qui satisfait au mieux ces deux conditions est le SHA-256.
