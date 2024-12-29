@@ -7,19 +7,39 @@ description : "Vous utilisez des hash au quotidien, mais vous ignorez ce que c'e
 banner : "/images/gaelle-marcel-9DZY0mO98xU-unsplash.jpg"
 ---
 
-A l'heure de l'informatique quantique, ils commencent à trembler devant leur relative fragilité, mais notre monde, submergé d'identifiants et de mots de passe en regorge, je veux parler des hash. Pour notre sécurité et la sécurité des applications, on a l'habitude de ne PAS stocker les mots de passe des utilisateurs d'une application en clair. Un simple coup d'oeil et un développeur aurait accès d'un coup de baguette magique à vos données, sans avoir besoin de vous demander l'autorisation ? Impensable, et c'est ici qu'arrivent les hash !
+A l'heure de l'informatique quantique, ils commencent à trembler devant leur relative fragilité, mais notre monde, submergé d'identifiants et de mots de passe en regorge, je veux parler des hash.
+
+Pour notre sécurité et la sécurité des applications, on a l'habitude de ne PAS stocker les mots de passe des utilisateurs d'une application en clair.
+
+Un simple coup d'oeil et un développeur aurait accès d'un coup de baguette magique à vos données, sans avoir besoin de vous demander l'autorisation ? Impensable, et c'est ici qu'arrivent les hash !
 
 ## C'est quoi un hash ?
 
-Un hash, c'est ce qu'on stocke dans nos bases de données en lieu et place de votre mot de passe. Bien hardi celui qui saura dire que 095d15cc4fc6c4b1a36fb0a03b04f4a8 correspond à "devendevenir" en clair. Une application n'a littéralement pas besoin de connaître votre mot de passe, elle a besoin de savoir que le mot de passe que vous lui avez envoyé, une fois haché, est égal au hash stocké dans sa base de données. Comment peut-on en être sûr ?
+Un hash, c'est ce qu'on stocke dans nos bases de données en lieu et place de votre mot de passe. Bien hardi celui qui saura dire que 095d15cc4fc6c4b1a36fb0a03b04f4a8 correspond à "devendevenir" en clair. Une application se fiche littéralement de connaître votre mot de passe, elle a besoin de savoir que vous connaissez votre mot de passe. Quand vous vous connectez à une application, celle-ci calcul le hash de votre mot de passe et le compare au hash stocké dans sa base de données en face de votre identifiant. Comment fait-on ?
 
 Il faut se pencher sur la génération d'un hash pour comprendre l'intérêt de la technique.
 
 ## D'où vient la notion de hash ?
 
-La notion de hachage des données est née dans les années 90, avec Ronald Rivest, qui a décrit l'algorithme MD-4 dans une publication que vous pouvez retrouver [ici](https://link.springer.com/chapter/10.1007/3-540-38424-3_22). Il décrit ici une fonction de hachage comme un algorithme qui prend en entrée un message de longueur arbitraire et produit une sortie de 128 bits (longueur fixe) décrit comme l'empreinte digitale, ou message résumé (message digest, d'où MD dans MD-4). Tout l'intérêt de cette fonction réside dans le fait que l'exécuter pour "chiffrer" un texte est peu coûteux, mais que l'inverse est pratiquement impossible, ou infaisable dans un temps raisonnable. Par ailleurs, il est presque impossible que deux textes différents produisent le même résultat.
+La notion de hachage des données est née dans les années 90, avec Ronald Rivest, qui a décrit l'algorithme MD-4 dans une publication que vous pouvez retrouver [ici](https://link.springer.com/chapter/10.1007/3-540-38424-3_22). Il décrit ici une fonction de hachage comme un algorithme qui prend en entrée un message de longueur arbitraire et produit une sortie de 128 bits (longueur fixe) décrit comme l'empreinte digitale, ou message résumé (message digest, d'où MD dans MD-4).
+
+Tout l'intérêt de cette fonction réside dans le fait que l'exécuter pour "chiffrer" un texte est peu coûteux, mais que l'inverse est pratiquement impossible, ou infaisable dans un temps raisonnable. Par ailleurs, il est presque impossible que deux textes différents produisent le même résultat.
 
 Une image valant mille mots, imaginez qu'on fasse un smoothie avec toutes sortes de fruits. On ne sera pas capable de reconstituer les fruits à partir du smoothie dans un temps raisonnable. Remplacez les fruits par votre mot de passe, le smoothie remplacera le hash de votre mot de passe.
+
+Dans le cas du MD-5 (descendant direct du MD-4), on peut décrire les opérations successives subies par le message initial ainsi :
+
+- préparation
+  - complétion du message initial (devendevenir) par un bit 1 puis des bits à 0 jusqu'à 448 bits, puis ajout de la longueur du message sur 64 bits.
+  - initialisation de 4 tampons de 32 bits de valeur fixe
+- traitement
+  - découpage du message en blocs de 512 bits
+  - traitement de chaque bloc en 64 étapes et modification des tampons à chaque étape
+- finalisation
+  - mise à jour des tampons : addition de la valeur initiale du tampon à sa valeur finale
+  - génération de l'empreinte : concaténation des 4 tampons finaux (095d15cc4fc6c4b1a36fb0a03b04f4a8)
+
+Le MD-5 fais maintenant partie de l'histoire ancienne, et c'est à la NSA qu'on doit le perfectionnement des algorithmes de hachage.
 
 ## L'ère "industrielle"
 
