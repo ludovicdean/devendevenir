@@ -27,26 +27,29 @@ Tout l'intérêt de cette fonction réside dans le fait que l'exécuter pour "ch
 
 Une image valant mille mots, imaginez qu'on fasse un smoothie avec toutes sortes de fruits. On ne sera pas capable de reconstituer les fruits à partir du smoothie dans un temps raisonnable. Remplacez les fruits par votre mot de passe, le smoothie remplacera le hash de votre mot de passe.
 
+## Les premiers algorithmes
+
 Dans le cas du MD-5 (descendant direct du MD-4), on peut décrire les opérations successives subies par le message initial ainsi :
 
-- préparation
-  - complétion du message initial (devendevenir) par un bit 1 puis des bits à 0 jusqu'à 448 bits, puis ajout de la longueur du message sur 64 bits.
-  - initialisation de 4 tampons de 32 bits de valeur fixe
-- traitement
-  - découpage du message en blocs de 512 bits
-  - traitement de chaque bloc en 64 étapes et modification des tampons à chaque étape
-- finalisation
-  - mise à jour des tampons : addition de la valeur initiale du tampon à sa valeur finale
-  - génération de l'empreinte : concaténation des 4 tampons finaux (095d15cc4fc6c4b1a36fb0a03b04f4a8)
+- Préparation : allongement du message pour atteindre une taille spécifique.
+- Traitement : le message est découpé en blocs de taille égale, auxquels on fait subir une série d'opérations mathématiques.
+- Finalisation : combinaison des résultats pour produire l'empreinte finale.
 
-Le MD-5 fais maintenant partie de l'histoire ancienne, et c'est à la NSA qu'on doit le perfectionnement des algorithmes de hachage.
+Le MD-5 fais maintenant partie de l'histoire ancienne, car il présente trop de vulnérabilités :
 
-## L'ère "industrielle"
+- attaques par collisions : deux textes différents donnant le même hash MD-5.
+- vitesse du MD-5 : la rapidité du MD-5 est un atout jusqu'au moment où elle devient un atout pour les attaques par force brute.
 
-La NSA a créé en 1995 une fonction de hachage appelée SHA-1 (Secure Hash Algorithm 1). Il a été démontré une dizaine d'années plus tard qu'il existait des collisions dans l'algorithme SHA-1 (deux textes donnant le même résultat). Ceci brisait l'unicité de la fonction de hachage et posait de nombreux problèmes de sécurité, une personne pouvant se faire passer pour une autre grâce à cette faille.
+## Et après ?
+
+La recherche d'algorithmes plus sécurisés a été particulièrement été réalisée par la NSA, organe de sécurité nationale américaine. Le SHA-1 a été l'un des premiers algorithmes grand public issus de ces travaux (1995). Une dizaine d'années plus tard, il a été démontré que des failles permettaient de réaliser des attaques compromettant fortement les hash générés.
+
+À partir de 2013, l'algorithme sera progressivement déclaré obsolète, et progressivement remplacé par le SHA-2.
 
 ## De nos jours
 
-La principale problématique autour des algorithmes de hachage est de trouver des algorithmes sécurisés et performants. En effet, si le hachage d'un mot de passe doit prendre 10 secondes à chaque fois qu'on se connecte à une application, on risque de perdre des utilisateurs. A l'inverse, le système doit être robuste, sans quoi il sera très vite déserté par les utilisateurs.
+La principale problématique autour des algorithmes de hachage est de trouver des algorithmes sécurisés et performants. En effet, si le hachage d'un mot de passe doit prendre 10 secondes à chaque fois qu'on se connecte à une application, on risque de perdre des utilisateurs. À l'inverse, le système doit être robuste, sans quoi il sera très vite déserté par les utilisateurs.
 
-L'algorithme qui satisfait au mieux ces deux conditions est le SHA-256.
+## Conclusion
+
+Maintenant, vous comprenez mieux la notion de hash, et vous avez éliminé un terme de plus dans votre liste de mots à éclaircir ! Et si vous vous dites que ça ne sert à rien, détrompez-vous ! J'ai moi-même réalisé un outil de génération de hash MD-5 quelques mois avant mes débuts de développeurs 😅.
