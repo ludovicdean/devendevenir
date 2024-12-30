@@ -7,11 +7,11 @@ description : "Vous utilisez des hash au quotidien, mais vous ignorez ce que c'e
 banner : "/images/gaelle-marcel-9DZY0mO98xU-unsplash.jpg"
 ---
 
-A l'heure de l'informatique quantique, ils commencent à trembler devant leur relative fragilité, mais notre monde, submergé d'identifiants et de mots de passe en regorge, je veux parler des hash.
+À l'heure de l'informatique quantique, ils commencent à trembler devant leur relative fragilité, mais notre monde, submergé d'identifiants et de mots de passe en regorge, je veux parler des hash.
 
 Pour notre sécurité et la sécurité des applications, on a l'habitude de ne PAS stocker les mots de passe des utilisateurs d'une application en clair.
 
-Un simple coup d'oeil et un développeur aurait accès d'un coup de baguette magique à vos données, sans avoir besoin de vous demander l'autorisation ? Impensable, et c'est ici qu'arrivent les hash !
+Un simple coup d'œil et un développeur aurait accès d'un coup de baguette magique à vos données, sans avoir besoin de vous demander l'autorisation ? Impensable, et c'est ici qu'interviennent les hash !
 
 ## C'est quoi un hash ?
 
@@ -37,18 +37,21 @@ Dans le cas du MD-5 (descendant direct du MD-4), on peut décrire les opération
 
 Le MD-5 fais maintenant partie de l'histoire ancienne, car il présente trop de vulnérabilités :
 
+- attaques par dictionnaires : permet d'accélérer les recherches en réduisant les combinaisons à tester.
 - attaques par collisions : deux textes différents donnant le même hash MD-5.
 - vitesse du MD-5 : la rapidité du MD-5 est un atout jusqu'au moment où elle devient un atout pour les attaques par force brute.
 
 ## Et après ?
 
-La recherche d'algorithmes plus sécurisés a été particulièrement été réalisée par la NSA, organe de sécurité nationale américaine. Le SHA-1 a été l'un des premiers algorithmes grand public issus de ces travaux (1995). Une dizaine d'années plus tard, il a été démontré que des failles permettaient de réaliser des attaques compromettant fortement les hash générés.
+La recherche d'algorithmes plus sécurisés a beaucoup avancé grâce aux travaux de la NSA (National Security Agency) américaine sur le sujet. Le SHA-1 a été l'un des premiers algorithmes adoptés par le grand public (1995). Une dizaine d'années plus tard, il a été démontré que des failles permettaient de réaliser des attaques compromettant fortement les hash générés.
 
 À partir de 2013, l'algorithme sera progressivement déclaré obsolète, et progressivement remplacé par le SHA-2.
 
 ## De nos jours
 
 La principale problématique autour des algorithmes de hachage est de trouver des algorithmes sécurisés et performants. En effet, si le hachage d'un mot de passe doit prendre 10 secondes à chaque fois qu'on se connecte à une application, on risque de perdre des utilisateurs. À l'inverse, le système doit être robuste, sans quoi il sera très vite déserté par les utilisateurs.
+
+On travaille préférentiellement avec des algorithmes de hachage plus récents, comme Bcrypt (1999), Scrypt (2012) et Argon2 (2017). Le temps d'exécution plus long que pour d'autres algorithmes rend les attaques par force brute trop coûteuses en termes de temps. Ces algorithmes ont également l'avantage d'être adaptatifs. On peut en effet régler le nombre d'itérations effectué sur chaque bloc du message, et ajouter un sel au message. TODO : avantages (rainbow tables, réexpliquer plus haut et longueur de calculs)
 
 ## Conclusion
 
