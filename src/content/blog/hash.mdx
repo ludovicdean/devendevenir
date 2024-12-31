@@ -5,7 +5,15 @@ tags :
 - I-culture
 description : "Vous utilisez des hash au quotidien, mais vous ignorez ce que c'est ? Découvrons-le ensemble !"
 banner : "/images/gaelle-marcel-9DZY0mO98xU-unsplash.jpg"
+tableData1 :
+  headers : ['algorithme', 'nombre de valeurs possibles']
+  rows :
+  - ['MD-5', '2^128']
+  - ['SHA-1', '2^160']
+  - ['SHA-256', '2^256']
+  - ['SHA-512', '2^512']
 ---
+import DataTable from "../../components/DataTable.astro";
 
 À l'heure de l'informatique quantique, ils commencent à trembler devant leur relative fragilité, mais notre monde, submergé d'identifiants et de mots de passe en regorge, je veux parler des hash.
 
@@ -49,6 +57,10 @@ Le MD-5 fais maintenant partie de l'histoire ancienne, car il présente trop de 
 
 Du fait du nombre relativement limité de valeurs de hash possibles, ce type d'algorithme est vulnérable aux attaques avec des rainbow tables, qui sont des tables contenant un très grand nombre de mots et leur empreinte. Ce type d'outils permet notamment d'écarter de grandes plages de valeurs possibles de hash et de remonter rapidement vers la vraie valeur et donc la donnée initiale.
 
+L'évolution des fonctions de hachage a mené vers des domaines de valeurs possibles de plus en plus larges :
+
+<DataTable data={frontmatter.tableData1} />
+
 ## Et après ?
 
 La recherche d'algorithmes plus sécurisés a beaucoup avancé grâce aux travaux de la NSA (National Security Agency) américaine sur le sujet. Le SHA-1 a été l'un des premiers algorithmes adoptés par le grand public (1995). Une dizaine d'années plus tard, il a été démontré que des failles permettaient de réaliser des attaques compromettant fortement les hash générés.
@@ -61,7 +73,8 @@ La principale problématique autour des algorithmes de hachage est de trouver de
 
 On travaille préférentiellement avec des algorithmes de hachage plus récents, comme Bcrypt (1999), Scrypt (2012) et Argon2 (2017). Le temps d'exécution plus long que pour d'autres algorithmes rend les attaques par force brute trop coûteuses en termes de temps. Ces algorithmes ont également l'avantage d'être paramétrables. On peut en effet régler le nombre d'itérations effectué sur chaque bloc du message, et ajouter un sel au message. 
 
-Là où le MD-5 était vulnérable aux attaques avec des rainbow tables, l'arrivée des algorithmes tels que Bcrypt, Scrypt et Argon2 ont permis, grâce à leur paramétrabilité, de largement augmenter la difficulté de ce type d'attaque.
+Là où le MD-5 était vulnérable aux attaques avec des rainbow tables, l'arrivée des algorithmes tels que Bcrypt, Scrypt et Argon2 ont permis, grâce à leur paramétrabilité, de largement augmenter la difficulté de ce type d'attaque, non pas par l'augmentation du nombre de possibilités mais par l'allongement considérable des temps de calcul.
+
 
 ## Conclusion
 
