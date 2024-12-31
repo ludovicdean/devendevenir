@@ -25,7 +25,13 @@ La notion de hachage des données est née dans les années 90, avec Ronald Rive
 
 Tout l'intérêt de cette fonction réside dans le fait que l'exécuter pour "chiffrer" un texte est peu coûteux, mais que l'inverse est pratiquement impossible, ou infaisable dans un temps raisonnable. Par ailleurs, il est presque impossible que deux textes différents produisent le même résultat.
 
-Une image valant mille mots, imaginez qu'on fasse un smoothie avec toutes sortes de fruits. On ne sera pas capable de reconstituer les fruits à partir du smoothie dans un temps raisonnable. Remplacez les fruits par votre mot de passe, le smoothie remplacera le hash de votre mot de passe.
+Une fonction de hachage a les propriétés suivantes :
+
+- déterministe : si A devient B, ce sera toujours le cas.
+- uniforme : tous les résultats ont les mêmes chances d'être produits.
+- un petit changement change grandement le résultat.
+- résistante aux collisions.
+- à sens unique : quasi-impossibilité de remonter de B vers A.
 
 ## Les premiers algorithmes
 
@@ -41,6 +47,8 @@ Le MD-5 fais maintenant partie de l'histoire ancienne, car il présente trop de 
 - attaques par collisions : deux textes différents donnant le même hash MD-5.
 - vitesse du MD-5 : la rapidité du MD-5 est un atout jusqu'au moment où elle devient un atout pour les attaques par force brute.
 
+Du fait du nombre relativement limité de valeurs de hash possibles, ce type d'algorithme est vulnérable aux attaques avec des rainbow tables, qui sont des tables contenant un très grand nombre de mots et leur empreinte. Ce type d'outils permet notamment d'écarter de grandes plages de valeurs possibles de hash et de remonter rapidement vers la vraie valeur et donc la donnée initiale.
+
 ## Et après ?
 
 La recherche d'algorithmes plus sécurisés a beaucoup avancé grâce aux travaux de la NSA (National Security Agency) américaine sur le sujet. Le SHA-1 a été l'un des premiers algorithmes adoptés par le grand public (1995). Une dizaine d'années plus tard, il a été démontré que des failles permettaient de réaliser des attaques compromettant fortement les hash générés.
@@ -51,7 +59,9 @@ La recherche d'algorithmes plus sécurisés a beaucoup avancé grâce aux travau
 
 La principale problématique autour des algorithmes de hachage est de trouver des algorithmes sécurisés et performants. En effet, si le hachage d'un mot de passe doit prendre 10 secondes à chaque fois qu'on se connecte à une application, on risque de perdre des utilisateurs. À l'inverse, le système doit être robuste, sans quoi il sera très vite déserté par les utilisateurs.
 
-On travaille préférentiellement avec des algorithmes de hachage plus récents, comme Bcrypt (1999), Scrypt (2012) et Argon2 (2017). Le temps d'exécution plus long que pour d'autres algorithmes rend les attaques par force brute trop coûteuses en termes de temps. Ces algorithmes ont également l'avantage d'être adaptatifs. On peut en effet régler le nombre d'itérations effectué sur chaque bloc du message, et ajouter un sel au message. TODO : avantages (rainbow tables, réexpliquer plus haut et longueur de calculs)
+On travaille préférentiellement avec des algorithmes de hachage plus récents, comme Bcrypt (1999), Scrypt (2012) et Argon2 (2017). Le temps d'exécution plus long que pour d'autres algorithmes rend les attaques par force brute trop coûteuses en termes de temps. Ces algorithmes ont également l'avantage d'être paramétrables. On peut en effet régler le nombre d'itérations effectué sur chaque bloc du message, et ajouter un sel au message. 
+
+Là où le MD-5 était vulnérable aux attaques avec des rainbow tables, l'arrivée des algorithmes tels que Bcrypt, Scrypt et Argon2 ont permis, grâce à leur paramétrabilité, de largement augmenter la difficulté de ce type d'attaque.
 
 ## Conclusion
 
