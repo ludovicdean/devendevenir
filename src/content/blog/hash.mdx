@@ -15,15 +15,15 @@ tableData1 :
 ---
 import DataTable from "../../components/DataTable.astro";
 
-À l'heure de l'informatique quantique, ils commencent à trembler devant leur relative fragilité, mais notre monde, submergé d'identifiants et de mots de passe en regorge, je veux parler des hash.
+À l'heure de l'informatique quantique, ils commencent à trembler devant leur relative fragilité, mais notre monde, submergé d'identifiants et de mots de passe en regorge encore, je veux parler des mots de passes et leurs alter egos, les hash.
 
-Pour notre sécurité et la sécurité des applications, on a l'habitude de ne PAS stocker les mots de passe des utilisateurs d'une application en clair.
-
-Un simple coup d'œil et un développeur aurait accès d'un coup de baguette magique à vos données, sans avoir besoin de vous demander l'autorisation ? Impensable, et c'est ici qu'interviennent les hash !
+Pour notre sécurité et la sécurité des applications, on a l'habitude de ne PAS stocker les mots de passe des utilisateurs d'une application en clair. Un simple coup d'œil et un développeur aurait votre identifiant et votre mot de passe, sans avoir à vous consulter ? Impensable, et c'est ici qu'interviennent les hash !
 
 ## C'est quoi un hash ?
 
-Un hash, c'est ce qu'on stocke dans nos bases de données en lieu et place de votre mot de passe. Bien hardi celui qui saura dire que 095d15cc4fc6c4b1a36fb0a03b04f4a8 correspond à "devendevenir" en clair. Une application se fiche littéralement de connaître votre mot de passe, elle a besoin de savoir que vous connaissez votre mot de passe. Quand vous vous connectez à une application, celle-ci calcul le hash de votre mot de passe et le compare au hash stocké dans sa base de données en face de votre identifiant. Comment fait-on ?
+Un hash, c'est ce qu'on stocke dans nos bases de données en lieu et place de votre mot de passe. Bien hardi celui qui saura dire que 095d15cc4fc6c4b1a36fb0a03b04f4a8 correspond à "devendevenir" en clair. Une application se fiche littéralement de connaître votre mot de passe, elle a besoin de savoir que VOUS connaissez VOTRE mot de passe. Quand vous vous connectez à une application, celle-ci calcule le hash du mot de passe que vous venez de saisir et le compare au hash stocké dans sa base de données en face de votre identifiant. 
+
+Comment fait-on ?
 
 Il faut se pencher sur la génération d'un hash pour comprendre l'intérêt de la technique.
 
