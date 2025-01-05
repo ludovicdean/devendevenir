@@ -4,7 +4,10 @@ date : Dec 31 2050
 tags :
 - I-culture
 description : "Vous utilisez des hash au quotidien, mais vous ignorez ce que c'est ? Découvrons-le ensemble !"
-banner : "/images/gaelle-marcel-9DZY0mO98xU-unsplash.jpg"
+banner : "/images/mauro-sbicego-4hfpVsi-gSg-unsplash.jpg"
+authorlink : "https://unsplash.com/fr/@maurosbicego?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+unsplashlink : "https://unsplash.com/fr/photos/table-de-mixage-audio-noire-4hfpVsi-gSg?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+author : "Mauro Sbicego"
 tableData1 :
   headers : ['algorithme', 'nombre de valeurs possibles']
   rows :
@@ -23,25 +26,45 @@ Pour notre sécurité et la sécurité des applications, on a l'habitude de ne P
 
 Un hash, c'est ce qu'on stocke dans nos bases de données en lieu et place de votre mot de passe. Bien hardi celui qui saura dire que 095d15cc4fc6c4b1a36fb0a03b04f4a8 correspond à "devendevenir" en clair. Une application se fiche littéralement de connaître votre mot de passe, elle a besoin de savoir que VOUS connaissez VOTRE mot de passe. Quand vous vous connectez à une application, celle-ci calcule le hash du mot de passe que vous venez de saisir et le compare au hash stocké dans sa base de données en face de votre identifiant. 
 
-Comment fait-on ?
-
-Il faut se pencher sur la génération d'un hash pour comprendre l'intérêt de la technique.
-
-## D'où vient la notion de hash ?
-
-La notion de hachage des données est née dans les années 90, avec Ronald Rivest, qui a décrit l'algorithme MD-4 dans une publication que vous pouvez retrouver [ici](https://link.springer.com/chapter/10.1007/3-540-38424-3_22). Il décrit ici une fonction de hachage comme un algorithme qui prend en entrée un message de longueur arbitraire et produit une sortie de 128 bits (longueur fixe) décrit comme l'empreinte digitale, ou message résumé (message digest, d'où MD dans MD-4).
-
-Tout l'intérêt de cette fonction réside dans le fait que l'exécuter pour "chiffrer" un texte est peu coûteux, mais que l'inverse est pratiquement impossible, ou infaisable dans un temps raisonnable. Par ailleurs, il est presque impossible que deux textes différents produisent le même résultat.
-
-Une fonction de hachage a les propriétés suivantes :
+En théorie, une fonction de hachage est une fonction mathématique qui a les propriétés suivantes :
 
 - déterministe : si A devient B, ce sera toujours le cas.
 - uniforme : tous les résultats ont les mêmes chances d'être produits.
 - un petit changement change grandement le résultat.
-- résistante aux collisions.
-- à sens unique : quasi-impossibilité de remonter de B vers A.
+- résistante aux collisions : chances minimes que 2 textes différents aboutissent au même hash
+- unidirectionnelle : impossibilité de remonter de B vers A.
 
-## Les premiers algorithmes
+En pratique, une empreinte digitale est quelque part le hash d'un être humain :
+
+- elle est unique.
+- toutes les formes d'empreintes ont autant de chances d'être produits.
+- la moindre blessure modifie l'empreinte.
+- personne n'a de jumeau d'empreintes digitales.
+- impossible de reconstruire un humain à partir de son empreinte.
+
+Maintenant que vous appréhendez mieux le concept, penchons-nous sur l'histoire des fonctions de hash.
+
+## Un peu d'histoire
+
+Dans un premier temps, faisons un saut de 75 ans dans le passé pour rencontrer le père des fonctions de hachage.
+
+### Un peu de chimie ?
+
+Les premières recherches autour des fonctions de hachage nous viennent de la recherche documentaire. Un certain Hans Peter Luhn, chercheur chez IBM, s'est vu défié par des collègues lui demandant d'améliorer la recherche de molécules stockées sous un format codé.
+
+Il apportera dans un premier temps une réponse à base de cartes perforées, puis se tournera vers l'informatique pour répondre à ce type de problèmes. Il a laissé derrière lui nombre d'outils encore utilisés de nos jours (les résumés automatiques, l'auto-indexation, etc.).
+
+Ses travaux seront repris ensuite par d'autres chercheurs et seront à l'origine de nombre d'algorithmes de hachage.
+
+### L'homme derrière MD-5
+
+Avant d'aller plus loin dans la découverte des hash, arrêtons-nous quelques instants sur l'un des grands contributeurs de leur histoire, Ronald Rivest. Il s'agit d'un cryptologue américain, c'est-à-dire un spécialiste du chiffrement.
+
+Ronald Rivest a décrit l'algorithme MD-4 dans une publication de 1990, que les plus matheux d'entre-vous peuvent retrouver [ici](https://link.springer.com/chapter/10.1007/3-540-38424-3_22). Il décrit ici une fonction de hachage comme un algorithme qui prend en entrée un message de longueur arbitraire et produit une sortie de 128 bits (longueur fixe) décrit comme le message résumé (message digest, d'où MD dans MD-4).
+
+Tout l'intérêt de cette fonction réside dans le fait que l'exécuter pour "chiffrer" un texte est peu coûteux, mais que réaliser l'opération inverse est pratiquement impossible, ou infaisable dans un temps raisonnable. Par ailleurs, il est presque impossible que deux textes différents produisent le même résultat.
+
+### Les premiers algorithmes
 
 Dans le cas du MD-5 (descendant direct du MD-4), on peut décrire les opérations successives subies par le message initial ainsi :
 
@@ -61,7 +84,7 @@ L'évolution des fonctions de hachage a mené vers des domaines de valeurs possi
 
 <DataTable data={frontmatter.tableData1} />
 
-## Et après ?
+## La NSA entre dans la danse
 
 La recherche d'algorithmes plus sécurisés a beaucoup avancé grâce aux travaux de la NSA (National Security Agency) américaine sur le sujet. Le SHA-1 a été l'un des premiers algorithmes adoptés par le grand public (1995). Une dizaine d'années plus tard, il a été démontré que des failles permettaient de réaliser des attaques compromettant fortement les hash générés.
 
@@ -69,13 +92,33 @@ La recherche d'algorithmes plus sécurisés a beaucoup avancé grâce aux travau
 
 ## De nos jours
 
-La principale problématique autour des algorithmes de hachage est de trouver des algorithmes sécurisés et performants. En effet, si le hachage d'un mot de passe doit prendre 10 secondes à chaque fois qu'on se connecte à une application, on risque de perdre des utilisateurs. À l'inverse, le système doit être robuste, sans quoi il sera très vite déserté par les utilisateurs.
+On travaille préférentiellement avec des algorithmes de hachage plus difficiles à attaquer, comme Bcrypt (1999), Scrypt (2012) et Argon2 (2017). Le temps d'exécution plus long que pour d'autres algorithmes rend les attaques par force brute trop coûteuses en termes de temps. Ces algorithmes ont également l'avantage d'être paramétrables. On peut en effet régler les paramètres suivants :
 
-On travaille préférentiellement avec des algorithmes de hachage plus récents, comme Bcrypt (1999), Scrypt (2012) et Argon2 (2017). Le temps d'exécution plus long que pour d'autres algorithmes rend les attaques par force brute trop coûteuses en termes de temps. Ces algorithmes ont également l'avantage d'être paramétrables. On peut en effet régler le nombre d'itérations effectué sur chaque bloc du message, et ajouter un sel au message. 
+- le nombre d'itérations effectué sur chaque bloc du message.
+- ajout d'un sel au message.
 
-Là où le MD-5 était vulnérable aux attaques avec des rainbow tables, l'arrivée des algorithmes tels que Bcrypt, Scrypt et Argon2 ont permis, grâce à leur paramétrabilité, de largement augmenter la difficulté de ce type d'attaque, non pas par l'augmentation du nombre de possibilités mais par l'allongement considérable des temps de calcul.
+Là où le MD-5 était vulnérable aux attaques avec des rainbow tables, l'arrivée des algorithmes tels que Bcrypt, Scrypt et Argon2 a permis, grâce à leur paramétrabilité, de largement augmenter la difficulté de ce type d'attaque, non pas par l'augmentation du nombre de possibilités, mais par l'allongement considérable des temps de calcul.
 
+Ces fonctions sont aussi résistantes aux attaques menées avec des tables arc-en-ciel grâce à l'utilisation de sel combiné au mot de passe saisi.
+
+## Autres usages
+
+Quand on télécharge un fichier, on trouve parfois mention de la SHA-sum du fichier. Il s'agit du résultat du hachage de ce fichier avec une fonction de hachage comme SHA-1 ou SHA-256. Sur la page de [téléchargement](https://nodejs.org/en/download) de NodeJS, on nous indique comment vérifier la SHA sum de notre téléchargement.
+
+Si on obtient une empreinte différente de celle indiquée sur le site web, c'est que le fichier téléchargé a été altéré et qu'il ne faut probablement pas le conserver ou l'exécuter.
+
+C'est également la base de la blockchain, ce qui permet de s'assurer de l'intégrité et de la sécurité des transactions.
+
+## Des enjeux majeurs
+
+Jusque-là, nous comptions sur la lenteur des calculs nécessaire à remonter d'un hash à la valeur initiale passée à notre fonction de hachage. Mais désormais, l'informatique quantique, avec sa capacité à réduire les temps de calculs de manière considérable (de 47 ans à quelques secondes), menace directement tous les systèmes reposant sur ce type d'outils.
+
+Cela a poussé le monde de la recherche, publique comme privée, sur la piste de nouvelles techniques de cryptographie quantique, offrant la même résistance que les fonctions de hachage en leur temps.
+
+Cela signifierait par ailleurs la fin d'autres techniques cryptographiques, comme le chiffrement RSA, sur lequel repose l'ensemble des transactions bancaires.
 
 ## Conclusion
 
-Maintenant, vous comprenez mieux la notion de hash, et vous avez éliminé un terme de plus dans votre liste de mots à éclaircir ! Et si vous vous dites que ça ne sert à rien, détrompez-vous ! J'ai moi-même réalisé un outil de génération de hash MD-5 quelques mois avant mes débuts de développeurs 😅.
+Maintenant, vous comprenez mieux la notion de hash, et vous avez éliminé un terme de plus dans votre liste de mots à éclaircir ! Et si vous vous dites que ça ne sert à rien, détrompez-vous !
+
+Vous en utilisez plus souvent que vous ne le pensez ! J'ai d'ailleurs moi-même réalisé un outil de génération de hash MD-5 quelques mois avant mes débuts de développeurs 😅.
