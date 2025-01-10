@@ -10,7 +10,16 @@ author : "Markus Spiske"
 authorlink : "https://unsplash.com/fr/@markusspiske?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
 unsplashlink : "https://unsplash.com/fr/photos/photo-du-film-matrix-iar-afB0QQw?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
 isArticle : true
+tableData1 :
+  headers : ['Nombre de bits', 'Nombre de combinaisons', 'combinaisons']
+  rows :
+  - ['1', '2', '1 0']
+  - ['2', '4', '11 10 01 00']
+  - ['3', '8', '111 110 101 100 011 010 001 000']
+  - ['4', '16', '1111 1110 1101 1100 1011 1010 1001 1000 0111 0110 0101 0100 0011 0010 0001 0000']
 ---
+import DataTable from "../../components/DataTable.astro";
+
 Développeur ou non, vous avez sûrement vu plus d’une fois ce type d’étrangetés sur un site web, ou dans un fichier de votre ordinateur. Surgi de nulle part, un mot contenant Ã© en lieu et place d’un caractère accentué (été devient Ã©tÃ© par exemple).
 
 Je me suis posé la question de l’origine de ces caractères bizarres bien avant de m’intéresser au développement, mais j’étais encore chimiste à l’époque (personne n’est parfait) et n’ai pas cherché l’explication. Je l’ai récemment obtenue au cours d’une conférence donnée au BreizhCamp par Guillaume Collic dont l’enregistrement est disponible ici (https://www.youtube.com/@BreizhCamp).
@@ -30,35 +39,7 @@ Encoder un message, des données, c’est quelque part traduire dans un autre �
 
 Avant d’aborder l’une des premières tentatives d’encodage, arrêtons-nous sur la notion de bits. Un bit peut prendre 2 valeurs distinctes, 0 et 1. Avec 1 bit, vous avez donc 2 choix, 1 et 0. Ajoutez un bit supplémentaire et vous doubles le nombre de combinaisons. Comme le montre le tableau suivant, les possibilités s’étendent considérablement à chaque ajout de bit.
 
-<table className="mb-4">
-    <tbody>
-    <tr>
-        <td className="border-2 px-8">Nombre de bits</td>
-        <td className="border-2 px-8">Combinaisons possibles</td>
-        <td className="border-2 px-8">Combinaisons</td>
-    </tr>
-    <tr>
-        <td className="border-2 px-8">1</td>
-        <td className="border-2 px-8">2</td>
-        <td className="border-2 px-8">1 0</td>
-    </tr>
-    <tr>
-        <td className="border-2 px-8">2</td>
-        <td className="border-2 px-8">4</td>
-        <td className="border-2 px-8">11 10 01 00</td>
-    </tr>
-    <tr>
-        <td className="border-2 px-8">3</td>
-        <td className="border-2 px-8">8</td>
-        <td className="border-2 px-8">111 110 101 100 011 010 001 000</td>
-    </tr>
-    <tr>
-        <td className="border-2 px-8">4</td>
-        <td className="border-2 px-8">16</td>
-        <td className="border-2 px-8">1111 1110 1101 1100 1011 1010 1001 1000 0111 0110 0101 0100 0011 0010 0001 0000</td>
-    </tr>
-    </tbody>
-</table>
+<DataTable data={ frontmatter.tableData1} />
 
 Après ce focus sur les bits et la combinaison de bits, revenons à l’une des premières tentatives d’encodage binaire, le code Baudot.
 
