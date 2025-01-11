@@ -17,12 +17,19 @@ tableData1 :
   - ['2', '4', '11 10 01 00']
   - ['3', '8', '111 110 101 100 011 010 001 000']
   - ['4', '16', '1111 1110 1101 1100 1011 1010 1001 1000 0111 0110 0101 0100 0011 0010 0001 0000']
+tableData2 :
+  headers : ['Critère', 'UTF-8', 'UTF-16', 'UTF-32']
+  rows :
+  - ['octets par caractère', '1 - 4', '2 - 4', '4']
+  - ['compatibilité ascii', 'parfaite', 'moyenne', 'mauvaise']
+  - ['mémoire (langues latines)', 'faible', 'élevée', 'élevée']
+  - ['mémoire (langues asiatiques)', 'élevée', 'faible', 'élevée']
 ---
 import DataTable from "../../components/DataTable.astro";
 
 Développeur ou non, vous avez sûrement vu plus d’une fois ce type d’étrangetés sur un site web, ou dans un fichier de votre ordinateur. Surgi de nulle part, un mot contenant Ã© en lieu et place d’un caractère accentué (été devient Ã©tÃ© par exemple).
 
-Je me suis posé la question de l’origine de ces caractères bizarres bien avant de m’intéresser au développement, mais j’étais encore chimiste à l’époque (personne n’est parfait) et n’ai pas cherché l’explication. Je l’ai récemment obtenue au cours d’une conférence donnée au BreizhCamp par Guillaume Collic dont l’enregistrement est disponible ici (https://www.youtube.com/@BreizhCamp).
+Je me suis posé la question de l’origine de ces caractères bizarres bien avant de m’intéresser au développement, mais j’étais encore chimiste à l’époque (personne n’est parfait) et n’ai pas cherché l’explication. Je l’ai récemment obtenue au cours d’une conférence donnée au BreizhCamp par Guillaume Collic dont l’enregistrement est disponible [ici](https://www.youtube.com/@BreizhCamp).
 
 Répondre à cette question implique d’aborder une notion fondamentale en informatique, qu’est-ce que l’encodage ?
 
@@ -147,60 +154,7 @@ Un peu plus lourd que la notation ASCII, mais cette fois-ci aucun caractère ne 
 
 Dans les faits, il existe plusieurs manières d’utiliser l’encodage Unicode, avec les encodages UTF-8, UTF-16 et UTF-32. Arrêtons-nous sur l’UTF-8, le plus couramment utilisé à l’heure actuelle.
 
-<table className="mb-4">
-    <thead>
-    <tr>
-        <td></td>
-        <td className="border-2 px-4">UTF-8</td>
-        <td className="border-2 px-4">UTF-16</td>
-        <td className="border-2 px-4">UTF-32</td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td className="border-2 px-4">octets par caractère</td>
-        <td className="border-2 px-4">1 - 4</td>
-        <td className="border-2 px-4">2 -4</td>
-        <td className="border-2 px-4">4</td>
-    </tr>
-    <tr>
-        <td className="border-2 px-4">compatibilité ASCII</td>
-        <td className="border-2 px-4"><div className="w-full bg-black rounded-full h-2.5">
-            <div className="bg-blue-600 h-2.5 rounded-full" style="width: 100%"></div>
-        </div></td>
-        <td className="border-2 px-4"><div className="w-full bg-black rounded-full h-2.5">
-            <div className="bg-blue-600 h-2.5 rounded-full" style="width: 50%"></div>
-        </div></td>
-        <td className="border-2 px-4"><div className="w-full bg-black rounded-full h-2.5">
-            <div className="bg-blue-600 h-2.5 rounded-full" style="width: 10%"></div>
-        </div></td>
-    </tr>
-    <tr>
-        <td className="border-2 px-4">mémoire (langues latines)</td>
-        <td className="border-2 px-4"><div className="w-full bg-black rounded-full h-2.5">
-            <div className="bg-blue-600 h-2.5 rounded-full" style="width: 10%"></div>
-        </div></td>
-        <td className="border-2 px-4"><div className="w-full bg-black rounded-full h-2.5">
-            <div className="bg-blue-600 h-2.5 rounded-full" style="width: 100%"></div>
-        </div></td>
-        <td className="border-2 px-4"><div className="w-full bg-black rounded-full h-2.5">
-            <div className="bg-blue-600 h-2.5 rounded-full" style="width: 100%"></div>
-        </div></td>
-    </tr>
-    <tr>
-        <td className="border-2 px-4">mémoire (langues asiatiques)</td>
-        <td className="border-2 px-4"><div className="w-full bg-black rounded-full h-2.5">
-            <div className="bg-blue-600 h-2.5 rounded-full" style="width: 100%"></div>
-        </div></td>
-        <td className="border-2 px-4"><div className="w-full bg-black rounded-full h-2.5">
-            <div className="bg-blue-600 h-2.5 rounded-full" style="width: 10%"></div>
-        </div></td>
-        <td className="border-2 px-4"><div className="w-full bg-black rounded-full h-2.5">
-            <div className="bg-blue-600 h-2.5 rounded-full" style="width: 100%"></div>
-        </div></td>
-    </tr>
-    </tbody>
-</table>
+<DataTable data={frontmatter.tableData2} />
 
 Si dans les années 2000 UTF-8 représentait 80% du web, à l’heure actuelle nous sommes à près de 98,3% du web.
 
