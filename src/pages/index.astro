@@ -7,9 +7,7 @@ import { getCollection } from "astro:content";
 import TagsList from "@components/TagsList.astro";
 import PostsList from "../components/PostsList.astro";
 
-const posts = (await getCollection("blog")).sort(
-  (a, b) => (b.data.updatedDate ?? b.data.date).valueOf() - (a.data.updatedDate ?? a.data.date).valueOf(),
-);
+const posts = (await getCollection("blog")).filter(post => !post.id.startsWith('_')).sort((a, b) => b.data.date?.valueOf() - a.data.date?.valueOf());
 
 const allTags = posts.map((post) => post.data.tags).flat();
 

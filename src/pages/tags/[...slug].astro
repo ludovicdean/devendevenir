@@ -1,18 +1,18 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry, getCollection, render } from "astro:content";
 import Tag from "../../layouts/Tag.astro";
 
 export async function getStaticPaths() {
 	const tags = await getCollection("tags");
 	return tags.map((tag) => ({
-		params: { slug: tag.slug },
+		params: { slug: tag.id },
 		props: tag,
 	}));
 }
 type Props = CollectionEntry<"tags">;
 
 const tag = Astro.props;
-const { Content } = await tag.render();
+const { Content } = await render(tag);
 ---
 
 <Tag {...tag.data}>
