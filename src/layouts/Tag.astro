@@ -17,6 +17,9 @@ const filteredPosts = posts.filter((post) => post.data.tags?.includes(name));
     <BaseHead title={name} description={description} />
 
     <body>
+        <!-- Google Tag Manager (noscript) -->
+            <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5RPM9V45" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
         <Header />
         <main>
             <h2>{name}</h2>
