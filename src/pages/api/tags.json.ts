@@ -7,9 +7,11 @@ export interface Tag{
 }
 
 export async function GET() {
-  const posts = (await getCollection("blog")).filter(post => !post.id.startsWith('_'));
+  const posts = (await getCollection("blog"))
+  // .filter(post => !post.id.startsWith('_'))
+  ;
   const fullTags = (await getCollection('tags'));
-
+console.log(fullTags);
   const allTags = posts.map((post) => post.data.tags).flat();
   
   const tagCounts = allTags.reduce((acc, tag: string) => {
