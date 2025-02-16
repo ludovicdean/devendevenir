@@ -7,6 +7,7 @@ export async function GET() {
   .map(entry => ({
     id: entry.id,
     data: entry.data,
+isMax: entry.body == undefined ?true: false
   }));
   console.log(frontmatterData);
   return new Response(JSON.stringify(frontmatterData));
