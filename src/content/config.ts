@@ -1,3 +1,5 @@
+// import { glob } from 'astro/loaders';
+import { glob } from 'astro/loaders';
 import { defineCollection, z } from 'astro:content';
 
 const tableDataSchema = z.object({
@@ -6,17 +8,15 @@ const tableDataSchema = z.object({
 });
 
 const blog = defineCollection({
+	loader: glob({ pattern: "**/*.(md|mdx)", base: "./src/content/blog" }),
 	// Type-check frontmatter using a schema
 	schema: z.object({
 		title: z.string(),
 		description: z.string(),
 		// Transform string to Date object
-		date: z.coerce.date(),
+		date: z.coerce.date().optional(),
 		updatedDate: z.coerce.date().optional(),
 		banner: z.string().optional(),
-		heroImage: z.string().optional(),
-		photoAuthor: z.string().optional(),
-		photoAuthorLink: z.string().optional(),
 		author: z.string().optional(),
 		authorlink: z.string().optional(),
 		unsplashlink: z.string().optional(),
@@ -30,6 +30,7 @@ const blog = defineCollection({
 });
 
 const tags = defineCollection({
+	loader: glob({ pattern: "**/*.(md|mdx)", base: "./src/content/tags" }),
 	schema: z.object({
 		name: z.string(),
 		description: z.string()

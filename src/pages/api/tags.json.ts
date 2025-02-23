@@ -21,10 +21,12 @@ export async function GET() {
     const tagInfo = fullTags.find(t => t.data.name === name);
     console.log(tagInfo);
     return {
+      id: tagInfo?.id,
       name,
       description: tagInfo ? tagInfo.data.description : "",
       nombreArticles: count
     };
   });
 
-  return new Response(JSON.stringify(tags));}
+  return new Response(JSON.stringify(tags));
+}
