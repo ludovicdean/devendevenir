@@ -32,7 +32,15 @@ const ogImage = site + base + banner;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
   </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJV77GG7F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'G-DCJV77GG7F');
+</script>
   <body>
     <!-- Google Tag Manager (noscript) -->
       <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5RPM9V45" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
