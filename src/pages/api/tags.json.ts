@@ -1,10 +1,5 @@
 import { getCollection } from 'astro:content';
-
-export interface Tag{
-  name: string;
-  description: string;
-  nombreArticles: number;
-}
+import type { Tag } from 'src/interfaces/Tag';
 
 export async function GET() {
   const posts = (await getCollection("blog")).filter(post => !post.id.startsWith('_'));
