@@ -1,0 +1,143 @@
+---
+title : "C'est quoi être junior ?"
+date : Feb 20 2024
+tags :
+    - Framework
+    - Outils
+description : ""
+banner : "/images/gaelle-marcel-9DZY0mO98xU-unsplash.jpg"
+
+author : ""
+authorlink : ""
+unsplashlink : ""
+---
+
+Récemment je me suis interrogé sur ce que c’est d’être junior, car pour la première fois de ma courte carrière de dev, je me suis dit “Tiens, y a un an t’aurais pas pu gérer ça tout seul, cool !”. 
+
+Est-ce pour autant dire que ne plus être junior c’est réussir à se débarrasser de son syndrome de l’imposteur ? Non, je pense que les deux ne sont pas liés, et si le syndrome de l’imposteur est très répandu chez les jeunes développeurs, il sait également pointer son nez chez des développeurs expérimentés.
+
+## C’est quoi un junior ?
+
+Être junior se mesure d’après moi au temps durant lequel on est capable de développer sans avoir à recourir à un collègue plus expérimenté que soi, ou encore au degré de panique face à un imprévu généré par notre propre code.
+
+Durant ma première année en tant que développeur je pouvais rester bloqué après 2 lignes de code à cause d’un point virgule oublié et d’une stacktrace que j’étais incapable d’exploiter. Être junior ne se joue pas sur la durée (pour les amateurs d’expressions françaises un peu vieillottes dont je fais partie 😅 : la sagesse n’attend pas le nombre des années). En résumé : je paniquais au moindre accroc à l’exécution de mon code, et je perdais tous mes moyens.
+
+Ce n’est pas une fin en soi d’être junior, c’est un état dont la durée peut être plus ou moins longue, en tout cas on peut mettre en place des choses pour faire en sorte d’évoluer dans sa pratique du code.
+
+On peut adopter des réflexes, des techniques de travail permettant de réduire ce sentiment d’impuissance devant du code qui ne compile pas (ou n’est pas correctement interprété, je ne veux pas faire de jaloux). Des méthodes ou astuces permettant de baisser votre niveau de stress devant un bug aux innombrables techniques permettant de régler les bugs à la chaîne il n’y a qu’un pas, et vous êtes peut-être ici pour le franchir.
+
+Place maintenant à ces outils/techniques qui seront bientôt les vôtres et retarderont l’apparition de cheveux blancs chez les plus stressé(e)s d’entre nous.
+
+## Comment évoluer dans sa pratique
+
+Les manières de développer que je vais vous présenter vous permettront de progresser dans votre pratique du développement, et de rationaliser votre flux de travail. Cela vous permettra d’aborder des problèmes à première vue complexes avec philosophie, et avec un arsenal d’outils pour les régler petit à petit. Je ne prétends pas révolutionner le monde, mais vous présenter toutes les choses qui m’ont permis de progresser et de gagner en compétences.
+
+Contrairement à ce qu’on pourrait penser, tout ne réside pas dans la technique. Pour commencer ce tour d’horizon de méthodes de travail, nous allons commencer par celles qui n’ont rien de technique, et qui tiennent plutôt lieu de stratégie de développement, parfois juste avec un stylo et une feuille de papier.
+
+Cet article n’est pas un guide, mais plutôt une boîte à outils, dans laquelle vous pourrez revenir piocher une astuce, une technique vous aidant à gérer votre pratique du développement à un instant précis, ou dans la longueur.
+
+## Seul mais pas démuni !
+
+### Le lâcher-prise
+
+Quand un bug vous résiste, quand vous ne savez pas dans quel sens prendre une feature, ne vous acharnez pas ! Prenez soin de vos neurones et cessez de les martyriser avec la page blanche ou le code que vous regardez. Prenez l’air, faites autre chose, ce que vous voulez mais arrêtez de fixer votre écran avec un air déconfit, et jamais vous ne gagnerez de combat de regard face à lui !
+
+### Mettre à plat les problèmes
+
+Sur une feuille, écrivez les éléments suivants : 
+
+- la description du bug
+- les noms des fichiers en lien avec ce bug
+- les choses que vous avez tenté jusque-là
+- les éléments externes qui pourraient intervenir (même les plus improbables)
+
+Il y a fort à parier que l’écriture de tous ces éléments mettra en lumière les possibles incohérences que vous avez oublié de prendre en compte. Par ailleurs, à l’issue de cet exercice, vous serez probablement en mesure de décrire votre problème à votre interlocuteur.
+
+### Découper votre problème
+
+L’ennui quand on doit résoudre un problème, c’est que généralement on veut le régler d’un bloc. L’inconvénient de cette démarche, c’est que vous allez trouver un grain de sable, le suivre, puis un autre, le suivre, et d’ici 2 ou 3 autres grains de sable vous ne saurez plus qui vous êtes et pourquoi vous êtes là. 
+
+Mieux vaut s’intéresser au premier grain de sable, le faire disparaître, puis vous attaquer au grain de sable suivant etc. Au lieu d’avoir le syndrome de la page blanche vous aurez écrit 3 lignes de code, ce n’est peut-être pas beaucoup mais ce code là fonctionne. Grain de sable après grain de sable vous résoudrez progressivement votre problème jusqu’à la disparition du dernier. L’avantage de cette technique ? Vous avez écrit du code, et vous savez que ce code est bon, et fonctionne parfaitement.
+
+Quand je parle de découper le problème, c’est de reprendre :
+
+- ce qu’on veut faire (le grand bloc)
+- les étapes nécessaires
+- la logique propre à chaque étape (l’algorithme)
+
+A contrario, si vous vous arrêtez en fin de journée sur une journée “blanche” en terme de code, vous reviendrez au même point demain. Vous avez perdu du temps et de l’énergie. Enchaînez quelques jours comme ça et votre moral prendra aussi un coup, et là ça devient préoccupant.
+
+### Connaître votre IDE
+
+Passons maintenant à des méthodes plus matérielles, plus palpables. Nos IDEs sont des logiciels dotés de fonctionnalités immenses pour peu qu’on ose plonger dans leurs entrailles. Des raccourcis clavier aux outils de débuggage, nos IDEs regorgent d’outils susceptibles de nous aider dans notre pratique du code au quotidien. Je ne dis pas que j’ai totalement arrêté les bien connus `console.log("coucou")`, mais j'en écris infiniment moins qu'avant 🤣. En vrac, dans les outils qu'on peut trouver (sur Visual Studio par exemple) :
+
+- mode débug : création de point d’arrêts, exécution du code au pas à pas
+- espions : permettent de suivre l’évolution d’une variable tout au long de l’exécution de votre code
+- sortie : affiche les opérations que votre code effectue
+- affichage des stack traces : les erreurs ça fait peur (et ça rime 🏃) mais vos problèmes viennent de là, autant les regarder en détail de manière à trouver l’origine de vos problèmes. La solution à vos problèmes se cache souvent dans votre terminal, la console de votre navigateur et j’en passe.
+
+### Vous reprendrez bien du git ?
+
+Vous allez forcément travailler avec un outil de gestion de versions, à 99,99% Git. Vous avez déjà géré plusieurs copies du même projet avec plusieurs développements différents sur chaque copie ? Je vous épargne le test, c’est un enfer. Pour régler ces problèmes, le créateur de Linux (Linus Torvald) a créé  Git dans un moment de désespoir. 
+
+Commencez par la base, initialiser un dépôt, commit, push des modifications, créer des branches etc. De proche en proche (surtout si vous ne travaillez pas seul sur votre projet), vous élargirez votre connaissance de Git et maîtriserez toutes ses facettes.
+
+### Créez votre tableau de chasse
+
+Qu’il soit physique ou virtuel, ou uniquement dans votre tête, notez chaque problème résolu comme une victoire, aussi petite soit-elle. Que ce soit la configuration de votre projet en local, la résolution d’un bug ou l’assimilation d’un concept abordé mais pas encore pleinement compris, tout est bon pour alimenter vos victoires.
+
+En cela, développer en dehors du travail (pas nécessairement dans la même techno) est très puissant pour vous faire progresser. Ce n’est pas une obligation, mais cela donne un “cadre” sans véritable cadre pour développer, dans lequel vous êtes seul juge, parti et garant du code que vous écrivez. J’y reviendrai probablement dans un prochain article.
+
+## Vous n’êtes pas seul !
+
+### Trouvez-vous un canard
+
+Spoiler alert ⚠️ : ne courez pas vers l’étang le plus proche, c’est juste une expression 🤣.
+
+Votre canard personnel peut être un voisin de classe (j’avais une super voisine en formation), un collègue, ou même un objet. Vous aurez peut-être l’air fou si vous parlez à votre écran ou à votre tasse de café, mais au-delà du malaise, le fait de formuler à haute voix le problème permet souvent de mettre le doigt sur l’origine du problème, ou du moins une incohérence dans votre raisonnement.
+
+Un oeil extérieur décèlera plus facilement votre balise html pas fermée qui casse tout au milieu de votre écran, ou le point-virgule qui joue à cache-cache avec vous depuis 10 minutes. 
+
+### Demandez à une IA
+
+Vous n’êtes pas seul, mais je n’ai pas dit que l’autre devait être humain ^^. Option relativement récente, vous pouvez désormais poser des questions à une IA par rapport à un point technique, à la logique que vous souhaitez mettre en place.
+
+Revers de la médaille de l’IA, ce n’est pas parce qu’elle vous répond toujours qu’elle dit la vérité. Il faut examiner les réponses des IA avec attention car elles peuvent amplifier des problèmes qui n’existent pas dans votre contexte. 
+
+À titre personnel, j’utilise beaucoup Perplexity, notamment sur des questions de “mécanique”, que ce soit sur Astro, Angular ou .Net Core. À noter que dans beaucoup d’entreprises l’utilisation des IAs est bridée voire interdite, charge à vous de ne poser que des questions très techniques, sans donner de détails sur ce que vous faites (on ne sait pas toujours ce qu’il advient de nos données, et pour des entreprises cela peut être d’une grande importance stratégique).
+
+### Sur les réseaux
+
+Si vous fréquentez les réseaux sociaux, suivez des développeurs qui partagent des trucs et astuces de dev, dans vos technologies de coeur, et n’hésitez pas à enregistrer les posts qui vous intéressent. J’ai parfois résolu des problèmes rencontrés dans le cadre professionnel grâce à des éléments enregistrés sur Linkedin, ou Instagram par exemple. 
+
+Le but est de ne pas surcharger votre cerveau avec une information que vous saurez retrouver. Tous les outils ne se valent pas pour sauvegarder des posts, et il existe probablement des applications pour répertorier trier classer ces astuces mais je n’ai pas creusé ce sujet pour le moment.
+
+Pour ma part je suis des comptes de développeurs autant sur LinkedIn que sur Instagram. Il faut faire un peu de tri pour ne pas être submergé, mais on trouve régulièrement des astuces, des infos utiles.
+
+### Tester c’est douter ?
+
+Pour assurer la cohérence de votre code et sécuriser son évolution, les tests unitaires sont fondamentaux pour vous assurer que votre code ne casse pas. Cela fait partie des compétences clés d’un développeur et qui peut constituer un gros manque dans votre pratique. Beaucoup de projets doivent avoir une couverture de code supérieur à xx % du nouveau code, il y a donc fort à parier que vous y serez confrontés tôt ou tard.
+
+À titre personnel cela fait partie des compétences que je commence tout juste à acquérir, pas forcément dans les meilleures conditions (projet presque abouti, code métier complexe). Plus vous commencerez tôt dans un projet vos tests, plus ils seront simples à mettre en place dans un premier temps, et à faire évoluer par la suite.
+
+Les tests ne se limitent pas aux tests unitaires, on peut également réaliser des tests fonctionnels, avec des outils comme Cypress ou Playwright. Selon le cadre dans lequel vous travaillerez, vous aurez plus ou moins de temps à consacrer à cette partie du métier de développeur souvent délaissée faute de temps.
+
+## Aux grands maux les grands remèdes
+
+### Repartir de zéro
+
+Quand on code, qu’on développe une fonctionnalité (front ou back), on prend parfois une mauvaise direction dès le début, qui semble pertinente quand le périmètre est réduit, mais pose problème dès que le projet prend de l’ampleur.
+
+Conserver à tout prix votre code initial peut vous enfermer dans un dédale de problèmes qui vont s’enchaîner et vous faire écrire du code illisible ou impossible à maintenir.
+
+Quand vous arrivez à des dilemmes douloureux, revenez à la racine de votre code, et essayez de réécrire morceau par morceau votre logique afin d’assainir votre code et de le rendre maintenable.
+
+Tous ces ingrédients font partie de la recette de votre évolution en tant que développeur, et vous aideront à tracer votre route au gré des projets, personnels comme professionnels.
+
+## Conclusion
+
+Rien ne sert de courir, il faut partir à point. Vous ne pourrez pas tout comprendre du premier coup, ni même du deuxième. Il faut prendre votre mal en patience et avancer pas à pas, attaquer les problèmes morceaux par morceaux, avant de les régler sans sourciller. Quand on joue du piano (oui oui, je n’ai pas fait que de la chimie avant de devenir développeur), on fait des gammes, des exercices techniques avant de s’attaquer à des morceaux techniques.
+
+Tel le pianiste, apprenez à coder pas à pas, en étant fier de ce que vous faites (même si c’est juste d’avoir vaincu un point-virgule récalcitrant) et vous progresserez. Il vous faudra parfois regarder derrière-vous pour réaliser vos progrès car il est difficile d’en avoir conscience quand on a la tête dans le guidon.
+
+Et avec le temps, vous remarquerez que vous avez de nouveaux réflexes, de nouvelles pistes d’investigations que vous n’utilisiez pas auparavant, et votre manière de développer évoluera au gré des rencontres (influence de vos collègues, nouvelles technos) jusqu’à trouver vôtre manière de développer. Qui sait, peut-être aurez-vous un jour l’occasion de guider une jeune développeuse ou un jeune développeur ?
