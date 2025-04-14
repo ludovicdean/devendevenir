@@ -1,0 +1,100 @@
+---
+title : "C'est quoi les métadonnées ?"
+tags :
+    - I-Culture
+description : "Découvrez ce qui se cache derrière cette notion que nous rencontrons pourtant tous les jours sans le savoir."
+banner : "/images/daniel-forsman-ST4jAHVCEZQ-unsplash.webp"
+author: "Daniel Forsman"
+authorLink: "https://unsplash.com/fr/@danielforsman?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+unsplashLink: "https://unsplash.com/fr/photos/un-gros-plan-dun-ordinateur-ST4jAHVCEZQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+tableData1:
+  "headers": ["Type de métadonnées", "Exemples de propriétés", "Utilisations principales"]
+  "rows":
+  - ["Métadonnées descriptives", "Titre, Auteur, Sujet, Genre, Date de publication", "Découverte, Affichage, Interopérabilité"]
+  - ["Métadonnées techniques", "Type de fichier, Taille du fichier, Date/heure de création, Schéma de compression", "Interopérabilité, Gestion des objets numériques, Préservation"]
+  - ["Métadonnées de préservation", "Somme de contrôle, Événement de préservation", "Interopérabilité, Gestion des objets numériques, Préservation"]
+  - ["Métadonnées de droits", "Statut du copyright, Conditions de licence, Détenteur des droits", "Interopérabilité, Gestion des objets numériques"]
+  - ["Métadonnées structurelles", "Séquence, Place dans la hiérarchie", "Navigation"]
+  - ["Langages de balisage", "Paragraphe, Titre, Liste, Nom, Date", "Navigation, Interopérabilité"]
+---
+
+import DataTable from "../../components/DataTable.astro";
+
+Que ce soit dans le monde du développement ou plus largement, nous sommes entourés de métadonnées sans même le savoir. Autant le terme “données” me parle, autant son association avec le préfixe “méta” obscurcit largement l’idée générale.
+
+Si comme moi ce terme vous intrigue, suivez-moi, et à l’issue de cet article vous pourrez barrer ‘métadonnées” de votre liste de termes inconnus ou incompris.
+
+## Un peu d’étymologie
+
+Un petit tour du côté du dictionnaire de l’Académie Française nous explique le sens de chacun des éléments de ce terme (eh oui, il n’y a pas que Wikipedia ou ChatGPT dans la vie, il y a aussi l’Académie !).
+
+Comme indiqué juste au-dessus, métadonnées comporte le préfixe “méta”, issu du grec et portant notamment l’idée de “proximité, de changement”. Une donnée est quant à elle la représentation d’une information sous une forme conventionnelle adaptée à son exploitation.
+
+De manière générale, une métadonnée est une donnée qui apporte une précision sur l’origine d’une autre donnée, sa source, le contexte ayant généré cette donnée etc.
+
+Pour ma part j’étais persuadé que la notion de métadonnée était intimement liée à l’informatique, mais j’ai découvert que ce n’était pas le cas. 
+
+## Un peu d’histoire
+
+Une fiche cartonnée, rangée dans un casier en bois portant une plage alphabétique comme dev-dex, ça ne vous dit rien ? Laissez-moi digérer le coup de vieux que je viens de prendre et vous expliquer ce que cela m’évoque. 
+
+Il y a très longtemps, dans une galaxie lointaine… Non pardon, je m’égare. Il y a 20-25 ans, dans la bibliothèque près de chez vous, il existait des catalogues physiques contenant des milliers de fiches, chacune décrivant un ouvrage, son auteur, son titre, sa date d’édition, son résumé.
+
+Et nous voici enfin arrivés à nos fameuses métadonnées, les informations qui définissent notre livre. Ce n’est qu’un exemple, et cela peut s’appliquer à tout support d’informations ou tout objet.
+
+Si l’on en croit un [rapport](https://groups.niso.org/higherlogic/ws/public/download/17446/Understanding%20Metadata.pdf) de la National Information Standards Organization, on peut distinguer plusieurs catégories au sein des métadonnées, pour des usages variés :
+
+<DataTable data={ frontmatter.tableData1} />
+
+## Les catégories de métadonnées
+
+Si l'on résume, les métadonnées donnent donc du contexte à un objet, un document ou encore un site web. Cette description reste assez vague et ne rend pas compte de la variété de métadonnées qui nous entoure.
+
+Rentrons plus en détail dans les principaux types de métadonnées qui existent, des plus courants aux plus exotiques. Je ne détaillerai pas chaque catégorie mais illustrerai les principales.
+
+## Métadonnées descriptives
+
+Elles regroupent les caractéristiques d'un livre, tous les éléments qui vont permettre à un lecteur de trouver un livre, ou tout élément pouvant être un critère de recherche pour un livre. Au-delà des données indiquées dans le tableau, on peut également ajouter la date de première publication, l'éditeur, le nombre de rééditions, le nombre de pages, les sujets abordés.
+
+## Métadonnées techniques
+
+Comme toutes les métadonnées, elles vont apporter des détails. Pour sortir de l'exemple bateau d'un fichier, on peut prendre l'exemple d'une photographie. Hormis les photographes, peu de gens savent qu'une photo numérique dans son format brut (raw, avant le format jpeg), comporte une multitude de métadonnées qui répondent au format EXIF. Ce format compte pas moins d'une quarantaine de métadonnées possibles, dont les paramètres de prise de vue (focale, vitesse d'ouverture, exposition, date, etc.). Ces informations ne sont pas utiles pour la majeure partie des gens, en revanche elles sont indispensables aux photographes, pros comme amateurs.
+
+## Métadonnées de préservation
+
+Si les métadonnées présentées jusqu'ici me semblent être les plus connues, celles que je vais aborder ici vont probablement vous paraître plus exotiques. 
+
+Au rang des métadonnées de préservation on peut évoquer l'historique d'un fichier, sa somme de contrôle (checksum), permettant de garantir l'absence d'altération de ce fichier. Autres données importantes pour un fichier, la configuration matérielle et logicielle requise pour l'utiliser. Les droits définis sur un fichier sont également fondamentaux car ils régissent les actions possibles ou non en fonction des utilisateurs.
+
+## Métadonnées de droit
+
+Elles regroupent toutes les informations concernant la propriété intellectuelle. Pour un logiciel, on aura son type (payant, gratuit etc.), les restrictions (licence valable dans une zone géographique définie couplée à une durée). Pour une musique, les métadonnées pourront être les suivantes : l'identité des ayant-droits, de l'éditeur, les usages autorisés (utilisation commerciale ou non) etc.
+
+## Métadonnées de référencement
+
+Toute page web possède des informations qui permettent aux moteurs de recherche qui les indexent de résumer le contenu de la page, de lister les mots clé de la page pour le référencement naturel. Il s'agit des balises `<meta>` qui se trouvent généralement tout en haut de nos fichiers html.
+
+Dans le cas de ce blog, les métadonnées sont les suivantes :
+
+```html
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content={Astro.url} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+
+```
+
+Les balises de type `property="og:` sont les balises Open Graph. Elles sont destinées au partage des liens sur les réseaux sociaux.
+
+## Gestion des métadonnées
+
+Il s'agit de données au même titre que les données qu'elles décrivent, elles sont donc directement concernées par le Règlement Général de Protection des données (RGPD). Suite aux décisions prises à l'échelle européenne en 2022 sur le délai de conservation des métadonnées des photographies de smartphone ainsi que des données relatives à la localisation, la France a défini un délai de conservation des métadonnées limité à un an. Ces décisions concernent les opérateurs de communication électronique.
+
+## Conclusion
+
+Comme promis, vous pouvez maintenant barrer "métadonnées" de votre liste de mots issus du jargon informatique ! Personnellement, j'avais une vision très limitée de cette notion, et ne m'attendais pas à trouver des règles de gestion inscrites dans le droit français et européen à leur égard.
+
+Et vous, c'est quoi le prochain mot sur votre liste ?
