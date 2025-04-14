@@ -1,4 +1,4 @@
----
+<!-- ---
 interface TableData {
     headers: string[];
     rows: (string | number)[][];
@@ -32,6 +32,43 @@ const { data } = Astro.props;
                     ))}
                 </tr>
         ))}
+        </tbody>
+    </table>
+</div> -->
+---
+interface TableData {
+    headers: string[];
+    rows: (string | number)[][];
+}
+
+interface Props {
+    data: TableData;
+}
+
+const { data } = Astro.props;
+---
+
+<div class="overflow-x-auto my-10">
+    <table class="min-w-full bg-white border-2 border-gray-300">
+        <thead class="bg-yellow-300">
+            <tr class="bg-gray-100">
+                {data.headers.map((header) => (
+                    <th class="px-1 sm:px-4 lg:px-6 py-2 sm:py-3 lg:py-4 text-left font-medium text-gray-500 tracking-wider border-2 text-sm sm:text-base lg:text-xl">
+                        {header}
+                    </th>
+                ))}
+            </tr>
+        </thead>
+        <tbody class="[&>tr:nth-child(even)]:bg-yellow-300">
+            {data.rows.map((row) => (
+                <tr class="border-2 border-gray-200">
+                    {row.map((cell) => (
+                        <td class="px-1 sm:px-4 lg:px-6 py-2 sm:py-3 lg:py-4 border-solid border-2 text-md text-gray-500 text-xs sm:text-sm lg:text-md">
+                            {typeof cell === 'string' ? cell.split(',').map((item) => <p class="m-0 p-0">{item.trim()}</p>) : cell}
+                        </td>
+                    ))}
+                </tr>
+            ))}
         </tbody>
     </table>
 </div>

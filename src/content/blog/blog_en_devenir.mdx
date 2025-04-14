@@ -1,15 +1,14 @@
 ---
-title : "C'est quoi être junior ?"
+title : "Blog en devenir"
 date : Feb 20 2024
 tags :
-    - Framework
-    - Outils
+    - Vie de dev
 description : ""
-banner : "/images/gaelle-marcel-9DZY0mO98xU-unsplash.jpg"
+banner : "/images/susan-q-yin-2JIvboGLeho-unsplash.webp"
 
-author : ""
-authorlink : ""
-unsplashlink : ""
+author: "Susan Q Yin"
+authorLink: "https://unsplash.com/fr/@syinq?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+unsplashLink: "https://unsplash.com/fr/photos/livres-sur-etagere-en-bois-marron-2JIvboGLeho?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
 ---
 
 Aujourd’hui nous allons parler d’un side project pas comme les autres, DevEnDevenir. Bientôt 18 mois d’existence, et déjà pas mal d’embûches rencontrées au fil du développement. Quand on développe un projet, l’inattendu trouve toujours un moyen de se manifester au mauvais moment, rendant le site web inutile et l’empêchant de remplir sa mission.
@@ -43,7 +42,7 @@ La partie que je redoutais le plus (le déploiement) a été beaucoup plus simpl
 
 Contrairement à Jekyll, je n’ai eu aucun problème pour mes images et mes styles, et ce dès le premier déploiement. Début janvier 2024 j’étais paré, quelques articles en stock et c’est parti !
 
-## DevEnDevenir bug n°1
+## Bug n°1
 
 Pour l’un de mes premiers articles j’ai demandé à quelques personnes de consulter le site afin de voir si tout s’affichait bien. Personnes n°1 et n°2 ok, personne n°3 ko. Aucun texte à l’horizon pour mon troisième cobaye. Je déteste les imprévus et gère mal le stress. Gagné, je ne comprends pas d’où vient le problème, panique à bord. C’est finalement un collègue de travail qui me donnera la solution : la mise en place de polices de secours.
 
@@ -53,7 +52,7 @@ Premier bug, première alerte. Mon erreur a été de ne pas réfléchir au fait 
 
 Finalement la résolution du bug a été très simple, j’ai simplement 
 
-## DevEnDevenir bug n°2
+## Bug n°2
 
 Il y a quelques semaines, j’ai rencontré un bug qui m’a donné des sueurs froides. Rien de spécial au niveau de cette branche.
 
@@ -71,6 +70,12 @@ En parallèle, j’ai aussi créé une sorte de dashboard du blog, avec Angular 
 
 J’ai au passage ajouté une API sur mon blog, me permettant de récupérer les informations dont j’ai besoin pour synthétiser toutes les infos. Mon projet est également doté d’outils (formatage de texte pour les bannières des articles, conversion d’images au format webp). Plus besoin d’aller sur un site pour compresser 2 images avant de se heurter à un “inscrivez-vous pour continuer” puis basculer sur un autre et ainsi de suite. Tout le nécessaire est centralisé. Si ça vous intéresse, c’est par ici.
 
+## Les migrations
+
+Quand on crée un projet avec un framework, comme Astro pour ce blog, on s'expose automatiquement à des changements de version réguliers. Lorsque j'ai voulu créer mon dashboard pour le blog, j'ai eu besoin de fonctionnalités d'Astro présentes uniquement dans sa version 5, le blog ayant été créé avec la version 4. Il m'a donc fallu suivre la documentation [d'Astro](https://docs.astro.build/fr/guides/upgrade-to/v5/) et modifier la configuration du projet, les références au slug des éléments de collections par des références aux id des éléments etc.
+
+Légèrement plus compliqué qu'une simple ligne de commande mettant à jour une dépendance, cette fois-ci de nombreux changements étaient requis, sans quoi le blog ne compilait plus. Je ne suis pas pressé de voir la version 6 arriver, mais je sais que je n'y échapperai pas 😅.
+
 ## Les chantiers inachevés
 
 Au rang des problèmes rencontrés et jamais réglés figurent 2 éléments sur lesquels je ne suis pas revenu depuis un moment, l’utilisation du composant Image d’Astro et la création d’un sommaire flottant pour mes articles.
@@ -80,6 +85,15 @@ Le composant Image est fourni nativement par Astro. Son intérêt réside dans l
 Pour le sommaire flottant, le problème ne réside pas là où je m’attendais à rencontrer des difficultés, c’est à dire l’affichage. Non non, le problème se situe au niveau de la génération de l’URL de chaque lien. Tout caractère spécial ou symbole casse systématiquement le lien entre le sommaire et la partie correspondante. J’ai eu beau tester des dizaines de fonctions de création de slug, rien n’y fait !
 
 Par rapport à mes débuts de développeur, et même par rapport au début du développement du blog, je ne prends plus pour des revers ces échecs. Ce sont plutôt des sujets que j’ai mis de côté pour plus tard, à reprendre un jour en parallèle de l’écriture d’articles.
+
+## La suite
+
+Si les chantiers inachevés sont destinés à être menés à bien, d'autres tâches m'attendent sur le blog. Parmi les pistes à suivre, les suivantes sont probablement celles qui seront attaquées dans les mois à venir :
+
+- création de séries d'articles traitant d'un sujet en plusieurs articles au lieu d'un seul
+- réalisation de tests end to end avec Cypress ou Playwright à intégrer dans la pipeline de déploiement du blog.
+
+Et bien évidemment de nouveaux articles, traitant de sujets autour de la vie des développeurs, de leur quotidien que de sujets techniques.
 
 ## Les avantages d’un side project
 
