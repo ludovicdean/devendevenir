@@ -1,0 +1,36 @@
+---
+title : "Anatomie d'une URL"
+tags :
+    - I-culture
+description : "Jekyll, un générateur de site statique idéal pour créer son blog"
+banner : "/images/glenn-carstens-peters-npxXWgQ33ZQ-unsplash.jpg"
+
+author : "Glenn Carstens-Peters"
+authorlink : "https://unsplash.com/fr/@glenncarstenspeters?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+unsplashlink : "https://unsplash.com/fr/photos/personne-utilisant-un-macbook-pro-npxXWgQ33ZQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+---
+
+Quoi de plus banal de nos jours qu'une URL telle que www.google.com ou www.wikipedia.fr ? Dans le monde du développement web, utiliser des URLs est permanent. On les trouve partout, pour aller sur notre moteur de recherche préféré, pour consulter l'un des résultats de recherche, mais aussi pour appeler une API afin d'effectuer une action quelconque.
+
+Quels secrets se cache derrière ces fameuses URLs, et que signifie leur structure ? C'est ce que nous allons tenter d'éclaircir dans cet article !
+
+## Naissance des URLs
+
+Si dans le langage courant on parle d'adresse web, le terme consacré derrière le sigle URL est le suivant : Uniform Resource Locator (localisateur uniforme de ressource). J'ai beau être amoureux de notre langue, je constate bien souvent que les termes techniques sont généralement plus simples et agréables à prononcer que leur version francophone.
+
+On peut situer la naissance des URLs aux alentours de 1992, par non moins que le créateur du web, Tim Berners-Lee.
+
+## Structure des URLs
+
+Si récemment nos navigateurs affichent uniquement google.com dans leur barre d'adresse, ce n'est pas pour autant que `google.com` est une URL valide. En fait, nos navigateurs web masquent depuis quelques années la première partie de cette URL, les fameux `http://www.`. Pourquoi ? L'écrasante majorité des URLs commençant par `http://www.`, il a été jugé utile de ne plus demander aux utilisateurs de saisir le début de ces URLs. Quand vous allez sur votre moteur de recherche préféré, vous n'allez pas sur la page `monmoteurderechercheprefere.com`, mais bien sur la page `http://www.monmoteurderechercheprefere.com`. Avouez que c'est quand même lisible sans le préfixe !
+
+Mais au fait, pourquoi on met `http://www.` au début d'une URL ? Comme le suggère l'écriture de ce fragment d'URL, on a ici deux éléments à considérer séparément :
+
+- http : le protocole
+- www : le sous-domaine
+
+### Le protocole
+
+Quand on parle de web, on entend souvent parler de protocole. Alors que nous rencontrons habituellement les protocoles `http` et `https`, ne perdons pas de vue le fait qu'il existe une multitude de protocoles pour le web. Pour ne citer que les principaux, on peut parler de :
+
+- ftp :
