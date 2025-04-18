@@ -31,6 +31,21 @@ Mais au fait, pourquoi on met `http://www.` au début d'une URL ? Comme le sugg�
 
 ### Le protocole
 
-Quand on parle de web, on entend souvent parler de protocole. Alors que nous rencontrons habituellement les protocoles `http` et `https`, ne perdons pas de vue le fait qu'il existe une multitude de protocoles pour le web. Pour ne citer que les principaux, on peut parler de :
+Quand on parle de web, on entend souvent parler de protocole. Alors que nous rencontrons habituellement le protocole `http`, ne perdons pas de vue le fait qu'il existe une multitude de protocoles pour le web. Pour ne citer que les principaux, on peut parler de :
 
-- ftp :
+- http : accès à des pages web non sécurisées (paramètres d'URL en clair) => accès à une page web
+- https : accès à des pages web sécurisées (chiffrement de l'URL) => accès à une page web avec des informations sensibles (votre banque, les impôts)
+- ftp : transfert de fichier entre 2 ordinateurs (envoi de fichiers volumineux)
+- websocket : ouverture d'une connexion bidirectionnelle persistante entre un client et un serveur (messagerie instantanée)
+
+Le protocole nous permet donc de savoir quel type d'informations vont circuler via l'URL que nous empruntons.
+
+### Le sous-domaine
+
+Les fameux trois "w" que l'on précisait à chaque fois qu'on parlait d'un site web ne sont pas anodins. Ils désignent une partie spécifique d'un site web. Reprenons notre moteur de recherche favori. Son adresse ressemble à `www.monmoteurderechercheprefere.com`. Les trois "w" constituent un sous-domaine de `monmoteurderechercheprefere`. Si votre moteur de recherche préféré vous propose un service de mail, il y a fort à parier qu'il possède un sous domaine mail, donnant l'URL suivante : `mail.monmoteurderechercheprefere.com`. Mieux, s'il possède un blog, il aura probablement un sous-domaine `blog`.
+
+Si on compare l'URL à une résidence composée de plusieurs bâtiments, chaque sous-domaine est représentée par un bâtiment au sein de votre résidence.
+
+### Le domaine
+
+Dès qu'on parle de web, le nom de domaine est le terme qu'on entend le plus fréquemment. Votre nom de domaine c'est le nom de votre résidence principale
