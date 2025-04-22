@@ -14,16 +14,40 @@ Lorsqu'on souhaite créer un site web sans pour autant se plonger dans un CMS co
 
 La documentation étant assez fruste, j'ai approfondi mes recherches et ai réuni un grand nombre d'informations, mais aucune de mes sources n'avait de mode d'emploi complet pour Jekyll. La documentation officielle est elle-même difficile à exploiter pour débuter un projet. Comme à mon habitude, j'ai compilé toutes les informations glanées sur le sujet pour en faire un tutoriel.
 
-&nbsp;
+
 
 ## Création du projet
 
 Voici les étapes à suivre pour mettre en place un blog avec Jekyll :
 
-- installer Ruby avec le Windows installer avec devkit avec les options par défaut (par [ici](https://rubyinstaller.org/))
-- vérifier l’installation de Ruby en saisissant la commande `ruby -v` dans un terminal
-- lancer la génération du projet en saisissant la commande `jekyll letitredemonblog` dans un terminal
-- lancer le projet en saisissant les commandes `cd letitredemonblog` puis `jekyll serve --livereload`. Une fois la commande exécutée votre terminal vous indique l’url à laquelle est disponible votre site web (par défaut localhost:4000).
+- installer Ruby avec le Windows installer avec devkit avec les options par défaut (la documentation se trouve par [ici](https://rubyinstaller.org/))
+- vérifier l’installation de Ruby en saisissant la commande suivante dans un terminal :
+
+```bash
+ruby -v
+```
+
+- installer Jekyll et vérifier l'installation :
+
+```bash
+gem install jekyll bundler
+jekyll -v
+```
+
+- générer votre projet avec la commande :
+
+```bash
+jekyll lenomdemonblog`
+```
+
+- lancer le projet :
+
+```bash
+cd letitredemonblog
+jekyll serve --livereload
+```
+
+Une fois la commande exécutée votre terminal vous indique l’url à laquelle est disponible votre site web (par défaut localhost:4000).
 
 Votre blog est prêt !
 
@@ -33,28 +57,31 @@ La page d’accueil comporte plusieurs éléments, un lien vers un post, un lien
 
 Améliorer notre blog va nous faire examiner de plus près les entrailles de notre projet.
 
-&nbsp;
+
 
 ## Structure
 
 Un projet Jekyll est constitué de plusieurs packages aux rôles distincts sur la capture d'écran suivante.
 
 ![Alt text](/devendevenir/images/jekyll-arborescence.png)
-&nbsp;
+
 
 ### Includes
 
 Les fichiers contenus dans le package \_includes sont des extraits de code html qui peuvent être inclus au sein d’une autre page. On peut inclure un fichier grâce à son nom, mais on peut également passer des paramètres à cet extrait de code afin de générer du html avec une ou plusieurs variables. Sur ce site les vidéos sont incluses dans les pages ainsi, l'extrait de code permettant de rendre la vidéo responsive.
 
+```javascript
 `{% include navbar.html %}`
 
 `{% include video.html path='powertoys-fancy-zones.webm' %}`
+```
+
 
 Cela permet d’alléger les fichiers html et évite de dupliquer du code au sein de votre projet. Modifier un extrait modifiera l'ensemble des endroits où est appelé cet extrait.
 
 Les fichiers du dossier \_layouts sont les fichiers html contenant la trame de vos pages. Le fichier créé par défaut contient la structure de base d’une page html.
 
-&nbsp;
+
 
 ### Layouts
 
@@ -80,16 +107,16 @@ On créera généralement un layout par type de pages que l'on souhaite génére
 
 Les variables utilisées dans un layout seront valorisées lors de la compilation du projet et la génération des pages par Jekyll.
 
-&nbsp;
+
 
 ### Posts
 
 Les posts sont des fichiers Markdown qui sont constitué d'un en-tête appelé FrontMatter et d'un contenu (désigné par content dans les layouts). Dans votre blog, ce seront vos articles.
 
 Le FrontMatter regroupe l'ensemble des métadonnées d'un article : layout, titre, catégorie, date, résumé etc. Ces métadonnées seront accessibles depuis l'extérieur des fichiers et permettront d'afficher les informations relatives à un article depuis la page d'accueil, ou depuis la page de la catégorie correspondante.
-&nbsp;
 
-```
+
+```yaml
 ---
 layout: post
 title: "Créer un blog avec Jekyll"
@@ -103,24 +130,24 @@ skip_toc: true
 ---
 ```
 
-&nbsp;
+
 Le contenu du fichier vient à la suite du FrontMatter avec l'ensemble des éléments Markdown nécessaires à sa mise en page (titres, médias, extraits de code etc.).
 
-&nbsp;
+
 
 ### Site
 
 Le package \_site contient l'ensemble des fichiers générés par Jekyll, il faut donc absolument ne pas travailler dans ce dossier, car à chaque compilation l'ensemble de ces fichiers est régénéré. Je l'ai appris à mes dépens au début de mon projet.
 
-&nbsp;
+
 ![Contenu du répertoire _site.](/devendevenir/images/jekyll-site-package.png)
-&nbsp;
+
 
 ### Assets
 
 Le dossier assets va servir à stocker les fichiers statiques nécessaires au site, que ce soient les feuilles de styles, les fichiers JavaScript, ou encore les images de notre site. Lors de la génération du site le contenu du répertoire sera simplement copié et collé au sein du dossier \_site.
 
-&nbsp;
+
 
 ## Fichiers à la racine
 
@@ -134,15 +161,15 @@ L'arborescence de notre projet n'est pas uniquement constituée de ces packages,
 
 Arrêtons nous sur les fichiers fondamentaux, le Gemfile ainsi que le fichier de configuration du projet.
 
-&nbsp;
+
 
 ### Gemfile
 
 Les projets Ruby, comme la plupart des projets, ont besoin de dépendances pour fonctionner, ces dépendances ayant des versions spécifiques. Le Gemfile a pour rôle de référencer l'ensemble des dépendances d'un projet avec leurs versions. C'est sur ce fichier que vas se baser **Bundler**, le gestionnaire de dépendances Ruby pour installer le nécessaire pour faire fonctionner un projet.
 
-&nbsp;
+
 ![Structure du fichier Gemfile du projet.](/devendevenir/images/jekyll-gemfile.png)
-&nbsp;
+
 
 ### \_config.yml
 
@@ -159,7 +186,7 @@ Comme son nom l'indique le fichier \_config.yml contient les informations de not
 
 Le fichier a la structure suivante :
 
-&nbsp;
+
 
 ```yaml
 title: Mon Site Jekyll
@@ -170,7 +197,7 @@ author: John Doe
 plugins:
   - jekyll-feed
 
-theme: minima
+theme: nomdemontheme
 
 exclude:
   - exclusions/
@@ -185,15 +212,15 @@ collections:
     permalink: /:title
 ```
 
-&nbsp;
+
 
 On retrouve un paramètre nommé **theme** qui permet de préciser le nom du thème du site si on souhaite en utiliser un. Lors de la génération du projet le thème sera installé dans un dossier externe au projet. On peut retrouver leur emplacement avec cette commande :
 
 ```bash
-bundle info --path minima
+bundle info --path nomdemontheme
 ```
 
-&nbsp;
+
 
 ## Le thème
 
@@ -243,7 +270,7 @@ La modification du thème vous forcera à recompiler votre projet pour voir chaq
 
 Lors de la génération du site, Jekyll prendra les fichiers de votre projet s'ils existent pour les layouts, les includes etc. et ira chercher les fichiers manquants dans les fichiers du thème pour les copier dans le répertoire **\_site**.
 
-&nbsp;
+
 
 ## Les collections
 
@@ -268,27 +295,35 @@ On peut déterminer également les propriétés des collections dans ce fichier.
 
 On peut noter que les drafts sont gérés par défaut par Jekyll, et qu'on peut afficher son site web avec l'option `--drafts` afin qu'ils soient pris en compte lors de la génération du site.
 
-&nbsp;
+
 
 ## Liquid
 
 En parcourant les fichiers de votre projet, vous avez sûrement remarqué des blocs contenant du code comme `{% include nav.html %}` ou encore `{{ content }}`. Ce code est un langage couramment utilisé dans les générateurs de sites statiques, Liquid. Il permet de rendre les pages dynamiques ainsi que d'afficher des données.
 
-Il contient un grand nombre d'instructions différentes que nous ne détaillerons pas ici (mais qui le sont [là](https://shopify.dev/docs/api/liquid)). Sachez cependant que Jekyll nous permet d'utiliser entre autres :
+Il contient un grand nombre d'instructions différentes que nous ne détaillerons pas ici (pour la documentation, c'est [par-là](https://shopify.dev/docs/api/liquid)). Sachez cependant que Jekyll nous permet d'utiliser entre autres :
 
-- if/else
+- structures conditionnelles (if/else)
 - boucles for
-- l'affichage de variables
-- les filtres (ajouter une majuscule au début d'un mot, formater une date)
+- des variables
+- des filtres (ajouter une majuscule au début d'un mot, formater une date)
 
 Il n'est pas nécessaire de se plonger dans la documentation de Liquid pour commencer son blog, mais vous arriverez rapidement à devoir comprendre comment intégrer un extrait html dans une page, à conditionner un affichage, à boucler sur les éléments d'une collection, à filtrer des éléments selon une de leurs propriétés.
 
-Vous pouvez retenir qu'un bloc de code ressemble à ceci `{% mon code %}` et que l'affichage d'une variable se fait comme cela `{{ ma_variable }}`. Accéder à l'une des propriétés d'un élément de collection se fait ainsi `{{ post.title }}`.
+```javascript
+{% comment %} Commentaire {% endcomment %}
+{% bloc de code %}
+{{ variable }}
+```
 
-&nbsp;
+Bien entendu, une variable peut avoir un type défini et posséder des attributs, on utilisera alors la syntaxe suivante :
+
+```javascript
+{{ variable.nom }}
+```
 
 ## Conclusion
 
-Jekyll est un moyen simple d'utilisation pour réaliser un site web comme un blog, et permet de garder le contrôle sur le code que l'on écrit contrairement à un CMS comme WordPress. Je pense que pour mettre en place le projet initial (création du projet jusqu'à sa première exécution réussie) j'ai dû passer environ une journée dessus.
+Jekyll est un moyen simple d'utilisation pour réaliser un site web comme un blog, et permet de garder le contrôle sur le code que l'on écrit contrairement à un CMS comme WordPress. La mise en place du projet initial a dû me prendre une journée.
 
-Il m'a fallu environ une semaine pour mieux comprendre le fonctionnement global de Jekyll, ensuite j'ai pu creuser les notions en lien avec mes problématiques progressivement, une paire d'heures permettant largement d'expérimenter une nouvelle fonctionnalité ou de développer une preuve de concept (POC, Proof Of Concept).
+Il m'a fallu environ une semaine pour mieux comprendre le fonctionnement global de Jekyll, ensuite j'ai pu creuser les notions en lien avec mes problématiques progressivement, quelques heures permettant largement d'expérimenter une nouvelle fonctionnalité ou de développer une preuve de concept (POC, Proof Of Concept).
