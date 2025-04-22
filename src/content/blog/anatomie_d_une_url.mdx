@@ -3,16 +3,16 @@ title : "Anatomie d'une URL"
 tags :
     - I-culture
 description : "Jekyll, un générateur de site statique idéal pour créer son blog"
-banner : "/images/glenn-carstens-peters-npxXWgQ33ZQ-unsplash.jpg"
+banner : "/images/markus-spiske-S7GcgdI7WjQ-unsplash.webp"
 
-author : "Glenn Carstens-Peters"
-authorlink : "https://unsplash.com/fr/@glenncarstenspeters?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
-unsplashlink : "https://unsplash.com/fr/photos/personne-utilisant-un-macbook-pro-npxXWgQ33ZQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+author: "Markus Spiske"
+authorLink: "https://unsplash.com/fr/@markusspiske?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+unsplashLink: "https://unsplash.com/fr/photos/une-photo-en-noir-et-blanc-du-mot-comm-S7GcgdI7WjQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
 ---
 
-Quoi de plus banal de nos jours qu'une URL telle que www.google.com ou www.wikipedia.fr ? Dans le monde du développement web, utiliser des URLs est permanent. On les trouve partout, pour aller sur notre moteur de recherche préféré, pour consulter l'un des résultats de recherche, mais aussi pour appeler une API afin d'effectuer une action quelconque.
+Quoi de plus banal de nos jours qu'une URL telle que `google.com` ou `wikipedia.fr` ? Dans le monde du développement web, utiliser des URLs fait partie du quotidien. On les trouve partout, pour aller sur notre moteur de recherche préféré, pour consulter l'un des résultats de recherche, mais aussi pour appeler une API afin d'effectuer une action quelconque.
 
-Quels secrets se cache derrière ces fameuses URLs, et que signifie leur structure ? C'est ce que nous allons tenter d'éclaircir dans cet article !
+Quels secrets se cache derrière ces fameuses URLs ? C'est ce que nous allons tenter d'éclaircir dans cet article !
 
 ## Naissance des URLs
 
@@ -22,7 +22,9 @@ On peut situer la naissance des URLs aux alentours de 1992, par non moins que le
 
 ## Structure des URLs
 
-Si récemment nos navigateurs affichent uniquement google.com dans leur barre d'adresse, ce n'est pas pour autant que `google.com` est une URL valide. En fait, nos navigateurs web masquent depuis quelques années la première partie de cette URL, les fameux `http://www.`. Pourquoi ? L'écrasante majorité des URLs commençant par `http://www.`, il a été jugé utile de ne plus demander aux utilisateurs de saisir le début de ces URLs. Quand vous allez sur votre moteur de recherche préféré, vous n'allez pas sur la page `monmoteurderechercheprefere.com`, mais bien sur la page `http://www.monmoteurderechercheprefere.com`. Avouez que c'est quand même lisible sans le préfixe !
+Si récemment nos navigateurs affichent uniquement google.com dans leur barre d'adresse, ce n'est pas pour autant que `google.com` est une URL valide. En fait, nos navigateurs web masquent depuis quelques années la première partie de cette URL, les fameux `http://www.`. 
+
+Pourquoi ? L'écrasante majorité des URLs commençant par `http://www.`, il a été jugé utile de ne plus demander aux utilisateurs de saisir le début de ces URLs. Quand vous allez sur votre moteur de recherche préféré, vous n'allez pas sur la page `monmoteurderechercheprefere.com`, mais bien sur la page `http://www.monmoteurderechercheprefere.com`. Avouez que c'est quand même lisible sans le préfixe !
 
 Mais au fait, pourquoi on met `http://www.` au début d'une URL ? Comme le suggère l'écriture de ce fragment d'URL, on a ici deux éléments à considérer séparément :
 
@@ -56,3 +58,29 @@ Après le domaine, on trouve invariablement un point suivi de 2 ou 3 lettres, il
 
 ### Le domaine de premier niveau
 
+Quand on parle d'URL, on précise toujours l'extension de cette URL. Vous savez, c'est le fameux `.com`, ou le fameux `.fr` qui vient compléter notre nom de domaine. Cette extension est en réalité un domaine. Contrairement aux domaines décrits précédemment, ce domaine-là regroupe un très grand nombre de sites web. On parle de domaine de premier niveau.
+
+Si vous me posez la question, je retrouverai probablement une dizaine d'extensions, mais en réalité il en existe près de 2000 !
+
+Si l'on exclut l'extension `.arpa` qui désigne un domaine de premier niveau spécial (dédié à la gestion de l'infrastructure réseau d'internet), on peut regrouper les extensions en 2 groupes distincts :
+
+- les domaines nationaux (ou ccTLD : country code Top-Level Domain), composés de 2 lettres
+- les domaines génériques (ou gTLD : Generic Top-Level Domain), composés de plus de 2 lettres
+
+Avec tous ces éléments, on parvient à la structure suivante :
+
+```bash
+protocole://sous-domaine.domaine.domaine-de-premier-niveau
+```
+
+C'est bien, mais nous n'irons pas loin sans ajouter de nouveaux éléments à nos URLs. Tous les protocoles n'utilisent pas le même port pour accéder à une machine. Chaque protocole a un port par défaut, qui n'a pas besoin d'être précisé si c'est bien lui qui est utilisé par la machine. Si notre moteur de recherche préféré n'utilisait pas le port 80, on aurait ceci :
+
+```bash
+http://www.monmoteurderechercheprefere.com:monport
+```
+
+Une URL permet bien entendu d'accéder à des pages web, mais elle permet également d'accéder à l'arborescence de notre site web, et on a besoin d'ajouter ici ce qu'on appelle le chemin absolu.
+
+### Le chemin absolu
+
+La racine d'un site web porte le chemin `/`
