@@ -8,7 +8,7 @@ import SmallCard from "@components/SmallCard.astro";
 const { name, description } = Astro.props;
 
 const posts = (await getCollection("blog"));
-const filteredPosts = posts.filter((post) => post.data.tags?.includes(name));
+const filteredPosts = posts.filter((post) => !post.id.startsWith('_') && post.data.tags?.includes(name));
 ---
 
 <html lang="en">
