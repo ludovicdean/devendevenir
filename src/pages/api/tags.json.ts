@@ -14,7 +14,6 @@ export async function GET() {
 
   const tags: Tag[] = Object.entries(tagCounts).map(([name, count]) => {
     const tagInfo = fullTags.find(t => t.data.name === name);
-    console.log(tagInfo);
     return {
       id: tagInfo?.id,
       name,

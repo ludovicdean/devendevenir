@@ -9,6 +9,5 @@ export async function GET() {
     data: entry.data,
 isMax: entry.body == undefined ?true: false
   })).filter(entry => entry.data.date === undefined);
-  console.log(frontmatterData);
   return new Response(JSON.stringify(frontmatterData));
 }
