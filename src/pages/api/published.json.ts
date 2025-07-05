@@ -1,7 +1,8 @@
-import { getCollection } from 'astro:content';
+import { getPosts } from 'src/utils/blogUtils';
 
 export async function GET() {
-  const blogEntries = await getCollection('blog');
+  const blogEntries = await getPosts();
+
   const articlesByYear = blogEntries.reduce((acc, entry) => {
   if (entry.data.date) {
     const year = entry.data.date.getFullYear();
@@ -17,22 +18,12 @@ export async function GET() {
   return acc;
 }, {});
 
-for (const year in articlesByYear) {
-  articlesByYear[year].sort((a, b) => {
-    if (a.data?.date && b.data?.date) {
-      return b.data.date.valueOf() - a.data.date.valueOf();
-    } else {
-      return 0; 
-    }
-  });
-}
-
 const groupedArticles = Object.entries(articlesByYear).map(([year, articles]) => ({
   year: parseInt(year),
   articles: articles
 }));
  
 groupedArticles.sort((a, b) => b.year - a.year);
-
+console.log(groupedArticles);
 return new Response(JSON.stringify(groupedArticles));
 }
