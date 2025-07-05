@@ -1,23 +1,20 @@
 ---
-import { getCollection } from "astro:content";
 import SmallCard from "./SmallCard.astro";
+import { getPosts } from "src/utils/blogUtils";
 
 const { tags, title } = Astro.props;
-const posts = await getCollection("blog");
 
-posts.sort((a, b) => b.data.date - a.data.date);
+const posts = await getPosts();
 
-const similarPosts = posts.filter(
-    (e) => tags.some((t) => e.data.tags?.includes(t)) && e.data.title !== title,
-).slice(0,4);
+const relatedPosts = posts.filter((e) => tags.some((t) => e.data.tags?.includes(t)) && e.data.title !== title,).slice(0,4);
 ---
 
-{similarPosts.length > 0 && <h3>Articles en lien</h3>}
+{relatedPosts.length > 0 && <h3>Articles en lien</h3>}
 
 <ul class="flex flex-wrap gap-4 list-none p-0">
     {
-        similarPosts.map((post) => (
-                <SmallCard post={post} />
+        relatedPosts.map((post) => (
+            <SmallCard post={post} />
         ))
     }
 </ul>
