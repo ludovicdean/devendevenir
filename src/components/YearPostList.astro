@@ -1,0 +1,9 @@
+---
+import SmallCard from "./SmallCard.astro";
+const { posts } = Astro.props;
+---
+<ul class="flex flex-wrap gap-4 w-[900px] md:w-[calc(100%-0.5rem)]">
+    {posts.map((post) => (
+<SmallCard post={post} />
+    ))}
+</ul>
