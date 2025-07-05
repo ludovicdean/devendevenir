@@ -19,7 +19,6 @@ Ma curiosité m'a poussé à créer un projet Astro en reprenant le contenu du b
 
 Avant de poursuivre votre lecture, précision importante : ce blog a été créé avec la version **3.6.4**.
 
-&nbsp;
 
 ## Pré-requis
 
@@ -35,7 +34,6 @@ Le terminal devrait afficher la version de NodeJS installée sur votre ordinateu
 
 Cette vérification faite, vous pouvez passer à la création de votre blog à proprement parler.
 
-&nbsp;
 
 ## Créez votre blog
 
@@ -62,7 +60,6 @@ Une fois votre blog lancé, l'enregistrement d'un fichier entraînera le rafraî
 
 Intéressons-nous maintenant à la structure de notre projet.
 
-&nbsp;
 
 ## Structure du projet
 
@@ -91,7 +88,6 @@ Dans notre cas, il contiendra les packages suivants :
 - /content ➡ nos articles au format .mdx (format qui étend les fonctionnalités originelles du markdown en permettant notamment l'utilisation de composants externes)
 - /layouts ➡ les trames de nos pages (articles, catégories)
 
-&nbsp;
 
 ### Les fichiers à la racine
 
@@ -126,7 +122,6 @@ Son contenu est généralement un résumé du rôle d'un projet, ou l'explicatio
 
 Ce fichier sert à l'éditeur de code utilisé à savoir comment interpréter un projet. Pour en savoir plus, vous pouvez vous référer à la page correspondante de la documentation d'Astro, [ici](https://docs.astro.build/fr/guides/typescript/).
 
-&nbsp;
 
 ## Découvrir Astro
 
@@ -227,7 +222,6 @@ On voit ici qu'on récupère la collection de posts du site et que pour chaque p
 
 Si vous mettez en place des catégories, vous passerez probablement par la création d'une autre collection qui aura ses propres attributs, son propre layout, ses propres composants.
 
-&nbsp;
 
 ## Les layouts
 
@@ -266,7 +260,6 @@ Le layout appelle les composants dont il a besoin pour rendre la page (BaseHead,
 
 Ainsi, la structure de vos articles n'a pas besoin d'être gérée au sein de chaque article, mais une seule fois dans le fichier de mise en page. L'affichage des composants peut être conditionné au sein d'un layout, et le passage de paramètres à un composant a lieu dans ce layout.
 
-&nbsp;
 
 ## Les composants
 
@@ -281,7 +274,6 @@ Un composant est un fichier .astro qui contient un fragment de html, destiné à
 
 Attention : les fichiers doivent impérativement être au format .mdx et non au format .md, sans quoi vos composants ne seront pas pris en compte.
 
-&nbsp;
 
 ### Composants statiques
 
@@ -397,7 +389,6 @@ Sans trop rentrer dans le détail, on y trouve toutes sortes d'intégrations com
 
 Vos besoins n'étant probablement pas uniques au monde, vous trouverez probablement votre bonheur parmi les nombreux plugins existant, et qui sait, peut-être créerez-vous votre propre plugin ?
 
-&nbsp;
 
 ## Mettez votre site en ligne avec Github
 
@@ -405,7 +396,6 @@ La mise en ligne d'un site web Astro dont le dépôt est sur Github nécessite d
 Il suffit de suivre le mode opératoire indiqué pour mettre en place le déploiement du site. Il faudra prendre garde à bien modifier les liens internes ainsi que les liens de vos ressources en ajoutant la base définie dans le fichier astro.config.mjs dans les URLs.
 Une fois les modifications effectuées, à chaque commit sur la branche master de votre projet le site sera redéployé.
 
-&nbsp;
 
 ## Conclusion
 
