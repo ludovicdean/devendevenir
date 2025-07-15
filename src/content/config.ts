@@ -1,4 +1,3 @@
-// import { glob } from 'astro/loaders';
 import { glob } from 'astro/loaders';
 import { defineCollection, z } from 'astro:content';
 
@@ -11,15 +10,15 @@ const blog = defineCollection({
 	loader: glob({ pattern: "**/*.(md|mdx)", base: "./src/content/blog" }),
 	// Type-check frontmatter using a schema
 	schema: z.object({
-		title: z.string(),
+		title: z.string().default("Article en cours de rédaction"),
 		description: z.string(),
 		// Transform string to Date object
-		date: z.coerce.date().optional(),
+		date: z.coerce.date().optional().default(new Date()),
 		updatedDate: z.coerce.date().optional(),
-		banner: z.string().optional(),
-		author: z.string().optional(),
-		authorlink: z.string().optional(),
-		unsplashlink: z.string().optional(),
+		banner: z.string().optional().default("/images/gaelle-marcel-9DZY0mO98xU-unsplash.webp"),
+		author: z.string().optional().default("Article en cours de rédaction"),
+		authorlink: z.string().optional().default("#"),
+		unsplashlink: z.string().optional().default("#"),
 		url: z.string().optional(),
 		tags: z.array(z.string()).optional(),
 		tableData1: tableDataSchema.optional(),

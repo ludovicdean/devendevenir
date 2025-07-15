@@ -1,4 +1,41 @@
 ---
+import { getCollection, getEntry, render } from 'astro:content';
+import BlogPost from '../../layouts/BlogPost.astro';
+
+// Récupération du slug depuis l'URL
+const { slug } = Astro.params;
+const entry = await getEntry('blog', slug);
+
+// Récupération de tous les posts
+const posts = await getCollection('blog');
+
+// Recherche du post correspondant au slug
+// const entry = posts.find(post => post.id === slug);
+
+// Gestion d'une éventuelle erreur 404
+if (!entry) {
+  throw new Error(`Article introuvable pour le slug "${slug}"`);
+}
+
+// Rendu du contenu markdown et récupération des headings, etc.
+const { Content, headings } = await render(entry);
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	return posts
+	.filter(post => !post.id.startsWith('_'))
+	.map((post) => ({
+		params: { slug: post.id },
+		props: post,
+	}));
+}
+---
+
+<BlogPost entry={entry} headings={headings}>
+  <Content />
+</BlogPost>
+
+<!-- ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 
@@ -19,4 +56,4 @@ const { Content } = await render(post);
 
 <BlogPost {...post.data}>
 	<Content />
-</BlogPost>
+</BlogPost> -->
