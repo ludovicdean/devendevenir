@@ -1,0 +1,111 @@
+---
+tags :
+    - I-culture
+---
+
+Un article peut naître d'une discussion, mais parfois c'est une simple coïncidence qui amène un sujet à traiter. 
+
+Nous sommes ici dans le deuxième cas, tout ça à cause d'une poussette 😅.Le problème de base ? Comment plier une poussette que je ne connais pas. 
+
+Arrive alors une PO que j'appelle à l'aide, moi, développeur de mon état. S'ensuit ce dialogue :
+
+Gentille PO : *"Ben lis-la doc !"*
+
+Moi : *"C'est bien connu, on lit jamais la doc nous les devs !"*
+
+Un problème, deux approches. Mais au fait, pourquoi devs et PO n'ont pas le même angle d'attaque quand ils sont confrontés au même problème ?
+
+## Le côté obscure de la Force, le PO
+
+### C'est quoi un PO ?
+
+À force de baigner dans un milieu professionnel on en oublie que notre jargon n'est pas compréhensible pour le commun des mortels (c'est pareil partout, pas une mise en avant de l'informatique en général ^^).
+
+Le sigle PO signifie Product Owner (chef de produit), et désigne la personne chargée du recueil des besoins du client et qui le transcrit en unités fonctionnelles à destination des développeurs :
+
+*"Je veux une poussette qui puisse se plier pour entrer dans le coffre de ma voiture."*
+
+### La réflexion du PO
+
+Le PO va être chargé de découper le besoin en plusieurs sujets techniques (on imagine que les technos sont déjà choisies) :
+
+- le châssis de la poussette
+- l'assise de la poussette
+- rendre le châssis pliable
+- rendre l'assise pliable
+- rendre le châssis et l'assise compatibles et détachables.
+
+À charge ensuite au PO de répartir les sujets au niveau de son équipe, dans un ordre cohérent (concevoir le châssis avant de le rendre pliable). Le découpage du projet en tâches fonctionnelles doit permettre de faire émerger des tâches les plus indépendantes les unes des autres que possible, et un ordre d'exécution logique quand certaines tâches dépendent d'autres éléments du projet.
+
+
+Une fois le découpage réalisé, c'est le développeur qui va rentrer en scène.
+
+## Le côté lumineux de la Force, le développeur
+
+### C'est quoi un dev ?
+
+Je ne vous ferai pas l'affront de vous présenter le métier de développeur, j'en parle en long en large et en travers (et en 2D selon mon propre constat, quid de la troisième dimension ?) sur ce blog.
+
+Le(s) développeur(s) vont avoir pour rôle de traiter les tâches dans l'ordre dans lequel le PO les aura ordonnées, sous peine de rencontrer des problèmes. Le développeur va donc s'occuper dans un premier temps de concevoir le châssis de la poussette. 
+
+Il ou elle va donc réfléchir à l'aspect technique du problème et construire pas à pas une solution permettant de remplir les attentes du client (et du PO bien entendu, mais surtout du client).
+
+### La réflexion du développeur
+
+Etape après étape, il va s'approcher de la solution optimale pour répondre au besoin :
+
+- châssis = structure
+- la structure doit avoir une partie à hauteur d'être humain afin de la pousser
+- la poignée doit être ergonomique
+- pour se déplacer la poussette a besoin de roues
+- certaines roues doivent être directionnelles.
+
+C'est là que selon la lecture que l'on fait de notre sujet, on va aboutir à des situations du style :
+
+- les roues sont des roues de VTT parce que la spec (spécification fonctionnelle, la définition de ce que doit faire le projet) disait qu'elle devait pouvoir rouler sur tout type de surface.
+- la poussette a 6 roues.
+- la poussette a un moteur diesel.
+- elle passe dans un coffre de SUV mais pas dans un coffre de Clio.
+
+On se heurte à des difficultés liées à toutes les représentations "internes", ou naturelles que le PO ne va pas formuler mais qui émergent dès lors qu'on se plonge dans l'implémentation du concept, dans la mise en oeuvre matérielle de la demande du client. J'ai le sentiment que la plupart des difficultés réside dans le flou des éléments qui nous paraissent évidents. 
+
+Ces éléments sont par exemple :
+
+- un bébé peut être installé dans la poussette
+- le bébé doit pouvoir être attaché
+- la poussette doit pouvoir se déplacer dans tous les sens (roues directionnelles)
+- assise détachable
+- plusieurs assises compatibles (landau, cosy, siège)
+
+Du coup, on en arrive à la situation dans laquelle le dev dit qu'il a fait le travail demandé et où le PO qui teste l'appli s'arrache les cheveux (s'il ou elle en a !) en se disant que le dev n'a encore rien compris.
+
+## Et si on les réconciliait ?
+
+Présenté comme ça on pourrait croire que le PO est en quelque sorte le némésis du développeur, son ennemi juré. Si c'est avéré dans certaines équipes, dans la plupart des cas les relations PO/développeurs sont bonnes. Je suis persuadé que la qualité d'un projet dépend directement de la qualité de cette relation.
+
+Pour éviter les remarques du type *"C'est pas du tout ça que j'avais demandé"* ou *"Y a rien qui va !"*, l'élément primordial est de lever a priori, avant même d'attaquer une tâche, **tous** les doutes concernant les zones d'ombre du sujet.
+
+Pour cela, 2 éléments sont nécessaires :
+
+- clarté/exhaustivité de la demande du PO (US, User Story)
+- présentation en amont de la réalisation technique de la solution envisagée par le développeur au PO.
+
+Bien entendu, cela demande un travail supplémentaire aux deux parties, mais qui permettra ensuite d'économiser de pesants allers-retours par la suite. Moins d'allers-retours est également synonyme de PO heureux et de développeur heureux, car le processus de développement est considérablement allégé quand il se déroule dans ces conditions.
+
+## Expérience personnelle
+
+Depuis presque 5 ans en tant que développeur, j'ai eu l'occasion d'observer les relations développeur/PO dans plusieurs équipes, dans des contextes différents. Dans la plupart des cas, l'exhaustivité des US est rarement au rendez-vous, tout comme le développement parfait supposé répondre à cette US.
+
+La faute à qui ? La faute à personne, car quand on rédige un sujet de développement, on ne réalise pas toujours les méandres du sujet que l'on traite, tout comme on ne les soupçonne pas toujours au moment de débuter un développement.
+
+## Et pour s'améliorer ?
+
+Des points réguliers sur les avancées de chaque sujet, avec présentation de la logique mise en place au PO étape par étape afin de retarder au maximum l'émergence des zones d'ombre. Cela évitera les démonstrations de fin de sprint catastrophiques, avec un PO qui découvre sur-place les malfonctions de son application et doit gérer la déception de son client en direct.
+
+## Conclusion
+
+Les développeurs doivent prendre soin de leur PO, et les PO doivent prendre soin de leurs équipes. Les développeurs doivent développer leur capacité d'écoute afin de déceler au plus vite le moindre grain de sable dans les rouages d'un sujet, tandis que les PO doivent être exhaustifs dans la rédaction de leurs US, afin de guider au mieux les développeurs dans leur travail.
+
+En résumé, au lieu de donner une carte avec tous les détails imaginables au développeur, donner une carte avec uniquement les éléments pertinents (juste l'autoroute, pas les 100 routes qui débouchent dessus ou qui la quittent). Charge au développeur de savoir déchiffrer la carte et de lever les doutes avant de s'embarquer dans un voyage dont il ignore certains points parfois critiques.
+
+PO, développeurs, vous savez ce qu'il vous reste à faire !
