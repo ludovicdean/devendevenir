@@ -35,10 +35,10 @@ Mais au fait, pourquoi on met `http://www.` au début d'une URL ? Comme le sugg�
 
 Quand on parle de web, on entend souvent parler de protocole. Alors que nous rencontrons habituellement le protocole `http`, ne perdons pas de vue le fait qu'il existe une multitude de protocoles pour le web. Pour ne citer que les principaux, on peut parler de :
 
-- http : accès à des pages web non sécurisées (paramètres d'URL en clair) => accès à une page web
-- https : accès à des pages web sécurisées (chiffrement de l'URL) => accès à une page web avec des informations sensibles (votre banque, les impôts)
-- ftp : transfert de fichier entre 2 ordinateurs (envoi de fichiers volumineux)
-- websocket : ouverture d'une connexion bidirectionnelle persistante entre un client et un serveur (messagerie instantanée)
+- `http` : accès à des pages web non sécurisées (paramètres d'URL en clair) => accès à une page web
+- `https` : accès à des pages web sécurisées (chiffrement de l'URL) => accès à une page web avec des informations sensibles (votre banque, les impôts)
+- `ftp` : transfert de fichier entre 2 ordinateurs (envoi de fichiers volumineux)
+- `websocket` : ouverture d'une connexion bidirectionnelle persistante entre un client et un serveur (messagerie instantanée)
 
 Le protocole nous permet donc de savoir quel type d'informations vont circuler via l'URL que nous empruntons.
 
@@ -64,8 +64,8 @@ Si vous me posez la question, je retrouverai probablement une dizaine d'extensio
 
 Si l'on exclut l'extension `.arpa` qui désigne un domaine de premier niveau spécial (dédié à la gestion de l'infrastructure réseau d'internet), on peut regrouper les extensions en 2 groupes distincts :
 
-- les domaines nationaux (ou ccTLD : country code Top-Level Domain), composés de 2 lettres
-- les domaines génériques (ou gTLD : Generic Top-Level Domain), composés de plus de 2 lettres
+- les domaines nationaux (ou ccTLD : country code Top-Level Domain), composés de 2 lettres (.fr, .de, .it etc.)
+- les domaines génériques (ou gTLD : Generic Top-Level Domain), composés de plus de 2 lettres (.com, .org, etc.)
 
 Avec tous ces éléments, on parvient à la structure suivante :
 
@@ -73,14 +73,49 @@ Avec tous ces éléments, on parvient à la structure suivante :
 protocole://sous-domaine.domaine.domaine-de-premier-niveau
 ```
 
-C'est bien, mais nous n'irons pas loin sans ajouter de nouveaux éléments à nos URLs. Tous les protocoles n'utilisent pas le même port pour accéder à une machine. Chaque protocole a un port par défaut, qui n'a pas besoin d'être précisé si c'est bien lui qui est utilisé par la machine. Si notre moteur de recherche préféré n'utilisait pas le port 80, on aurait ceci :
+C'est bien, mais nous n'irons pas loin sans ajouter de nouveaux éléments à nos URLs. Tous les protocoles n'utilisent pas le même port pour accéder à une machine. Chaque protocole utilise un port par défaut, qui n'a pas besoin d'être précisé si c'est bien lui qui est utilisé par la machine. Si notre moteur de recherche préféré n'utilisait pas le port 80, on aurait ceci :
 
 ```bash
-http://www.monmoteurderechercheprefere.com:monport
+http://www.monmoteurderechercheprefere.com:<monport>
 ```
 
 Une URL permet bien entendu d'accéder à des pages web, mais elle permet également d'accéder à l'arborescence de notre site web, et on a besoin d'ajouter ici ce qu'on appelle le chemin absolu.
 
 ### Le chemin absolu
 
-La racine d'un site web porte le chemin `/`
+La racine d'un site web porte le chemin `/`, c'est le chemin qui mène à la page index.html de votre site web. Pour accéder à d'autres ressources dans votre site, il vous faudra parcourir l'arborescence de votre projet pour atteindre une autre page web. C'est ce qui se passe quand une url ressemble à ceci :
+
+```bash
+https://ludovicdean.github.io/devendevenir/blog/astro/
+```
+
+Cela signifie qu'une fois compilé (dans le dossier `/dist` de mon projet), mes articles se trouvent dans un dossier `/blog` qui contient lui-même un dossier portant le nom de mon article, ici `/astro`, contenant l'article généré dans un fichier index.html. On peut très bien avoir plus de 2 degrés d'imbrication de dossiers selon la complexité du projet. 
+
+C'est pour cette raison que cette partie des URLs ressemble aux chemins d'accès aux fichiers de nos ordinateurs, parce que l'on se déplace dans une arborescence de dossiers.
+
+Bon, on a déjà bien décortiqué la structure des urls, mais souvent c'est bien plus compliqué que ça !
+
+En effet, nous allons maintenant aborder les paramètres d'URLs.
+
+### Les paramètres d'URLs
+
+Si vous regarder la barre d'adresse de votre navigateur de temps à autre, vous avez remarqué que parfois les URLs comportent des suites de caractères incompréhensibles, voyez plutôt :
+
+```bash
+https://www.linkedin.com/feed/?highlightedUpdateType=COMMENTS_BY_YOUR_NETWORK&highlightedUpdateUrn=urn%3Ali%3Aactivity%3A7351698903479582720
+```
+
+Normalement, jusqu'au dernier `/` vous devriez arriver à suivre. Pour le reste, suivez-moi !
+
+Le `?` permet de séparer les paramètres d'une URL du reste. Tout ce qui se trouve derrière ce point d'interrogation a la structure suivante : clé=valeur.
+
+Dans notre cas, l'API de Linkedin a visiblement besoin de plusieurs paramètres pour me renvoyer la page demandée :
+
+- `highlightedUpdateType` qui fournit le type de contenu mis en avant => `COMMENTS_BY_YOUR_NETWORK` (commentaires de notre réseau)
+- `highlightedUpdateUrn` qui fournit l'identifiant du post concerné `urn%3Ali%3Aactivity%3A7351698903479582720`
+
+Les caractères `%` que l'on voit dans les URLs signalent généralement des caractères encodés. En supprimant l'encodage, on arrive à ceci : `urn:li:activity:7351698903479582720`.
+
+## Conclusion
+
+Vous avez parcouru les entrailles des URLs en long, en large et en travers (oui, expression datée j'en conviens, mais c'est ma marque de fabrique 😅) et vous comprenez mieux leur structure. Prochaine étape, créer ces URLs. Que ce soit dans une API, dans un site web ou qu'en sais-je, les URLs sont partout, et vous en utiliserez probablement quotidiennement dans votre travail.
