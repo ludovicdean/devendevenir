@@ -1,11 +1,9 @@
 ---
-interface TableData {
-    headers: string[];
-    rows: (string | number)[][];
-}
+import type { DataTable } from 'src/interfaces/DataTable';
+
 
 interface Props {
-    data: TableData;
+    data: DataTable;
 }
 
 const { data } = Astro.props;
