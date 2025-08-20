@@ -1,32 +1,18 @@
 ---
 import { getCollection } from "astro:content";
-import BaseHead from "@components/BaseHead.astro";
-import Header from "@components/Header.astro";
-import Footer from "@components/Footer.astro";
-import SmallCard from "@components/SmallCard.astro";
+import BaseLayout from "./BaseLayout.astro";
+import PostsList from "@components/PostsList.astro";
 
 const { name, description } = Astro.props;
 
 const posts = (await getCollection("blog"));
 const filteredPosts = posts.filter((post) => !post.id.startsWith('_') && post.data.tags?.includes(name));
+
+const fullDescription = `Articles appartenant à la catégorie ${name}`;
 ---
 
-<html lang="en">
-    <BaseHead title={name} description={description} />
-
-    <body>
-        <Header />
-        <main>
-            <h2 class="mb-4 py-4 text-center leading-none">{name}</h2>
-            <p>{description}</p>
-            <ul class="flex flex-wrap gap-4">
-                {
-                    filteredPosts.map((post) => (
-                            <SmallCard post={post} />
-                    ))
-                }
-            </ul>
-        </main>
-        <Footer />
-    </body>
-</html>
+<BaseLayout title="Catégorie" description={ fullDescription }>
+    <h2 class="mb-4 py-4 text-center leading-none">{name}</h2>
+    <p>{description}</p>
+    <PostsList posts={filteredPosts} />
+</BaseLayout>
