@@ -1,17 +1,40 @@
 ---
-import BaseHead from "@components/BaseHead.astro";
-import Header from "@components/Header.astro";
-import Footer from "@components/Footer.astro";
+import BaseHead from '@components/BaseHead.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
-import TagsList from "@components/TagsList.astro";
-import PostsList from "../components/PostsList.astro";
-import { getPosts } from "src/utils/blogUtils";
-import { getTags } from "src/utils/tagUtils";
+import Footer from '@components/Footer.astro';
+import Header from '@components/Header.astro';
+import YearPostList from '@components/YearPostList.astro';
+import TagsList from '@components/TagsList.astro';
+import LargeCard from '@components/LargeCard.astro';
+import { getPosts } from 'src/utils/blogUtils';
+import { getTags } from 'src/utils/tagUtils';
 
 const posts = await getPosts();
 
+const latestPost = posts[0];
+
+const postsWithoutLatest = posts.slice(1);
+
+const postYears = new Map();
+
+postsWithoutLatest.forEach(post => {
+  if (post.data.date !== undefined){
+    const year = post.data.date.getFullYear();
+  if (!postYears.has(year)) {
+    postYears.set(year, []);
+  }
+  postYears.get(year).push(post);
+  }
+
+});
+
+const currentYear = new Date().getFullYear();
+
 const tags = await getTags();
 ---
+<head>
+  <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+</head>
 
 <!doctype html>
 <html lang="en">
@@ -35,10 +58,19 @@ const tags = await getTags();
         passant par la mise en place de test, la rédaction de ces articles me
         permet de poser mes idées et de m'en imprégner durablement.
       </p>
-
       <section>
         <TagsList tags={tags} />
-        <PostsList posts={posts} />
+      </section>
+      <section>
+        <LargeCard post={latestPost} />
+      {Array.from(postYears.entries()).map(([year, articles]) =>
+        articles.length > 0 && (
+          <section>
+            {year !== currentYear && <h2 class="flex justify-center">{year}</h2>}
+            <YearPostList posts={articles} />
+          </section>
+        )
+      )}
       </section>
     </main>
     <Footer />
