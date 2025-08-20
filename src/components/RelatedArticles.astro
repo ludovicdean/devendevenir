@@ -1,5 +1,5 @@
 ---
-import SmallCard from "./SmallCard.astro";
+import PostsList from "./PostsList.astro";
 import { getPosts } from "src/utils/blogUtils";
 
 const { tags, title } = Astro.props;
@@ -11,10 +11,4 @@ const relatedPosts = posts.filter((e) => tags.some((t) => e.data.tags?.includes(
 
 {relatedPosts.length > 0 && <h3>Articles en lien</h3>}
 
-<ul class="flex flex-wrap gap-4 list-none p-0">
-    {
-        relatedPosts.map((post) => (
-            <SmallCard post={post} />
-        ))
-    }
-</ul>
+<PostsList posts={ relatedPosts } />

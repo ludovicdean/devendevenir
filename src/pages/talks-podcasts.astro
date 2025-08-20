@@ -1,19 +1,8 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
+import BaseLayout from "src/layouts/BaseLayout.astro";
 ---
 
-<!DOCTYPE html>
-<html>
-<head title="Talks/Podcasts">
-<BaseHead title="Talks/Podcasts" description="Talks/Podcasts"/>
-</head>
-<body>
- 
-<Header title="Talks/Podcasts" />
-<main class="w-[900px] max-w-[calc(100%-2em)] mx-auto p-4 text-gray-800">
-
+<BaseLayout title="Talks/Podcasts" description="Talks et podcasts réalisés par l'auteur">
   <h1 class="mb-4 py-4 text-center leading-none">Et à part ça ?</h1>
 
   <p>
@@ -49,6 +38,4 @@ import Footer from "../components/Footer.astro";
     Stay tuned, et pour rester informés suivez-moi sur Linkedin (en bas de la page 😅).
   </p>
 </main>
-<Footer />
-</body>
-</html>
+</BaseLayout>
