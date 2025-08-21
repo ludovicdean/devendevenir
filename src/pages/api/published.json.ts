@@ -24,6 +24,6 @@ const groupedArticles = Object.entries(articlesByYear).map(([year, articles]) =>
 }));
  
 groupedArticles.sort((a, b) => b.year - a.year);
-console.log(groupedArticles);
+
 return new Response(JSON.stringify(groupedArticles));
 }

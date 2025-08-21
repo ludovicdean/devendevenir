@@ -1,10 +1,10 @@
 import { getCollection } from 'astro:content';
 import type { Tag } from 'src/interfaces/Tag';
-import { getTags } from 'src/utils/tagUtils';
+import { getTagsCount } from 'src/utils/tagUtils';
 
 export async function GET() {
   
-  const tagCounts = await getTags();
+  const tagCounts = await getTagsCount();
 
   const fullTags = await getCollection("tags");
 
