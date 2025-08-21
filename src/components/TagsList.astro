@@ -1,20 +1,18 @@
 ---
-import { slugify } from "src/utils/utils";
-
 const base = import.meta.env.BASE_URL;
 const { tags } = Astro.props;
-
 ---
-<div class="pb-6 flex flex-wrap">
-    {Object.entries(tags).map(([key, val]) => (
-        <span class="inline-flex items-center justify-center text-lg rounded-xl mx-2 px-4 my-2 bg-slate-900 hover:animate-pulse">
-                <a
-                    href={`${base + "/tags/" + slugify(key)}/`}
-                    class="justify-center no-underline text-white font-bold text-accent hover:text-white"
-                >
-                    {key} &nbsp; <span class="text-yellow-400">{val}</span>
-                </a>
 
+<div class="pb-6 flex flex-wrap">
+    {tags.map((tag) => (
+        <span class="inline-flex items-center justify-center text-lg rounded-xl mx-2 px-4 my-2 bg-slate-900 hover:animate-pulse">
+            <a
+                href={`${base + "/tags/" + tag.id}/`}
+                class="justify-center no-underline text-white font-bold text-accent hover:text-white"
+            >
+                {tag.name} &nbsp;
+                <span class="text-yellow-400">{tag.count}</span>
+            </a>
         </span>
     ))}
 </div>

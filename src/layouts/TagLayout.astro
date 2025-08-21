@@ -1,12 +1,12 @@
 ---
-import { getCollection } from "astro:content";
 import BaseLayout from "./BaseLayout.astro";
 import PostsList from "@components/PostsList.astro";
+import { getPosts } from "src/utils/blogUtils";
 
-const { name, description } = Astro.props;
+const { id, name, description } = Astro.props;
 
-const posts = (await getCollection("blog"));
-const filteredPosts = posts.filter((post) => !post.id.startsWith('_') && post.data.tags?.includes(name));
+const posts = await getPosts();
+const filteredPosts = posts.filter((post) => !post.id.startsWith('_') && post.data.tags?.includes(id));
 
 const fullDescription = `Articles appartenant à la catégorie ${name}`;
 ---

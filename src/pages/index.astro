@@ -3,7 +3,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import TagsList from '@components/TagsList.astro';
 import LargeCard from '@components/LargeCard.astro';
 import { getPosts } from 'src/utils/blogUtils';
-import { getTags } from 'src/utils/tagUtils';
+import { getTags, getTagsCount } from 'src/utils/tagUtils';
 import BaseLayout from 'src/layouts/BaseLayout.astro';
 import PostsList from "@components/PostsList.astro";
 
@@ -28,7 +28,10 @@ postsWithoutLatest.forEach(post => {
 
 const currentYear = new Date().getFullYear();
 
+const tagsCount = await getTagsCount();
+
 const tags = await getTags();
+console.log(tagsCount);
 ---
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
@@ -48,7 +51,7 @@ const tags = await getTags();
       permet de poser mes idées et de m'en imprégner durablement.
     </p>
     <section>
-      <TagsList tags={tags} />
+      <TagsList tags={tagsCount} />
     </section>
     <section>
       <LargeCard post={latestPost} />
