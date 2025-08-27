@@ -25,6 +25,15 @@
 	font-display: swap;
 }
 
+html.dark {
+	background-color: oklch(26.9% 0 0);
+	color: #fff;
+  }
+  
+  .dark .nav-links a {
+	color: #fff;
+  }
+  
 body {
 	font-family: 'Atkinson', sans-serif;
 	margin: 0;

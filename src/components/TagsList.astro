@@ -5,13 +5,15 @@ const { tags } = Astro.props;
 
 <div class="pb-6 flex flex-wrap">
     {tags.map((tag) => (
-        <span class="inline-flex items-center justify-center text-lg rounded-xl mx-2 px-4 my-2 bg-slate-900 hover:animate-pulse">
+        <span class="inline-flex items-center justify-center text-lg rounded-xl mx-2 px-4 my-2 bg-gradient-to-r 
+from-neutral-800 to-neutral-600
+dark:from-yellow-600 dark:to-yellow-200 hover:animate-pulse dark:text-white">
             <a
                 href={`${base + "/tags/" + tag.id}/`}
-                class="justify-center no-underline text-white font-bold text-accent hover:text-white"
+                class="justify-center no-underline text-white font-bold text-accent hover:text-white dark:text-slate-900"
             >
-                {tag.name} &nbsp;
-                <span class="text-yellow-400">{tag.count}</span>
+                {tag.name}
+                <span class="text-yellow-400 dark:text-slate-900">{tag.count}</span>
             </a>
         </span>
     ))}
