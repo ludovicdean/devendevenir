@@ -1,12 +1,13 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
+import ThemeToggle from "./ThemeToggle.astro";
 ---
 
-<nav class="border-gray-200 bg-gradient-to-br from-black to-gray-900 relative">
+<nav class="bg-gradient-to-br from-neutral-800 to-neutral-400 dark:from-neutral-400 dark:to-neutral-800 relative">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-2 px-4">
     <a href="/devendevenir" class="flex items-center space-x-3 rtl:space-x-reverse">
       <img src="/devendevenir/images/logo.png" alt="" class="h-16 w-auto">
-      <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">Dev<span class="text-yellow-400">En</span>Devenir</span>
+      <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">Dev<span class="text-yellow-400 animate-bounce ease-in-out inline-block">En</span>Devenir</span>
     </a>
     <button id="menuToggle" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700 z-50" aria-controls="navbar-default" aria-expanded="false" data-test-id="menuToggle">
       <span class="sr-only">Toggle menu</span>
@@ -45,6 +46,9 @@ import HeaderLink from "./HeaderLink.astro";
         </li>
         <li class="text-center">
           <HeaderLink href="/about" class="nav-link block w-full py-2 px-3 rounded sm:bg-transparent md:p-0 font-bold text-white hover:text-yellow-400">À propos</HeaderLink>
+        </li>
+        <li>
+          <ThemeToggle />
         </li>
       </ul>
     </div>
