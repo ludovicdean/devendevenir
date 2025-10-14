@@ -1,0 +1,166 @@
+---
+title : "Blog en devenir"
+date : Oct 15 2025
+tags :
+    - Vie de dev
+description : ""
+banner : "/images/susan-q-yin-2JIvboGLeho-unsplash.webp"
+
+author: "Susan Q Yin"
+authorLink: "https://unsplash.com/fr/@syinq?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+unsplashLink: "https://unsplash.com/fr/photos/livres-sur-etagere-en-bois-marron-2JIvboGLeho?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+---
+
+Aujourd’hui, nous allons parler d’un side project pas comme les autres, DevEnDevenir. Bientôt 2 ans d’existence, et 
+déjà pas mal d’embûches rencontrées au fil du développement. Quand on développe un projet, l’inattendu trouve toujours un moyen de se manifester au mauvais moment, rendant le site web inutile et l’empêchant de remplir sa mission.
+
+## Une idée, un projet
+
+Écrire un blog est une idée qui m’a longtemps trotté dans la tête. Le jour où j’ai décidé de vraiment créer DevEnDevenir, j’ai réalisé qu’il y avait un gouffre entre avoir un projet qui tourne en local et avoir un projet déployé sur le web.
+
+Quand on déploie un site web, on devient dépendants d’éléments qui échappent à notre contrôle (pipeline de 
+déploiement, hébergement et j'en passe), et auxquels il faut nous adapter continuellement. On découvre rapidement 
+que les bonnes pratiques ne sont pas là pour nous compliquer la vie, mais bien au contraire, qu’elles sont là pour nous sauver.
+
+## Le dilemme : quelle techno choisir ???
+
+Avant de me lancer, j'ai bien passé 2 ou 3 mois à lire des articles en tous genres, à chercher des infos pour savoir 
+quelle était **LA** techno la plus adaptée pour créer mon blog. Et plus je lisais, plus je me renseignais, moins 
+j'étais sûr de ce que je devais faire. Tout ça pour finalement faire un non-choix !
+
+Avant d'aller plus loin, j'attire votre attention sur la leçon retenue suite à cette inutile perte de temps : attaquez-vous à votre projet dans une techno qui vous branche, au pire, vous le transposerez vers une autre techno plus tard.
+
+## DevEnDevenir v0.0
+
+Quand j’ai débuté DevEnDevenir, j’ai essayé de construire mon projet avec le générateur de site statique (SSG, static site generator) Jekyll. Pourquoi me direz-vous ? Parce que la documentation de Github expliquant l’hébergement de site sur Github Pages prenait comme exemple Jekyll.
+
+On pourrait également appeler cette étape *"Tu aurais pu passer directement par la doc de Github Pages, tu aurais 
+gagné trois mois !"*.
+
+Cette première ébauche comportait une bonne partie de la structure de base, mais je me suis assez vite heurté à des problèmes que je ne suis pas parvenu à résoudre, notamment concernant le tri de mes articles par tags (Jekyll utilise une arborescence basée sur la date de publication). Cela ne me convenait pas et il ne semblait pas possible de sortir de cette structure imposée.
+
+Autre problème, mon blog se déployait sans problème, mais aussi sans CSS ni images. Un projet qui tourne en local, 
+c’est bien beau, mais ça ne rend rien si ce n’est pas déployable correctement. Dommage d’avoir appris à faire du HTML et du CSS pour afficher un site so 2000’s.
+
+Finalement, sur les conseils d'un collègue, je me suis orienté vers Astro ("Parce que Astro, c'est le feu !" dixit 
+ce même collègue), et ai pu expérimenter par moi-même la “migration” d’un projet d’une technologie à une autre :
+
+- changement de techno
+- structure différente
+- définition des types différente
+- plus de Liquid, on passe au TypeScript
+
+Je m'attendais à prendre un mur monumental, et finalement, j'ai été agréablement surpris par la simplicité de la 
+transition (moyennant un certain nombre de questions à ce même collègue). Et pour tout vous dire, j'ai fini par 
+faire un talk à ce sujet que vous pouvez retrouver [ici](https://www.youtube.com/watch?v=nC6POtjo0Ik).
+
+## DevEnDevenir v0.1
+
+2 ou 3 jours ont suffi pour passer de Jekyll à Astro. J’ai mis quelques semaines à m’adapter à mon premier framework JS. La documentation étant bien faite, je n’ai pas rencontré de grandes difficultés.
+
+La partie que je redoutais le plus (le déploiement) a été beaucoup plus simple que prévu, un template de fichier 
+YAML étant fourni par Astro et le tour était joué. Pour le coup, il suffisait de suivre la documentation à la lettre 
+et de faire un ou deux ajustements et c'était bon.
+
+Contrairement à Jekyll, je n’ai eu aucun problème pour mes images et mes styles, et ce, dès le premier déploiement. 
+Début janvier 2024 j’étais paré, quelques articles en stock et c’est parti !
+
+## Bug n°1
+
+Pour l'un de mes premiers articles, j’ai demandé à quelques personnes de consulter le site afin de voir si tout 
+s’affichait bien. 
+
+Cobayes :
+- n°1 ok 😍
+- n°2 ok 😍
+- n°3 ko 😰
+
+Aucun texte à l’horizon pour mon troisième cobaye. Je déteste les imprévus et gère mal le stress. Gagné, je ne comprends 
+pas d’où vient le problème, panique à bord, j'appelle à l'aide mes collègues de travail. C’est finalement l'un d'eux qui me donnera la 
+solution : la mise en place de polices de secours (fallback fonts).
+
+Rétrospectivement, si j’avais demandé à mes trois cobayes de consulter mon blog le jour de la sortie du premier article,
+le problème aurait été détecté très rapidement. C'étaient mes débuts de bloggeur, mais maintenant, je suis vacciné ! Ce 
+sont les aléas d’un projet 😅.
+
+Premier bug, première alerte. Mon erreur a été de ne pas réfléchir au fait qu’une police ne soit pas nécessairement présente sur toutes les machines. Quand une police n’est pas déjà présente sur une machine, le navigateur web cherche la suivante dans la liste de polices d’un site web. Mon site n’ayant qu’une police dans la liste de polices disponibles, rien ne s’affichait sur les appareils ne possédant pas celle choisie.
+
+Finalement la résolution du bug a été très simple, j’ai simplement modifié le CSS de mon projet afin d'ajouter 
+d'autres polices pour les navigateurs n'ayant pas trouvé la police de base de mon blog.
+
+## Bug n°2
+
+Il y a quelques mois maintenant, j’ai rencontré un bug qui m’a donné des sueurs froides. Rien de spécial sur la 
+branche en question, normalement tout devait bien se passer. Un premier déploiement échoue. Je suis dev, alors je 
+retente le coup, comme si ça avait une chance de marcher 😅. Jamais deux sans trois, je retente encore, 
+sans succès bien évidemment ! Je vais donc voir dans les logs de ma pipeline Github Pages que vous voyez juste après.
+
+![](/devendevenir/images/blog_en_devenir_screenshot1.png)
+
+Le bug ne vient pas de mon code, mais d’une action Github dépréciée. Problème, pas de trace de cette action dans le fichier YAML de mon pipeline de déploiement. Finalement, en creusant sur le contenu de ce fameux fichier, j’ai fini par trouver la cause de ce bug. L’action indiquée dans le message d’erreur de Github n’était pas directement utilisée par mon pipeline, mais l’une des actions présente dans le fichier faisait elle-même appel à cette fameuse action. Il m’aura fallu atterrir dans les issues du projet withAstro pour trouver la solution appliquée juste en-dessous.
+
+![](/devendevenir/images/blog_en_devenir_screenshot2.png)
+
+Les actions ont été mises à jour, le pipeline a pu redéployer mon projet directement après cette correction.
+
+En parallèle, j’ai aussi créé une sorte de dashboard du blog, avec Angular cette fois-ci. Ce dashboard me permet de garder un oeil sur la date de publication du prochain article, les articles déjà publiés, le blog sur lequel les articles ont été publiés (eh oui, j’écris aussi sur le blog de ma boîte 😊).
+
+J’ai au passage ajouté une API sur mon blog, me permettant de récupérer les informations dont j’ai besoin pour 
+synthétiser toutes les infos. Mon projet est également doté d’outils (formatage de texte pour les bannières des 
+articles, conversion d’images au format webp). Plus besoin d’aller sur un site pour compresser deux images avant de 
+se heurter à un “inscrivez-vous pour continuer” puis basculer sur un autre et ainsi de suite. Tout le nécessaire est 
+centralisé. Si ça vous intéresse, c’est par [ici](https://bloghelper.vercel.app/).
+
+## Les migrations
+
+Quand on crée un projet avec un framework, comme Astro pour ce blog, on s'expose automatiquement à des changements de version réguliers. Lorsque j'ai voulu créer mon dashboard pour le blog, j'ai eu besoin de fonctionnalités d'Astro présentes uniquement dans sa version 5, le blog ayant été créé avec la version 4. Il m'a donc fallu suivre la documentation [d'Astro](https://docs.astro.build/fr/guides/upgrade-to/v5/) et modifier la configuration du projet, les références au slug des éléments de collections par des références aux id des éléments etc.
+
+Légèrement plus compliqué qu'une simple ligne de commande mettant à jour une dépendance, cette fois-ci de nombreux 
+changements étaient requis, sans quoi le blog ne compilait plus. Heureusement la documentation d'Astro était 
+exhaustive, et heureusement, car il m'a fallu modifier l'arborescence du projet, et de nombreux morceaux de code 
+car la gestion des collections ne passait plus par le slug des pages, mais par leur identifiant. Ceux-ci étant 
+utilisés un peu partout, il a fallu modifier beaucoup de code avant de retrouver un blog fonctionnel. Je ne suis pas 
+pressé de voir la version 6 arriver, mais je sais que je n'y échapperai pas 😅.
+
+## Les chantiers inachevés
+
+Au rang des problèmes rencontrés et jamais réglés figurent deux éléments sur lesquels je ne suis pas revenu depuis un 
+moment, l’utilisation du composant Image d’Astro et la création d’un sommaire flottant pour mes articles.
+
+Le composant Image est fourni nativement par Astro. Son intérêt réside dans la capacité d’Astro d’optimiser les images lors de la compilation et donc de les rendre plus légères pour le site web. Problème, jusque-là toutes mes tentatives ont été vaines. Sur ma machine ça marche, mais ça ne fonctionne absolument pas quand le blog est déployé (erreurs 404 au chargement des images).
+
+Pour le sommaire flottant, le problème ne réside pas là où je m’attendais à rencontrer des difficultés, c'est-à-dire l’affichage. Non non, le problème se situe au niveau de la génération de l’URL de chaque lien. Tout caractère spécial ou symbole casse systématiquement le lien entre le sommaire et la partie correspondante. J’ai eu beau tester des dizaines de fonctions de création de slug, rien n’y fait !
+
+Par rapport à mes débuts de développeur, et même par rapport au début du développement du blog, je ne prends plus pour des revers ces échecs. Ce sont plutôt des sujets que j’ai mis de côté pour plus tard, à reprendre un jour en parallèle de l’écriture d’articles.
+
+## La suite
+
+Si les chantiers inachevés sont destinés à être menés à bien, d'autres tâches m'attendent sur le blog. Parmi les pistes à suivre, les suivantes sont probablement celles qui seront attaquées dans les mois à venir :
+
+- création de séries d'articles traitant d'un sujet en plusieurs articles au lieu d'un seul
+- réalisation de tests end to end avec Cypress ou Playwright à intégrer dans la pipeline de déploiement du blog.
+
+Et bien évidemment de nouveaux articles, traitant de sujets autour de la vie des développeurs, de leur quotidien que de sujets techniques.
+
+## Les avantages d’un side project
+
+Bloquer sur un problème, avoir plusieurs branches en cours, rien n’est problématique sur un projet personnel, sauf perdre votre code. Je l’ai appris à mes dépens récemment. A 2 mois d’intervalle, ma tour et mon ordinateur portable sont morts. La première fois aucune perte, tout mon code était sur Git.
+
+Je n’ai pas été aussi chanceux la deuxième fois. Travaillant sur deux projets en parallèle, j’avais bien avancé par rapport à mon objectif (avoir une page de gestion de DevEnDevenir), et ai perdu un mois de code sur ces deux projets suite à un écran bleu de mon Windows préféré. 
+
+J’ai la possibilité d’expérimenter sans avoir à rendre de comptes à personne si ce n’est moi-même, et cela donne une liberté fabuleuse. Suivez une idée qui vous motive, et vous progressez au travers de votre projet, qu’il débouche sur un site web ou une application web déployée ou qu’il débouche sur un super projet en local avec un repository privé.
+
+## Conclusion
+
+Si je dois tirer des leçons du développement de ce blog, ce sont les suivantes :
+
+- git c'est la vie, mais ça donne des sueurs froides
+- push son code le plus souvent possible vous met à l'abri de perdre votre code
+- et mettre les mains dans des pipelines de déploiement ça pique au début, mais après l'avoir fait une fois on a 
+  moins peur pour la prochaine.
+
+Et dernier enseignement que je tire de cette expérience : si vous avez un side project, lancez-vous ! Il ne sera pas 
+tout de suite parfait, beau, sans bug, mais qu'est-ce que c'est satisfaisant de construire de ses mains un projet 
+hors du cadre du travail !
+
+Lancez-vous !
