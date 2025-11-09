@@ -1,0 +1,127 @@
+---
+title : "Grace Hopper, celle sans qui on coderait tous en assembleur"
+date : Nov 11 2025
+tags :
+    - Histoire et informatique
+description : "Retour sur l'immense carrière de celle qui nous facilite la vie depuis des décennies"
+banner : "/images/patrick-tomasso-Oaqk7qqNh_c-unsplash.webp"
+author : "Patrick Tomasso"
+authorlink : "https://unsplash.com/fr/@impatrickt?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+unsplashlink : "https://unsplash.com/fr/photos/lot-a-livre-ouvert-Oaqk7qqNh_c?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+---
+import Bio from "@components/Bio.astro";
+
+<Bio src="/devendevenir/images/Grace-Hopper.webp" alt="Portrait d'Ada Lovelace">Langage haut niveau, langage bas niveau, ça vous parle ? Quelque part, c'est à Grace Hopper qu'on doit cette expression. Qui est-elle ? Il s'agit non moins que de la première personne à avoir envisagé qu'on puisse parler à un ordinateur en anglais plutôt qu'en assembleur ou tout autre langage abstrait.</Bio>
+
+## Un engagement fort dans un monde en guerre
+
+Le maître-mot qui semble diriger la vie de Grace Hopper est la détermination, une détermination sans faille. En 1944,
+en plein conflit mondial, elle tente de s'engager dans l'armée, mais est recalée par rapport à sa condition physique,
+et au fait qu'on considère qu'elle participe déjà à l'effort de guerre avec son métier de professeur de mathématiques.
+
+Elle ne renoncera pas pour autant à l'armée, et parviendra malgré tout à intégrer la Réserve de l'US Navy, sortant majore de 
+promotion de sa formation.
+
+Elle commencera sa carrière militaire en travaillant autour du **Harvard Mark 1**, un projet d'ordinateur électromécanique initié par un certain John von Neumann (on parlera de cet homme plus tard, car sa vie et ses travaux méritent également qu'on s'y arrête, à plus d'un titre). Cette machine avait pour but de réaliser des calculs nécessaires à la conception de la bombe atomique. Passé ces calculs et les conséquences qu'on leur connaît, le Harvard Mark 1 servira à calculer, à l'instar de son lointain ancêtre, la machine à différences de Babbage, des tables mathématiques.
+
+Quand on imagine une machine à calculer pareille au regard de ce qu'on connaît, on a du mal à se figurer que le Mark 
+1 faisait 16 mètres de long sur 2,4 mètre de long, et pesait la bagatelle de 4 tonnes. Magie du web, l'université de 
+Harvard permet d'accéder au mode d'emploi de cette bête de calcul [ici](https://archive.org/details/marki_operman_1946/page/n1/mode/2up).
+
+![Photographie du Harvard Mark 1](/devendevenir/images/Harvard-Mark-1.webp)
+
+## Et si on parlait aux ordinateurs en anglais ?
+
+Après-guerre, Grace Hopper rejoint le secteur privé pour travailler sur l'UNIVAC 1, le descendant direct de l'ENIAC, 
+considéré comme le premier ordinateur entièrement électronique. 
+
+![Photographie de l'UNIVAC.](/devendevenir/images/960px-Univac_I_Census_dedication.jpeg)
+
+L'idée d'un langage informatique utilisant des mots anglais vient à l'esprit de Grace Hopper au début des 
+années 50, et est mal accueillie par ses pairs. Elle poursuivra ses travaux seule plusieurs années, et publiera les premiers articles concernant le premier compilateur (qui n'avait pas encore les caractéristiques d'un compilateur au sens moderne du terme), ou plutôt du premier traducteur de code mathématique vers du code binaire exécutable.
+
+En résumé, les programmeurs pouvaient désormais formuler leurs instructions mathématiques, et ce n'était plus à eux de les convertir en code machine. Comme souvent dans l'histoire de l'informatique, cela a apporté un gain de temps considérable aux programmeurs, ainsi qu'une grande fiabilité dans les opérations de conversion vers le code binaire.
+
+Ces travaux mèneront Grace Hopper à la création du premier langage utilisant des termes compréhensibles pour le commun des mortels, le FLOW-MATIC. Si vous souhaitez creuser la question, rendez-vous [ici](http://bitsavers.trailing-edge.com/pdf/univac/flow-matic/U1518_FLOW-MATIC_Programming_System_1958.pdf). Vous y trouverez tout ce qu'il faut savoir sur l'UNIVAC et FLOW-MATIC.
+
+Il est assez incroyable, à mes yeux en tout cas, d'y trouver un schéma comme celui qui suit !
+
+![Processus d'écriture de code avec FLOW-MATIC, mettant en évidence le rôle du compilateur.](/devendevenir/images/flow-matic.png)
+
+Et pour ce qui est de la lisibilité du code, elle est bien là, comme le montre cet extrait de FLOW-MATIC :
+
+```txt
+COMPARE PRODUCT-NO (A) WITH PRODUCT-NO (B) ; IF GREATER GO TO OPERATION 10 ; 
+IF EQUAL GO TO OPERATION 5 ; OTHERWISE GO TO OPERATION 2 ;
+```
+
+On se rapproche fortement d'un code très explicite et qui ne nécessite pas de commentaires, qu'en pensez-vous ?
+
+Grace Hopper pouvait-elle s'arrêter là ? Non, vous vous en doutez bien ! Son langage FLOW-MATIC est l'ancêtre 
+direct d'un langage toujours utilisé de nos jours, dans les systèmes les plus critiques, notamment au niveau des banques. Vous l'aurez deviné, je vais maintenant vous parler du COBOL.
+
+## La femme derrière COBOL
+
+À l'instar de la mort de PHP, annoncée depuis 25 ans, COBOL fait partie des survivants que l'on ne présente plus, ou 
+presque. COBOL (ou COmmon Business-Oriented Language) a pour but de rendre le code utilisable par les entreprises sans compétences particulières en mathématiques. Il est né en 1959, grâce à une initiative du ministère de la Défense américain. À une époque à laquelle le monde ne se divisait pas en 3 (Windows MacOS Linux) mais en autant de systèmes d'exploitation que de constructeurs, COBOL avait pour vocation de fonctionner sur toute machine, indépendamment du constructeur !
+
+```cobol
+IDENTIFICATION DIVISION.
+PROGRAM-ID. HELLO_WORLD.
+DATE-WRITTEN. 21/05/05 19:04.
+AUTHOR UNKNOWN.
+ENVIRONMENT DIVISION.
+CONFIGURATION SECTION.
+SOURCE-COMPUTER. RM-COBOL.
+OBJECT-COMPUTER. RM-COBOL.
+DATA DIVISION.
+FILE SECTION.
+PROCEDURE DIVISION.
+DEBUT.
+    DISPLAY " " LINE 1 POSITION 1 ERASE EOS.
+    DISPLAY "Hello world!" LINE 15 POSITION 10.
+    STOP RUN.
+```
+
+On voit avec cet extrait de code les similitudes des deux langages. On considère généralement Grace Hopper comme **la 
+mère du COBOL**, car celui-ci intègre les capacités initiales de FLOW-MATIC et les étend, tout en intégrant certains 
+aspects d'un autre langage développé par IBM, le COMTRAN (visiblement la mode était aux noms de langages en 
+MAJUSCULES 😅), créé par un certain Bob Bemer, mieux connu sous le surnom de **père des codes ASCII**.
+
+Devenue directrice du Groupe de Langages de Programmation de la Navy, elle développera des outils de validation et un compilateur dédié. Sa carrière dans l'armée durera au total plus de 42 ans, s'achevant à presque 80 ans !
+
+Au-delà des contributions de Grace Hopper au développement du COBOL, celui-ci sera standardisé à la fin des années 60, et connaîtra plusieurs versions successives, visant à le moderniser. Là où l'on croise parfois de l'Angular 20 ou du C# 9, on parle plutôt de COBOL-68, COBOL-74 et 85, en référence à leur année de création. La dernière révision en date est née à l'aube du 21<sup>ème</sup> siècle, en 2002.
+
+## Qu'est-ce qui tourne en COBOL actuellement ?
+
+Quand on évoque le COBOL comme un langage fondamental dans notre monde actuel, on peut se dire "Mouais, pas 
+convaincu !". J'avais moi-même du mal à comprendre pourquoi il était toujours considéré comme indispensable dans notre 
+écosystème (peut-on parler de *technosystème* par opposition ?). Quelques chiffres pour vous convaincre.
+
+COBOL c'est :
+
+- 40% des systèmes bancaires en ligne
+- 80% des transactions par carte de crédit en personne
+- 95% des transactions aux guichets automatiques
+
+On estime à 3 milliards de dollars le volume quotidien de transactions commerciales réalisé grâce à ce langage, vestige du passé toujours vaillant.
+
+## Le descendant du COBOL
+
+Le remplacement à l'échelle mondiale du COBOL est un chantier titanesque. On parle de 220 milliards de lignes de 
+COBOL existantes dans le monde, et plus de cinq milliards supplémentaires chaque année. Une estimation revient 
+régulièrement dans les articles traitant de ce sujet, évoquant 5 millions de développeurs travaillant 65 ans pour 
+remplacer le COBOL. Difficile de trouver l'origine de cette estimation, certains utilisant le chiffre seul, 
+d'autres évoquant le chiffre comme issu d'une étude sans citer explicitement la source.
+
+Tout cela pour dire que visiblement, le COBOL n'a pas dit son dernier mot et on risque fort de le voir vivre encore 
+quelques décennies.
+
+## Conclusion
+
+Grace Hopper a dédié sa vie à l'informatique, et elle a, à elle seule, grandement marqué l'histoire de l'informatique,
+en voyant bien au-delà de ses contemporains, un peu à la manière d'Ada Lovelace en son temps. La technologie, les 
+langages informatiques ont bien évolué depuis le COBOL, mais il n'y a aucun doute sur le fait que cette discipline 
+aurait probablement un tout autre visage sans les travaux de cette pionnière.
+
+Une histoire particulièrement inspirante, et qui démontre que ce n'est pas parce qu'on a une idée qui paraît folle aux yeux de ses pairs qu'elle n'est pas destinée à influencer l'histoire d'une discipline !
