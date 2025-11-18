@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import {commonBeforeEach, testExternalLinks, testInternalLinks, testMenuLink, testVisibleLink} from '../utils/utils.ts';
+import {commonBeforeEach, testExternalLinks, testInternalLinks} from '../utils/utils.ts';
 
 test.beforeEach(async ({ page }) => {
     await commonBeforeEach(page);
