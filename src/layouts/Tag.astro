@@ -21,8 +21,8 @@ const filteredPosts = posts.filter((post) => !post.id.startsWith('_') && post.da
             <p>{description}</p>
             <ul class="flex flex-wrap gap-4">
                 {
-                    filteredPosts.map((post) => (
-                            <SmallCard post={post} />
+                    filteredPosts.map((post, index) => (
+                            <SmallCard post={post} data-test-id={`post-${index + 1}`} key={index} />
                     ))
                 }
             </ul>

@@ -16,8 +16,8 @@ function slugify(str) {
 {
     context == "post" ? (
     <div class="pb-6 flex flex-wrap">
-            {Object.entries(tags).map(([key, val]) => (
-                <span class="inline-flex items-center justify-center text-lg rounded-xl mx-2 px-4 my-2 bg-slate-900 hover:animate-pulse">
+            {Object.entries(tags).map(([key, val], index) => (
+                <span class="inline-flex items-center justify-center text-lg rounded-xl mx-2 px-4 my-2 bg-slate-900 hover:animate-pulse" data-test-id={`tag-${index + 1}`}>
             <a
                 href={`${base + "/tags/" + slugify(val)}/`}
                 class="no-underline text-white font-bold text-accent hover:text-white"
@@ -29,13 +29,13 @@ function slugify(str) {
     </div>
     ) : (
         <div class="pb-6 flex flex-wrap">
-            {Object.entries(tags).map(([key, val]) => (
-                <span class="inline-flex items-center justify-center text-lg rounded-xl mx-2 px-4 my-2 bg-slate-900 hover:animate-pulse">
+            {Object.entries(tags).map(([key, val], index) => (
+                <span class="inline-flex items-center justify-center text-lg rounded-xl mx-2 px-4 my-2 bg-slate-900 hover:animate-pulse" data-test-id={`tag-${index + 1}`}>
                         <a
                             href={`${base + "/tags/" + slugify(key)}/`}
                             class="justify-center no-underline text-white font-bold text-accent hover:text-white"
                         >
-                            {key} &nbsp; <span class="text-yellow-400">{val}</span>
+                            {key} &nbsp; <span class="text-yellow-400" data-test-id={`count-${index + 1}`}>{val}</span>
                         </a>
 
                 </span>

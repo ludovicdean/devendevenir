@@ -1,8 +1,8 @@
 ---
-const { post } = Astro.props;
+const { post, 'data-test-id': dataTestId } = Astro.props;
 const base = import.meta.env.BASE_URL;
 ---
-<li class="relative w-full md:w-[calc(50%-0.5rem)] h-64 list-none">
+<li class="relative w-full md:w-[calc(50%-0.5rem)] h-64 list-none" data-test-id={dataTestId}>
     <a href={post.data.url ?? `${base + "/blog/" + post.id}/`} class="no-underline block h-full">
         <div class="relative h-full w-full overflow-hidden">
             <img src={ base + post.data.banner } class="h-full w-full object-cover">
