@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import SmallCard from "./SmallCard.astro";
 
 const { tags, title } = Astro.props;
-const posts = await getCollection("blog");
+const posts = (await getCollection("blog")).filter(post => !post.id.startsWith('_'));
 
 posts.sort((a, b) => b.data.date - a.data.date);
 
