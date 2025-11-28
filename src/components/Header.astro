@@ -3,33 +3,96 @@ import HeaderLink from "./HeaderLink.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 ---
 
-<nav class="bg-gradient-to-br from-neutral-800 to-neutral-400 dark:from-neutral-400 dark:to-neutral-800 relative">
-  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-2 px-4">
-    <a href="/devendevenir" class="flex items-center space-x-3 rtl:space-x-reverse">
-      <img src="/devendevenir/images/logo.png" alt="" class="h-16 w-auto">
-      <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">Dev<span class="text-yellow-400 animate-bounce ease-in-out inline-block">En</span>Devenir</span>
+<nav
+  class="bg-gradient-to-br from-neutral-800 to-neutral-400 dark:from-neutral-400 dark:to-neutral-800 relative"
+>
+  <div
+    class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-2 px-4"
+  >
+    <a
+      href="/devendevenir"
+      class="flex items-center space-x-3 rtl:space-x-reverse"
+    >
+      <img src="/devendevenir/images/logo.png" alt="" class="h-16 w-auto" />
+      <span
+        class="self-center text-2xl font-semibold whitespace-nowrap text-white"
+        >Dev<span
+          class="text-yellow-400 animate-bounce ease-in-out inline-block"
+          >En</span
+        >Devenir</span
+      >
     </a>
-    <button id="menuToggle" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700 z-50" aria-controls="navbar-default" aria-expanded="false">
+    <button
+      id="menuToggle"
+      type="button"
+      class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700 z-50"
+      aria-controls="navbar-default"
+      aria-expanded="false"
+    >
       <span class="sr-only">Toggle menu</span>
-      <svg id="menuIcon" class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+      <svg
+        id="menuIcon"
+        class="w-5 h-5"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 17 14"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M1 1h15M1 7h15M1 13h15"></path>
       </svg>
-      <svg id="closeIcon" class="w-5 h-5 hidden" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 17" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1l15 15M1 16L16 1" />
+      <svg
+        id="closeIcon"
+        class="w-5 h-5 hidden"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 17 17"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M1 1l15 15M1 16L16 1"></path>
       </svg>
     </button>
 
-    <div id="overlay" class="fixed inset-0 bg-gray-800 bg-opacity-50 z-40 hidden md:hidden"></div>
+    <div
+      id="overlay"
+      class="fixed inset-0 bg-gray-800 bg-opacity-50 z-40 hidden md:hidden"
+    >
+    </div>
 
-    <div id="mobileMenu" class="fixed left-0 right-0 top-[80px] flex justify-center z-40 hidden md:hidden transition-all duration-300 ease-out opacity-0 -translate-y-5 pointer-events-none">
+    <div
+      id="mobileMenu"
+      class="fixed left-0 right-0 top-[80px] flex justify-center z-40 hidden md:hidden transition-all duration-300 ease-out opacity-0 -translate-y-5 pointer-events-none"
+    >
       <div class="bg-black rounded-lg shadow-lg w-10/12 max-w-md p-6 mt-4">
         <nav>
-          <ul class="list-none font-medium flex flex-col space-y-2 items-center">
+          <ul
+            class="list-none font-medium flex flex-col space-y-2 items-center"
+          >
             <li>
-              <HeaderLink href="/talks-podcasts" class="text-center justify-center nav-link block py-1 px-3 rounded bg-transparent font-bold text-yellow-400" aria-current="page">Talks/Podcasts</HeaderLink>
+              <HeaderLink
+                href="/talks-podcasts"
+                class="text-center justify-center nav-link block py-1 px-3 rounded bg-transparent font-bold text-yellow-400"
+                aria-current="page">Talks/Podcasts</HeaderLink
+              >
             </li>
             <li>
-              <HeaderLink href="/about" class="text-center nav-link block py-1 px-3 rounded bg-transparent font-bold text-white text-yellow-400">À propos</HeaderLink>
+              <HeaderLink
+                href="/about"
+                class="text-center nav-link block py-1 px-3 rounded bg-transparent font-bold text-white text-yellow-400"
+                >À propos</HeaderLink
+              >
+            </li>
+            <li>
+              <ThemeToggle />
             </li>
           </ul>
         </nav>
@@ -37,12 +100,22 @@ import ThemeToggle from "./ThemeToggle.astro";
     </div>
 
     <div class="hidden md:block md:w-auto" id="navbar-default">
-      <ul class="list-none font-medium flex flex-col p-4 md:p-0 mt-4 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
+      <ul
+        class="list-none font-medium flex flex-col p-4 md:p-0 mt-4 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0"
+      >
         <li class="text-center">
-          <HeaderLink href="/talks-podcasts" class="nav-link block w-full py-2 px-3 rounded bg-transparent md:p-0 font-bold text-white hover:text-yellow-400" aria-current="page">Talks/Podcasts</HeaderLink>
+          <HeaderLink
+            href="/talks-podcasts"
+            class="nav-link block w-full py-2 px-3 rounded bg-transparent md:p-0 font-bold text-white hover:text-yellow-400"
+            aria-current="page">Talks/Podcasts</HeaderLink
+          >
         </li>
         <li class="text-center">
-          <HeaderLink href="/about" class="nav-link block w-full py-2 px-3 rounded sm:bg-transparent md:p-0 font-bold text-white hover:text-yellow-400">À propos</HeaderLink>
+          <HeaderLink
+            href="/about"
+            class="nav-link block w-full py-2 px-3 rounded sm:bg-transparent md:p-0 font-bold text-white hover:text-yellow-400"
+            >À propos</HeaderLink
+          >
         </li>
         <li>
           <ThemeToggle />
@@ -53,7 +126,9 @@ import ThemeToggle from "./ThemeToggle.astro";
 
   <style>
     #mobileMenu {
-      transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+      transition:
+        opacity 0.3s ease-out,
+        transform 0.3s ease-out;
       opacity: 0;
       transform: translateY(-20px);
       pointer-events: none;
@@ -66,29 +141,29 @@ import ThemeToggle from "./ThemeToggle.astro";
   </style>
 
   <script>
-    const menuToggle = document.getElementById('menuToggle');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const overlay = document.getElementById('overlay');
-    const menuIcon = document.getElementById('menuIcon');
-    const closeIcon = document.getElementById('closeIcon');
+    const menuToggle = document.getElementById("menuToggle");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const overlay = document.getElementById("overlay");
+    const menuIcon = document.getElementById("menuIcon");
+    const closeIcon = document.getElementById("closeIcon");
 
     function toggleMenu() {
-      mobileMenu?.classList.toggle('hidden');
-      mobileMenu?.classList.toggle('active');
-      overlay?.classList.toggle('hidden');
-      document.body.classList.toggle('overflow-hidden');
+      mobileMenu?.classList.toggle("hidden");
+      mobileMenu?.classList.toggle("active");
+      overlay?.classList.toggle("hidden");
+      document.body.classList.toggle("overflow-hidden");
 
       // Basculer entre les icônes
-      menuIcon?.classList.toggle('hidden');
-      closeIcon?.classList.toggle('hidden');
+      menuIcon?.classList.toggle("hidden");
+      closeIcon?.classList.toggle("hidden");
     }
 
-    menuToggle?.addEventListener('click', toggleMenu);
-    overlay?.addEventListener('click', toggleMenu);
+    menuToggle?.addEventListener("click", toggleMenu);
+    overlay?.addEventListener("click", toggleMenu);
 
     // Fermer le menu lorsqu'un lien est cliqué
-    document.querySelectorAll('#mobileMenu a').forEach(link => {
-      link.addEventListener('click', toggleMenu);
+    document.querySelectorAll("#mobileMenu a").forEach((link) => {
+      link.addEventListener("click", toggleMenu);
     });
   </script>
 </nav>

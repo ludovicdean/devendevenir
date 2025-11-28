@@ -5,11 +5,26 @@ const { post } = Astro.props;
 const base = import.meta.env.BASE_URL;
 ---
 
-<li class="relative w-[900px] md:w-[calc(100%-0.5rem)] list-none py-4">
-    <a href={getUrl(post)} class="no-underline" target={post.data.url ? '_blank' : '_self'} rel={post.data.url ? 'noreferrer' : undefined}>
-        <img src={ base + post.data.banner } class="w-full h-auto object-cover" alt="">
-        <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-2/3 bg-slate-900 bg-opacity-50 flex items-center justify-center">
-            <p class="text-white text-2xl font-bold py-1 px-2 text-center w-full mb-0 hover:text-yellow-400">{post.data.title}</p>
+<li class="relative w-full md:w-[calc(100%-0.5rem)] list-none py-4">
+    <a
+        href={getUrl(post)}
+        class="no-underline"
+        target={post.data.url ? "_blank" : "_self"}
+        rel={post.data.url ? "noreferrer" : undefined}
+    >
+        <img
+            src={base + post.data.banner}
+            class="w-full h-auto object-cover"
+            alt=""
+        />
+        <div
+            class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-2/3 bg-slate-900 bg-opacity-50 flex items-center justify-center"
+        >
+            <p
+                class="text-white text-2xl font-bold py-1 px-2 text-center w-full mb-0 hover:text-yellow-400"
+            >
+                {post.data.title}
+            </p>
         </div>
     </a>
 </li>

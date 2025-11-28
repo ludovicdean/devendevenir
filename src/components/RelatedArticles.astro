@@ -3,21 +3,23 @@ import { getCollection } from "astro:content";
 import SmallCard from "./SmallCard.astro";
 
 const { tags, title } = Astro.props;
-const posts = (await getCollection("blog")).filter(post => !post.id.startsWith('_'));
+const posts = (await getCollection("blog")).filter(
+    (post) => !post.id.startsWith("_"),
+);
 
 posts.sort((a, b) => b.data.date - a.data.date);
 
-const similarPosts = posts.filter(
-    (e) => tags.some((t) => e.data.tags?.includes(t)) && e.data.title !== title,
-).slice(0,4);
+const similarPosts = posts
+    .filter(
+        (e) =>
+            tags.some((t) => e.data.tags?.includes(t)) &&
+            e.data.title !== title,
+    )
+    .slice(0, 3);
 ---
 
 {similarPosts.length > 0 && <h3>Articles en lien</h3>}
 
-<ul class="flex flex-wrap gap-4 list-none p-0">
-    {
-        similarPosts.map((post) => (
-                <SmallCard post={post} />
-        ))
-    }
+<ul class="flex flex-wrap gap-3 list-none p-0">
+    {similarPosts.map((post) => <SmallCard post={post} />)}
 </ul>
