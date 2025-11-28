@@ -19,13 +19,10 @@ export async function getTagsCount() {
     const tagsWithCounts = tagsCollection.map(tag => {
         const id = tag.id;
         const name = tag.data.name || id;
+        const description = tag.data.description;
         const count = tagCounts[id] || 0;
-        return { id, name, count };
+        return { id, name, description, count };
     });
 
     return tagsWithCounts;
-}
-
-export async function getTags() {
-    return await getCollection('tags');
 }
