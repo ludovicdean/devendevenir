@@ -1,17 +1,15 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import PostsList from "@components/PostsList.astro";
-import { getPosts } from "src/utils/blogUtils";
+import { getBlogsByTagId } from "src/utils/blogUtils";
 
 const { id, name, description } = Astro.props;
 
-const posts = await getPosts();
-const filteredPosts = posts.filter((post) => !post.id.startsWith('_') && post.data.tags?.includes(id));
-
+const filteredPosts = await getBlogsByTagId(id);
 const fullDescription = `Articles appartenant à la catégorie ${name}`;
 ---
 
-<BaseLayout title="Catégorie" description={ fullDescription }>
+<BaseLayout title="Catégorie" description={fullDescription}>
     <h2 class="mb-4 py-4 text-center leading-none">{name}</h2>
     <p>{description}</p>
     <PostsList posts={filteredPosts} />
