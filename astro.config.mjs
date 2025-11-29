@@ -6,13 +6,14 @@ import tailwind from "@astrojs/tailwind";
 import icon from "astro-icon";
 
 import expressiveCode from 'astro-expressive-code';
-console.log('ASTRO_BASE in config:', process.env.ASTRO_BASE);
-const base = process.env.ASTRO_BASE || '/devendevenir';
+
+const astroBase = process.env.ASTRO_BASE || '/devendevenir';
+console.log('🚀 Using base:', astroBase);  // Debug temporaire
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://ludovicdean.github.io',
-  base: process.env.ASTRO_BASE || '/devendevenir',
+  base: astroBase,
   middleware: ['./src/middleware.js'],
   integrations: [
     expressiveCode(),
