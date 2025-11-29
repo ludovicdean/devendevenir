@@ -7,10 +7,12 @@ import icon from "astro-icon";
 
 import expressiveCode from 'astro-expressive-code';
 
+const base = process.env.ASTRO_BASE || '/devendevenir';
+
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://ludovic.dean.github.io',
-  base: '/devendevenir',
+  site: 'https://ludovicdean.github.io',
+  base,
   middleware: ['./src/middleware.js'],
   integrations: [
     expressiveCode(),
