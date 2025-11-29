@@ -28,6 +28,7 @@ jobs:
       - uses: withastro/action@v2.0.0
         env:
           ASTRO_BASE: ${{ env.ASTRO_BASE }}
+
       - name: Deploy to production GitHub Pages (main branch)
         if: github.ref == 'refs/heads/main'
         uses: actions/deploy-pages@v4.0.5
@@ -43,6 +44,7 @@ jobs:
           rm -rf preview/*
           cp -r ./dist/* preview/
           cd preview
+          touch .nojekyll
           git add .
           git commit -m "Deploy preview from branch $GITHUB_REF" || echo "No changes to commit"
           git push origin HEAD:gh-pages --force
