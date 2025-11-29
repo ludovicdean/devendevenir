@@ -19,6 +19,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Debug ASTRO_BASE
+        run: |
+          echo "Branch: $GITHUB_REF"
+          echo "ASTRO_BASE=$ASTRO_BASE"
+          echo "ASTRO_BASE content: '${ASTRO_BASE}'"
+
       - uses: withastro/action@v2.0.0
 
       - name: Deploy to production GitHub Pages (main branch)
