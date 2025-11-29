@@ -26,7 +26,8 @@ jobs:
           echo "ASTRO_BASE content: '${ASTRO_BASE}'"
 
       - uses: withastro/action@v2.0.0
-
+        env:
+          ASTRO_BASE: ${{ env.ASTRO_BASE }}
       - name: Deploy to production GitHub Pages (main branch)
         if: github.ref == 'refs/heads/main'
         uses: actions/deploy-pages@v4.0.5
