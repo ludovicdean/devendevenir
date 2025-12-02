@@ -4,6 +4,7 @@ import ThemeToggle from "./ThemeToggle.astro";
 import { Icon } from "astro-icon/components";
 import { LINKEDIN_LINK, GITHUB_LINK } from "../consts";
 import SocialLinks from "./SocialLinks.astro";
+import SearchTrigger from "./SearchTrigger.astro";
 ---
 
 <header
@@ -92,7 +93,10 @@ import SocialLinks from "./SocialLinks.astro";
       <div class="flex items-center space-x-4">
         <SocialLinks iconSize="size-6" />
         <span class="text-white/30 h-6 w-px bg-white/30"></span>
-        <ThemeToggle />
+        <div class="flex items-center space-x-3">
+          <ThemeToggle />
+          <SearchTrigger />
+        </div>
       </div>
     </div>
   </div>
@@ -151,8 +155,9 @@ import SocialLinks from "./SocialLinks.astro";
               <Icon name="github" class="w-8 h-8" />
             </a>
           </li>
-          <li>
-            <ThemeToggle />
+          <li class="flex space-x-6 text-white text-yellow-400">
+            <ThemeToggle iconSize="w-8 h-8" />
+            <SearchTrigger iconSize="w-8 h-8" />
           </li>
         </ul>
       </nav>
