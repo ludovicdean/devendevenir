@@ -2,10 +2,11 @@
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import TagsList from "@components/TagsList.astro";
 import LargeCard from "@components/LargeCard.astro";
+import Search from "@components/Search.astro";
+import PostsList from "@components/PostsList.astro";
 import { getPosts } from "src/utils/blogUtils";
 import { getTagsCount } from "src/utils/tagUtils";
 import BaseLayout from "src/layouts/BaseLayout.astro";
-import PostsList from "@components/PostsList.astro";
 
 const posts = await getPosts();
 

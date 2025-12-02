@@ -1,15 +1,16 @@
+---
+const { iconSize = "size-6" } = Astro.props;
+---
 <button
     type="button"
-    class="theme-toggle-btn"
+    class:list={["theme-toggle-btn", iconSize]}
     aria-label="Toggle theme"
     title="Toggle dark/light mode"
     data-testid="theme-toggle"
 >
     <svg
-        class="sun-icon"
+        class:list={["sun-icon", iconSize]}
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -17,6 +18,7 @@
         stroke-linecap="round"
         stroke-linejoin="round"
     >
+        <circle cx="12" cy="12" r="5"></circle>
         <line x1="12" y1="1" x2="12" y2="3"></line>
         <line x1="12" y1="21" x2="12" y2="23"></line>
         <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
@@ -27,10 +29,8 @@
         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
     </svg>
     <svg
-        class="moon-icon"
+        class:list={["moon-icon", iconSize]}
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -48,11 +48,9 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 44px;
-        height: 44px;
         padding: 0;
         background-color: transparent;
-        border-radius: 50%;
+        border: none;
         cursor: pointer;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -91,19 +89,6 @@
         opacity: 1;
         transform: rotate(0deg) scale(1);
         color: #fbbf24;
-    }
-
-    @media (max-width: 768px) {
-        .theme-toggle-btn {
-            width: 40px;
-            height: 40px;
-        }
-
-        .sun-icon,
-        .moon-icon {
-            width: 18px;
-            height: 18px;
-        }
     }
 
     @keyframes themeSwitch {
