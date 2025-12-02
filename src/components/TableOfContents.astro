@@ -14,7 +14,6 @@ const { headings, title } = Astro.props;
            xl:left-1/2 xl:ml-[30rem] xl:right-auto"
 >
     <div class="relative group">
-        <!-- Hover Label -->
         <span
             class="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-2 py-1 bg-zinc-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap"
         >
@@ -23,10 +22,9 @@ const { headings, title } = Astro.props;
 
         <button
             id="toc-toggle"
-            class="relative bg-white dark:bg-zinc-800 text-black dark:text-white p-0 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 z-50 flex items-center justify-center w-12 h-12 border-2 border-transparent hover:border-yellow-400 overflow-hidden"
+            class="relative bg-white dark:bg-zinc-800 text-black dark:text-white p-0 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 z-50 flex items-center justify-center w-12 h-12 border-2 border-transparent overflow-hidden"
             aria-label="Table des matières"
         >
-            <!-- Scroll Progress Circle -->
             <svg
                 class="absolute inset-0 w-full h-full -rotate-90"
                 viewBox="0 0 100 100"
@@ -52,8 +50,6 @@ const { headings, title } = Astro.props;
                     stroke-linecap="round"
                     class="transition-all duration-150"></circle>
             </svg>
-
-            <!-- Icon -->
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -83,10 +79,13 @@ const { headings, title } = Astro.props;
         <div
             class="flex items-center justify-between mb-4 border-b border-zinc-100 dark:border-zinc-800 pb-2"
         >
-            <span
-                class="text-xs font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500"
-                >Navigation</span
+            <a
+                href="#"
+                class="block text-base font-black mb-4 text-black dark:text-white hover:text-yellow-600 dark:hover:text-yellow-400 transition-colors leading-tight no-underline"
+                id="toc-title"
             >
+                {title}
+            </a>
             <button
                 id="toc-close"
                 class="text-zinc-400 hover:text-black dark:hover:text-white transition-colors"
@@ -109,15 +108,11 @@ const { headings, title } = Astro.props;
                 >
             </button>
         </div>
-        <a
-            href="#"
-            class="block text-lg font-black mb-4 text-black dark:text-white hover:text-yellow-600 dark:hover:text-yellow-400 transition-colors leading-tight no-underline"
-            id="toc-title"
-        >
-            {title}
-        </a>
+
         <ul
-            class="space-y-1 max-h-[50vh] overflow-y-auto overflow-x-hidden list-none px-2 m-0 custom-scrollbar"
+            class="space-y-1 max-h-[50vh] overflow-y-auto overflow-x-hidden list-none px-2 m-0
+                   [&::-webkit-scrollbar]:w-[4px] [&::-webkit-scrollbar-track]:bg-transparent
+                   [&::-webkit-scrollbar-thumb]:bg-zinc-500/20 [&::-webkit-scrollbar-thumb]:rounded-full"
         >
             {
                 headings.map((heading) => (
@@ -135,22 +130,6 @@ const { headings, title } = Astro.props;
         </ul>
     </nav>
 </toc-floating>
-
-<style>
-    .custom-scrollbar::-webkit-scrollbar {
-        width: 4px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-track {
-        background: transparent;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-        background: rgba(156, 163, 175, 0.2);
-        border-radius: 10px;
-    }
-    .toc-link.active {
-        @apply bg-yellow-400 text-black font-bold shadow-sm translate-x-1;
-    }
-</style>
 
 <script>
     class TOCFloating extends HTMLElement {
@@ -234,6 +213,14 @@ const { headings, title } = Astro.props;
                     )
                     .filter((h): h is HTMLElement => h !== null);
 
+                const activeClasses = [
+                    "bg-yellow-400",
+                    "text-black",
+                    "font-bold",
+                    "shadow-sm",
+                    "translate-x-1",
+                ];
+
                 const updateActiveHighlight = () => {
                     const scrollPos = window.scrollY + 150;
 
@@ -248,9 +235,9 @@ const { headings, title } = Astro.props;
 
                     tocLinks.forEach((link) => {
                         if (link.getAttribute("data-slug") === currentId) {
-                            link.classList.add("active");
+                            link.classList.add(...activeClasses);
                         } else {
-                            link.classList.remove("active");
+                            link.classList.remove(...activeClasses);
                         }
                     });
                 };
