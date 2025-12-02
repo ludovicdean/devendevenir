@@ -1,22 +1,22 @@
 ---
-import { type CollectionEntry, getCollection, render } from 'astro:content';
-import BlogPost from '../../layouts/BlogLayout.astro';
+import { type CollectionEntry, getCollection, render } from "astro:content";
+import BlogPost from "../../layouts/BlogLayout.astro";
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
+	const posts = await getCollection("blog");
 	return posts
-	.filter(post => !post.id.startsWith('_'))
-	.map((post) => ({
-		params: { slug: post.id },
-		props: post,
-	}));
+		.filter((post) => !post.id.startsWith("_"))
+		.map((post) => ({
+			params: { slug: post.id },
+			props: post,
+		}));
 }
-type Props = CollectionEntry<'blog'>;
+type Props = CollectionEntry<"blog">;
 
 const post = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 ---
 
-<BlogPost post = { post.data }>
+<BlogPost post={post.data} headings={headings}>
 	<Content />
 </BlogPost>

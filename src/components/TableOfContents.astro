@@ -1,0 +1,210 @@
+---
+import type { MarkdownHeading } from "astro";
+
+type Props = {
+    headings: MarkdownHeading[];
+    title: string;
+};
+
+const { headings, title } = Astro.props;
+---
+
+<toc-floating
+    class="fixed right-2 top-1/2 -translate-y-1/2 z-50 flex flex-col items-end xl:left-1/2 xl:ml-[29rem] xl:right-auto"
+>
+    <button
+        id="toc-toggle"
+        class="bg-yellow-400 hover:bg-yellow-500 text-black p-3 rounded-full shadow-lg transition-all duration-300 z-50"
+        aria-label="Table des matières"
+    >
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+        </svg>
+    </button>
+
+    <nav
+        id="toc-content"
+        class="absolute right-12 top-0 bg-white dark:bg-zinc-800 p-4 rounded-lg shadow-xl w-64 transform scale-0 origin-right transition-transform duration-300 opacity-0 invisible"
+    >
+        <a
+            href="#"
+            class="block text-lg font-bold mb-2 text-black dark:text-white hover:text-yellow-600 dark:hover:text-yellow-400 transition-colors leading-tight no-underline"
+            id="toc-title"
+        >
+            {title}
+        </a>
+        <ul class="space-y-2 max-h-[60vh] overflow-y-auto list-none pl-0 m-0">
+            {
+                headings.map((heading) => (
+                    <li class={`text-sm ${heading.depth === 3 ? "pl-4" : ""}`}>
+                        <a
+                            href={`#${heading.slug}`}
+                            class="block text-zinc-600 dark:text-zinc-300 hover:text-yellow-600 dark:hover:text-yellow-400 transition-colors no-underline"
+                        >
+                            {heading.text}
+                        </a>
+                    </li>
+                ))
+            }
+        </ul>
+    </nav>
+</toc-floating>
+
+<script>
+    class TOCFloating extends HTMLElement {
+        constructor() {
+            super();
+            const toggleBtn = this.querySelector("#toc-toggle");
+            const content = this.querySelector("#toc-content");
+            const titleLink = this.querySelector("#toc-title");
+            const container = this;
+
+            if (toggleBtn && content) {
+                // Toggle visibility
+                toggleBtn.addEventListener("click", () => {
+                    const isExpanded = content.classList.contains("scale-100");
+
+                    if (isExpanded) {
+                        content.classList.remove(
+                            "scale-100",
+                            "opacity-100",
+                            "visible",
+                        );
+                        content.classList.add(
+                            "scale-0",
+                            "opacity-0",
+                            "invisible",
+                        );
+                    } else {
+                        content.classList.remove(
+                            "scale-0",
+                            "opacity-0",
+                            "invisible",
+                        );
+                        content.classList.add(
+                            "scale-100",
+                            "opacity-100",
+                            "visible",
+                        );
+                    }
+                });
+
+                // Close when clicking outside
+                document.addEventListener("click", (e) => {
+                    if (
+                        !this.contains(e.target as Node) &&
+                        content.classList.contains("scale-100")
+                    ) {
+                        content.classList.remove(
+                            "scale-100",
+                            "opacity-100",
+                            "visible",
+                        );
+                        content.classList.add(
+                            "scale-0",
+                            "opacity-0",
+                            "invisible",
+                        );
+                    }
+                });
+
+                // Scroll to top when title is clicked
+                if (titleLink) {
+                    titleLink.addEventListener("click", (e) => {
+                        e.preventDefault();
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                    });
+                }
+
+                // Sticky Logic
+                const anchor = document.getElementById("toc-anchor");
+
+                const handleScroll = () => {
+                    if (!anchor) return;
+
+                    const anchorRect = anchor.getBoundingClientRect();
+                    // We want the button to be aligned with the anchor when at the top
+                    // The anchor is the title div.
+                    // When the anchor is in view (or above the fold), we want absolute positioning.
+                    // When we scroll past the point where the button would naturally be, we switch to fixed.
+
+                    // Let's say we want the button to be vertically centered relative to the viewport ONLY if that position is below the anchor.
+
+                    const viewportCenter = window.innerHeight / 2;
+                    const anchorTopFromViewport = anchorRect.top;
+
+                    // If the anchor is below the middle of the screen, the button should stay with the anchor (or just stay below it).
+                    // Actually, simpler logic:
+                    // If we are at the top, position absolute at the anchor's level.
+                    // If we scroll down such that the fixed position (middle of screen) is below the anchor, switch to fixed.
+
+                    // Let's try this:
+                    // Calculate where the fixed button WOULD be (middle of viewport).
+                    // Calculate where the anchor is.
+                    // If fixed_button_top < anchor_top, then we are too high. Force it to anchor_top.
+
+                    // Since the component is `fixed top-1/2`, its top is at 50vh.
+                    // If anchorRect.top > window.innerHeight / 2, then the anchor is below the middle of the screen.
+                    // In that case, we should push the button down to the anchor.
+
+                    if (anchorRect.top > window.innerHeight / 2) {
+                        // Anchor is below the fold or just lower than the middle.
+                        // We want the button to be at the anchor's level.
+                        // Since we can't easily mix fixed and absolute without layout shifts or complex calcs,
+                        // let's use absolute positioning relative to the body/html when it's not fixed.
+
+                        // Actually, simpler: just set top style.
+                        // If fixed, top is 50%.
+                        // If not fixed, top should be anchorRect.top (relative to viewport) -> but that's just fixed with a different top?
+                        // No, if we scroll, we want it to move with the page.
+
+                        container.style.position = "absolute";
+                        // Absolute position relative to the document
+                        const scrollTop =
+                            window.pageYOffset ||
+                            document.documentElement.scrollTop;
+                        const absoluteTop = anchorRect.top + scrollTop;
+                        container.style.top = `${absoluteTop}px`;
+                        container.classList.remove(
+                            "fixed",
+                            "top-1/2",
+                            "-translate-y-1/2",
+                        );
+                    } else {
+                        // Anchor is above the middle of the screen.
+                        // The button can safely be fixed at the middle.
+                        container.style.position = "";
+                        container.style.top = "";
+                        container.classList.add(
+                            "fixed",
+                            "top-1/2",
+                            "-translate-y-1/2",
+                        );
+                    }
+                };
+
+                window.addEventListener("scroll", handleScroll);
+                window.addEventListener("resize", handleScroll);
+                // Initial check
+                handleScroll();
+            }
+        }
+    }
+
+    customElements.define("toc-floating", TOCFloating);
+</script>
