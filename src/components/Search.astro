@@ -1,8 +1,15 @@
 ---
+import type { CollectionEntry } from "astro:content";
 import LargeCard from "./LargeCard.astro";
 import PostsList from "./PostsList.astro";
 
-const { posts, latestPost, postYears, currentYear } = Astro.props;
+interface Props {
+    latestPost: CollectionEntry<"blog">;
+    postYears: Map<number, CollectionEntry<"blog">[]>;
+    currentYear: number;
+}
+
+const { latestPost, postYears, currentYear } = Astro.props;
 const base = import.meta.env.BASE_URL;
 ---
 
@@ -75,7 +82,6 @@ from-yellow-600 to-yellow-200 dark:placeholder-white dark:border-0"
             return;
         }
 
-        // Initialize Pagefind if needed
         await initPagefind();
 
         if (!pagefind) {
@@ -84,10 +90,8 @@ from-yellow-600 to-yellow-200 dark:placeholder-white dark:border-0"
         }
 
         try {
-            // Perform search
             const search = await pagefind.search(query);
 
-            // Hide default posts, show search results
             defaultPosts.classList.add("hidden");
             searchResults.classList.remove("hidden");
 
@@ -97,7 +101,6 @@ from-yellow-600 to-yellow-200 dark:placeholder-white dark:border-0"
                 return;
             }
 
-            // Load and display results
             const results = await Promise.all(
                 search.results.map((result) => result.data()),
             );
@@ -112,8 +115,8 @@ from-yellow-600 to-yellow-200 dark:placeholder-white dark:border-0"
                 resultsHTML += `
           <li class="relative w-full sm:w-[calc(50%-0.375rem)] md:w-[calc(33.333%-0.5rem)] list-none">
             <a href="${url}" class="flex flex-col h-full p-4 rounded-lg border-2 border-gray-200 hover:border-yellow-400 transition-colors no-underline">
-              <h3 class="text-lg font-bold text-gray-900 mb-2 hover:text-yellow-400">${title}</h3>
-              <p class="text-sm text-gray-600 line-clamp-3">${excerpt}</p>
+              <h3 class="text-lg font-bold text-gray-900 mb-2 hover:text-yellow-400 line-clamp-2">${title}</h3>
+              <p class="text-sm text-gray-600 line-clamp-4">${excerpt}</p>
             </a>
           </li>
         `;
@@ -128,7 +131,6 @@ from-yellow-600 to-yellow-200 dark:placeholder-white dark:border-0"
         }
     }
 
-    // Set up search input listener
     document.addEventListener("DOMContentLoaded", () => {
         const searchInput = document.getElementById("search-input");
 
@@ -136,7 +138,6 @@ from-yellow-600 to-yellow-200 dark:placeholder-white dark:border-0"
             searchInput.addEventListener("input", (e) => {
                 const query = e.target.value.trim();
 
-                // Debounce search
                 if (searchTimeout) {
                     clearTimeout(searchTimeout);
                 }

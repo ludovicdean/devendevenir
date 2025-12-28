@@ -9,7 +9,11 @@ const filteredPosts = await getBlogsByTagId(id);
 const fullDescription = `Articles appartenant à la catégorie ${name}`;
 ---
 
-<BaseLayout title="Catégorie" description={fullDescription}>
+<BaseLayout
+    title="Catégorie"
+    description={fullDescription}
+    data-pagefind-ignore="all"
+>
     <h2 class="mb-4 py-4 text-center leading-none">{name}</h2>
     <p>{description}</p>
     <PostsList posts={filteredPosts} />

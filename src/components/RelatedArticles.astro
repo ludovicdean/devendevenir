@@ -7,8 +7,10 @@ const { tags, title } = Astro.props;
 const similarPosts = await getSimilarPosts(tags, title);
 ---
 
-{similarPosts.length > 0 && <h3>Articles en lien</h3>}
+<div data-pagefind-ignore>
+    {similarPosts.length > 0 && <h3>Articles en lien</h3>}
 
-<ul class="flex flex-wrap gap-4 list-none p-0">
-    {similarPosts.map((post) => <SmallCard post={post} />)}
-</ul>
+    <ul class="flex flex-wrap gap-4 list-none p-0">
+        {similarPosts.map((post) => <SmallCard post={post} />)}
+    </ul>
+</div>

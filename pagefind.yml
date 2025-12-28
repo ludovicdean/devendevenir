@@ -1,0 +1,4 @@
+# pagefind.yml
+glob: "**/*.html"
+exclude_glob:
+  - "/tags/**/**.html"
