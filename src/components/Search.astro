@@ -60,7 +60,6 @@ from-yellow-600 to-yellow-200 dark:placeholder-white dark:border-0"
                     base += "/";
                 }
                 const pagefindPath = base + "pagefind/pagefind.js";
-                console.log("Loading Pagefind from:", pagefindPath);
                 pagefind = await import(pagefindPath);
             } catch (error) {
                 console.error("Failed to load Pagefind:", error);
