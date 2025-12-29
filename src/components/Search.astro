@@ -74,8 +74,7 @@ from-yellow-600 to-yellow-200 dark:placeholder-white dark:border-0"
 
         if (!searchResults || !defaultPosts) return;
 
-        // If query is empty or less than 4 characters, show default posts
-        if (query.length < 4) {
+        if (query.length < 3) {
             searchResults.classList.add("hidden");
             defaultPosts.classList.remove("hidden");
             searchResults.innerHTML = "";
