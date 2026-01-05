@@ -2,6 +2,8 @@
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import TagsList from "@components/TagsList.astro";
 import Search from "@components/Search.astro";
+import LargeCard from "@components/LargeCard.astro";
+import PostsList from "@components/PostsList.astro";
 import { getPosts } from "src/utils/blogUtils";
 import { getTagsCount } from "src/utils/tagUtils";
 import BaseLayout from "src/layouts/BaseLayout.astro";
@@ -50,11 +52,21 @@ const tagsCount = await getTagsCount();
     <section>
       <TagsList tags={tagsCount} />
     </section>
-    <Search
-      posts={posts}
-      latestPost={latestPost}
-      postYears={postYears}
-      currentYear={currentYear}
-    />
+    <div id="default-posts">
+      <LargeCard post={latestPost} />
+      {
+        Array.from(postYears.entries()).map(
+          ([year, articles]) =>
+            articles.length > 0 && (
+              <section>
+                {year !== currentYear && (
+                  <h2 class="flex justify-center mt-12 mb-6">{year}</h2>
+                )}
+                <PostsList posts={articles} />
+              </section>
+            ),
+        )
+      }
+    </div>
   </main>
 </BaseLayout>

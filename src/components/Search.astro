@@ -1,149 +1,172 @@
 ---
-import type { CollectionEntry } from "astro:content";
-import LargeCard from "./LargeCard.astro";
-import PostsList from "./PostsList.astro";
-
-interface Props {
-    latestPost: CollectionEntry<"blog">;
-    postYears: Map<number, CollectionEntry<"blog">[]>;
-    currentYear: number;
-}
-
-const { latestPost, postYears, currentYear } = Astro.props;
 const base = import.meta.env.BASE_URL;
 ---
 
-<div id="search-container" data-base-url={base}>
-    <div class="search-wrapper mb-6">
-        <input
-            type="text"
-            id="search-input"
-            placeholder="Rechercher des articles..."
-            class="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-yellow-400 focus:outline-none text-gray-900 dark:text-white dark:bg-gradient-to-r
-from-yellow-600 to-yellow-200 dark:placeholder-white dark:border-0"
-        />
+<!-- Search Modal -->
+<div
+    id="search-modal"
+    class="fixed inset-0 z-50 hidden"
+    role="dialog"
+    aria-modal="true"
+>
+    <!-- Backdrop -->
+    <div
+        id="search-backdrop"
+        class="absolute inset-0 bg-gray-900/40 backdrop-blur-sm transition-opacity"
+    >
     </div>
 
-    <div id="search-results" class="hidden"></div>
+    <!-- Modal Content -->
+    <div class="fixed inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20">
+        <div
+            id="search-container"
+            data-base-url={base}
+            class="mx-auto max-w-2xl transform divide-y divide-gray-100 dark:divide-gray-800 overflow-hidden rounded-xl bg-white dark:bg-gray-900 shadow-2xl ring-1 ring-black ring-opacity-5 transition-all"
+        >
+            <div class="relative">
+                <svg
+                    class="pointer-events-none absolute left-4 top-3.5 h-5 w-5 text-gray-400"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                <input
+                    type="text"
+                    id="search-input"
+                    class="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-900 dark:text-white placeholder:text-gray-400 focus:ring-0 sm:text-sm"
+                    placeholder="Tapez votre recherche..."
+                    autocomplete="off"
+                />
+            </div>
 
-    <div id="default-posts">
-        <section>
-            <LargeCard post={latestPost} />
-            {
-                Array.from(postYears.entries()).map(
-                    ([year, articles]) =>
-                        articles.length > 0 && (
-                            <section>
-                                {year !== currentYear && (
-                                    <h2 class="flex justify-center">{year}</h2>
-                                )}
-                                <PostsList posts={articles} />
-                            </section>
-                        ),
-                )
-            }
-        </section>
+            <div
+                id="search-results-wrapper"
+                class="max-h-96 overflow-y-auto p-4 empty:hidden"
+            >
+                <div id="search-results" class="space-y-4"></div>
+            </div>
+
+            <!-- Footer / Tips -->
+            <div
+                class="flex flex-wrap items-center bg-gray-50 dark:bg-gray-800/50 px-4 py-2.5 text-xs text-gray-500"
+            >
+                <span class="mr-3"
+                    >Appuyez sur <kbd
+                        class="font-sans font-semibold text-gray-900 dark:text-gray-300"
+                        >Esc</kbd
+                    > pour quitter</span
+                >
+            </div>
+        </div>
     </div>
 </div>
 
 <script is:inline>
-    let pagefind = null;
-    let searchTimeout = null;
+    (function () {
+        let pagefind = null;
+        let searchTimeout = null;
 
-    async function initPagefind() {
-        if (!pagefind) {
-            try {
-                const container = document.getElementById("search-container");
-                let base = container?.getAttribute("data-base-url") || "/";
-                // Ensure base ends with a slash
-                if (!base.endsWith("/")) {
-                    base += "/";
+        const modal = document.getElementById("search-modal");
+        const backdrop = document.getElementById("search-backdrop");
+        const input = document.getElementById("search-input");
+        const resultsContainer = document.getElementById("search-results");
+
+        function openModal() {
+            modal?.classList.remove("hidden");
+            document.body.classList.add("overflow-hidden");
+            setTimeout(() => input?.focus(), 100);
+        }
+
+        function closeModal() {
+            modal?.classList.add("hidden");
+            document.body.classList.remove("overflow-hidden");
+        }
+
+        // Global keydown for shortcuts
+        document.addEventListener("keydown", (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+                e.preventDefault();
+                openModal();
+            }
+            if (e.key === "Escape") {
+                closeModal();
+            }
+        });
+
+        // Global click for search-trigger
+        document.addEventListener("click", (e) => {
+            if (e.target.closest("#search-trigger")) {
+                openModal();
+            }
+        });
+
+        backdrop?.addEventListener("click", closeModal);
+
+        async function initPagefind() {
+            if (!pagefind) {
+                try {
+                    const container =
+                        document.getElementById("search-container");
+                    let base = container?.getAttribute("data-base-url") || "/";
+                    if (!base.endsWith("/")) base += "/";
+                    const pagefindPath = base + "pagefind/pagefind.js";
+                    pagefind = await import(pagefindPath);
+                } catch (error) {
+                    console.error("Failed to load Pagefind:", error);
                 }
-                const pagefindPath = base + "pagefind/pagefind.js";
-                pagefind = await import(pagefindPath);
-            } catch (error) {
-                console.error("Failed to load Pagefind:", error);
             }
         }
-    }
 
-    async function performSearch(query) {
-        const searchResults = document.getElementById("search-results");
-        const defaultPosts = document.getElementById("default-posts");
+        async function performSearch(query) {
+            if (!resultsContainer) return;
 
-        if (!searchResults || !defaultPosts) return;
-
-        if (query.length < 3) {
-            searchResults.classList.add("hidden");
-            defaultPosts.classList.remove("hidden");
-            searchResults.innerHTML = "";
-            return;
-        }
-
-        await initPagefind();
-
-        if (!pagefind) {
-            console.error("Pagefind not loaded");
-            return;
-        }
-
-        try {
-            const search = await pagefind.search(query);
-
-            defaultPosts.classList.add("hidden");
-            searchResults.classList.remove("hidden");
-
-            if (search.results.length === 0) {
-                searchResults.innerHTML =
-                    '<p class="text-center text-gray-600 py-8">Aucun article trouvé pour cette recherche.</p>';
+            if (query.length < 2) {
+                resultsContainer.innerHTML = "";
                 return;
             }
 
-            const results = await Promise.all(
-                search.results.map((result) => result.data()),
-            );
+            await initPagefind();
+            if (!pagefind) return;
 
-            let resultsHTML = '<ul class="flex flex-wrap gap-3">';
+            try {
+                const words = query.split(/\s+/).filter((w) => w.length > 0);
+                const quotedQuery = words.map((w) => `"${w}"`).join(" ");
+                const search = await pagefind.search(quotedQuery);
 
-            results.forEach((result) => {
-                const url = result.url;
-                const title = result.meta?.title || "Sans titre";
-                const excerpt = result.excerpt || "";
-
-                resultsHTML += `
-          <li class="relative w-full sm:w-[calc(50%-0.375rem)] md:w-[calc(33.333%-0.5rem)] list-none">
-            <a href="${url}" class="flex flex-col h-full p-4 rounded-lg border-2 border-gray-200 hover:border-yellow-400 transition-colors no-underline">
-              <h3 class="text-lg font-bold text-gray-900 mb-2 hover:text-yellow-400 line-clamp-2">${title}</h3>
-              <p class="text-sm text-gray-600 line-clamp-4">${excerpt}</p>
-            </a>
-          </li>
-        `;
-            });
-
-            resultsHTML += "</ul>";
-            searchResults.innerHTML = resultsHTML;
-        } catch (error) {
-            console.error("Search error:", error);
-            searchResults.innerHTML =
-                '<p class="text-center text-red-600 py-8">Une erreur est survenue lors de la recherche.</p>';
-        }
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-        const searchInput = document.getElementById("search-input");
-
-        if (searchInput) {
-            searchInput.addEventListener("input", (e) => {
-                const query = e.target.value.trim();
-
-                if (searchTimeout) {
-                    clearTimeout(searchTimeout);
+                if (search.results.length === 0) {
+                    resultsContainer.innerHTML =
+                        '<p class="text-center text-gray-500 py-4">Aucun résultat trouvé.</p>';
+                    return;
                 }
 
-                searchTimeout = window.setTimeout(() => {
-                    performSearch(query);
-                }, 300);
-            });
+                const results = await Promise.all(
+                    search.results.slice(0, 10).map((result) => result.data()),
+                );
+
+                resultsContainer.innerHTML = results
+                    .map(
+                        (result) => `
+                    <a href="${result.url}" class="group block p-4 rounded-lg hover:bg-yellow-50 dark:hover:bg-yellow-900/20 transition-colors no-underline border border-transparent hover:border-yellow-200">
+                        <h3 class="text-base font-bold text-gray-900 dark:text-white group-hover:text-yellow-600 mb-1">${result.meta.title}</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">${result.excerpt}</p>
+                    </a>
+                `,
+                    )
+                    .join("");
+            } catch (error) {
+                console.error("Search error:", error);
+            }
         }
-    });
+
+        input?.addEventListener("input", (e) => {
+            const query = e.target.value.trim();
+            if (searchTimeout) clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => performSearch(query), 300);
+        });
+    })();
 </script>

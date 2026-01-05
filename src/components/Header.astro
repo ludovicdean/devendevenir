@@ -96,6 +96,27 @@ import ThemeToggle from "./ThemeToggle.astro";
               >
             </li>
             <li>
+              <button
+                id="search-trigger"
+                class="flex items-center gap-2 px-4 py-2 text-yellow-400 font-bold bg-white/10 rounded-lg w-full justify-center mt-4"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-5 h-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                <span>Rechercher</span>
+              </button>
+            </li>
+            <li>
               <ThemeToggle />
             </li>
           </ul>
@@ -120,6 +141,32 @@ import ThemeToggle from "./ThemeToggle.astro";
             class="nav-link block w-full py-2 px-3 rounded sm:bg-transparent md:p-0 font-bold text-white hover:text-yellow-400"
             >À propos</HeaderLink
           >
+        </li>
+        <li class="flex items-center justify-center h-full">
+          <button
+            id="search-trigger"
+            class="flex items-center gap-2 px-3 py-1.5 text-gray-200 hover:text-yellow-400 transition-colors cursor-pointer bg-white/10 dark:bg-black/20 border border-white/20 rounded-md group"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            <span class="text-sm hidden lg:inline">Rechercher</span>
+            <kbd
+              class="hidden sm:inline-flex items-center px-1.5 py-0.5 text-[10px] font-sans font-medium text-gray-400 bg-white/5 border border-white/10 rounded"
+            >
+              K
+            </kbd>
+          </button>
         </li>
         <li>
           <ThemeToggle />
