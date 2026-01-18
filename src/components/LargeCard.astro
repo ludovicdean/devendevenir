@@ -1,11 +1,14 @@
 ---
 import { getUrl } from "src/utils/blogUtils";
 
-const { post } = Astro.props;
+const { post, "data-test-id": dataTestId } = Astro.props;
 const base = import.meta.env.BASE_URL;
 ---
 
-<li class="relative w-full md:w-[calc(100%-0.5rem)] list-none py-4">
+<li
+    class="relative w-full md:w-[calc(100%-0.5rem)] list-none py-4"
+    data-test-id={dataTestId}
+>
     <a
         href={getUrl(post)}
         class="no-underline"

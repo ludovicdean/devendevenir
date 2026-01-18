@@ -20,7 +20,7 @@ export default defineConfig({
     mdx(),
     sitemap(),
     tailwind(),
-    icon(),
+    icon()
   ],
   output: "static"
 });
