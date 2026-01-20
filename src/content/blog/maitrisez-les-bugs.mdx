@@ -1,0 +1,73 @@
+---
+title : "Apprenez à dompter les bugs"
+date : Jan 21 2026
+tags :
+    - méthodologie
+description : "Apprenez à dompter les bugs, optimisez votre temps et celui des autres !"
+banner : "/images/bluestonex-q4xnrxKGSq0-unsplash.webp"
+
+author: "Bluestonex"
+authorLink: "https://unsplash.com/fr/@bluestonex_apphaus?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+unsplashLink: "https://unsplash.com/fr/photos/femme-tapant-un-code-sur-un-ordinateur-portable-q4xnrxKGSq0?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+---
+
+Quand on est développeur et qu'on débute dans le métier, on se retrouve souvent confronté à des murs (des bugs), qui se dressent devant nous, insurmontables (spoiler alert : non c'est FAUX). Et là intervient l'éternel problème du "Quand-est-ce que je peux demander à mon responsable / collègue. Abandonner au bout de 5 minutes n'est pas une solution, s'acharner toute une journée non plus !
+
+Voici un guide pour vous aider à régler vos problèmes méthodiquement, en appelant à l'aide au bon moment (un magicien n'est jamais en retard, ni en avance. Il arrive précisément à l'heure prévue.)
+
+## Alors comment on fait ???
+
+On peut distinguer 2 types de problèmes : 
+
+- ceux qui dépendent de vous.
+- ceux qui ne dépendent pas de vous. 
+
+Selon la nature du blocage, la démarche n'est pas la même. Ce qui sera applicable à un type de problème sera sûrement inapplicable à l'autre type de problème, et réciproquement (et vice et versa, et viiice et veeersaaaaaa). Ce que je vais présenter ici n'est pas une vérité absolue, c'est simplement le fruit de 5 ans d'expérience en tant que dev et expert des "murs" techniques .
+
+## Blocage externe
+
+Si votre blocage est externe à votre code, à votre base de données (fournisseur tiers, indisponibilité d'une plateforme etc.), la "solution" est de contacter les bonnes personnes avec les bons éléments (on y reviendra) et de mettre de côté votre sujet. Vous avez probablement des PR à valider, un peu de refacto à faire ou un CRA à remplir 😅.
+
+Vous reprendrez votre sujet quand les éléments extérieurs à votre sphère d'action seront à nouveau disponibles.
+
+## Blocage interne 
+
+Si vous n'avez pu mettre aucun élément extérieur à votre code en cause (je vous connais les devs, c'est d'abord la faute des autres avant d'être la vôtre , je m'inclus dans cette phrase également), il ne vous reste plus qu'à vous résoudre à trouver ce qui ne va pas dans votre code (pas chez vous, hein, on dissocie le code de sa propre personne !).
+
+Focalisez-vous sur votre problème, listez les éléments que votre code appelle (api, base de données etc.) et éliminez les unes après les autres les causes possibles. Pour les erreurs qui se manifestent au démarrage de votre projet, peu de chances que ce soit autre chose que le code que vous avez ajouté qui plante (votre IDE saura pointer du doigt ce qui pose problème, syntaxe, erreur logique, méthode non implémentée etc.).
+
+Mettez des points d'arrêts (breakpoints) partout, à tous les niveaux, et avancez pas à pas pour cibler précisément l'origine de votre bug.
+
+### Les APIs
+
+Pour les erreurs qui ne se manifestent qu'une fois votre application lancée, vérifiez que les URLs des APIs dont vous avez besoin sont correctes et qu'elles répondent bien (curl, Postman etc.). Si vos APIs fonctionnent bien, passez maintenant à votre base de données.
+
+### La base de données
+
+Vérifiez la chaîne de connexion, le serveur, les identifiants utilisateur, les options. Si vous pouvez accéder à la base en direct, vérifiez que les données que vous devriez avoir sont bien présentes dans cette base. Si ce n'est pas le cas, vérifiez les bases de vos autres environnements.
+
+### La configuration de démarrage
+
+Votre projet, votre IDE, vous proposent souvent plusieurs configurations de démarrage (local, dev etc.). Assurez-vous que vous démarrez bien avec les bons paramètres. Ce conseil vous semble probablement inutile à la lecture de cet article, mais je vous assure qu'il vous servira un jour !
+
+## Quand solliciter vos collègues ?
+
+Avant de faire appel à un ami, posez-vous ces questions : 
+
+- comment expliquer mon problème à mon ami ?
+- quelles informations ai-je à lui donner ?
+- quelles pistes ai-je exploré ?
+
+Si vous n'avez pas une explication claire (question 1), des informations exhaustives (question 2), et la liste des pistes que vous avez exploré (question 3), abstenez-vous et faites en sorte d'avoir de quoi répondre à ces 3 interrogations. Sans cela, votre collègue n'aura pas assez d'éléments pour vous aider, sachant que vous le sortez de son sujet et qu'il débarque avec au mieux une vague idée de ce sur quoi vous travaillez, au pire aucune idée de ce que vous faites.
+
+Suivre cette démarche vous permettra de moins solliciter vos collègues (les appels à un ami toutes les 10 minutes n'ont rien de confortable, ni pour vous, ni pour votre ami et peuvent agacer et ternir votre image). 
+
+Vous améliorerez l'image que vous renvoyez aux yeux de votre équipe en montrant que vous êtes capable d'analyser un problème et de l'explorer à fond avant de capituler. Vous serez également plus à-même d'expliquer pourquoi le traitement d'un sujet (tâche, US etc.) prend plus de temps qu'attendu. 
+
+Bonus non négligeable : l'analyse de votre bug vous permettra probablement de régler au moins partiellement votre problème.
+
+## Conclusion
+
+Un "Je ne sais pas, je ne comprends pas" sans plus de détails vous desservira systématiquement dans votre équipe (et j'en sais quelque chose, l'expérience vient en codant) et mieux vous cernerez vos problèmes moins leur résolution sera coûteuse pour vous, tant en terme de temps que d'énergie.
+
+À vos marques, prêts ? Codez !
