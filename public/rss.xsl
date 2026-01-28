@@ -1,68 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-<xsl:template match="/">
-<html lang="fr">
-<head>
-    <title>RSS - DevEnDevenir</title>
-    <meta charset="utf-8"/>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: system-ui, sans-serif; 
-            max-width: 800px; margin: 0 auto; padding: 2rem; 
-            line-height: 1.6; color: #333; background: #fafafa;
-        }
-        header { text-align: center; margin-bottom: 3rem; }
-        h1 { font-size: 2.5rem; color: #1a1a1a; margin-bottom: 0.5rem; font-weight: 700; }
-        .subtitle { color: #666; font-size: 1.1rem; }
-        .feed { background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); overflow: hidden; }
-        .item { padding: 2rem; border-bottom: 1px solid #eee; }
-        .item:last-child { border-bottom: none; }
-        .item:hover { background: #f8f9fa; }
-        .title { font-size: 1.4rem; font-weight: 600; margin-bottom: 0.5rem; }
-        .title a { color: #1a73e8; text-decoration: none; }
-        .title a:hover { text-decoration: underline; }
-        .description { color: #555; margin-bottom: 1rem; }
-        .meta { display: flex; gap: 1.5rem; font-size: 0.9rem; color: #888; }
-        .date { font-weight: 500; }
-        .count { background: #e8f4fd; color: #1a73e8; padding: 0.2rem 0.5rem; border-radius: 9999px; font-size: 0.8rem; }
-        @media (max-width: 768px) { 
-            body { padding: 1rem; } 
-            h1 { font-size: 2rem; }
-            .meta { flex-direction: column; gap: 0.5rem; text-align: center; }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>DevEnDevenir</h1>
-        <p class="subtitle">Le blog des devs reconvertis</p>
-    </header>
-    <div class="feed">
-        <xsl:for-each select="rss/channel/item">
-            <div class="item">
-                <h2 class="title">
-                    <a>
-                        <xsl:attribute name="href">
-                            <xsl:value-of select="link"/>
-                        </xsl:attribute>
-                        <xsl:value-of select="title"/>
-                    </a>
-                </h2>
-                <p class="description">
-                    <xsl:value-of select="description"/>
-                </p>
-                <div class="meta">
-                    <span class="date">
-                        <xsl:value-of select="pubDate"/>
-                    </span>
-                    <span class="count">
-                        <xsl:number value="position()"/> / <xsl:number value="last()"/>
-                    </span>
+    <xsl:output method="html" encoding="utf-8" indent="yes"/>
+    <xsl:template match="/">
+        <html lang="fr" xmlns="http://www.w3.org/1999/xhtml">
+            <head>
+                <title><xsl:value-of select="/rss/channel/title"/> - RSS</title>
+                <meta charset="utf-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                <script src="https://cdn.tailwindcss.com"></script>
+            </head>
+            <body class="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-8 px-4 md:px-8">
+                <div class="max-w-3xl mx-auto">
+                    <header class="text-center mb-12">
+                        <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4 drop-shadow-sm">
+                            <xsl:value-of select="/rss/channel/title"/>
+                        </h1>
+                        <p class="text-xl text-gray-600 font-medium">
+                            <xsl:value-of select="/rss/channel/description"/>
+                        </p>
+                    </header>
+                    
+                    <div class="space-y-6">
+                        <xsl:for-each select="/rss/channel/item">
+                            <article class="group bg-white rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 overflow-hidden">
+                                <div class="p-8">
+                                    <header>
+                                        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
+                                            <a>
+                                                <xsl:attribute name="href">
+                                                    <xsl:value-of select="link"/>
+                                                </xsl:attribute>
+                                                <xsl:attribute name="rel">bookmark</xsl:attribute>
+                                                <xsl:value-of select="title"/>
+                                            </a>
+                                        </h2>
+                                        <p class="text-gray-600 leading-relaxed mb-6 line-clamp-3">
+                                            <xsl:value-of select="description"/>
+                                        </p>
+                                    </header>
+                                    <footer class="flex flex-col justify-end sm:flex-row gap-4 items-start sm:items-center text-sm text-gray-500 pt-4 border-t border-gray-100">
+                                        <time class="font-semibold">
+                                            <xsl:attribute name="datetime">
+                                                <xsl:value-of select="pubDate"/>
+                                            </xsl:attribute>
+                                            Publié le <xsl:value-of select="pubDate"/>
+                                        </time>
+                                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">
+                                            #<xsl:number value="position()"/> sur <xsl:number value="last()"/>
+                                        </span>
+                                    </footer>
+                                </div>
+                            </article>
+                        </xsl:for-each>
+                    </div>
+                    
+                    <footer class="mt-16 text-center text-gray-500 text-sm pt-12 border-t border-gray-200">
+                        <p>
+                            Flux généré par <strong>Astro</strong> • 
+                            <a>
+                                <xsl:attribute name="href">
+                                    <xsl:value-of select="/rss/channel/link"/>
+                                </xsl:attribute>
+                                <xsl:attribute name="class">hover:text-blue-600</xsl:attribute>
+                                <xsl:attribute name="rel">home</xsl:attribute>
+                                Site complet
+                            </a>
+                        </p>
+                    </footer>
                 </div>
-            </div>
-        </xsl:for-each>
-    </div>
-</body>
-</html>
-</xsl:template>
+                <!-- Petit script pour formater les dates à la française si possible -->
+                <script>
+                    <![CDATA[
+                    document.querySelectorAll('time').forEach(el => {
+                        try {
+                            const dateStr = el.getAttribute('datetime');
+                            if (dateStr) {
+                                const date = new Date(dateStr);
+                                if (!isNaN(date)) {
+                                    el.textContent = 'Publié le ' + date.toLocaleDateString('fr-FR', {
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric'
+                                    });
+                                }
+                            }
+                        } catch (e) {
+                            console.error('Erreur de formatage de date:', e);
+                        }
+                    });
+                    ]]>
+                </script>
+            </body>
+        </html>
+
+    </xsl:template>
 </xsl:stylesheet>
