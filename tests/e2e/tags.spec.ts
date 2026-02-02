@@ -26,13 +26,11 @@ test('les compteurs de tags correspondent au nombre de posts sur leur page', asy
         console.log(`\n=== Catégorie #${i + 1} ===`);
         console.log(`Compteur affiché sur la home : ${displayedCount}`);
 
-        // ✅ Navigation AVANT click (Safari stable)
         await Promise.all([
             page.waitForURL('**/tags/**', { timeout: 15_000 }),
             categoryLink.click()
         ]);
 
-        // Vérif posts visibles
         const postsLocator = page.locator('[data-test-id^="post-"]');
         await expect(postsLocator.first()).toBeVisible({ timeout: 10_000 });
         const actualCount = await postsLocator.count();
@@ -40,7 +38,6 @@ test('les compteurs de tags correspondent au nombre de posts sur leur page', asy
         console.log(`Nombre de posts réellement affichés : ${actualCount}`);
         expect(actualCount).toBe(displayedCount);
 
-        // ✅ Retour robuste : goBack + waitForURL (pas networkidle !)
         await page.goBack({ waitUntil: 'domcontentloaded' });
         await expect(page.locator('[data-test-id^="tag-"]').first()).toBeVisible({ timeout: 10_000 });
     }
