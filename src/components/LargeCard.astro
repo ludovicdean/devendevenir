@@ -1,7 +1,7 @@
 ---
 import { getUrl } from "src/utils/blogUtils";
 
-const { post } = Astro.props;
+const { post, "data-test-id": dataTestId } = Astro.props;
 const base = import.meta.env.BASE_URL;
 ---
 
@@ -11,6 +11,7 @@ const base = import.meta.env.BASE_URL;
         class="no-underline"
         target={post.data.url ? "_blank" : "_self"}
         rel={post.data.url ? "noreferrer" : undefined}
+        data-test-id={dataTestId}
     >
         <img
             src={base + post.data.banner}

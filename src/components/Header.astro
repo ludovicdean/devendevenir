@@ -5,12 +5,12 @@ import { Icon } from "astro-icon/components";
 import { LINKEDIN_LINK, GITHUB_LINK } from "../consts";
 ---
 
-<nav
+<header
   class="bg-gradient-to-br from-neutral-800 to-neutral-400 dark:from-neutral-400 dark:to-neutral-800 relative pt-2"
 >
   <div class="w-[900px] max-w-[calc(100%-2rem)] mx-auto px-4">
     <div class="flex items-center justify-between">
-      <a href={import.meta.env.BASE_URL} class="flex items-center">
+      <a href={import.meta.env.BASE_URL} class="flex items-center" id="logo">
         <img
           src={import.meta.env.BASE_URL + "/images/logo.png"}
           alt="Logo"
@@ -19,7 +19,7 @@ import { LINKEDIN_LINK, GITHUB_LINK } from "../consts";
       </a>
 
       <div class="flex items-center space-x-4">
-        <a href={import.meta.env.BASE_URL} class="hidden md:block">
+        <a href={import.meta.env.BASE_URL} class="hidden md:block" id="accueil">
           <span
             class="self-center text-2xl font-semibold whitespace-nowrap text-white"
             >Dev<span
@@ -232,4 +232,4 @@ import { LINKEDIN_LINK, GITHUB_LINK } from "../consts";
       link.addEventListener("click", toggleMenu);
     });
   </script>
-</nav>
+</header>
