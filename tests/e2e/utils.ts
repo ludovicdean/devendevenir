@@ -2,7 +2,7 @@ import type { Page, BrowserContext } from '@playwright/test';
 import { expect } from '@playwright/test';
 
 export async function commonBeforeEach(page: Page) {
-    await page.goto('');
+    await page.goto('http://localhost:4321/devendevenir/');
     await expect(page).toHaveTitle(/Dev En Devenir/);
     await expect(page.getByText('Le blog écrit par un développeur pour les développeurs !')).toBeVisible();
 }
@@ -46,7 +46,7 @@ export async function testInternalLinks(page: Page, selectorPrefix: string) {
 export async function testExternalLinks(
     page: Page,
     context: BrowserContext,
-    selector = 'main a[target="_blank"]'
+    selector: string
 ) {
     const links = page.locator(selector);
     const count = await links.count();
