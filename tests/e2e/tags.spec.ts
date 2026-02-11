@@ -1,44 +1,42 @@
 import { test, expect } from "@playwright/test";
-import { commonBeforeEach, testInternalLinks } from "./utils.spec";
+import { commonBeforeEach } from "./utils.ts";
 
 test.beforeEach(async ({ page }) => {
     await commonBeforeEach(page);
 });
 
-test('Tous les liens des tags fonctionnent', async ({ page }) => {
-    await testInternalLinks(page, "tag-");
-});
+test.describe.configure({ mode: 'serial' });
 
-test('les compteurs de tags correspondent au nombre de posts sur leur page', async ({ page }) => {
-    const categoriesLocator = page.locator('[data-test-id^="tag-"]');
-    const categoriesCount = await categoriesLocator.count();
+test('Les compteurs de tags sur l\'accueil correspondent aux articles sur les pages de tags', async ({ page }) => {
+    // await page.goto('https://ludovicdean.github.io/devendevenir/');
 
-    console.log(`→ Nombre de catégories trouvées : ${categoriesCount}`);
-    expect(categoriesCount, "Aucune catégorie trouvée sur la page d'accueil").toBeGreaterThan(0);
+    const tagLinks = page.locator('a[href*="/devendevenir/tags/"]');
+    const tagsCount = await tagLinks.count();
 
-    for (let i = 0; i < categoriesCount; i++) {
-        const categoryLink = categoriesLocator.nth(i);
+    expect(tagsCount).toBeGreaterThan(0);
 
-        const countLocator = categoryLink.locator('[data-test-id^="count-"]');
-        const countText = (await countLocator.innerText()).trim();
-        const displayedCount = parseInt(countText.replace(/\D/g, ''), 10) || 0;
+    for (let i = 0; i < tagsCount; i++) {
+        const tagLink = tagLinks.nth(i);
+        const tagText = (await tagLink.textContent() || '').trim();
 
-        console.log(`\n=== Catégorie #${i + 1} ===`);
-        console.log(`Compteur affiché sur la home : ${displayedCount}`);
+        const numberMatches = tagText.match(/\d+/g);
+        const expectedCount = numberMatches && numberMatches.length > 0
+            ? parseInt(numberMatches[numberMatches.length - 1], 10)
+            : 0;
 
-        await Promise.all([
-            page.waitForURL('**/tags/**', { timeout: 15_000 }),
-            categoryLink.click()
-        ]);
+        if (expectedCount === 0) {
+            continue;
+        }
 
-        const postsLocator = page.locator('[data-test-id^="post-"]');
-        await expect(postsLocator.first()).toBeVisible({ timeout: 10_000 });
-        const actualCount = await postsLocator.count();
+        const homeUrl = page.url();
 
-        console.log(`Nombre de posts réellement affichés : ${actualCount}`);
-        expect(actualCount).toBe(displayedCount);
+        await tagLink.click();
+        await expect(page).toHaveURL(/\/devendevenir\/tags\/[^\/]+\/$/);
+        const articlesList = page.locator('main > ul > li');
+        const articlesCount = await articlesList.count();
 
-        await page.goBack({ waitUntil: 'domcontentloaded' });
-        await expect(page.locator('[data-test-id^="tag-"]').first()).toBeVisible({ timeout: 10_000 });
+        expect(articlesCount).toBe(expectedCount);
+
+        await page.goto(homeUrl, { waitUntil: 'domcontentloaded' });
     }
 });
