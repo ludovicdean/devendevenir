@@ -72,3 +72,11 @@ export async function testExternalLinks(
         await newPage.close();
     }
 }
+
+export async function openMobileMenu(page: Page) {
+    const burger = page.locator('#menuToggle, [data-testid="menuToggle"], button[aria-label*="menu"]');
+    if (await burger.isVisible({ timeout: 2_000 })) {
+        await burger.click({ force: true, timeout: 5_000 });
+        await expect(page.locator('#mobileMenu')).toBeVisible({ timeout: 5_000 });
+    }
+}

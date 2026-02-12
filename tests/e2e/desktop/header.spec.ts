@@ -1,13 +1,11 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test } from "@playwright/test";
+import { commonBeforeEach } from "../utils";
 
 test.describe.configure({ mode: 'serial' });
 
 test.beforeEach(async ({ page, isMobile }) => {
     test.skip(isMobile);
-    await page.goto('http://localhost:4321/devendevenir/', {
-        waitUntil: 'networkidle',
-        timeout: 60_000
-    });
+    await commonBeforeEach(page);
 });
 
 test('Lien accueil (texte) fonctionne', async ({ page }) => {
