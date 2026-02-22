@@ -1,13 +1,11 @@
 import { test, expect, type Page, type BrowserContext } from "@playwright/test";
+import { commonBeforeEach } from "../utils";
 
 test.describe.configure({ mode: 'serial' });
 
 test.beforeEach(async ({ page, isMobile }) => {
     test.skip(isMobile);
-    await page.goto('http://localhost:4321/devendevenir/', {
-        waitUntil: 'networkidle',
-        timeout: 60_000
-    });
+    await commonBeforeEach(page);
 });
 
 async function testHeaderLinkDesktop(page: Page, context: BrowserContext, title: string, expectedDomain: string) {

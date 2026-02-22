@@ -1,11 +1,6 @@
 ---
 import SmallCard from "./SmallCard.astro";
 const { posts } = Astro.props;
-
-console.log("🔍 PostsList rendu:", posts.length);
-posts.forEach((post, index) => {
-    console.log(`post-${index + 1}:`, post.id, post.data.title);
-});
 ---
 
 <ul class="flex flex-wrap gap-3">
