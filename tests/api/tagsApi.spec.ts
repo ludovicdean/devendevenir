@@ -7,7 +7,6 @@ test("l'API des tags doit renvoyer le bon format JSON", async ({ request }) => {
 
   const body = await response.json();
 
-  // Validation du contrat d'interface
   const validation = TagsWithCountsResponseSchema.safeParse(body);
   expect(validation.success).toBe(true);
 });
