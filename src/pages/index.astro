@@ -17,7 +17,9 @@ const postYears = new Map();
 
 postsWithoutLatest.forEach((post) => {
   if (post.data.date !== undefined) {
-    const year = post.data.date.getFullYear();
+    const year = post.data.date
+      ? new Date(post.data.date).getFullYear()
+      : new Date().getFullYear();
     if (!postYears.has(year)) {
       postYears.set(year, []);
     }
