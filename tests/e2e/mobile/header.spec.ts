@@ -7,7 +7,7 @@ test.describe.configure({ mode: 'serial' });
 test.beforeEach(async ({ page, isMobile }) => {
     test.skip(!isMobile);
 
-    await page.goto('http://localhost:4321/devendevenir/');
+    await page.goto('/devendevenir/');
 });
 
 async function clickMobileHeaderLink(page: Page, dataTestId: string, expectedPathRegex: RegExp) {

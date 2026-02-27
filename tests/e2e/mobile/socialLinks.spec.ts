@@ -4,10 +4,7 @@ test.describe.configure({ mode: 'serial' });
 
 test.beforeEach(async ({ page, isMobile }) => {
     test.skip(!isMobile);
-    await page.goto('http://localhost:4321/devendevenir/', {
-        waitUntil: 'networkidle',
-        timeout: 60_000
-    });
+    await page.goto('/devendevenir/');
 });
 
 async function testHeaderLinkMobile(page: Page, context: BrowserContext, title: string, endUrl: string) {
@@ -31,7 +28,6 @@ async function testHeaderLinkMobile(page: Page, context: BrowserContext, title: 
     link = page.locator(`#mobileMenu a[title="${title}"], nav a[title="${title}"]`).first();
 
     await expect(link).toBeVisible({ timeout: 8_000 });
-    const href = await link.getAttribute('href');
 
     const [newPage] = await Promise.all([
         context.waitForEvent('page', { timeout: 20_000 }),
