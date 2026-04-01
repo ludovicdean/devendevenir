@@ -77,7 +77,7 @@ jobs:
   deploy-homeserver:
     runs-on: self-hosted
     needs: build-and-push
-    if: github.ref == 'refs/heads/main'
+    if: always() && needs.build-and-push.result == 'success' && github.ref == 'refs/heads/main'
 
     steps:
       - name: Login to GitHub Container Registry
