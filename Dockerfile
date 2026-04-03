@@ -3,7 +3,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-ARG ASTRO_BASE=/
+ARG ASTRO_BASE=/devendevenir
 ENV ASTRO_BASE=$ASTRO_BASE
 RUN npm run build
 
