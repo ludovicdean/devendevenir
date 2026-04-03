@@ -21,7 +21,7 @@ export async function getUnpublishedPosts() {
 }
 
 export function getUrl(post) {
-    return post.data.url ?? `${base + "/blog/" + post.id}/`
+    return post.data.url ?? `${base.replace(/\/$/, '') + "/blog/" + post.id}/`
 }
 
 export async function getBlogsByTagId(tagId: string) {

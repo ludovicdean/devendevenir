@@ -14,7 +14,7 @@ const base = import.meta.env.BASE_URL;
         data-test-id={dataTestId}
     >
         <img
-            src={base + post.data.banner}
+            src={base.replace(/\/$/, "") + post.data.banner}
             class="w-full h-auto object-cover"
             alt=""
         />
