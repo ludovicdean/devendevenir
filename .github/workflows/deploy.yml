@@ -77,8 +77,8 @@ jobs:
   deploy-homeserver:
     runs-on: self-hosted
     needs: build-and-push
-    if: always() && needs.build-and-push.result == 'success' && github.ref == 'refs/heads/main'
-
+    if: always() && needs.build-and-push.result == 'success'
+    
     steps:
       - name: Login to GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
