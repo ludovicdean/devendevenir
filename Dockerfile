@@ -3,6 +3,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
+ARG ASTRO_BASE=/
+ENV ASTRO_BASE=$ASTRO_BASE
 RUN npm run build
 
 FROM nginx:alpine
