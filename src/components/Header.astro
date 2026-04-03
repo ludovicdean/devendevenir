@@ -13,7 +13,7 @@ import SocialLinks from "./SocialLinks.astro";
     <div class="flex items-center justify-between">
       <a href={import.meta.env.BASE_URL} class="flex items-center" id="logo">
         <img
-          src={import.meta.env.BASE_URL + "/images/logo.png"}
+          src={import.meta.env.BASE_URL.replace(/\/$/, "") + "/images/logo.png"}
           alt="Logo"
           class="h-16 w-auto"
         />
@@ -128,7 +128,7 @@ import SocialLinks from "./SocialLinks.astro";
               <Icon name="linkedin" class="w-8 h-8" />
             </a>
             <a
-              href={import.meta.env.BASE_URL + "/rss.xml"}
+              href={import.meta.env.BASE_URL.replace(/\/$/, "") + "/rss.xml"}
               target="_blank"
               title="RSSFeed"
             >
