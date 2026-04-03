@@ -75,5 +75,5 @@ jobs:
           docker run -d \
             --name devendevenir \
             --restart unless-stopped \
-            -p 3001:80 \
+            -p 127.0.0.1:3001:80 \
             ${{ env.IMAGE_NAME }}:latest
