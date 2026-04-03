@@ -58,7 +58,7 @@ jobs:
           push: true
           tags: ${{ env.IMAGE_NAME }}:latest
           build-args: |
-      ASTRO_BASE=/devendevenir
+            ASTRO_BASE=/devendevenir
 
   deploy-homeserver:
     runs-on: self-hosted
