@@ -5,13 +5,13 @@ type Props = HTMLAttributes<"a">;
 
 const { href, class: className, ...props } = Astro.props;
 const base = import.meta.env.BASE_URL;
-const url = base + href;
+const url = base.replace(/\/$/, "") + href;
 const { pathname } = Astro.url;
 const isActive = url === pathname || url === pathname.replace(/\/$/, "");
 ---
 
 <a
-  href={base + href}
+  href={url}
   class:list={[
     className,
     "nav-link block px-3 py-2 rounded bg-transparent font-bold text-white hover:text-yellow-400",
