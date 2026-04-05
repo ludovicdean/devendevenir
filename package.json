@@ -27,6 +27,7 @@
   "devDependencies": {
     "@pagefind/default-ui": "^1.4.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/typography": "^0.5.19",
     "pagefind": "^1.4.0"
   }
 }

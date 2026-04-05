@@ -12,7 +12,7 @@ const base = import.meta.env.BASE_URL;
     <!-- Backdrop -->
     <div
         id="search-backdrop"
-        class="absolute inset-0 bg-gray-900/40 backdrop-blur-sm transition-opacity"
+        class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity"
     >
     </div>
 
@@ -21,7 +21,7 @@ const base = import.meta.env.BASE_URL;
         <div
             id="search-container"
             data-base-url={base}
-            class="mx-auto max-w-2xl transform divide-y divide-gray-100 dark:divide-gray-800 overflow-hidden rounded-xl bg-white dark:bg-gray-900 shadow-2xl ring-1 ring-black ring-opacity-5 transition-all"
+            class="mx-auto max-w-2xl transform divide-y divide-gray-100 dark:divide-slate-800 overflow-hidden rounded-xl bg-white dark:bg-slate-900 shadow-2xl ring-1 ring-black ring-opacity-5 transition-all"
         >
             <div class="relative">
                 <svg
@@ -53,11 +53,11 @@ const base = import.meta.env.BASE_URL;
 
             <!-- Footer / Tips -->
             <div
-                class="flex flex-wrap items-center bg-gray-50 dark:bg-gray-800/50 px-4 py-2.5 text-xs text-gray-500"
+                class="flex flex-wrap items-center bg-gray-50 dark:bg-slate-800/50 px-4 py-2.5 text-xs text-gray-500"
             >
                 <span class="mr-3"
                     >Appuyez sur <kbd
-                        class="font-sans font-semibold text-gray-900 dark:text-gray-300"
+                        class="font-sans font-semibold text-gray-900 dark:text-slate-300"
                         >Esc</kbd
                     > pour quitter</span
                 >
@@ -75,6 +75,8 @@ const base = import.meta.env.BASE_URL;
         const backdrop = document.getElementById("search-backdrop");
         const input = document.getElementById("search-input");
         const resultsContainer = document.getElementById("search-results");
+
+        const wrapper = modal?.querySelector(".overflow-y-auto");
 
         function openModal() {
             modal?.classList.remove("hidden");
@@ -106,6 +108,11 @@ const base = import.meta.env.BASE_URL;
         });
 
         backdrop?.addEventListener("click", closeModal);
+        wrapper?.addEventListener("click", (e) => {
+            if (e.target === wrapper) {
+                closeModal();
+            }
+        });
 
         async function initPagefind() {
             if (!pagefind) {
@@ -134,9 +141,7 @@ const base = import.meta.env.BASE_URL;
             if (!pagefind) return;
 
             try {
-                const words = query.split(/\s+/).filter((w) => w.length > 0);
-                const quotedQuery = words.map((w) => `"${w}"`).join(" ");
-                const search = await pagefind.search(quotedQuery);
+                const search = await pagefind.search(query);
 
                 if (search.results.length === 0) {
                     resultsContainer.innerHTML =
@@ -153,7 +158,7 @@ const base = import.meta.env.BASE_URL;
                         (result) => `
                     <a href="${result.url}" class="group block p-4 rounded-lg hover:bg-yellow-50 dark:hover:bg-yellow-900/20 transition-colors no-underline border border-transparent hover:border-yellow-200">
                         <h3 class="text-base font-bold text-gray-900 dark:text-white group-hover:text-yellow-600 mb-1">${result.meta.title}</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">${result.excerpt}</p>
+                        <p class="text-sm text-gray-500 dark:text-slate-400 line-clamp-2">${result.excerpt}</p>
                     </a>
                 `,
                     )
