@@ -1,8 +1,6 @@
-/*
-  The CSS in this style tag is based off of Bear Blog's default CSS.
-  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
-  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
 	--gray: rgb(96, 115, 159);
@@ -28,12 +26,12 @@
 html.dark {
 	background-color: oklch(26.9% 0 0);
 	color: #fff;
-  }
-  
-  .dark .nav-links a {
+}
+
+.dark .nav-links a {
 	color: #fff;
-  }
-  
+}
+
 body {
 	font-family: 'Atkinson', sans-serif;
 	margin: 0;
@@ -61,7 +59,7 @@ h3,
 h4,
 h5,
 h6 {
-	margin: 0 1.5rem 0,5rem 0;
+	margin: 0 1.5rem 0, 5rem 0;
 	color: rgb(var(--black));
 	line-height: 1.2;
 }
@@ -77,7 +75,7 @@ h2 {
 
 h3 {
 	font-size: 1.953em;
-	padding: 1,5em 0 3.5 0;
+	padding: 1, 5em 0 3.5 0;
 }
 
 h4 {
@@ -177,9 +175,10 @@ hr {
 	white-space: nowrap;
 }
 
-ul, ol {
+ul,
+ol {
 	list-style-type: initial;
-	margin-left: 1,5em;
+	margin-left: 1, 5em;
 	list-style: inside;
 	padding-bottom: 1em;
-  }
+}
