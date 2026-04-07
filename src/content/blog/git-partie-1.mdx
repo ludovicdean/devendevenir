@@ -10,4 +10,234 @@ author: "Yancy Min"
 authorLink: "https://unsplash.com/fr/@yancymin?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
 unsplashLink: "https://unsplash.com/fr/photos/gros-plan-dune-description-textuelle-sur-un-ecran-dordinateur-842ofHC6MaI?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
 ---
+import Collapse from "@components/Collapse.astro";
 
+Qui parmi les jeunes développeurs n’a pas eu peur d’utiliser Git à ses débuts ? Il s’est écoulé pas mal de temps entre le moment où j’ai compris l’intérêt de Git et le moment où j’ai pu dire “Je connais bien Git”. Je ne parle pas de mois, mais bien d’années, et si l’ajout de cette corde à votre arc a été facile pour vous, ce n’est pas le cas pour tout le monde, surtout quand on est submergé d’informations par ailleurs.
+
+## Mais ça sert à quoi Git ?
+
+Git est un gestionnaire de versions, un outil capable de prendre un instantané d’un projet, et permet de reconstituer l’état d’un projet à pratiquement n’importe quel moment. C’est la mémoire de votre projet, son historique.
+
+C’est un outil très puissant, avec lequel on peut aussi faire beaucoup de dégâts, et il nécessite beaucoup de pratique avant d’en maîtriser les subtilités.
+
+Quand on apprend le développement, on commence par apprendre Git seul, ce qui est un bon moyen de débuter, mais qui masque aussi bien des embûches que vous rencontrerez par la suite. En effet, tout l’intérêt de Git est de permettre à des développeurs de travailler de concert sur un même projet, sans se marcher sur les pieds.
+
+## À qui doit-on Git ?
+
+C’est un développeur aussi renommé pour son fort caractère que pour son code dans le monde du développement, Linus Torvald ! Quand on a créé Linux et qu’on est frustré par les outils existants en matière de système de contrôle de versions, au lieu de chercher autre chose, on crée son propre système.
+
+En moins de 3 mois, Linus Torvald a créé un outil de gestion de versions qui s’est rapidement imposée, à l’échelle mondiale !
+
+## Installation
+
+Comme souvent, il existe plusieurs méthodes d’installation par plateforme, à vous de choisir !
+
+<Collapse title="Windows">
+2 méthodes au choix :
+
+- l’installateur classique (.exe) qui fait tout le travail pour vous.
+- la ligne de commande : `winget install --id Git.Git -e --source winget`
+</Collapse>
+
+<Collapse title="Mac">
+2 méthodes au choix :
+
+- l’installateur classique (.dmg) qui fait tout le travail pour vous.
+- la ligne de commande : `brew install git`
+</Collapse>
+
+<Collapse title="Linux">
+2 méthodes au choix :
+
+- le fichier binaire (à décompresser, placer dans un dossier, et ajouter au PATH).
+- la ligne de commande : `sudo apt install git` (Debian/Ubuntu)
+</Collapse>
+
+## C’est quoi un repo git ?
+
+Du coup, quand on parle d’un dépôt git (repository git, ou encore repo git dans la langue de Shakespeare), de quoi parle-t-on exactement ?
+
+Un dépôt git, c’est l’ensemble constitué d’un projet et de son historique complet des modifications effectuées depuis sa création. Matériellement parlant, le dossier dans lequel est situé votre projet contient, en plus du projet, un dossier .git, contenant tout l’historique du projet. C’est le repo local de votre projet.
+
+Si on précise “local” pour le repo sur votre machine, c’est parce qu’il en existe un autre exemplaire, stocké sur une plateforme telle que Github, Gitlab ou Azure Devops. On parle alors du dépôt distant, ou encore “remote”. C’est grâce à lui que vos collègues pourront récupérer les modifications que vous avez effectué sur votre projet.
+
+## Qu’est-ce qu’il y a dedans ?
+
+Remote, local, ok, mais il y a quelque chose entre les deux ?
+
+Si je pose la question c’est qu’en effet, il y a quelque chose au milieu, il s’agit de l’index (staging). Une image valant mille mots, voici un schéma de la structure avec laquelle on travaille quand on utilise Git.
+
+![Structure d'un dépôt git.](/devendevenir/images/git-image1.png)
+
+Quel que soit votre OS, l’histoire d’un dépôt git débute toujours dans un dossier. C’est là que se situent votre projet, ainsi que son historique (dans un répertoire .git).
+
+## Les débuts avec Git
+
+Git c’est un outil qui s’utilise initialement avec un terminal, mais qui a été depuis pleinement intégré aux IDEs, de manière à gagner en confort à l’utilisation. Qui dit terminal dit commande, et tout un éventail de commandes à découvrir.
+
+La première commande que vous utiliserez (si vous êtes le créateur d’un dépôt git) est celle qui créera les bases de l’historique de votre projet, le fameux dossier .git. Quand vous êtes dans le bon répertoire, ouvrez ce répertoire dans votre terminal et saisissez la commande git init. Vous voyez alors apparaître dans votre répertoire un dossier .git, à la structure suivante :
+
+![Structure du dossier .git.](/devendevenir/images/git-image2.png)
+
+Ce qui se cache derrière cette image mérite de plus amples explications :
+
+- hooks : des fichiers d’exemples d’actions pouvant être réalisées avant l’exécution de certaines commandes git (linting, lancement de tests etc.).
+- info : fichiers de configurations.
+- objects : contient le hash de tous les fichiers du projet et de la structure du projet à l’instant T.
+- refs : contient les références des derniers commits de chaque branche du projet (on y reviendra)
+- config : fichier de configuration
+- description : fichier hérité du passé de git, il n’est plus utilisé.
+
+Pour le moment, nous nous sommes intéressés au côté local de git, mais il est nécessaire de se lier à un dépôt distant pour commencer à exploiter le potentiel de git et pouvoir travailler en équipe. Sur votre plateforme préférée (Github, Gitlab etc.) vous pouvez créer un nouveau dépôt dont vous choisirez le nom (on verra que ce nom correspondra au nom de votre répertoire de travail). Ce dépôt aura une URL définie, qui vous permettra de lier votre repo git local à votre repo git distant avec la commande suivante :
+
+```bash
+git remote add origin https://github.com/votre-nom/votre-projet.git
+```
+
+Bon, ça reste très théorique pour le moment. Pourquoi Git s’est-il imposé si vite dans le monde du dev ?
+
+## Les branches
+
+Quand on travaille à plusieurs sur un même projet, il est impensable de travailler à 4 ou 5 sur le même sujet, de devoir attendre les uns et les autres pour avancer sans qu’il en résulte une anarchie totale et une perte d’efficacité monumentale. Un monde peuplé de versionFinale1, versionFinale2, versionFinale3Corrigee, versionUltime etc.
+
+Chaque développeur doit pouvoir travailler “dans son coin”, de manière indépendante des autres.
+
+C’est là que le concept des branches prend toute son importance. Une branche, c’est une “version” du projet avec son propre code, avec le code propre à chaque développeur à chaque instant. Une branche est l’univers d’un développeur, dans lequel il a tout pouvoir.
+
+## Un peu de pratique
+
+Sur votre machine (après avoir installé git), créez un nouveau dossier. Placez-vous dans ce dossier dans un terminal et exécutez la commande git init. Retournez voir ce qui se trouve dans le dossier .git de votre projet, vous devriez retrouver ce que je vous ai montré plus haut. Ouvrez le fichier HEAD. Son contenu devrait être le suivant :
+
+```bash
+ref: refs/heads/main
+
+```
+
+Cela indique où vous vous trouvez dans votre dépôt, au sens de “sur quelle branche”. Eh oui, quand vous avez initialisé votre dépôt, git a généré votre branche principale, main (anciennement master).
+
+Si vous travaillez seul, dans un premier temps vous pouvez travailler sur main, mais généralement main n’est pas une branche de travail. Vous aurez rapidement besoin de créer d’autres branches afin de ne pas polluer votre projet avec des développements incomplets etc.
+
+## Gérer les branches
+
+Ok, on a une branche de base, main. Mais comment peut-on créer une nouvelle branche ?
+
+C’est pour réaliser cette opération qu’on utilise la commande `git branch <lenomdevotrebranche>`. Quand vous créez votre branche, elle est une copie parfaite de main à l’instant de la création de cette nouvelle branche, et elle vous permettra de travailler sans polluer votre branche principale.
+
+Vous avez créé votre branche, mais ne vous y trompez pas, vous n’êtes pas encore positionné dessus. Si vous continuer à éditer votre projet et que vous faites un commit, il sera effectué sur main. Pour changer de branche, il vous faudra utiliser une nouvelle commande, `git switch <lenomdevotrebranche>`. Il existe une autre commande fréquemment utilisée, mais qui fait plus que de vous placer sur une nouvelle branche, `git checkout <lenomdevotrebranche>`.
+
+![Les branches Git.](/devendevenir/images/git-image3.png)
+
+Ok, on sait créer une branche et aller dessus, mais pour le moment on travaille uniquement en local, si mon PC meurt, casse, est volé, ma branche meurt avec. Alors comment on fait ???
+
+Git ne se limite pas aux quelques commandes que je viens de vous décrire, et permet d’effectuer une grande variété d’actions sur les branches de vos projets. Pour commencer à vous répondre observez le schéma suivant.
+
+![Les branches Git et le dépôt distant.](/devendevenir/images/git-image4.png)
+
+Dans la partie basse du schéma, vous pouvez voir la commande qui va éviter que le destin de votre projet repose uniquement sur les épaules de votre PC, git push. Mais avant d’aborder cette commande, il convient d’introduire d’autres commandes, sans lesquelles git push ne servirait à rien.
+
+##Les commandes de base
+
+Débutants, pour démarrer les commandes qui vous serviront le plus seront les suivantes :
+
+- git add
+- git commit
+- git push
+- git pull
+- git status
+
+Le schéma suivant montre les commandes qui vous serviront à naviguer dans votre dépôt (local + distant).
+
+![Les commandes Git.](/devendevenir/images/git-image5.png)
+
+Votre répertoire de travail est l’emplacement physique dans lequel vous modifiez vos fichiers. Tant que vous n'exécutez pas de commande git sur vos fichiers, rien ne se passe au niveau de l’index ou du dépôt (local ou distant). L’index est comme une zone de préparation, le code que vous considérez comme bon, répondant à votre besoin, va être ajouté à l’index, tant que vous n’avez pas un code stable (pas d’erreurs, compile etc.).
+
+On peut comparer ce processus à la préparation d’une commande dans une usine :
+
+- fabrication des objets (répertoire de travail)
+- mise en cartons (index)
+- chargement (dépôt local)
+- livraison (dépôt distant)
+
+Pour changer d’étape, on aura besoin d’une commande spécifique.
+
+### Git add
+
+Vous créez une classe dans votre projet, sa structure correspond à l’attendu, elle est prête. Pour le moment git n’a pas connaissance de votre nouvelle classe, il faut donc l’ajouter à l’index. C’est ce que la commande git add va faire :
+
+- pour un fichier, `git add <maclasse.cs>`
+- pour tous les nouveaux fichiers , git add .
+
+Vous continuez vos modifications, vous intégrez la logique métier à votre classe, les services et contrôleurs associés, git add va vous permettre d’ajouter les nouvelles modifications de votre classe ainsi que les autres fichiers conservés. Si vous modifiez votre fichier après l’avoir ajouté à l’index, il faudra ajouter à l’index les nouvelles modifications de ce fichier.
+
+Tout est prêt, vous voulez graver dans le marbre le code de la partie n°1 de votre fonctionnalité.
+
+### Git commit
+
+Votre premier commit va vous permettre de rajouter toutes les modifications que vous avez faites à votre projet dans l’historique local de votre projet :
+
+`git commit -m “fonctionnalité xxx partie 1”`
+
+Le -m permet d’ajouter un message à votre commit, décrivant le contenu du commit.
+
+En parallèle, un autre collègue travaille sur votre projet et a besoin de vos modifications pour avancer. Pour le moment quand il clone votre projet sur sa propre machine, il n’a pas accès à votre travail. Il faut donc que vous envoyiez votre code sur le dépôt distant, afin de le rendre disponible au reste de votre équipe.
+
+### Git push
+
+C’est la commande qui mettra à jour votre dépôt distant, avec toutes les modifications que vous avez effectué en local. Ce n’est qu’au moment du push que votre code sortira réellement de votre machine.
+
+### Git pull
+
+Votre projet peut avoir été modifié en parallèle par votre collègue, et mis à jour sur le dépôt distant. Si vous poussez des modifications qui portent sur les mêmes fichiers que celles de votre collègue, il va y avoir des conflits à régler. Il vous faut donc mettre à jour votre projet avec les modifications de votre collègue avant de pousser vos propres modifications.
+
+Vous devez alors mettre de côté vos propres modifications en utilisant successivement les commandes `git add .` puis `git stash`. Vous pouvez maintenant utiliser `git pull` pour récupérer les modifications faites par votre collègue sur votre branche. Pour récupérer les modifications en cours chez vous, il vous faudra exécuter la commande `git stash pop`. C’est à cette étape que peuvent apparaître des conflits, et votre IDE va vous demander de les régler.
+
+### Git status
+
+Vous n’avez pas une mémoire d’éléphant, ou autre chose à faire de votre mémoire que de savoir à tout instant où vous ne êtes, ce qui a été pushé ou pas etc. ? La commande `git status` est là pour ça. Elle vous permettra à tout instant de connaître l’état local de votre branche, les fichiers déjà ajoutés à votre index, ceux qui n’y sont pas encore etc.
+
+## Dans un monde idéal
+
+Si vous êtes seul sur votre projet, que vous ne travaillez qu’à partir d’une seule machine et sur une seule branche à la fois, l’étape que je vais vous décrire ici ne devrait pas vous poser de problème. Maintenant que vous avez développé une nouvelle fonctionnalité, ou réglé un bug, vous allez vouloir mettre à jour votre branche principale, main. Vous allez effectuer un git merge.
+
+### Fusionner des branches
+
+Contrairement à ce que laisse entendre leur nom, les branches n’ont pas vocation à vivre leur vie à côté de votre branche principale et à se développer indéfiniment. Généralement, on essaye de fusionner les branches dans notre branche main rapidement, afin de faire évoluer le projet pas à pas, sujet après sujet. C’est là qu’intervient la commande git merge. Comme pour la récupération des modifications externes de votre projet, vous aurez à exécuter plusieurs commandes successives afin de réaliser la fusion des branches.
+
+![Fusionner des branches.](/devendevenir/images/git-image6.png)
+
+Dans un premier temps, vous vous placerez sur la branche à partir de laquelle vous avez tiré votre branche de travail avec `git switch main`. Vous mettrez à jour (par sécurité) votre branche locale avec `git pull`, puis vous effectuerez la fusion avec `git merge branche_de_travail`.
+
+Voilà, votre dernière fonctionnalité est maintenant présente sur votre branche principale ! La branche de travail peut maintenant disparaître, avec un `git branch -d branche_de_travail`.
+
+## Comment ça il y a des conflits ???
+
+Si comme moi vous avez déjà travaillé sur un même projet depuis 2 ordinateurs différents et avez réussi à générer des conflits, je suis désolé pour vous, vous devrez résoudre ces conflits tout seul. Sinon, c’est que vous n’êtes pas seul sur un projet (le plus fréquent), et vous allez devoir composer avec les modifications de vos collègues (mais aussi bénéficier de leur aide).
+
+C’est l’aspect de Git qui m’a longtemps fait le plus peur, et la vision d’un conflit me faisait invariablement appeler à l’aide pour régler ces problèmes. Un conflit, c’est ce qui se produit quand un même fichier a été modifié de deux manières différentes depuis 2 répertoires de travail différents, ou depuis 2 branches différentes que l’on essaye de fusionner.
+
+J’aborderais bien le sujet ici, mais je crois que j’ai déjà traité suffisamment d’informations pour un seul article, et cela me servira d’introduction à un prochain article.
+
+## TLDR;
+
+Un petit résumé des commandes évoquées dans cet article :
+
+- `git init` : créer un nouveau dépôt git.
+- `git remote origin` : lier un dépôt local à un dépôt distant.
+- `git branch <feature1>` : créer une nouvelle branche.
+- `git branch -d <feature1>`: supprimer une branche.
+- `git switch <feature1>` : se déplacer sur la branche feature1.
+- `git add <monfichier>` : ajouter un fichier à l’index du dépôt.
+- `git commit` : ajouter un fichier au dépôt.
+- `git push` : mettre à jour le dépôt distant;
+- `git stash` : mettre de côté des modifications déjà dans l’index du dépôt.
+- `git stash pop` : replacer des modifications dans l’index du dépôt.
+- `git pull` : mettre à jour votre dépôt local à partir du dépôt distant.
+- `git merge <feature1>` : fusionner votre branche feature1 dans sa branche d’origine.
+
+Bonus : si vous voulez récupérer un projet présent sur un dépôt distant, vous pouvez utiliser la commande `git clone <url.du.depot>` !
+
+## Conclusion
+
+Ça y est, vous avez fait vos premiers pas avec Git. Vous n’avez plus qu’à expérimenter, essayer de créer une première branche, travailler dessus, revenir à votre branche main et en créer une autre pour tester une autre idée. Pour vous exercer, essayez d’abord de créer une branche, de faire vos modifications, puis de fusionner la branche avant de partir sur un autre sujet.
+
+Et je vous dis à bientôt pour de nouvelles aventures avec Git !
