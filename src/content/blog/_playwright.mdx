@@ -1,0 +1,274 @@
+---
+title: "Playwright, votre allié pour les tests e2e"
+date: Apr 15 2026
+tags :
+    - outils
+    - test
+description : "Playwright est un outil de test e2e qui permet de tester les applications web de manière fiable et rapide."
+banner : "/images/pexels-yanchilina-29011789.webp"
+author : "Anna IANTCHILINA"
+authorLink : "https://www.pexels.com/@yanchilina/"
+unsplashLink : "https://www.pexels.com/search/old%20abacus/"
+---
+import Collapse from "@components/Collapse.astro";
+import CollapseGroup from "@components/CollapseGroup.astro";
+
+Vous avez déjà passé un moment à faire le tour de votre site web pour vérifier que tout fonctionne ? Que vos liens sont bons, qu’ils s’ouvrent correctement etc. ? L’exercice n’est pas forcément coûteux pour un site ne comportant que quelques pages, mais dès qu’un site prend de l’ampleur ces tests deviennent lourds et la possibilité de commettre des oublis grandit.
+
+C’est pour répondre à ce type de problématiques qu’ont été créés des outils de tests dits end-to-end (de bout en bout, et souvent abrégé en e2e), qui permettent d’automatiser le processus. Nous allons parler ici de l’un de ces outils, récemment arrivé sur le créneau et largement apprécié, Playwright.
+
+## Installation
+
+Playwright peut être utilisé dans différents contextes, soi dans un projet à part, soit dans un projet déjà existant.
+
+### Projet de test à part
+
+Avant toute chose, il vous faudra installer NodeJS sur votre machine. Selon votre système d'exploitation, vous pouvez choisir la méthode d'installation qui vous convient le mieux. Si NodeJS est déjà installé sur votre machine, vous pouvez passer à la suite.
+
+#### NodeJS
+
+Au cas où vous n’auriez pas encore installé NodeJS sur votre machine, suivez le guide. Sinon, rejoignez moi à la prochaine étape. Comme souvent, il existe plusieurs méthodes d’installation par plateforme, à vous de choisir !
+
+<CollapseGroup>
+<Collapse title="Windows">
+2 méthodes au choix :
+
+- l’installateur classique (.exe) qui fait tout le travail pour vous.
+- la ligne de commande : `winget install OpenJS.NodeJS.LTS`
+</Collapse>
+
+<Collapse title="Mac">
+2 méthodes au choix :
+
+- l’installateur classique (.pkg) qui fait tout le travail pour vous.
+- la ligne de commande : `brew install node`
+</Collapse>
+
+<Collapse title="Linux">
+2 méthodes au choix :
+
+- le fichier binaire (à décompresser, placer dans un dossier, et ajouter au PATH).
+- la ligne de commande : `curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo bash - && sudo apt install -y nodejs` (Debian/Ubuntu)
+</Collapse>
+</CollapseGroup>
+
+#### Playwright
+
+Maintenant que vous avez installé NodeJS, place à l’installation de Playwright. Vous avez 2 possibilités d’utilisation de Playwright, soit en tant que projet à part entière, soit comme sous-partie du projet sur lequel vous souhaitez ajouter des tests.
+
+Vous pouvez la réaliser en utilisant la commande `npm init playwright@latest`, qui créera votre projet de test, qui aura la structure suivante :
+
+![Structure du projet Playwright.](/devendevenir/images/playwright-image1.png)
+
+Quand on regarde de plus près le contenu de ce dossier, on voit différents éléments :
+- node_modules : contient les dépendances nécessaires au projet
+- tests : répertoire contenant vos fichiers de tests
+- .gitignore : fichier listant les fichiers à exclure de votre dépôt git
+- package.json : liste les dépendances de votre projet et les plages de versions possibles
+- package-lock.json : liste les versions exactes des dépendances de votre projet
+- playwright.config.ts : configuration du projet (répertoire de test, options de CI etc.)
+
+### Tests intégrés à un projet
+
+Si comme moi vous travaillez sur des projets JS/TS, rien de plus facile. Comme pour toute dépendance JS, vous pourrez utiliser la commande `npm install playwright@latest` pour ajouter cette nouvelle dépendance.
+
+Il est temps de passer à la partie la plus intéressante de cet article, la création de vos premiers tests e2e !
+
+## Créer un test Playwright
+
+Si vous allez voir le fichier qui se trouve dans le répertoire “tests” de votre projet, vous verrez quelques exemples de tests, avec quelques vérifications de base.
+
+Vous pouvez structurer votre dossier de tests comme vous le souhaitez. Pour ma part, j’ai séparé les tests desktop des tests mobiles et j’ai également des tests communs, qui sont à la racine du dossier.
+
+![Arborescence du dossier de tests Playwright.](/devendevenir/images/playwright-image2.png)
+
+Au premier coup d’oeil, on remarque que les fichiers de tests sont tous nommés xxx.spec.ts. C’est le format conventionnel de nommage de ce type de fichiers. Si vous placez des tests dans un simple fichier .ts, même si votre code est syntaxiquement correct, vos tests ne seront pas reconnus comme tels.
+
+Vous remarquerez qu’un fichier utils.ts s’est glissé dans mes tests, je vous expliquerai un peu plus loin son utilité.
+
+### Structure d’un test
+
+Un fichier de tests a la structure suivante :
+
+```typescript
+import { expect, test } from "@playwright/test";
+
+export async function beforeEach(page: Page) {
+    await page.goto('http://localhost:4321/devendevenir/');
+    await expect(page).toHaveTitle(/Dev En Devenir/);
+    await expect(page.getByText('Le blog écrit par un développeur pour les développeurs !')).toBeVisible();
+}
+
+test('Lien Talks/Podcasts fonctionne', async ({ page }) => {
+    await page.getByTestId('talks-podcasts-desktop').click();
+    await expect(page).toHaveURL(/devendevenir\/talks-podcasts/);
+});
+```
+
+La fonction beforeEach détermine des actions qui seront effectuées avant l’exécution de chacun des tests du fichier. Ici, je navigue vers la page d’accueil de mon blog, et je vérifie que le titre (title) de la page est bon, et que la page contient bien la phrase d’accueil de mon blog. Si l’une des étapes du beforeEach échoue, les tests ne seront pas exécutés.
+
+La page passée en paramètre au test est une fixture propre à chaque test, une instance isolée de la page. C’est cet objet page qui va permettre d’accéder aux éléments qui constituent votre page, à l’aide d’un éventail de fonctions, de manière très semblable au document en JS.
+
+On peut séparer les fonctions utilisées dans cet extrait de code en 2 catégories :
+- actions
+- assertions
+
+Les premières miment l’action d’un utilisateur (ouvrir une page web, cliquer sur un lien), tandis que les secondes vérifient un aspect de la page (présente du titre, présence d’un texte, vérification d’une URL après navigation etc.). Comme dans tout test, on distingue une phase de préparation du test et une phase de vérification du comportement.
+
+Ok, c’est bien beau tout ça, mais comment exécute-t-on notre test ? Comme pour l’installation, deux solutions :
+- utiliser une extension adaptée à votre IDE
+- utiliser votre terminal et utiliser la commande `npx playwright test`.
+
+Si vous utilisez une extension, l’interface vous permettra de choisir la granularité de l’exécution (tous les tests du projet, un seul fichier de test, un seul test).
+
+Avant de lancer vos tests, n’oubliez pas de lancer votre projet si vous testez le projet en local, sans quoi vos tests échoueront immédiatement, faute de site web sur lequel naviguer !
+
+Pour le terminal, il vous faudra passer des arguments supplémentaires à la commande indiquée juste au-dessus. Si vous avez défini n émulateurs, chaque test sera exécuté n fois (pour le moment, on verra qu’on peut modifier cela dans certains cas).
+
+### Configuration
+
+Lors de l’installation de Playwright, on vous demande de répondre à quelques questions, qui jouent sur le contenu de cette installation. Il est notamment possible d’installer des émulateurs pour navigateurs web et les mobiles. Afin de déterminer les terminaux sur lesquels vous voulez que les tests soient exécutés, il est nécessaire de les ajouter dans votre fichier playwright.config.ts. S’il n’est pas généré lors de l’installation de Playwright, il faut le créer manuellement à la racine de votre projet.
+
+```typescript
+import { defineConfig, devices } from '@playwright/test';
+
+export default defineConfig({
+  testDir: './tests',
+  fullyParallel: true,
+  reporter: 'html',
+  use: {
+    baseURL: 'http://localhost:4321/devendevenir',
+    trace: 'on-first-retry',
+  },
+
+  projects: [
+    { name: 'Chrome', use: { ...devices['Desktop Chrome'] } },
+    { name: 'Firefox', use: { ...devices['Desktop Firefox'] } },
+    { name: 'Safari', use: { ...devices['Desktop Safari'] } },
+    { name: 'iPhone 14', use: { ...devices['iPhone 14'] } },
+    { name: 'Pixel 7', use: { ...devices['Pixel 7'] } },
+    { name: 'Galaxy S23', use: { ...devices['Galaxy S23 Ultra'] } },
+  ],
+});
+```
+
+Si on prend les éléments de configuration de ce fichier, on a :
+- `testdir`, qui définit le dossier dans lequel se trouvent les tests (si vos tests ne sont pas dans ce dossier ou dans un des ses sous-dossiers ils ne seront pas détectés).
+- `fullyParallel`, indique que les tests sont réalisés en parallèle.
+- `reporter`, format de restitution des résultats des tests.
+- `baseUrl`, l’url de base du projet (permet d’utiliser “/” au lieu de l’url complète).
+- `projects`, les émulateurs utilisés pour exécuter les tests.
+
+Dans mon cas, le parallélisme des tests faisait échouer plusieurs tests. N’ayant pas de problématique de temps d’exécution des tests pour le moment, j’ai désactivé le parallélisme des tests en utilisant `test.describe.configure({ mode: ‘serial’ });`. Si je les intègre au pipeline CI/CD de mon blog, je devrai probablement revoir ceci, restreindre le mode serial aux seuls tests posant problème.
+
+### Les fonctions Playwright
+
+Playwright propose un large éventail d’objets et de fonctions, permettant de réaliser un grand nombre d’actions/d’assertions, tant au niveau des URLs que pour les opération sur la structure des pages. Comme d’habitude, je ne prétends pas vous donner un dictionnaire exhaustif des fonctions Playwright, mais un aperçu des possibilités de l’outil, au travers de 3 domaines, test, assertion, et page.
+
+#### Fonctions de test
+
+Elles définissent les éléments affichés au niveau des rapports ou dans votre terminal lors de l’exécution des tests, ou encore les paramètres d’exécution de vos tests :
+- `test.describe()` : définit un groupe de tests. On peut accoler un `.configure` afin de modifier la configuration à l’exécution des tests (gestion des retry, timeout, parallélisation des tests etc.).
+- `test.beforeEach()` : définit les actions à effectuer avant l’exécution de chaque test dans un fichier.
+- `test.info()` : retourne des informations lors de l’exécution des tests.
+- `test.step()` : permet de déclarer des étapes au sein des tests, qui seront affichées dans le rapport d’exécution de test.
+
+#### Fonctions d’assertion
+
+Elles permettent de vérifier la présence ou non d’un élément, qu’une page/url/élément contient un texte, qu’une variable est égale à une valeur particulière et bien d’autres choses.
+
+- `expect().toBeVisible()` : vérifie qu’un noeud du DOM est visible
+- `expect().toHaveTitle()` : vérifie le titre de la page web (title)
+- `expect().toBe()` : vérifie que l’élément contenu dans le `expect()` a la même valeur que celle indiquée dans le `toBe()`
+
+#### Fonctions de page
+
+Elles effectuent une action sur la page web :
+- `page.goto()` : permet d’ouvrir une page web.
+- `page.locator()` : sélectionne un élément grâce à un sélecteur
+- `page.reload()` : recharge la page.
+- `page.screenshot()` : prend une capture d’écran de la page.
+
+### Créez vos fonctions
+
+Vous en conviendrez, répéter dans chaque fichier le même code pour naviguer jusqu’à la même page web peut devenir pénible. Comme toujours, afin de limiter la duplication de code, il est possible de créer des fonctions réutilisables dans tout votre projet.
+
+C’est la raison d’être du fichier utils.ts que vous avez aperçu plus haut.
+
+```typescript
+import type { Page, BrowserContext } from '@playwright/test';
+import { expect } from '@playwright/test';
+
+export async function commonBeforeEach(page: Page) {
+    await page.goto('/devendevenir');
+    await expect(page).toHaveTitle(/Dev En Devenir/);
+    await expect(page.getByText('Le blog écrit par un développeur pour les développeurs !')).toBeVisible();
+}
+
+export async function openMobileMenu(page: Page) {
+    const burger = page.locator('#menuToggle, [data-testid="menuToggle"], button[aria-label*="menu"]');
+    if (await burger.isVisible()) {
+        await burger.click({ force: true });
+        await expect(page.locator('#mobileMenu')).toBeVisible();
+    }
+}
+```
+
+Les deux fonctions affichées permettent de centraliser le code gérant :
+
+- la vérification de la bonne navigation vers la page d’accueil au début de chaque test
+- l’ouverture du menu mobile le cas échéant
+
+Cela permet d’utiliser dans tous les tests au besoin ces actions :
+
+```typescript
+import { expect, test } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { commonBeforeEach, openMobileMenu } from '../utils';
+
+test.describe.configure({ mode: 'serial' });
+
+test.beforeEach(async ({ page, isMobile }) => {
+    test.skip(!isMobile);
+    await commonBeforeEach(page);
+});
+
+async function clickMobileHeaderLink(page: Page, dataTestId: string, expectedPathRegex: RegExp) {
+    const link: Locator = page.getByTestId(dataTestId);
+    await expect(link).toBeVisible({ timeout: 8_000 });
+    await link.click({ timeout: 10_000 });
+    await expect(page).toHaveURL(expectedPathRegex);
+}
+
+test('Lien A propos fonctionne', async ({ page }) => {
+    await openMobileMenu(page);
+    await clickMobileHeaderLink(page, 'a-propos-mobile', /devendevenir\/about\/?$/);
+});
+```
+
+On peut voir ici que le `beforeEach()` du fichier appelle le `commonBeforeEach()`. Par ailleurs, le test affiché dans l’extrait de code ci-dessus appelle à la fois la fonction `openMobileMenu()` définie dans un autre fichier (on voit l’import en haut du fichier) et une fonction directement définie dans le fichier de test `clickMobileHeaderLink()`.
+
+J’aurais également pu appeler `openMobileMenu()` dans le `beforeEach()`. Dans mon cas, je n’en avais pas besoin pour tous les tests (oui, je vous ai épargné une partie du fichier).
+
+Vous remarquerez ici l’utilisation de la fonction `skip()`, qui permet de passer le test en fonction de la valeur d’une variable passée en paramètre, ici `isMobile`. Cette variable est définie pour chaque élément de la section projects du fichier de configuration, et détermine si le navigateur correspond à un affichage de type mobile ou non. Ce test sera donc exécuté pour tous les mobiles et ne sera pas exécuté pour les affichages desktop.
+
+## Mes conseils
+
+Avant de commencer avec Playwright, j’aurais aimé avoir les conseils suivants :
+
+- Démarrer avec un device à tester (exécution rapide).
+- Démarrer par le desktop (vous gèrerez l’ouverture du menu mobile plus tard).
+- Quand vous testez sur les mobiles, commencez par les non iOS (les mobiles iOS ont des particularités demandant certaines adaptations de vos tests).
+- Restez indépendant de la structure de votre page (les data-test-id sont là pour ça).
+
+## Remarques
+
+Ne soyez pas surpris, les tests sur Safari et iOS sont toujours plus lents que les autres, cela semble être lié à la structure même de Safari et d’iOS.
+
+Si vous avez déjà travaillé avec Cypress, vous remarquerez une différence fondamentale entre les deux outils. Même s’ils ont des ressemblances, Playwright impose son style et réduit à zéro la gestion des promesses, puisqu’il s’en charge tout seul (coucou les await … 🤩).
+
+Je n’ai pas présenté ici l’intégration des tests au sein d’un pipeline CI/CD, mais il est tout à fait possible de les intégrer à votre déploiement, et de mettre en place le blocage du processus en cas d’échec des tests.
+
+## Conclusion
+
+Vous avez fait avec moi vos premiers pas avec Playwright, à vous de jouer maintenant ! Si jamais vous n’avez pas de projet en local à tester, rien ne vous empêche de vous exercer sur un site web déjà en ligne (c’est d’ailleurs ce que font les tests dans le fichier d’exemples de Playwright). Et maintenant, avec l’IA, vous avez un outil parfait pour générer des tests. Comme toujours, ça ne fait pas tout (dans mon cas, il fallait reprendre pas mal de choses après la génération) mais ça donne de bonnes bases pour commencer.
