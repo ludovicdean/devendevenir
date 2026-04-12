@@ -1,8 +1,6 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
 import ThemeToggle from "./ThemeToggle.astro";
-import { Icon } from "astro-icon/components";
-import { LINKEDIN_LINK, GITHUB_LINK } from "../consts";
 import SocialLinks from "./SocialLinks.astro";
 ---
 
@@ -74,7 +72,7 @@ import SocialLinks from "./SocialLinks.astro";
 
     <div class="hidden md:flex items-center justify-between">
       <ul
-        class="flex items-center space-x-8 rtl:space-x-reverse list-none font-medium p-0 m-0"
+        class="flex items-center space-x-8 space-y-0 rtl:space-x-reverse list-none font-medium p-0 m-0"
       >
         <li>
           <HeaderLink href="/about" data-testid="a-propos-desktop"
@@ -123,33 +121,8 @@ import SocialLinks from "./SocialLinks.astro";
               data-testid="talks-podcasts-mobile">Talks/Podcasts</HeaderLink
             >
           </li>
-          <li class="flex space-x-6 text-white text-yellow-400">
-            <a href={LINKEDIN_LINK} target="_blank" title="LinkedIn">
-              <Icon name="linkedin" class="w-8 h-8" />
-            </a>
-            <a
-              href={import.meta.env.BASE_URL + "/rss.xml"}
-              target="_blank"
-              title="RSSFeed"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="w-8 h-8"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M4 11a9 9 0 0 1 9 9"></path>
-                <path d="M4 4a16 16 0 0 1 16 16"></path>
-                <circle cx="5" cy="19" r="1"></circle>
-              </svg>
-            </a>
-            <a href={GITHUB_LINK} target="_blank" title="GitHub">
-              <Icon name="github" class="w-8 h-8" />
-            </a>
+          <li>
+            <SocialLinks iconSize="size-8" />
           </li>
           <li>
             <ThemeToggle />

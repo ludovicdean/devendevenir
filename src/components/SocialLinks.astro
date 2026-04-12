@@ -5,14 +5,14 @@ const { iconSize } = Astro.props;
 ---
 
 <ul
-    class="flex items-center space-x-3 text-white list-none p-0 m-0"
+    class="flex items-center space-x-3 space-y-0 text-white list-none p-0 m-0"
     id="externalLinks"
 >
     <li>
         <a
             href={LINKEDIN_LINK}
             target="_blank"
-            class="hover:text-yellow-400 transition-colors"
+            class="text-white hover:text-yellow-400 transition-colors"
             title="LinkedIn"
         >
             <Icon name="linkedin" class={iconSize} />
@@ -22,7 +22,7 @@ const { iconSize } = Astro.props;
         <a
             href={import.meta.env.BASE_URL + "/rss.xml"}
             target="_blank"
-            class="hover:text-yellow-400 transition-colors"
+            class="text-white hover:text-yellow-400 transition-colors"
             title="RSSFeed"
         >
             <svg
@@ -45,7 +45,7 @@ const { iconSize } = Astro.props;
         <a
             href={GITHUB_LINK}
             target="_blank"
-            class="hover:text-yellow-400 transition-colors"
+            class="text-white hover:text-yellow-400 transition-colors"
             title="GitHub"
         >
             <Icon name="github" class={iconSize} />
