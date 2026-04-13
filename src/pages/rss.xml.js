@@ -1,5 +1,5 @@
 import rss from "@astrojs/rss";
-import * as utils from "../utils/blogUtils";
+import * as utils from "@utils/blogUtils";
 
 export async function GET(context) {
     const articles = await utils.getPosts();

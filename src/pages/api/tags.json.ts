@@ -1,4 +1,4 @@
-import { getTagsCount } from 'src/utils/tagUtils';
+import { getTagsCount } from '@utils/tagUtils';
 
 export async function GET() {
   const tagsWithCounts = await getTagsCount();

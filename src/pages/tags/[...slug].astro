@@ -1,6 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
-import Tag from "../../layouts/TagLayout.astro";
+import Tag from "@layouts/TagLayout.astro";
 
 export async function getStaticPaths() {
   const tags = await getCollection("tags");

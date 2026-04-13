@@ -1,7 +1,7 @@
 import { glob } from 'astro/loaders';
 import { defineCollection } from 'astro:content';
-import { BlogFrontmatterSchema } from 'src/schemas/blog';
-import { tagSchema } from 'src/schemas/tag';
+import { BlogFrontmatterSchema } from '@schemas/blog';
+import { tagSchema } from '@schemas/tag';
 
 const blog = defineCollection({
 	loader: glob({ pattern: "**/*.(md|mdx)", base: "./src/content/blog" }),

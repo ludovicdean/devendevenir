@@ -4,7 +4,36 @@
     "strictNullChecks": true,
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["src/components/*"],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@layouts/*": [
+        "src/layouts/*"
+      ],
+      "@utils/*": [
+        "src/utils/*"
+      ],
+      "@interfaces/*": [
+        "src/interfaces/*"
+      ],
+      "@styles/*": [
+        "src/styles/*"
+      ],
+      "@consts": [
+        "src/consts.ts"
+      ],
+      "@schemas/*": [
+        "src/schemas/*"
+      ],
+      "@icons/*": [
+        "src/icons/*"
+      ],
+      "@scripts/*": [
+        "src/scripts/*"
+      ],
+      "@content/*": [
+        "src/content/*"
+      ]
     }
   }
 }

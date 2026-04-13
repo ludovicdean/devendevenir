@@ -1,5 +1,5 @@
 import { getCollection } from "astro:content";
-import { getPosts } from "./blogUtils";
+import { getPosts } from "@utils/blogUtils";
 
 export async function getTagsCount() {
     const posts = await getPosts();

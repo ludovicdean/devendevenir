@@ -21,9 +21,9 @@ const ogImage = site + base + post.banner;
 <BaseLayout title={post.title} description={post.description} >
   <article>
     <div class="relative w-full max-w-4xl mx-auto">
-      <img src={ base + post.banner } class="w-full h-auto object-cover" alt={`Bannière pour ${post.title}`} />
-      <div class="absolute bottom-0 right-0 bg-slate-900 bg-opacity-50 w-full rounded-b-lg">
-        <p class="text-white text-sm py-2 px-4 text-right mb-0">© <a href={post.unsplashlink} class="no-underline text-white hover:text-white">{post.author}</a> via <a class="no-underline text-white hover:text-white" href={post.authorlink}>Unsplash</a></p>
+      <img src={ base + post.banner } class="w-full object-cover" alt={`Bannière pour ${post.title}`} />
+      <div class="absolute bottom-0 right-0 bg-slate-900/50 w-full rounded-b-lg">
+        <p class="text-white text-sm py-2 px-4 text-right mb-0">© <a href={post.unsplashlink} class="no-underline">{post.author}</a> via <a class="no-underline" href={post.authorlink}>Unsplash</a></p>
       </div>
     </div>
       <div class="mb-4 py-4 text-center leading-none">

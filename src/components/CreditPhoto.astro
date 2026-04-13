@@ -2,9 +2,8 @@
 const { authorlink, author, unsplashlink } = Astro.props;
 ---
 
-<div class="no-underline my-10 inline-block">
+<div class="my-10 inline-block">
   <h5>Crédits photographiques</h5>
-  Photo de <a href={authorlink} target="_blank" class="no-underline">{author}</a
-  > sur
-  <a href={unsplashlink} target="_blank" class="no-underline">Unsplash</a>
+  Photo de <a href={authorlink} target="_blank">{author}</a> sur
+  <a href={unsplashlink} target="_blank">Unsplash</a>
 </div>

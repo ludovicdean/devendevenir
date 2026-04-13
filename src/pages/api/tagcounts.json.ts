@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
-import { getPosts } from 'src/utils/blogUtils';
+import { getPosts } from '@utils/blogUtils';
 
 
 export async function GET({ }: APIRoute): Promise<Response> {

@@ -14,7 +14,7 @@ const isActive = url === pathname || url === pathname.replace(/\/$/, "");
   href={base + href}
   class:list={[
     className,
-    "nav-link block px-3 py-2 rounded bg-transparent font-bold text-white hover:text-yellow-400",
+    "nav-link block px-3 py-2 rounded font-bold transition-colors hover:text-yellow-400 no-underline",
     { "text-yellow-400": isActive, "text-white": !isActive },
   ]}
   {...props}

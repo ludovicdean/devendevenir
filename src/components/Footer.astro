@@ -4,13 +4,10 @@ const today = new Date();
 ---
 
 <footer
-  class="p-2 text-center bg-gradient-to-br from-neutral-400 to-neutral-800 dark:from-neutral-800 dark:to-neutral-400
-         flex flex-col justify-between min-h-[120px] items-center"
+  class="flex flex-col items-center justify-between min-h-[120px] p-2 bg-gradient-to-br from-neutral-400 to-neutral-800 dark:from-neutral-800 dark:to-neutral-400 text-white"
 >
-  <div class="flex justify-center">
-    <SocialLinks iconSize="size-8" />
-  </div>
-  <p class="text-sm text-white">
+  <SocialLinks iconSize="size-8" />
+  <p class="text-sm">
     &copy; {today.getFullYear()} Ludovic Déan. All rights reserved.
   </p>
 </footer>

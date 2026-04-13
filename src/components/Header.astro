@@ -5,7 +5,7 @@ import SocialLinks from "./SocialLinks.astro";
 ---
 
 <header
-  class="bg-gradient-to-br from-neutral-800 to-neutral-400 dark:from-neutral-400 dark:to-neutral-800 relative pt-2"
+  class="bg-gradient-to-br from-neutral-800 to-neutral-400 dark:from-neutral-400 dark:to-neutral-800 pt-2"
 >
   <div id="desktopMenu" class="w-[900px] max-w-[calc(100%-2rem)] mx-auto px-4">
     <div class="flex items-center justify-between">
@@ -13,7 +13,7 @@ import SocialLinks from "./SocialLinks.astro";
         <img
           src={import.meta.env.BASE_URL + "/images/logo.png"}
           alt="Logo"
-          class="h-16 w-auto"
+          class="h-16"
         />
       </a>
 
@@ -21,8 +21,7 @@ import SocialLinks from "./SocialLinks.astro";
         <a href={import.meta.env.BASE_URL} class="hidden md:block" id="accueil">
           <span
             class="self-center text-2xl font-semibold whitespace-nowrap text-white"
-            >Dev<span
-              class="text-yellow-400 animate-bounce ease-in-out inline-block"
+            >Dev<span class="text-yellow-400 animate-bounce inline-block"
               >En</span
             >Devenir</span
           >
@@ -89,7 +88,7 @@ import SocialLinks from "./SocialLinks.astro";
 
       <div class="flex items-center space-x-4">
         <SocialLinks iconSize="size-6" />
-        <span class="text-white/30 h-6 w-px bg-white/30"></span>
+        <span class="h-6 w-px bg-white/30"></span>
         <ThemeToggle />
       </div>
     </div>

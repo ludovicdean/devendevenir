@@ -1,4 +1,4 @@
-import { getUnpublishedPosts } from 'src/utils/blogUtils';
+import { getUnpublishedPosts } from '@utils/blogUtils';
 
 export async function GET() {
   const blogEntries = await getUnpublishedPosts();

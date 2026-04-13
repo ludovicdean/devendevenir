@@ -3,17 +3,17 @@ const base = import.meta.env.BASE_URL;
 const { tags } = Astro.props;
 ---
 
-<div class="pb-6 flex flex-wrap">
+<div class="pb-6 flex flex-wrap gap-x-4 gap-y-4">
     {
         tags.map((tag, index) => (
             <span
-                class="inline-flex items-center justify-center text-lg rounded-xl mx-2 px-4 my-2 bg-gradient-to-r 
+                class="inline-flex items-center justify-center text-lg rounded-xl px-4 bg-gradient-to-r 
 from-neutral-800 to-neutral-600
-dark:from-yellow-600 dark:to-yellow-200 hover:animate-pulse dark:text-white"
+dark:from-yellow-600 dark:to-yellow-200 hover:animate-pulse"
             >
                 <a
                     href={`${base + "/tags/" + tag.id}/`}
-                    class="justify-center no-underline text-white font-bold text-accent hover:text-white dark:text-slate-900"
+                    class="no-underline text-white font-bold dark:text-slate-900"
                     data-test-id={`tag-${index}`}
                 >
                     {tag.name}
