@@ -18,7 +18,11 @@ import SocialLinks from "./SocialLinks.astro";
       </a>
 
       <div class="flex items-center space-x-4">
-        <a href={import.meta.env.BASE_URL} class="hidden md:block" id="accueil">
+        <a
+          href={import.meta.env.BASE_URL}
+          class="hidden md:block no-underline"
+          id="accueil"
+        >
           <span
             class="self-center text-2xl font-semibold whitespace-nowrap text-white"
             >Dev<span class="text-yellow-400 animate-bounce inline-block"
