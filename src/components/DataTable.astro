@@ -1,8 +1,8 @@
 ---
-import type { DataTable } from "@interfaces/DataTable";
+import type { TableData } from "@schemas/tableData.ts";
 
 interface Props {
-    data: DataTable;
+    data: TableData;
 }
 
 const { data } = Astro.props;
@@ -16,7 +16,9 @@ const { data } = Astro.props;
             <tr>
                 {
                     data.headers.map((header, i) => (
-                        <th class={`px-1 sm:px-4 lg:px-6 py-2 sm:py-3 lg:py-4 text-left font-medium text-black tracking-wider border-black dark:border-zinc-200 text-sm sm:text-base lg:text-xl border-b-2 ${i !== data.headers.length - 1 ? 'border-r-2' : ''}`}>
+                        <th
+                            class={`px-1 sm:px-4 lg:px-6 py-2 sm:py-3 lg:py-4 text-left font-medium text-black tracking-wider border-black dark:border-zinc-200 text-sm sm:text-base lg:text-xl border-b-2 ${i !== data.headers.length - 1 ? "border-r-2" : ""}`}
+                        >
                             {header}
                         </th>
                     ))
@@ -27,17 +29,21 @@ const { data } = Astro.props;
             {
                 data.rows.map((row, rowIndex) => (
                     <tr
-                        class={rowIndex % 2 !== 0 ? "bg-yellow-300 text-black" : "text-gray-500 dark:text-white"}
+                        class={
+                            rowIndex % 2 !== 0
+                                ? "bg-yellow-300 text-black"
+                                : "text-gray-500 dark:text-white"
+                        }
                     >
                         {row.map((cell, i) => (
-                            <td class={`px-1 sm:px-4 lg:px-6 py-2 sm:py-3 lg:py-4 border-black dark:border-zinc-200 text-xs sm:text-sm lg:text-base ${rowIndex !== data.rows.length - 1 ? 'border-b-2' : ''} ${i !== row.length - 1 ? 'border-r-2' : ''}`}>
+                            <td
+                                class={`px-1 sm:px-4 lg:px-6 py-2 sm:py-3 lg:py-4 border-black dark:border-zinc-200 text-xs sm:text-sm lg:text-base ${rowIndex !== data.rows.length - 1 ? "border-b-2" : ""} ${i !== row.length - 1 ? "border-r-2" : ""}`}
+                            >
                                 {typeof cell === "string"
                                     ? cell
                                           .split(",")
                                           .map((item) => (
-                                              <p class="m-0">
-                                                  {item.trim()}
-                                              </p>
+                                              <p class="m-0">{item.trim()}</p>
                                           ))
                                     : cell}
                             </td>

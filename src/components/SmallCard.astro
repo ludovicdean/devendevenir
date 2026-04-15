@@ -1,5 +1,11 @@
 ---
 import { getUrl } from "@utils/blogUtils";
+import type { CollectionEntry } from "astro:content";
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"li"> {
+    post: CollectionEntry<"blog">;
+}
 
 const { post, ...props } = Astro.props;
 const base = import.meta.env.BASE_URL;

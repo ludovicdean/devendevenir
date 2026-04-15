@@ -2,6 +2,13 @@
 import BaseLayout from "./BaseLayout.astro";
 import PostsList from "@components/PostsList.astro";
 import { getBlogsByTagId } from "@utils/blogUtils";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+    id: string;
+    name: CollectionEntry<"tags">["data"]["name"];
+    description: CollectionEntry<"tags">["data"]["description"];
+}
 
 const { id, name, description } = Astro.props;
 

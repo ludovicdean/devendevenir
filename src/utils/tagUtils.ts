@@ -1,11 +1,8 @@
-import { getCollection, type CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
 import { getPosts } from "@utils/blogUtils";
-import type { TagCountSchema } from "@schemas/tagscount";
-import { z } from "astro/zod";
+import type { TagCount } from "@schemas/tagscount";
 
-type TagWithCount = z.infer<typeof TagCountSchema>;
-
-export async function getTagsCount(): Promise<TagWithCount[]> {
+export async function getTagsCount(): Promise<TagCount[]> {
     const posts = await getPosts();
     const tagsCollection = await getCollection('tags');
 
@@ -20,7 +17,7 @@ export async function getTagsCount(): Promise<TagWithCount[]> {
         return acc;
     }, {});
 
-    const tagsWithCounts: TagWithCount[] = tagsCollection.map(tag => {
+    const tagsWithCounts: TagCount[] = tagsCollection.map(tag => {
         const id = tag.id;
         const name = tag.data.name || id;
         const description = tag.data.description || "";

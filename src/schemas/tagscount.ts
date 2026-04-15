@@ -8,3 +8,5 @@ export const TagCountSchema = z.object({
 });
 
 export const TagsWithCountsResponseSchema = z.array(TagCountSchema);
+export type TagCount = z.infer<typeof TagCountSchema>;
+export type TagsWithCountsResponse = z.infer<typeof TagsWithCountsResponseSchema>;

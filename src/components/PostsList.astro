@@ -1,5 +1,11 @@
 ---
 import SmallCard from "./SmallCard.astro";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+    posts: CollectionEntry<"blog">[];
+}
+
 const { posts } = Astro.props;
 ---
 

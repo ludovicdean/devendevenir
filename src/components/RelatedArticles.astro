@@ -2,6 +2,11 @@
 import { getSimilarPosts } from "@utils/blogUtils";
 import SmallCard from "./SmallCard.astro";
 
+interface Props {
+    tags: string[];
+    title: string;
+}
+
 const { tags, title } = Astro.props;
 
 const similarPosts = await getSimilarPosts(tags, title);

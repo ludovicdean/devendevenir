@@ -1,24 +1,21 @@
 ---
-import { getCollection, render } from "astro:content";
+import { type CollectionEntry, getCollection, render } from "astro:content";
 import Tag from "@layouts/TagLayout.astro";
 
 export async function getStaticPaths() {
   const tags = await getCollection("tags");
   return tags.map((tag) => ({
     params: { slug: tag.id },
-    props: { id: tag.id, data: tag.data },
+    props: tag,
   }));
 }
 
-type Props = {
-  id: string;
-  data: any;
-};
+type Props = CollectionEntry<"tags">;
 
-const { id, data } = Astro.props;
-const { Content } = await render({ id, ...data });
+const tag = Astro.props;
+const { Content } = await render(tag);
 ---
 
-<Tag id={id} {...data}>
+<Tag id={tag.id} {...tag.data}>
   <Content />
 </Tag>

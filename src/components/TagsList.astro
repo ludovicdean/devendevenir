@@ -1,4 +1,10 @@
 ---
+import type { TagCount } from "@schemas/tagscount";
+
+interface Props {
+    tags: TagCount[];
+}
+
 const base = import.meta.env.BASE_URL;
 const { tags } = Astro.props;
 ---
