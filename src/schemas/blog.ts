@@ -16,3 +16,5 @@ export const BlogFrontmatterSchema = z.object({
     tableData2: tableDataSchema.optional(),
     tableData3: tableDataSchema.optional(),
 });
+
+export type BlogArticle = z.infer<typeof BlogFrontmatterSchema>;
