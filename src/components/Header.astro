@@ -4,31 +4,16 @@ import ThemeToggle from "./ThemeToggle.astro";
 import SocialLinks from "./SocialLinks.astro";
 ---
 
-<header
-  class="bg-gradient-to-br from-neutral-800 to-neutral-400 dark:from-neutral-400 dark:to-neutral-800 pt-2"
->
+<header class="bg-gradient-to-br from-neutral-800 to-neutral-400 dark:from-neutral-400 dark:to-neutral-800 pt-2">
   <div id="desktopMenu" class="w-[900px] max-w-[calc(100%-2rem)] mx-auto px-4">
     <div class="flex items-center justify-between">
       <a href={import.meta.env.BASE_URL} class="flex items-center" id="logo">
-        <img
-          src={import.meta.env.BASE_URL + "/images/logo.png"}
-          alt="Logo"
-          class="h-16"
-        />
+        <img src={import.meta.env.BASE_URL + "/images/logo.png"} alt="Logo" class="h-16" />
       </a>
 
       <div class="flex items-center space-x-4">
-        <a
-          href={import.meta.env.BASE_URL}
-          class="hidden md:block no-underline"
-          id="accueil"
-        >
-          <span
-            class="self-center text-2xl font-semibold whitespace-nowrap text-white"
-            >Dev<span class="text-yellow-400 animate-bounce inline-block"
-              >En</span
-            >Devenir</span
-          >
+        <a href={import.meta.env.BASE_URL} class="hidden md:block no-underline" id="accueil">
+          <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">Dev<span class="text-yellow-400 animate-bounce inline-block">En</span>Devenir</span>
         </a>
 
         <button
@@ -39,54 +24,23 @@ import SocialLinks from "./SocialLinks.astro";
           aria-expanded="false"
         >
           <span class="sr-only">Toggle menu</span>
-          <svg
-            id="menuIcon"
-            class="w-5 h-5"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 17 14"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M1 1h15M1 7h15M1 13h15"></path>
+          <svg id="menuIcon" class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"></path>
           </svg>
-          <svg
-            id="closeIcon"
-            class="w-5 h-5 hidden"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 17 17"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M1 1l15 15M1 16L16 1"></path>
+          <svg id="closeIcon" class="w-5 h-5 hidden" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 17" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1l15 15M1 16L16 1"></path>
           </svg>
         </button>
       </div>
     </div>
 
     <div class="hidden md:flex items-center justify-between">
-      <ul
-        class="flex items-center space-x-8 space-y-0 rtl:space-x-reverse list-none font-medium p-0 m-0"
-      >
+      <ul class="flex items-center space-x-8 space-y-0 rtl:space-x-reverse list-none font-medium p-0 m-0">
         <li>
-          <HeaderLink href="/about" data-testid="a-propos-desktop"
-            >À propos</HeaderLink
-          >
+          <HeaderLink href="/about" data-testid="a-propos-desktop">À propos</HeaderLink>
         </li>
         <li>
-          <HeaderLink
-            href="/talks-podcasts"
-            data-testid="talks-podcasts-desktop">Talks/Podcasts</HeaderLink
-          >
+          <HeaderLink href="/talks-podcasts" data-testid="talks-podcasts-desktop">Talks/Podcasts</HeaderLink>
         </li>
       </ul>
 
@@ -98,31 +52,17 @@ import SocialLinks from "./SocialLinks.astro";
     </div>
   </div>
 
-  <div
-    id="overlay"
-    class="fixed inset-0 bg-slate-800 bg-opacity-50 z-30 hidden md:hidden"
-  >
-  </div>
+  <div id="overlay" class="fixed inset-0 bg-slate-800 bg-opacity-50 z-30 hidden md:hidden"></div>
 
-  <div
-    id="mobileMenu"
-    class="fixed left-0 right-0 top-[80px] flex justify-center z-40 md:hidden transition-all duration-300 ease-out opacity-0 -translate-y-5 pointer-events-none"
-  >
+  <div id="mobileMenu" class="fixed left-0 right-0 top-[80px] flex justify-center z-40 md:hidden transition-all duration-300 ease-out opacity-0 -translate-y-5 pointer-events-none">
     <div class="bg-black rounded-lg shadow-lg w-10/12 max-w-md p-6 mt-4">
       <nav>
-        <ul
-          class="list-none font-medium flex flex-col space-y-4 items-center p-0 m-0"
-        >
+        <ul class="list-none font-medium flex flex-col space-y-4 items-center p-0 m-0">
           <li>
-            <HeaderLink href="/about" data-testid="a-propos-mobile"
-              >À propos</HeaderLink
-            >
+            <HeaderLink href="/about" data-testid="a-propos-mobile">À propos</HeaderLink>
           </li>
           <li>
-            <HeaderLink
-              href="/talks-podcasts"
-              data-testid="talks-podcasts-mobile">Talks/Podcasts</HeaderLink
-            >
+            <HeaderLink href="/talks-podcasts" data-testid="talks-podcasts-mobile">Talks/Podcasts</HeaderLink>
           </li>
           <li>
             <SocialLinks iconSize="size-8" />

@@ -10,9 +10,5 @@ const { posts } = Astro.props;
 ---
 
 <ul class="flex flex-wrap gap-3">
-    {
-        posts.map((post, index) => (
-            <SmallCard post={post} data-testid={`post-${index + 1}`} />
-        ))
-    }
+    {posts.map((post, index) => <SmallCard post={post} data-testid={`post-${index + 1}`} />)}
 </ul>

@@ -8,31 +8,16 @@ const { title, open = false } = Astro.props;
 const id = `collapse-${Math.random().toString(36).slice(2)}`;
 ---
 
-<details
-    id={id}
-    open={open}
-    class="group border border-slate-200 dark:border-slate-700 rounded-sm"
->
+<details id={id} open={open} class="group border border-slate-200 dark:border-slate-700 rounded-sm">
     <summary
         class="collapse-summary flex cursor-pointer items-center justify-between p-4 font-medium text-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors [&::-webkit-details-marker]:hidden"
     >
         <span>{title}</span>
-        <svg
-            class="ml-2 h-5 w-5 transition-transform group-open:-rotate-180"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-        >
-            <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M19 9l-7 7-7-7"></path>
+        <svg class="ml-2 h-5 w-5 transition-transform group-open:-rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
         </svg>
     </summary>
-    <div
-        class="px-4 pb-4 mt-2 opacity-0 max-h-0 transition-all duration-300 ease-out group-open:opacity-100 group-open:max-h-96 overflow-hidden"
-    >
+    <div class="px-4 pb-4 mt-2 opacity-0 max-h-0 transition-all duration-300 ease-out group-open:opacity-100 group-open:max-h-96 overflow-hidden">
         <slot />
     </div>
 </details>

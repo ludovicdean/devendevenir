@@ -17,16 +17,9 @@ const { tags } = Astro.props;
 from-neutral-800 to-neutral-600
 dark:from-yellow-600 dark:to-yellow-200 hover:animate-pulse"
             >
-                <a
-                    href={`${base + "/tags/" + tag.id}/`}
-                    class="no-underline text-white font-bold dark:text-slate-900"
-                    data-test-id={`tag-${index}`}
-                >
+                <a href={`${base + "/tags/" + tag.id}/`} class="no-underline text-white font-bold dark:text-slate-900" data-test-id={`tag-${index}`}>
                     {tag.name}
-                    <span
-                        class="text-yellow-400 dark:text-slate-900"
-                        data-test-id={`count-${index}`}
-                    >
+                    <span class="text-yellow-400 dark:text-slate-900" data-test-id={`count-${index}`}>
                         {tag.count}
                     </span>
                 </a>

@@ -9,9 +9,7 @@ const { data } = Astro.props;
 ---
 
 <div class="overflow-x-auto my-10">
-    <table
-        class="min-w-full bg-white dark:bg-transparent border-separate border-spacing-0 border-2 border-black dark:border-zinc-200 rounded-xl overflow-hidden"
-    >
+    <table class="min-w-full bg-white dark:bg-transparent border-separate border-spacing-0 border-2 border-black dark:border-zinc-200 rounded-xl overflow-hidden">
         <thead class="bg-yellow-300">
             <tr>
                 {
@@ -28,24 +26,12 @@ const { data } = Astro.props;
         <tbody>
             {
                 data.rows.map((row, rowIndex) => (
-                    <tr
-                        class={
-                            rowIndex % 2 !== 0
-                                ? "bg-yellow-300 text-black"
-                                : "text-gray-500 dark:text-white"
-                        }
-                    >
+                    <tr class={rowIndex % 2 !== 0 ? "bg-yellow-300 text-black" : "text-gray-500 dark:text-white"}>
                         {row.map((cell, i) => (
                             <td
                                 class={`px-1 sm:px-4 lg:px-6 py-2 sm:py-3 lg:py-4 border-black dark:border-zinc-200 text-xs sm:text-sm lg:text-base ${rowIndex !== data.rows.length - 1 ? "border-b-2" : ""} ${i !== row.length - 1 ? "border-r-2" : ""}`}
                             >
-                                {typeof cell === "string"
-                                    ? cell
-                                          .split(",")
-                                          .map((item) => (
-                                              <p class="m-0">{item.trim()}</p>
-                                          ))
-                                    : cell}
+                                {typeof cell === "string" ? cell.split(",").map((item) => <p class="m-0">{item.trim()}</p>) : cell}
                             </td>
                         ))}
                     </tr>

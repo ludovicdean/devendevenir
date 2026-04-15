@@ -21,12 +21,7 @@ const { title, description } = Astro.props;
 <link rel="icon" type="image/png" sizes="16x16" href={favicon16} />
 <meta name="generator" content={Astro.generator} />
 
-<link
-  href={atkinsonregular}
-  as="font"
-  type="font/woff"
-  crossorigin="anonymous"
-/>
+<link href={atkinsonregular} as="font" type="font/woff" crossorigin="anonymous" />
 <link href={atkinsonbold} as="font" type="font/woff" crossorigin="anonymous" />
 
 <link rel="canonical" href={canonicalURL} />
@@ -45,9 +40,4 @@ const { title, description } = Astro.props;
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 
-<link
-  rel="alternate"
-  type="application/rss+xml"
-  title="DevEnDevenir"
-  href={import.meta.env.BASE_URL + "/rss.xml"}
-/>
+<link rel="alternate" type="application/rss+xml" title="DevEnDevenir" href={import.meta.env.BASE_URL + "/rss.xml"} />

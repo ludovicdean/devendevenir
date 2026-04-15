@@ -12,24 +12,10 @@ const base = import.meta.env.BASE_URL;
 ---
 
 <li class="relative w-full md:w-[calc(100%-0.5rem)] list-none py-4">
-    <a
-        href={getUrl(post)}
-        class="no-underline"
-        target={post.data.url ? "_blank" : undefined}
-        rel={post.data.url ? "noreferrer" : undefined}
-        data-test-id={dataTestId}
-    >
-        <img
-            src={base + post.data.banner}
-            class="w-full object-cover"
-            alt=""
-        />
-        <div
-            class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-2/3 bg-slate-900/50 flex items-center"
-        >
-            <p
-                class="text-white text-2xl font-bold py-1 px-2 text-center w-full mb-0 transition-colors hover:text-yellow-400"
-            >
+    <a href={getUrl(post)} class="no-underline" target={post.data.url ? "_blank" : undefined} rel={post.data.url ? "noreferrer" : undefined} data-test-id={dataTestId}>
+        <img src={base + post.data.banner} class="w-full object-cover" alt="" />
+        <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-2/3 bg-slate-900/50 flex items-center">
+            <p class="text-white text-2xl font-bold py-1 px-2 text-center w-full mb-0 transition-colors hover:text-yellow-400">
                 {post.data.title}
             </p>
         </div>
