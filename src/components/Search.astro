@@ -55,8 +55,8 @@ const base = import.meta.env.BASE_URL;
 </div>
 
 <script>
-    let pagefind = null;
-    let searchTimeout = null;
+    let pagefind: any = null;
+    let searchTimeout: any = null;
 
     const modal = document.getElementById("search-modal");
     const backdrop = document.getElementById("search-backdrop");
@@ -90,7 +90,8 @@ const base = import.meta.env.BASE_URL;
     });
 
     document.addEventListener("click", (e) => {
-        if (e.target.closest("#search-trigger")) {
+        const target = e.target as HTMLElement;
+        if (target?.closest("#search-trigger")) {
             openModal();
         }
     });
@@ -116,7 +117,7 @@ const base = import.meta.env.BASE_URL;
         }
     }
 
-    async function performSearch(query) {
+    async function performSearch(query: string) {
         if (!resultsContainer) return;
 
         if (query.length < 2) {
@@ -161,7 +162,8 @@ const base = import.meta.env.BASE_URL;
     }
 
     input?.addEventListener("input", (e) => {
-        const query = e.target.value.trim();
+        const target = e.target as HTMLInputElement;
+        const query = target.value.trim();
         if (searchTimeout) clearTimeout(searchTimeout);
         searchTimeout = setTimeout(() => performSearch(query), 300);
     });
