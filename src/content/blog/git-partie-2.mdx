@@ -1,0 +1,107 @@
+---
+title : Git, partie 2
+date : May 20 2026
+tags :
+    - outils
+description : "Git est un incontournable du développement, découvrez comment l'utiliser."
+banner : "/images/yancy-min-842ofHC6MaI-unsplash.webp"
+
+author: "Yancy Min"
+authorLink: "https://unsplash.com/fr/@yancymin?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+unsplashLink: "https://unsplash.com/fr/photos/gros-plan-dune-description-textuelle-sur-un-ecran-dordinateur-842ofHC6MaI?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+---
+
+Promis, ça ne sera pas une trilogie, le troisième opus est toujours nul par rapport au reste paraît-il 😅. Git ne repose pas uniquement sur les commandes que je vous ai présenté dans le précédent article sur le sujet, il en existe d’autres. Je ne prétends pas dresser un inventaire exhaustif des commandes Git (vous avez [la documentation de Git](https://git-scm.com/) pour ça), mais vous présenter les commandes qu’on aurait aimé connaître plus tôt, ou celles dont on entend parler au travail sans qu’on sache à quoi ça correspond.
+
+Plongeons ensemble dans les méandres de Git, et poursuivons la réhabilitation de ce “monstre” qui nous sauve pourtant la vie régulièrement.
+
+## Les options
+
+Spoiler alert, on en a déjà croisé sans préciser ce que c’était ^^. Que serait une commande sans options ? Pas grand chose, et certaines commandes en ont une multitude, aux pouvoirs insoupçonnés.
+
+Si on se penche sur la commande git branch, on peut l’exécuter sous les formes suivantes :
+
+- `git branch <branche>` : créer une branche
+- `git branch` : lister les branches locales
+- `git branch --remotes` : lister les branches distantes
+- `git branch --delete <branche>` : supprimer une branche locale
+- `git branch --set-upstream-to=<branche>` : créer la liaison entre une branche distante et une branche locale
+
+Ce n’est qu’un échantillon des possibilités de la commande git branch, dans la documentation on trouve plus d’une trentaine d’options différentes.
+
+Vous avez peut-être déjà vu des collègues utiliser des commandes avec des -r ou encore des -f. Il s’agit de raccourci pour certaines commandes. Ils sont très utiles, mais peuvent être dangereux. Une commande suivie d’une option -d ou -D ne fera pas la même action selon le cas :
+
+`git branch -d <branche>` → suppression d’une branche si elle a déjà été mergée
+
+`git branch -D <branche>` → suppression d’une branche qu’elle ait été mergée ou pas (à vos risques et périls)
+
+L’une des options que l’on utilise parfois peut avoir de lourdes conséquences, notamment le --force (-f pour les amateurs de raccourcis). Utilisez-la sur un git push et vous direz à votre repository distant “T’inquiète je gère, c’est moi qui ai raison”, alors que non, vous pourriez casser votre branche comme ça, et perdre des modifications…
+
+Aucune interdiction de l’utiliser, mais à utiliser avec prudence !
+
+## Les commandes qui font peur
+
+### Git rebase
+
+Parmi les commandes que je redoute le plus se trouve le fameux git rebase. Son truc à elle, c’est de venir virtuellement couper une branche et la rajouter au commit le plus récent de votre branche principale comme si elle avait été réalisée sur cette branche. Cela permet de conserver tous les commits de votre branche, et rend votre historique clair et rectiligne. On verra qu’il y a une autre commande qui permet de fusionner des branches, le merge.
+
+### Git merge
+
+Le merge, l’aboutissement d’une feature qui va rejoindre la branche dont elle est issue. Si simple quand on travaille seul (quoique ^^), il peut s’avérer d’une grande complexité quand on rencontre des conflits. Vous n’êtes pas seul sur votre projet, vos collègues travaillent de leur côté et n’attendent pas que vous ayez terminé pour modifier la branche d’où vous avez tiré la vôtre.
+
+Seulement maintenant, vous voulez rajouter votre travail sur cette fameuse branche initiale. Une mise à jour de la branche initiale en local, et vous tentez un git merge. Et là votre IDE vous annonce “Impossible de fusionner les branches, xxx conflits”. Vous avez modifié les mêmes fichiers que votre collègue, et il va falloir concilier vos deux branches afin de remettre d’aplomb le projet.
+
+Si vous avez plusieurs commits à merger, il vous faudra résoudre les conflits pour chaque commit. Si vous avez 3 commits et 3 conflits, vous résoudrez 3 fois chacun des conflits. Il faudra donc être très vigilant afin d'éviter de perdre du code dans l'opération.
+
+## Les commandes qui sauvent la vie
+
+### Git commit - -amend
+
+Le message de votre commit contient une faute, vous avez oublié un fichier (que celui qui n’a jamais oublié une pièce-jointe dans un mail me jette la première pierre 😆) ? Git commit --amend vous permettra de modifier votre dernier commit et de faire table rase de vos erreurs/oublis.
+
+### Git stash
+
+Vous avez besoin de changer de branche pour travailler sur un nouveau sujet rapidement mais vous avez des modifications en cours ? La commande `git stash` vous permettra de mettre de côté ces modifications temporairement. Pour retrouver vos modifications, vous pourrez exécuter la commande git stash pop, qui réappliquera les modifications mises de côté.
+
+Information utile, vous pouvez mettre de côté des fichiers indéfiniment, mais la commande `git stash pop` ressuscitera toujours le dernier stash effectué, tout en supprimant le stash de la liste de vos stash. Si vous souhaitez ressusciter un stash en conservant une copie du stash, vous pouvez utiliser `git stash apply`. Si vous faites du ménage sur votre dépôt, vous pourrez supprimer vos vieux stash avec `git stash drop <index>`(suppression d’un stash) ou tous d’un coup avec `git stash clear`. Pour voir la liste de vos stash, vous pourrez utiliser la commande `git stash list`.
+
+Pour viser un stash dans une liste, il faut passer par son index (placer l’index entre quotes pour éviter les erreurs de terminal liées aux caractères spéciaux de l’index) : `git stash pop ‘stash@{2}’`.
+
+Si vous ne donnez pas de nom à votre stash il prendra automatiquement le nom `WIP on <branche>`. Pour nommer votre stash, vous pouvez passer l’option `--message “nomdustash“` (ou encore -m) à la commande git stash.
+
+Par expérience, il vaut mieux se limiter à un git stash, sinon il y a un grand risque d’erreur, ou de mélange de morceaux de code qui n’étaient pas destinés à cohabiter.
+
+### Git diff
+
+C’est la commande qui se cache derrière les belles interfaces montrant les différences entre la dernière version du fichier (dernier commit) et la version actuelle de votre fichier.
+
+Comme souvent, ce qu'un IDE fait, une commande dans un terminal peut le faire. Pour afficher les différences entre le HEAD de votre dépôt Git (dernier commit) et son état actuel, vous pouvez utiliser la commande `git diff HEAD`, qui affichera dans le terminal les modifications effectuées sur vos fichiers. Si vos modifications sont déjà indexées, vous devrez ajouter une option à la commande `git diff —cached HEAD`.
+
+Souvent quand on modifie du code, on ajoute ou supprime des espaces, des sauts de ligne également. Pour ignorer ces modifications dans votre différentiel, vous pouvez utiliser la commande `git diff -w`.
+
+### Git reset
+
+Vous avez oublié un fichier dans un commit ? Git peut vous sortir d’affaire. La commande git reset vous permet de déplacer la “tête” (HEAD) de votre dépôt du dernier commit réalisé à un ancien commit :
+
+- `git reset --soft` permet de conserver les modifications de vos fichiers et de les désindexer
+- `git reset —-hard` supprimera vos modifications. À utiliser avec modération.
+
+### Git revert
+
+Votre dernier commit (ou vos derniers commits) contiennent des modifications qui ne vous conviennent plus ? Git revert vous permet de créer un ou plusieurs nouveaux commits effaçant l’effet du ou des précédents, sans modifier l’historique. Vous saisirez alors la commande `git revert <sha commit 1> <sha commit n°2> <sha commit n°3>`. Attention, des conflits peuvent survenir lors d’un revert (git est sympa, il prévient) et il faut alors gérer les conflits afin de retrouver l’état voulu sur votre dépôt.
+
+### Git cherry pick
+
+Ou comment rapatrier un commit d’une branche vers une autre avec la commande `git cherry-pick <commit>`. Git va créer un nouveau commit sur la branche cible avec les modifications du commit que vous venez de récupérer. Il s’agit d’une sorte de transplantation de commit. Dans la "vrai vie", j’ai vu des collègues récupérer des fix réalisés sur la version en prod d’une application pour les réappliquer sur la version suivante en cours de développement.
+
+### Git worktree
+
+C’est la version premium du stash, et le moyen le plus propre de travailler sur 2 branches d’un même projet simultanément. Cette commande va créer une copie de votre dépôt local tel qu’il est à l’instant où vous le créez, dans un autre répertoire sur votre machine. En un `git worktree add ../devendevenirtestworktree` vous venez de créer un nouveau dossier contenant une copie parfaite de votre repository qui pointera sur une nouvelle branche du même nom que votre dossier si vous n’ajoutez pas derrière l’emplacement de votre dossier le nom de la branche que vous souhaitez créer.
+
+Et voilà, vous avez 2 copies de travail branchées au même dépôt et n’avez plus besoin de faire un stash pour passer d’un sujet à l’autre, ou encore besoin de réinstaller des dépendances.
+
+Et vous l’aurez deviné, pour supprimer un worktree il vous suffit d’un git `worktree remove <lenomdevotreworktree>` pour supprimer un worktree désormais inutile. Git vous avertira si le worktree n’est pas “propre” et vous empêchera de le supprimer dans ce cas, à moins d’user de l’option `--force`, avec prudence comme toujours.
+
+## Conclusion
+
+Vous en savez plus sur Git que moi durant mes 2 premières années de développement, et si votre formation n’a pas mis l’accent dessus, je vous recommande de mettre les bouchées doubles à son sujet car c’est un incontournable du développement, et une bonne compréhension de cet outil vous fera gagner beaucoup de temps, et vous permettra aussi de gagner en efficacité !
