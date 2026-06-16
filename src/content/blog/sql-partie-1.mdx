@@ -1,0 +1,113 @@
+---
+title : "SQL partie 1"
+date : Jun 17 2026
+tags :
+    - histoire-et-informatique
+    - langages
+description : "Aussi incontournable que redoutable, tout développeur passe forcément un jour sur du SQL. Revenons sur l'histoire de ce langage, avant de nous intéresser à sa syntaxe."
+banner : "/images/tobias-fischer-PkbZahEG2Ng-unsplash.webp"
+author: "Tobias Fischer"
+authorLink: "https://unsplash.com/fr/@tofi"
+unsplashLink: "https://unsplash.com/fr/photos/photo-of-5-story-library-building-PkbZahEG2Ng"
+
+tableData1 :
+  headers : ["Identifiant", "Nom", "Prénom", "Date de naissance", "Succès"]
+  rows :
+  - [1, "Einstein", "Albert", "14/03/1879", "Théorie de la relativité"]
+  - [2, "Planck", "Max", "23/04/1858", "Mécanique quantique"]
+  - [3, "Heisenberg", "Werner", "05/12/1901", "Principe d'incertitude"]
+  - [4, "Curie", "Marie", "07/11/1867", "Découverte de la radioactivité"]
+tableData2 :  
+  headers : ["Identifiant", "Titre", "Année", "Identifiant scientifique"]
+  rows :
+  - [10, "Die Feldgleichungen der Gravitation", "1905", 1]
+  - [11, "Zur Theorie des Gesetzes der Energieverteilung im Normalspektrum", "1900", 2]
+  - [12, "Über den anschaulichen Inhalt der quantentheoretischen Kinematik und Mechanik", "1927", 3]
+  - [13, "Recherches sur les substances radioactives", "1898", 4]
+---
+import DataTable from "@components/DataTable.astro";
+
+Le SQL est le premier langage informatique auquel j’ai goûté, pas en tant que développeur, mais en tant que technicien support. Pour ce poste, j’ai eu le droit à une formation Oracle de 3 jours, pour travailler ensuite sur… SQL Server 😅. Ces 3 jours m’auront au moins initié aux bases du langage SQL, mais autant vous dire que je n’ai rien gardé du SQL version Oracle ^^.
+
+Mais avant d’aller plus loin, revenons aux débuts de l’histoire du SQL, chez IBM, au début des années 70.
+
+## Les origines du SQL
+
+### Dans les labos d'IBM
+
+Les laboratoires d’IBM ont abrité celui auquel revient le titre d’inventeur du modèle relationnel, Edgar Frank Codd. Il élabora pendant les années 60 sa théorie, et publiera ses travaux en 1970. Comme souvent, la magie d’internet nous permet d’aller consulter [cet article](https://www.seas.upenn.edu/\~zives/03f/cis550/codd.pdf). Son introduction présente la motivation derrière la création du modèle relationnel de données :
+
+*”Les futurs utilisateurs de grandes bases de données doivent être protégés de la nécessité de connaître l'organisation des données au sein du système (leur représentation interne). Un service d'assistance fournissant ces informations n'est pas une solution satisfaisante. L'activité des utilisateurs sur les terminaux et dans la plupart des applications doit rester inchangée lors de modifications de la représentation interne des données, voire même lors de modifications de certains aspects de leur représentation externe.”*
+
+### Du labo à un standard
+
+Une petite dizaine d'années s'écoulera entre cette publication et la première utilisation commerciale du SQL. L’entreprise *Relational Software* (qui deviendra *Oracle Corporation*, oui oui, “le” Oracle) sortira en 1979 la première implémentation disponible du SQL. Il ne faudra que 7 ans pour qu'il fasse son entrée dans la grande famille des standards ISO (en 1986). Le standard a depuis évolué, et a connu plusieurs versions successives, jusqu’à la dernière qui date de 2023.
+
+Après ce rappel autour de l'histoire du SQL, il est temps de s'attarder sur les problèmes que les bases de données cherchent à résoudre.
+
+## À quoi ça sert le SQL ?
+
+Vous connaissez Excel ? Non, ne partez pas tout de suite, c’est une boutade 😅, mais finalement c’est ce qui se rapproche le plus de l’affichage d’une table dans une base de données. Imaginons un tableur Excel contenant le nom des adhérents de Solvay 1924 :
+
+<DataTable data={frontmatter.tableData1} />
+
+Votre association compte les plus éminents scientifiques du 20ème siècle, et vous souhaitez répertorier leurs publications et les associer à leurs scientifiques respectifs (oui, si mes journées duraient 48h j'aurais aussi un blog sur les grands scientifiques de l'histoire 😅). C'est sûrement faisable avec Excel, mais probablement difficile à maintenir dès lors que le volume de données augmente. 
+
+C'est là qu'intervient le SQL. Votre base de données va structurer les données de manière à stocker d'un côté tous les scientifiques et d'un autre côté les publications. Le SQL va vous permettre de lier les articles à leur scientifique, et d'effectuer bien d'autres opérations (calculs, tris, regroupements etc.).
+
+Le SQL possède une syntaxe, des règles, qui permettent de lier les données que vous stockez les unes aux autres. Le SQL va nous permettre d'alimenter et d'interroger une base de données, en utilisant des identifiants, des clés, des tables etc.
+
+## La structure d'une base de données relationnelle
+
+Une base de données relationnelle est construite selon un modèle relationnel, qui modélise les entités de votre base avec des tables et des relations. Cela constitue le schéma relationnel de votre base de données. Avant d'aborder la syntaxe SQL, il est nécessaire de comprendre comment s'organise une base de données.
+
+### Les tables
+
+Une base de données relationnelle est composée de tables, chaque table représentant une entité de votre système. Dans le cas de notre association, on peut imaginer une table dédiée au stockage des scientifiques, une table dédiée aux publications. Chaque élément de votre table scientifique contient des informations précises sur chaque personne qu'elle répertorie (nom, prénom, date de naissance etc.). Chacune de ces informations est contenue dans un champ (on parle aussi de colonne) de votre table.
+
+Chaque ligne de chaque table est un enregistrement. En plus des informations que chaque ligne contient, un enregistrement comporte un champ particulier, un identifiant, unique au sein de la table. Cet identifiant est ce qu'on appelle la clé primaire de la table. Elle sert à identifier sans ambiguïté chaque enregistrement de la table.
+
+La structure de votre table scientifiques sera la même que la structure du fichier Excel présenté plus haut :
+
+<DataTable data={frontmatter.tableData1} />
+
+La structure de votre table publications sera, elle aussi, représentée sous forme d'un tableau : 
+
+<DataTable data={frontmatter.tableData2} />
+
+Le champ `identifiant` de la table publications est l'identifiant propre à chaque publication, tandis que le champ `identifiant scientifique` contient l'identifiant de chaque scientifique (dans la table scientifiques). Le champ `identifiant scientifique` est alors appelé clé étrangère. Celle-ci référence l'identifiant de la table scientifiques. C'est une clé qui définit une relation entre 2 entités de votre base de données.
+
+#### Les relations
+
+Nous parlons depuis le début de base de données relationnelle, sans avoir évoqué les relations elles-mêmes. Les relations sont au cœur de la base de données relationnelle. Elles peuvent être de trois types :
+
+- *Un à un*, ou *one-to-one* en anglais (un scientifique a une biographie). L'exemple est théorique, dans la réalité rien n'empêche un scientifique d'avoir plusieurs biographies.
+- *Un à plusieurs*, ou *one-to-many* en anglais (un scientifique a écrit plusieurs publications, mais chaque publication n'a qu'un scientifique). On peut aussi parler de relation plusieurs à un, mais ce n'est que la réciproque de la relation un à plusieurs.
+- *Plusieurs à plusieurs*, ou *many-to-many* en anglais (on peut imaginer que plusieurs scientifiques ont écrit ensemble plusieurs publications).
+
+Ces relations sont matérialisées par des clés étrangères (*relation un à plusieurs*) ou des tables de jointure (*relation plusieurs à plusieurs*). Les relations *un à un* sont moins courantes et peuvent être matérialisées par des clés étrangères associées à des contraintes d'unicité sur la clé étrangère. En plus des clés primaires et étrangères, il existe d'autres éléments permettant de s'assurer de la cohérence des données : les contraintes.
+
+### Les contraintes
+
+Les contraintes sont des garde-fous permettant d' empêcher l'insertion d'enregistrements aux données incorrectes par rapport au format attendu. Dans notre cas, sur la table des scientifiques, il existe plusieurs contraintes :
+
+- l'identifiant doit être unique et non nul (c'est ce qui définit une clé primaire).
+- le nom, le prénom et la date de naissance doivent être renseignés (et donc non nul).
+- le nom et le prénom doivent avoir une longueur inférieure à 100 caractères.
+
+Pour la table des publications, on a les contraintes suivantes :
+
+- l'identifiant doit être unique et non nul.
+- l'identifiant scientifique ne peut pas être nul (ce qui créerait des publications orphelines).
+- le titre de la publication doit faire moins de 200 caractères.
+- l'année doit être inférieure à l'année en cours (pas valable dans tous les contextes 😅).
+
+Quand une contrainte n'est pas respectée, la base de données refuse d'exécuter l'opération et renvoie une erreur de violation de contrainte. Les contraintes sont définies lors de la création ou de la modification de la structure d'une table.
+
+L'ensemble de ces éléments constitue le schéma relationnel d'une base de données. Il définit les tables, leurs champs, leurs relations et leurs contraintes.
+
+## Conclusion
+
+Après cette entrée en matière assez théorique, nous entrerons dans le vif du sujet dans un prochain article dans lequel nous aborderons la syntaxe du SQL. Si vous avez déjà fait quelques requêtes SQL, vous devriez être à l'aise, mais le langage SQL ne se résume pas à quelques instructions simples.
+
+Nous apprendrons dans un premier temps à créer une base de données, puis à déterminer son schéma relationnel. Ensuite nous créerons ses tables et mettrons en place tous les éléments assurant la cohérence des données (clés primaires, étrangères, contraintes etc.) avant de les peupler avec des données (dans notre cas, des données scientifiques).
