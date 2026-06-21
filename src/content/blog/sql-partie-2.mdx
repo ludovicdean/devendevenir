@@ -1,0 +1,249 @@
+---
+title : "SQL partie 2"
+date : 
+tags :
+    - vie-de-dev
+description : "Après avoir parlé d'histoire du SQL, intéressons-nous à la syntaxe du SQL."
+banner : "/images/ayumi-kubo-OSz9Qty-AUk-unsplash.webp"
+
+author: "ayumi kubo"
+authorLink: "https://unsplash.com/fr/@ayumikubo?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+unsplashLink: "https://unsplash.com/fr/photos/un-couple-de-personnes-qui-marchent-devant-un-immeuble-OSz9Qty-AUk?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+
+tableData1:
+  headers : ["Pays", "Nombre d'auteurs"]
+  rows : 
+  - ["France", 17]
+  - ["Allemagne", 10]
+  - ["Royaume-Uni", 5]
+  - ["États-Unis", 12]
+---
+
+import DataTable from "@components/DataTable.astro";
+
+Nous avons précédemment parlé de la structure d'une base de données relationnelle et présenté le SQL comme un moyen d'interagir avec une base de données relationnelle. Il est temps pour nous de plonger dans la syntaxe SQL afin de comprendre comment manipuler les données d'une base de données.
+
+## Un langage pour les gouverner tous
+
+On distingue 5 catégories de commandes en SQL, qui ont toutes un rôle spécifique :
+
+- langage de définition de données (DDL)
+- langage de contrôle de données (DCL)
+- langage de contrôle de transaction (TCL)
+- langage de manipulation de données (DML)
+- langage de requêtage de données (DQL)
+
+## Le DDL
+
+Le langage de définition de données a pour but de manipuler la structure de la base de données. Ses instructions servent à créer, modifier et supprimer des objets de la base de données. Les commandes correspondantes sont les suivantes :
+
+- `CREATE` : créer un objet
+- `ALTER` : modifier un objet
+- `DROP` : supprimer un objet et sa structure
+- `TRUNCATE` : supprimer toutes les données d'un objet (sans supprimer la structure)
+
+Quand on parle d'objet de base de données, on désigne ici principalement les bases de données elles-mêmes, les tables, mais aussi les vues, les index, les procédures stockées, etc.
+
+Toutes ces commandes ont une syntaxe relativement similaire :
+
+`COMMANDE TYPE_OBJET NOM_OBJET;`
+
+Lorsqu'on crée une table, on peut préciser sa structure en rajoutant les champs de la table entre parenthèses ainsi que les contraintes auxquelles elle doit répondre.
+
+Si on reprend l'exemple évoqué dans le premier article de cette série et qu'on souhaite créer une table auteurs, on peut écrire la requête suivante :
+
+```sql
+-- Création d'une base de données
+CREATE DATABASE scientifiques;
+
+-- Création d'une table
+CREATE TABLE auteurs(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nom VARCHAR(255) NOT NULL,
+    prenom VARCHAR(255) NOT NULL,
+    succes VARCHAR(255) NOT NULL
+);
+```
+
+Cette table `auteurs` est composée de 4 champs : `id`, `nom`, `prenom`, et `succes`. On voit que la table a une clé primaire (`id`) et trois champs de type `VARCHAR(255)` qui sont tous non nullables, c'est à dire qu'ils doivent contenir une valeur. On voit que les champs textes ont une longueur maximale de 255 caractères.
+
+Les modifications sont réalisées à l'aide de la commande `ALTER`, en association avec les mots-clés `ADD`, `MODIFY`, `DROP`.
+
+```sql
+-- Ajout d'un champ
+ALTER TABLE auteurs ADD COLUMN `date_naissance`;
+
+-- Suppression d'un champ
+ALTER TABLE auteurs DROP COLUMN `succes`;
+
+-- Modification du type d'un champ
+ALTER TABLE auteurs MODIFY COLUMN `nom` VARCHAR(100);
+```
+
+La suppression d'un objet de base de données peut se faire de deux manières différentes, avec `DROP` ou `TRUNCATE` :
+
+- `DROP` supprimera la table et toute sa structure.
+- `TRUNCATE` supprimera toutes les données de la table, mais conservera la structure. Autrement dit, `TRUNCATE` se contente de vider la table tandis que `DROP` supprimera tout.
+
+```sql
+-- Suppression d'une table
+DROP TABLE auteurs;
+
+-- Suppression de toutes les données d'une table
+TRUNCATE TABLE auteurs;
+```
+
+Après un `DROP TABLE auteurs`, toute requête jouée sur cette table produira une erreur.
+
+Vous savez maintenant créer une base de données, créer des tables ou les supprimer. Il est temps d'aborder le DCL, le langage de contrôle de données.
+
+Il va vous permettre de gérer les droits d'accès aux données de vos utilisateurs.
+
+## Le DCL
+
+Le DCL, ou langage de contrôle de données, a pour but de gérer les droits d'accès aux données. Qui dit gestion des droits d'accès, dit utilisateurs. Parenthèse utile, pour créer un utilisateur on va, comme montré plus haut, utiliser la commande `CREATE USER`, en spécifiant son nom d'utilisateur et son mot de passe :
+
+```sql
+-- Création d'un utilisateur
+CREATE USER 'nom_utilisateur'@'localhost' IDENTIFIED BY 'mot_de_passe';
+```
+
+Les commandes correspondantes sont les suivantes :
+
+- `GRANT` : accorder des droits.
+- `REVOKE` : retirer des droits.
+- `DENY` : interdire une action.
+
+```sql
+-- Accorder des droits
+GRANT SELECT, UPDATE ON scientifiques.auteurs TO 'nom_utilisateur'@'localhost';
+
+-- Retirer des droits
+REVOKE SELECT, UPDATE ON scientifiques.auteurs TO 'nom_utilisateur'@'localhost';
+
+-- Interdire une action
+DENY SELECT ON scientifiques.auteurs TO 'nom_utilisateur'@'localhost';
+```
+
+## Le TCL
+
+Le TCL, ou langage de contrôle de transaction, a pour but de gérer les transactions. Une transaction est une suite d'opérations exécutée comme une seule et unique opération indivisible. Autrement dit, soit toutes les opérations réussissent, soit toutes les opérations échouent (`ROLLBACK`). Par exemple, lorsqu'un virement bancaire est effectué, le débit du compte émetteur et le crédit du compte récepteur doivent être effectués comme une seule et unique opération. Si le débit est effectué mais pas le crédit, le système doit annuler le débit pour revenir à l'état initial.
+
+Les commandes correspondantes sont les suivantes :
+
+- `COMMIT` : valider la transaction.
+- `ROLLBACK` : annuler la transaction.
+
+```sql
+-- Valider une transaction
+COMMIT;
+
+-- Annuler une transaction
+ROLLBACK;
+```
+
+Une transaction répond à 4 critères, ACID (oui, encore un sigle à ajouter à la long liste des acronymes dans le monde du développement (et oui, je fais de la parenthèse-ception) comme les célèbres DRY, KISS, SOLID etc.) : 
+
+- **Atomicité** : l'ensemble des opérations doit être exécuté comme une seule et unique opération indivisible.
+- **Cohérence** : la transaction doit respecter les contraintes de la base de données.
+- **Isolation** : les transactions doivent être indépendantes les unes des autres.
+- **Durabilité** : les modifications doivent être durables et ne pas être perdues en cas de panne.
+
+Une bonne pratique quand on travaille sur des bases de données est de désactiver l'autocommit. En effet, quand vous modifiez une table dans votre SGBD, les modifications ne sont pas immédiatement répercutées sur la base réelle. Dans un premier temps, elles sont appliquées uniquement sur votre ordinateur. Il faut ensuite valider la modification pour qu'elle soit appliquée à la base de données réelle.
+
+Le rollback a pour but d'annuler toutes les modifications qui ont été effectuées depuis le dernier commit. Par exemple, si vous avez effectué plusieurs modifications sur une table et que vous souhaitez revenir à l'état initial, vous pouvez effectuer un rollback.
+
+## Le DML
+
+Le DML s'intéresse à la manipulation des données, c'est-à-dire à l'ensemble des opérations qui permettent de modifier les données présentes dans une table. Ses commandes sont les suivantes :
+
+- `INSERT` : insérer des données.
+- `UPDATE` : modifier des données.
+- `DELETE` : supprimer des données.
+
+L'INSERT a la syntaxe suivante :
+
+```sql
+INSERT INTO TABLE (colonne1, colonne2, colonne3) VALUES (valeur1, valeur2, valeur3);
+```
+
+Pour l'UPDATE, il faut spécifier les colonnes dont on veut modifier les valeurs ainsi que les nouvelles valeurs : 
+
+```sql
+UPDATE TABLE SET colonne1 = valeur1, colonne2 = valeur2, colonne3 = valeur3 WHERE condition;
+```
+
+Pour le DELETE, il faut spécifier la condition permettant de supprimer les lignes concernées : 
+
+```sql
+DELETE FROM TABLE WHERE condition;
+```
+
+Si vous regardez bien les syntaxes des commandes `UPDATE` et `DELETE`, vous remarquerez que toutes deux utilisent la clause `WHERE`. Cette clause permet de spécifier une condition qui doit être remplie pour que la commande soit exécutée. Autrement dit, sans `WHERE`, la commande s'appliquera à toutes les lignes de la table. La prudence est de mise quand on fait du SQL, surtout en production, car une requête malencontreuse peut facilement supprimer toute une table.
+
+J'ai pu le constater dans mon activité de support informatique. L'un de mes collègues a un jour fait un UPDATE sans WHERE et a fait perdre 2 heures de travail à un service de planification. Pour les cas les plus graves, les entreprises ont (en théorie) des systèmes permettant de faire des backups de base de données à intervalle régulier, afin de pouvoir remonter une base saine en cas de problème.
+
+C'est bien beau de manipuler les données, mais comment faire pour les récupérer ? C'est ce que nous allons voir avec le DQL.
+
+## Le DQL
+
+Le DQL, ou langage de requêtage de données, a pour but de récupérer les données présentes dans une table. Sa commande principale est `SELECT`, que l'on combine avec d'autres mots clés permettant de passer des instructions supplémentaires. Ces mots clés sont :
+
+- `FROM` : spécifie la table dont on veut récupérer les données.
+- `WHERE` : spécifie une condition qui doit être remplie pour que les données soient récupérées.
+- `GROUP BY` : regroupe les données selon une colonne.
+- `HAVING` : spécifie une condition qui doit être remplie pour que les données soient regroupées.
+- `ORDER BY` : trie les données selon une colonne.
+
+La syntaxe de la commande `SELECT` est la suivante :
+
+```sql
+SELECT colonne1, colonne2, colonne3 FROM TABLE WHERE condition GROUP BY colonne1 HAVING condition ORDER BY colonne1;
+```
+
+Si on décompose la requête SQL ci-dessus, on obtient : 
+
+- `SELECT colonne1, colonne2, colonne3` : spécifie les colonnes dont on veut récupérer les données.
+- `FROM TABLE` : spécifie la table dont on veut récupérer les données.
+- `WHERE condition` : spécifie une condition qui doit être remplie pour que les données soient récupérées.
+- `GROUP BY colonne1` : regroupe les données selon une colonne.
+- `HAVING condition` : spécifie une condition qui doit être remplie pour que les données soient regroupées.
+- `ORDER BY colonne1` : trie les données selon une colonne.
+
+Dans notre base de données scientifiques, on pourrait imaginer cette requête :
+
+```sql
+SELECT prenom, nom, date_naissance, date_deces 
+FROM auteurs 
+WHERE date_deces IS NOT NULL 
+ORDER BY date_naissance ASC;
+```
+
+Littéralement, cette requête peut se traduire par : "Sélectionne le prénom, le nom et les dates de naissance et de décès des auteurs dont la date de décès n'est pas nulle et trie les résultats par date de naissance ascendante".
+
+`HAVING` et `GROUP BY` vont de pair, et ont pour rôle d'agréger des données. Dans notre cas, on pourrait regrouper les auteurs par pays d'origine et compter le nombre d'auteurs par pays. On pourrait alors utiliser `HAVING` pour filtrer les pays qui ont plus de 10 auteurs. 
+
+```sql
+SELECT pays, COUNT(*) as nombre_auteurs
+FROM auteurs 
+GROUP BY pays 
+HAVING nombre_auteurs > 10;
+```
+
+Le `WHERE` filtre les lignes avant qu'elles ne soient regroupées, tandis que le `HAVING` filtre les groupes après qu'ils aient été regroupés.
+
+Pour cette requête, on obtiendrait un résultat de ce type :
+
+<DataTable data={frontmatter.tableData1} />
+
+Au-delà des regroupements, les fonctions d'agrégation peuvent être utilisées pour calculer des valeurs statistiques sur les données. Les fonctions d'agrégation les plus courantes sont : 
+
+- `COUNT` : compte le nombre de lignes.
+- `SUM` : calcule la somme des valeurs d'une colonne.
+- `AVG` : calcule la moyenne des valeurs d'une colonne.
+- `MIN` : renvoie la valeur minimale d'une colonne.
+- `MAX` : renvoie la valeur maximale d'une colonne.
+
+## Conclusion
+
+Le DQL recèle un grand nombre d'instructions, que je ne détaillerai pas ici, car un catalogue complet des instructions SQL dépasserait le cadre de cet article. Je poursuivrai dans un prochain article mon tour d'horizon du SQL, avec de nouvelles fonctionnalités, qui nous sont très utiles au quotidien, notamment quand on recherche des données en lien avec plusieurs objets de base de données différents.

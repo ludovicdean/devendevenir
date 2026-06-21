@@ -1,0 +1,101 @@
+---
+title : "L'entretien technique - partie 2"
+date: Jun 12 2026
+tags :
+    - vie-de-dev
+description : "Et toi, on t'a posé quoi comme questions pendant ton entretien ?"
+banner : "/images/mina-rad-qFSQFSmfZkA-unsplash.webp"
+author: "Mina Rad"
+authorLink: "https://unsplash.com/fr/@miinrad?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+unsplashLink: "https://unsplash.com/fr/photos/un-homme-et-une-femme-se-serrant-la-main-devant-un-ordinateur-portable-qFSQFSmfZkA?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+---
+
+Vous êtes prêt pour votre entretien technique ? Non ? C'est pas grave, on va se poser, respirer et essayer d'imaginer les questions qu'on pourrait vous poser. Vous êtes développeur, vous avez des connaissances, il vous faut simplement revenir sur les principaux sujets liés à la technologie sur laquelle est centré le poste auquel vous postulez.
+
+Quand je dis revenir, c'est revoir les rudiments les bases du développement (pour un profil avec quelques années d'expérience comme le mien, un entretien technique peut être bien plus complexe pour des profils plus expérimentés, on en reparlera un peu plus loin).
+
+J'aborderai principalement l'entretien technique sous sa forme d'échange verbal, sans test de code direct.
+
+## Les bases
+
+### L'injection de dépendances
+
+Question qui m'a piégé en début de carrière, c'est **"Quel principe utilisent généralement les frameworks ?"**. La réponse attendue est l'injection de dépendances. Je me souviens d'un entretien au cours duquel j'ai tourné autour du terme pendant 10 minutes malgré l'aide de mon interlocutrice pour le retrouver. L'idée générale, c'est que ce n'est pas à vous de vous charger de l'instanciation de vos classes, mais que cette responsabilité revient au framework avec lequel vous travaillez.
+
+### Git
+
+Git est également un sujet qui revient régulièrement dans les entretiens techniques. Si je n'ai pas été confronté à des questions du type **"C'est quoi un commit ?"**, j'ai été confronté à une question précise, et dont la réponse nécessite un certain niveau de détail. On m'a demandé **"Quelle est la différence entre un rebase et un merge ?"**. Dans les grandes lignes, la différence est que le merge va créer un nouveau commit indiquant la fusion, tandis que le rebase réécrit l'historique en collant l'historique de la branche mergée sur la branche principale comme si tout avait été fait directement sur cette branche.
+
+### ORM
+
+On les utilise souvent en back, bien qu'il existe des alternatives parfois meilleures pour des questions de performance, je parle des outils qui font le lien entre votre code et votre base de données, les ORMs. La question que l'on m'a posé est simple, **"Qu'est-ce qu'un ORM ?"**. La réponse à cette question est qu'un Object Relational Mapping est un outil qui permet d'assurer la transformation des objets qu'on manipule dans notre code en données compatibles avec la structure de notre base de données, et réciproquement.
+
+### Le SQL
+
+Tout le monde passe par la case SQL à un moment dans sa carrière de développeur, et il est essentiel d'en maîtriser les bases. Ce n'est pas tellement la syntaxe en elle-même qui est évaluée, mais plutôt comment vous allez répondre à une problématique donnée en terme de SQL. Dans mon cas, on m'a posé la question **"Comment optimiser une requête SQL ?"**.
+
+Ma réponse ne sera pas exhaustive, mais vous pourrez parler de la création d'index sur vos tables, en n'oubliant pas de mentionner que l'ajout d'index en trop grand nombre peut avoir un impact négatif sur les performances en écriture des bases de données. Par ailleurs, on peut également créer des vues, recalculées lors de l'insertion ou de la mise à jour de vos données. En dernier recours on peut également déporter les aggrégations de données dans les vues, ce qui optimisera nettement la récupération de données.
+
+### REST
+
+**"C'est quoi une API REST ?"**. C'est une interface de programmation d'application qui a pour caractéristique d'être stateless, c'est à dire que toutes les requêtes qu'elle reçoit portent toutes les informations nécessaires à leur traitement. Les requêtes et leur réponse sont indépendantes les unes des autres..
+
+### C'est quoi une SPA ?
+
+On parle ici de Single Page Application, une application dont le contenu est chargé dynamiquement au fil de la navigation de l'utilisateur, sans rechargement complet de la page.
+
+Il faut garder à l'esprit que les personnes qui vous évaluent seront amenées à travailler avec vous, elles seront donc amenées à vous poser des questions de méthodologie.
+
+## La méthodologie de travail
+
+Votre manière de travailler est un sujet en soi au cours d'un entretien technique. On pourra vous interroger sur votre manière de coder, les bonnes pratiques que vous suivez, ou encore votre manière de prendre en charge un problème suite à une MEP. Il faut alors montrer que vous savez prendre du recul, adopter une démarche logique, afin de corriger le problème de manière solide, sans autre impact sur l'existant.
+
+Comprendre votre manière de travailler permettra à vos interlocuteurs de se projeter dans ce que pourrait être le quotidien avec vous au travail.
+
+### Toi et l'Agilité, comment ça se passe ?
+
+L'une des questions relative à la méthodologie de travail m'a particulièrement surpris au cours de mes entretiens techniques : **"Tu en penses quoi de l'Agilité ?"**.
+
+Pour le coup j'ai eu besoin d'un petit temps de réflexion pour formuler ma réponse, qui demandait de prendre du recul sur ma pratique de l'Agilité et les autres méthodes que j'avais pu rencontrer (Agile, Kanban, YOLO, etc.). Finalement, j'ai expliqué que d'après mon expérience l'Agilité n'était pas applicable et souhaitable dans tous les contextes. Ma propre expérience m'a montré que mal appliquée, elle pouvait constituer un frein à la productivité, n'en déplaise aux Scrum Masters. Autrement dit, c'est un cadre de travail aux avantages indéniables mais qui ne convient pas à tous les environnements.
+
+### Comment gères-tu ton temps ?
+
+On pourra également vous demander comment votre temps de travail sur un sujet se répartit. À mon sens, il faut partir du principe que le métier de développeur n'est pas uniquement d'écrire du code. Il faut montrer que vous ne partez pas bille en tête (oui, expression de vieux, mais bon, ça fait indéniablement partie de moi ^^), et que votre démarche est construite. Dans mon cas, j'ai répondu que mon temps se répartissait comme suit :
+
+- 20~30% de conception,
+- 50% de développement,
+- 20~30% de tests.
+
+Evidemment, la répartition indiquée ici m'est propre, et est purement indicative. Plein de paramètres extérieurs peuvent venir perturber cette répartition de votre temps, mais il faut bien garder à l'esprit que le code que l'on fournit a besoin d'être :
+
+- réfléchi, rationalisé
+- propre, maintenable
+- testé
+
+On pourra également vous gérez les MEPs, les déploiements en production.
+
+### Comment gères-tu une MEP qui se passe mal ?
+
+Spoiler alert, non, la bonne réponse n'est pas **"Je me roule en boule sous mon bureau en espérant que le problème se résolve tout seul."**. Ce n'est pas non plus **"Dans le doute, reboot."**, ça ne fait pas disparaître les problèmes non plus 😅.
+
+Une manière de gérer ce type d'imprévu peut être, une fois le bug constaté, la remise en ligne de la version précédente (autrement dit, effectuer un rollback), puis récupérer le code en local, lancer votre projet, débugger, résoudre le bug en local, pousser votre branche, déployer le nouveau code sur un environnement de test, vous assurez que le bug est bien résolu, puis le redéployer en production.
+
+Il est indispensable, dans l'éventualité d'une MEP qui se passe mal, de faire un backup de votre base de données avant votre MEP. Je ne vous souhaite pas de vous retrouver dans ce type de situation, où vous souhaiterez juste disparaître...
+
+### Comment produis-tu du code de qualité ?
+
+La qualité du code est une préoccupation permanente quand on développe, et il est nécessaire de mettre en place des bonnes pratiques afin de s'assurer de la qualité du code que l'on produit.
+
+Vous pourrez parler de limiter la duplication de code, en mentionnant également que cela ne doit pas se faire à tout prix, mais doit rester pragmatique. On peut également parler de nommage, d'encapsulation, de séparation des responsabilités. Je ne vous ferai pas la liste des principes type DRY, SOLID, KISS etc., qui donnent des lignes de conduite utiles, mais qui seront à réévaluer en fonction du contexte.
+
+Parmi les moyens de s'assurer de la qualité de votre code, il faut également parler des tests, qu'ils soient unitaires ou fonctionnels, ils font partie des outils qui vous assurent de fournir un code de bonne qualité et de l'absence de régression liéé à votre code.
+
+Il existe également des moyens externes, comme la pratique de la revue de code par vos pairs. Dans vos premières expériences, un accompagnement poussé par un développeur expérimenté vous permettra de vous imprégner de bonnes pratiques et de fournir un code de meilleure qualité.
+
+### Comment gères-tu les régressions ?
+
+On peut parler de mise en place de tests unitaires, qui permettent de s'assurer que le code que l'on ajoute à un projet ne modifie pas le comportement du code déjà existant. On peut également évoquer la réalisation de tests end-to-end afin de vérifier que le fonctionnement de l'application est normal du point de vue utilisateur.
+
+## Conclusion
+
+Ne vous interdisez pas de stresser avant un entretien technique, c'est légitime. Le plus important est de vous préparer avec application, pourquoi pas en demandant à une IA de vous suggérer une liste de 20 questions plausibles pour un entretien technique pour un développeur avec X années d'expérience concernant un poste en langage X et framework Y.
