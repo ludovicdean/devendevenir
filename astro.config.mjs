@@ -5,6 +5,7 @@ import tailwind from "@astrojs/tailwind";
 import icon from "astro-icon";
 import pagefind from "astro-pagefind";
 import expressiveCode from 'astro-expressive-code';
+import mermaid from 'astro-mermaid';
 
 const astroBase = process.env.ASTRO_BASE || '/devendevenir';
 
@@ -23,6 +24,10 @@ export default defineConfig({
   base: astroBase,
   middleware: ['./src/middleware.js'],
   integrations: [
+    mermaid({
+      theme: 'neutral',
+      autoTheme: true
+    }),
     expressiveCode({
       plugins: [pagefindIgnorePlugin]
     }),
