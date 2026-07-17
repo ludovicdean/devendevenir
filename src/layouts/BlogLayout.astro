@@ -5,6 +5,7 @@ import BaseLayout from "./BaseLayout.astro";
 import RelatedArticles from "@components/RelatedArticles.astro";
 import CallToAction from "@components/CallToAction.astro";
 import TableOfContents from "@components/TableOfContents.astro";
+import SeriesNav from "@components/SeriesNav.astro";
 
 type Props = {
   post: CollectionEntry<"blog">["data"];
@@ -58,11 +59,19 @@ const base = import.meta.env.BASE_URL;
         <hr />
       </div>
 
+      {post.series && (
+        <SeriesNav seriesName={post.series.name} currentPart={post.series.part} />
+      )}
+
       <slot />
+
+      {post.series && (
+        <SeriesNav seriesName={post.series.name} currentPart={post.series.part} />
+      )}
 
       <CallToAction />
 
-      <RelatedArticles tags={post.tags} title={post.title} />
+      {!post.series && <RelatedArticles tags={post.tags} title={post.title} />}
     </article>
   </article>
 </BaseLayout>

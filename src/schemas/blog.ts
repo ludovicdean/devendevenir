@@ -15,4 +15,8 @@ export const BlogFrontmatterSchema = z.object({
     tableData1: tableDataSchema.optional(),
     tableData2: tableDataSchema.optional(),
     tableData3: tableDataSchema.optional(),
+    series: z.object({
+        name: z.string(),
+        part: z.number().int(),
+    }).optional(),
 });

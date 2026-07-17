@@ -38,3 +38,10 @@ export async function getSimilarPosts(tags: string[], currentTitle: string) {
 
     return similarPosts;
 }
+
+export async function getSeriesPosts(seriesName: string) {
+    const posts = await getPosts();
+    return posts
+        .filter((p) => p.data.series?.name === seriesName)
+        .sort((a, b) => a.data.series!.part - b.data.series!.part);
+}
