@@ -1,0 +1,164 @@
+---
+title : Git, partie 3
+date : 
+tags :
+    - outils
+series:
+    name: "Git"
+    part: 3
+description : "Git est un incontournable du développement, découvrez comment l'utiliser."
+banner : "/images/yancy-min-842ofHC6MaI-unsplash.webp"
+
+author: "Yancy Min"
+authorLink: "https://unsplash.com/fr/@yancymin?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+unsplashLink: "https://unsplash.com/fr/photos/gros-plan-dune-description-textuelle-sur-un-ecran-dordinateur-842ofHC6MaI?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+---
+
+On utilise souvent Git “tel quel”, sans vraiment s’intéresser à sa configuration. Pourtant, quelques ajustements suffisent à améliorer significativement le confort d’utilisation.
+
+Dans cet article, je vous montre les configurations essentielles, ainsi que quelques optimisations simples pour gagner du temps au quotidien.
+
+## La configuration
+
+Quand on arrive sur un nouvel ordinateur et qu'on est développeur, l'une des premières installations qu'on réalise est celle de Git. Puis, on configure notre identité Git.
+
+```bash
+git config --global user.name "<nom>"
+git config --global user.email "<email>"
+```
+
+Git utilise plusieurs niveaux de configuration :
+* --system : configuration du système (la machine)
+* --global : configuration de l'utilisateur
+* --local : configuration locale du dépôt
+
+En général, vous utiliserez les deux derniers.
+
+### Créez automatiquement vos branches distantes
+
+Avez-vous déjà créé une branche locale, travaillé dessus et tenté de faire un push sur cette branche avec vos modifications ? Si je ne me trompe pas, vous avez déjà rencontré le message d'erreur suivant :
+
+```bash
+PS ~\devendevenir> git push
+fatal: The current branch feat/series_articles has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin feat/series_articles
+
+To have this happen automatically for branches without a tracking
+upstream, see 'push.autoSetupRemote' in 'git help config'.
+```
+
+Git ne sait pas où envoyer vos modifications, car votre branche locale n’a pas encore de branche distante associée. Vous pouvez bien sûr utiliser `git push --set-upstream origin feat/series_articles`.
+
+C'est une solution temporaire, qui sera appliquée uniquement sur la branche en cours. La solution pérenne consiste à mettre en place une configuration qui créera automatiquement la branche distante correspondant à votre branche locale lors du premier push :
+
+```bash
+git config --global push.autoSetupRemote true
+```
+
+Vous avez fait le premier pas vers une utilisation plus confortable de Git, mais il vous reste bien des choses à découvrir.
+
+## Sortir de Vim
+
+Un commit vous a envoyé dans Vim, et vous avez transpiré à grosses gouttes pour en sortir ? Git vous autorise à choisir votre éditeur de texte favori. Par exemple, si vous êtes adeptes de VS Code, la commande est la suivante :
+
+```bash
+git config --global core.editor "code --wait"
+```
+
+Bien joué, maintenant c'est VS Code qui s'ouvrira pour éditer vos messages de commit. La commande est à adapter selon votre éditeur. L'option `--wait` force VS Code à attendre que vous ayez terminé d'éditer votre message de commit avant de se fermer.
+
+## Gagnez du temps dans vos commandes
+
+Vous utilisez toujours les mêmes commandes Git et vous vous lassez de devoir les retaper ? Créez vos propres alias !
+
+Un alias de commande est un raccourci pour une commande Git. On les définit dans le fichier `.gitconfig`. Par exemple, si vous voulez créer un alias pour la commande git status, vous pouvez jouer la commande suivante :
+
+```bash
+git config --global alias.st "status"
+```
+
+Maintenant, au lieu de taper `git status`, vous pouvez taper `git st`. C'est un gain de temps appréciable, surtout si vous avez l'habitude de taper cette commande souvent. Si vous utilisez souvent `git switch -c` (il y a des chances que oui vu votre métier 🤣), vous pouvez créer l’alias suivant :
+
+```bash
+git config --global alias.sc "switch -c"
+```
+
+## Un template pour vos messages de commit
+
+Vous souhaitez avoir un historique Git propre, avec des commits nommés selon certaines conventions ? Git vous permet de créer un modèle de message de commit, qui sera affiché par votre éditeur à chaque commit.
+
+Créez un fichier dans le répertoire qui contient vos projets de dev, par exemple, .gitmessage.txt, et ajoutez le contenu suivant :
+
+```
+Type de commit : <type>
+
+[Type] Sujet de votre commit
+
+[Description de votre commit]
+```
+
+Ensuite, lancez la commande suivante :
+
+```bash
+git config --global commit.template "<chemin_vers_votre_fichier>/gitmessage.txt"
+```
+
+Il ne vous reste plus qu'à compléter le message de commit !
+
+## Marre des rebases infernaux
+
+Un rebase effectué entre deux branches qui ont divergé depuis un long moment peut être fastidieux, et il n'est pas rare de devoir résoudre des conflits en boucle (on résout le conflit pour chaque commit de différence entre les 2 branches).
+
+Là encore, Git a une solution, le rerere (reuse recorded resolution). Ce paramètre de configuration de Git a pour but de vous simplifier la vie, en sauvegardant vos résolutions de conflits passées pour vous les réappliquer automatiquement lors de futurs rebases.
+
+La solution ? Activer rerere dans votre configuration:
+
+```bash
+git config --global rerere.enabled true
+```
+
+Vous êtes toujours là ? Cet article n'est pas encore terminé, il vous reste quelques astuces à découvrir avant de repartir dûment armé pour travailler avec Git.
+
+## Gérer plusieurs comptes Git
+
+J'ai été confronté à ce besoin à plusieurs reprises : devoir gérer plusieurs comptes. Par exemple, vous pouvez avoir un compte professionnel et un compte personnel sur un même ordinateur. Pour que Git comprenne que vous avez plusieurs comptes, il faut se plonger dans les arcanes de sa configuration.
+
+### Utilisez les options
+
+Peut-être avez-vous remarqué plus haut dans cet article une option `--global` au détour d'une commande Git ? Si vous ne l'avez pas remarqué ce n'est pas bien grave, car nous allons expliciter son sens. Quand on réalise les commandes `git config --global user.name "<name>"` et `git config --global user.email "<email>"`, on dit à Git que cette configuration est valable pour tous les projets de l'utilisateur. À l'opposé, on peut simplement omettre l'option `--global` (ou remplacer par l'option `--local`), et la configuration ne s'appliquera que sur le projet dans lequel vous vous trouvez lorsque vous effectuez la commande.
+
+### Utilisez l'arborescence
+
+Je ne suis pas très ordonné de manière générale, mais sur mon PC je n'ai jamais mélangé projets pros et persos. Git vous permet de vous appuyer sur votre arborescence de fichiers pour gérer vos configurations.
+
+Avec `includeIf`, Git peut charger une configuration différente selon le dossier du dépôt, ce qui est pratique pour séparer projets personnels et professionnels.
+
+```ini
+[user]
+    name = John Doe
+    email = email_pro@exemple.com
+[includeIf "gitdir:/chemin/absolu/de/votre/dossier/"]
+    path = /chemin/absolu/de/votre/fichier.gitconfig-perso
+```
+
+```ini
+[user]
+    name = John Doe
+    email = email_perso@exemple.com
+```
+
+Une fois les fichiers modifiés et créés, vous pouvez vous assurer de la bonne prise en compte des modifications avec la commande suivante :
+
+```bash
+git config --list --show-origin
+```
+
+L'option `--show-origin` permet de voir de quel fichier vient la configuration affichée.
+
+## Conclusion
+
+Vous voici armé pour travailler avec Git de manière confortable, avec vos propres configurations. Dans mon cas, la prochaine étape sera de créer un script bash me permettant de mettre en place mes configurations Git automatiquement sur n'importe quelle machine.
+
+Tout en écrivant cet article je réalise qu'il y a encore bien des choses à vous présenter sur Git, alors qui sait, un quatrième article verra-t-il le jour ?
