@@ -29,7 +29,10 @@ export default defineConfig({
       autoTheme: true
     }),
     expressiveCode({
-      plugins: [pagefindIgnorePlugin]
+      plugins: [pagefindIgnorePlugin],
+      themes: ['github-dark', 'github-light'],
+      useDarkModeMediaQuery: false,
+      themeCssSelector: (theme) => `html.${theme.type === 'dark' ? 'dark' : 'light'}`,
     }),
     mdx(),
     sitemap(),
