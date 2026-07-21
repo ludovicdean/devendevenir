@@ -59,15 +59,25 @@ const base = import.meta.env.BASE_URL;
         <hr />
       </div>
 
-      {post.series && (
-        <SeriesNav seriesName={post.series.name} currentPart={post.series.part} />
-      )}
+      {
+        post.series && (
+          <SeriesNav
+            seriesName={post.series.name}
+            currentPart={post.series.part}
+          />
+        )
+      }
 
       <slot />
 
-      {post.series && (
-        <SeriesNav seriesName={post.series.name} currentPart={post.series.part} />
-      )}
+      {
+        post.series && (
+          <SeriesNav
+            seriesName={post.series.name}
+            currentPart={post.series.part}
+          />
+        )
+      }
 
       <CallToAction />
 
