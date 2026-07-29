@@ -5,7 +5,10 @@ import { tagSchema } from 'src/schemas/tag';
 
 const blog = defineCollection({
 	loader: glob({ pattern: "**/*.(md|mdx)", base: "./src/content/blog" }),
-	schema: BlogFrontmatterSchema,
+	schema: ({ image }) =>
+		BlogFrontmatterSchema.extend({
+			banner: image(),
+		}),
 });
 
 const tags = defineCollection({
