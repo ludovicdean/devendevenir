@@ -10,7 +10,7 @@
 	--brand-hover: #f59e0b;
 
 	/* Surfaces & text (light) */
-	--color-bg: #f4f3f0;
+	--color-bg: #ffffff;
 	--color-bg-elevated: #ffffff;
 	--color-text: #1f2937;
 	--color-text-muted: #60739f;
@@ -28,7 +28,6 @@
 	--gray-light: 229, 231, 235;
 	--gray: #60739f;
 
-	--gray-gradient: 180deg, #f4f3f0 0%, #e8e6e1 100%;
 	--chrome-from: #262626;
 	--chrome-to: #737373;
 }
@@ -50,7 +49,6 @@ html.dark {
 	--gray-light: 63, 63, 70;
 	--gray: #a3a3a3;
 
-	--gray-gradient: 180deg, oklch(26.9% 0 0) 0%, oklch(22% 0 0) 100%;
 	--chrome-from: #171717;
 	--chrome-to: #404040;
 }
@@ -66,9 +64,7 @@ body {
 	padding: 0;
 	text-align: left;
 	background-color: var(--color-bg);
-	background-image: linear-gradient(var(--gray-gradient));
-	background-repeat: no-repeat;
-	background-size: 100% 600px;
+	background-image: none;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	color: var(--color-text);

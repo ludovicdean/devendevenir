@@ -5,10 +5,10 @@ import { getUrl } from "src/utils/blogUtils";
 const { post, "data-test-id": dataTestId } = Astro.props;
 ---
 
-<li class="relative w-full md:w-[calc(100%-0.5rem)] list-none py-4">
+<article class="relative w-full list-none py-4">
     <a
         href={getUrl(post)}
-        class="no-underline"
+        class="no-underline block"
         target={post.data.url ? "_blank" : "_self"}
         rel={post.data.url ? "noreferrer" : undefined}
         data-test-id={dataTestId}
@@ -30,4 +30,4 @@ const { post, "data-test-id": dataTestId } = Astro.props;
             </p>
         </div>
     </a>
-</li>
+</article>
