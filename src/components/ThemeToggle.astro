@@ -67,7 +67,7 @@ const { iconSize = "size-6" } = Astro.props;
     .moon-icon {
         position: absolute;
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        color: #fbbf24;
+        color: var(--brand);
     }
 
     .sun-icon {
@@ -88,7 +88,7 @@ const { iconSize = "size-6" } = Astro.props;
     :global(html.dark) .moon-icon {
         opacity: 1;
         transform: rotate(0deg) scale(1);
-        color: #fbbf24;
+        color: var(--brand);
     }
 
     @keyframes themeSwitch {
@@ -128,12 +128,16 @@ const { iconSize = "size-6" } = Astro.props;
     const themeToggles = document.querySelectorAll(".theme-toggle-btn");
     const htmlElement = document.documentElement;
 
+    const applyTheme = (theme) => {
+        const isDark = theme === "dark";
+        htmlElement.classList.toggle("dark", isDark);
+        htmlElement.classList.toggle("light", !isDark);
+    };
+
     const getTheme = () => {
-        if (
-            typeof localStorage !== "undefined" &&
-            localStorage.getItem("theme")
-        ) {
-            return localStorage.getItem("theme");
+        const stored = localStorage.getItem("theme");
+        if (stored === "dark" || stored === "light") {
+            return stored;
         }
         if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
             return "dark";
@@ -141,25 +145,15 @@ const { iconSize = "size-6" } = Astro.props;
         return "light";
     };
 
-    const theme = getTheme();
-    if (theme === "dark") {
-        htmlElement.classList.add("dark");
-    } else {
-        htmlElement.classList.remove("dark");
-    }
+    // Re-apply in case this script runs after navigation; FOUC script already set classes
+    applyTheme(getTheme());
 
     themeToggles.forEach((btn) => {
         btn.addEventListener("click", () => {
-            const isDark = htmlElement.classList.contains("dark");
+            const next = htmlElement.classList.contains("dark") ? "light" : "dark";
             themeToggles.forEach((t) => t.classList.add("switching"));
-
-            if (isDark) {
-                htmlElement.classList.remove("dark");
-                localStorage.setItem("theme", "light");
-            } else {
-                htmlElement.classList.add("dark");
-                localStorage.setItem("theme", "dark");
-            }
+            applyTheme(next);
+            localStorage.setItem("theme", next);
 
             setTimeout(() => {
                 themeToggles.forEach((t) => t.classList.remove("switching"));
@@ -171,11 +165,7 @@ const { iconSize = "size-6" } = Astro.props;
         .matchMedia("(prefers-color-scheme: dark)")
         .addEventListener("change", (e) => {
             if (!localStorage.getItem("theme")) {
-                if (e.matches) {
-                    htmlElement.classList.add("dark");
-                } else {
-                    htmlElement.classList.remove("dark");
-                }
+                applyTheme(e.matches ? "dark" : "light");
             }
         });
 </script>

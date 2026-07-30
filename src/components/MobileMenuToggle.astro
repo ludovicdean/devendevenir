@@ -10,7 +10,7 @@ const { controls = "mobileMenu", expanded = false } = Astro.props;
 <button
     id="menuToggle"
     type="button"
-    class="z-50 inline-flex h-11 w-11 items-center justify-center rounded-lg p-2 text-white transition hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 md:hidden"
+    class="z-50 inline-flex h-11 w-11 items-center justify-center rounded-lg p-2 text-[var(--brand)] transition hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/70 md:hidden"
     aria-controls={controls}
     aria-expanded={expanded ? "true" : "false"}
     aria-label={expanded ? "Fermer le menu" : "Ouvrir le menu"}

@@ -22,13 +22,54 @@ const { title, description, image } = Astro.props;
 <link rel="icon" type="image/png" sizes="16x16" href={favicon16} />
 <meta name="generator" content={Astro.generator} />
 
+{/* Apply theme before paint to avoid FOUC; also set .light for expressive-code */}
+<script is:inline>
+  (function () {
+    const stored = typeof localStorage !== "undefined" && localStorage.getItem("theme");
+    const theme =
+      stored === "dark" || stored === "light"
+        ? stored
+        : window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    document.documentElement.classList.toggle("light", theme === "light");
+  })();
+</script>
+
+<Fragment
+  set:html={`<style>
+  @font-face {
+    font-family: "Atkinson";
+    src: url("${atkinsonregular}") format("woff");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Atkinson";
+    src: url("${atkinsonbold}") format("woff");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+</style>`}
+/>
+
 <link
+  rel="preload"
   href={atkinsonregular}
   as="font"
   type="font/woff"
   crossorigin="anonymous"
 />
-<link href={atkinsonbold} as="font" type="font/woff" crossorigin="anonymous" />
+<link
+  rel="preload"
+  href={atkinsonbold}
+  as="font"
+  type="font/woff"
+  crossorigin="anonymous"
+/>
 
 <link rel="canonical" href={canonicalURL} />
 
@@ -40,6 +81,7 @@ const { title, description, image } = Astro.props;
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
+{image && <meta property="og:image" content={image} />}
 
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={Astro.url} />
