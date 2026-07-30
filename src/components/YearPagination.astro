@@ -1,0 +1,63 @@
+---
+import { getYearUrl } from "src/utils/blogUtils";
+
+type Props = {
+    currentYear: number;
+    years: number[];
+};
+
+const { currentYear, years } = Astro.props;
+const latestYear = years[0];
+const index = years.indexOf(currentYear);
+const newerYear = index > 0 ? years[index - 1] : null;
+const olderYear = index >= 0 && index < years.length - 1 ? years[index + 1] : null;
+const showNav = years.length > 1 && index >= 0;
+---
+
+{
+    showNav && (
+        <nav
+            class="mt-12 mb-4 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--color-border)] pt-8"
+            aria-label="Pagination par année"
+            data-testid="year-pagination"
+        >
+            {newerYear !== null ? (
+                <a
+                    href={getYearUrl(newerYear, latestYear)}
+                    class="inline-flex items-center gap-2 no-underline text-[var(--accent)] hover:text-[var(--accent-hover)] font-semibold"
+                    data-testid="year-newer"
+                >
+                    <span aria-hidden="true">←</span>
+                    <span>{newerYear}</span>
+                </a>
+            ) : (
+                <span class="invisible select-none" aria-hidden="true">
+                    ←
+                </span>
+            )}
+
+            <p
+                class="m-0 text-center text-lg font-bold text-[var(--color-heading)]"
+                aria-current="page"
+                data-testid="year-current"
+            >
+                {currentYear}
+            </p>
+
+            {olderYear !== null ? (
+                <a
+                    href={getYearUrl(olderYear, latestYear)}
+                    class="inline-flex items-center gap-2 no-underline text-[var(--accent)] hover:text-[var(--accent-hover)] font-semibold"
+                    data-testid="year-older"
+                >
+                    <span>{olderYear}</span>
+                    <span aria-hidden="true">→</span>
+                </a>
+            ) : (
+                <span class="invisible select-none" aria-hidden="true">
+                    →
+                </span>
+            )}
+        </nav>
+    )
+}

@@ -1,0 +1,35 @@
+---
+import BaseLayout from "src/layouts/BaseLayout.astro";
+import PostsList from "@components/PostsList.astro";
+import YearPagination from "@components/YearPagination.astro";
+import {
+  getPostsByYear,
+  getPostYears,
+} from "src/utils/blogUtils";
+
+export async function getStaticPaths() {
+  const years = await getPostYears();
+  const latestYear = years[0];
+
+  // Latest year lives on the homepage; only older years get archive pages.
+  return years
+    .filter((year) => year !== latestYear)
+    .map((year) => ({
+      params: { year: String(year) },
+      props: { year, years },
+    }));
+}
+
+const { year, years } = Astro.props;
+const posts = await getPostsByYear(year);
+---
+
+<BaseLayout
+  title={`Articles ${year}`}
+  description={`Articles publiés en ${year} sur Dev En Devenir`}
+>
+  <h1 class="mb-4 py-4 text-center leading-none">{year}</h1>
+  <hr />
+  <PostsList posts={posts} />
+  <YearPagination currentYear={year} years={years} />
+</BaseLayout>

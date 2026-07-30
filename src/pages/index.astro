@@ -3,31 +3,17 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import TagsList from "@components/TagsList.astro";
 import LargeCard from "@components/LargeCard.astro";
 import PostsList from "@components/PostsList.astro";
-import { getPosts } from "src/utils/blogUtils";
+import YearPagination from "@components/YearPagination.astro";
+import { getPostsByYear, getPostYears } from "src/utils/blogUtils";
 import { getTagsCount } from "src/utils/tagUtils";
 import BaseLayout from "src/layouts/BaseLayout.astro";
 
-const posts = await getPosts();
+const years = await getPostYears();
+const latestYear = years[0];
+const yearPosts = latestYear !== undefined ? await getPostsByYear(latestYear) : [];
 
-const latestPost = posts[0];
-
-const postsWithoutLatest = posts.slice(1);
-
-const postYears = new Map();
-
-postsWithoutLatest.forEach((post) => {
-  if (post.data.date !== undefined) {
-    const year = post.data.date
-      ? new Date(post.data.date).getFullYear()
-      : new Date().getFullYear();
-    if (!postYears.has(year)) {
-      postYears.set(year, []);
-    }
-    postYears.get(year).push(post);
-  }
-});
-
-const currentYear = new Date().getFullYear();
+const latestPost = yearPosts[0];
+const remainingPosts = yearPosts.slice(1);
 
 const tagsCount = await getTagsCount();
 ---
@@ -53,18 +39,11 @@ const tagsCount = await getTagsCount();
     <TagsList tags={tagsCount} />
   </section>
   <section>
-    <LargeCard post={latestPost} data-test-id="post-0" />
+    {latestPost && <LargeCard post={latestPost} data-test-id="post-0" />}
+    {remainingPosts.length > 0 && <PostsList posts={remainingPosts} />}
     {
-      Array.from(postYears.entries()).map(
-        ([year, articles]) =>
-          articles.length > 0 && (
-            <section>
-              {year !== currentYear && (
-                <h2 class="flex justify-center">{year}</h2>
-              )}
-              <PostsList posts={articles} />
-            </section>
-          ),
+      latestYear !== undefined && (
+        <YearPagination currentYear={latestYear} years={years} />
       )
     }
   </section>

@@ -3,7 +3,7 @@ import SmallCard from "./SmallCard.astro";
 const { posts } = Astro.props;
 ---
 
-<ul class="flex flex-wrap gap-3">
+<ul class="m-0 flex list-none flex-wrap gap-3 p-0">
     {
         posts.map((post, index) => (
             <SmallCard post={post} data-testid={`post-${index + 1}`} />

@@ -5,7 +5,7 @@ import { getUrl } from "src/utils/blogUtils";
 const { post, dataTestId, ...props } = Astro.props;
 ---
 
-<li {...props} class="relative w-full md:w-[calc(33%-0.5rem)] h-64 list-none">
+<li {...props} class="relative w-full list-none md:w-[calc((100%-1.5rem)/3)] h-64">
     <a
         href={getUrl(post)}
         class="no-underline block h-full"

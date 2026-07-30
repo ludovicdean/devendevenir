@@ -24,6 +24,33 @@ export function getUrl(post) {
     return post.data.url ?? `${base + "/blog/" + post.id}/`
 }
 
+export function getPostYear(post: { data: { date?: Date } }): number {
+    return post.data.date instanceof Date
+        ? post.data.date.getFullYear()
+        : new Date().getFullYear();
+}
+
+/** Years with published posts, newest first. */
+export async function getPostYears(): Promise<number[]> {
+    const posts = await getPosts();
+    const years = new Set(posts.map(getPostYear));
+    return Array.from(years).sort((a, b) => b - a);
+}
+
+export async function getPostsByYear(year: number) {
+    const posts = await getPosts();
+    return posts.filter((post) => getPostYear(post) === year);
+}
+
+/** Home for the latest year; `/annees/{year}/` for older years. */
+export function getYearUrl(year: number, latestYear: number): string {
+    if (year === latestYear) {
+        return base.endsWith("/") ? base : `${base}/`;
+    }
+    const prefix = base.endsWith("/") ? base.slice(0, -1) : base;
+    return `${prefix}/annees/${year}/`;
+}
+
 export async function getBlogsByTagId(tagId: string) {
     const posts = await getPosts();
     return posts.filter((post) => !post.id.startsWith('_') && post.data.tags?.includes(tagId));
