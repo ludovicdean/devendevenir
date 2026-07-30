@@ -5,10 +5,33 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				'gray': "var(--gray)",
-			}
+				brand: {
+					DEFAULT: 'var(--brand)',
+					hover: 'var(--brand-hover)',
+				},
+				accent: {
+					DEFAULT: 'var(--accent)',
+					hover: 'var(--accent-hover)',
+				},
+				surface: {
+					DEFAULT: 'var(--color-bg)',
+					elevated: 'var(--color-bg-elevated)',
+				},
+				content: {
+					DEFAULT: 'var(--color-text)',
+					muted: 'var(--color-text-muted)',
+					heading: 'var(--color-heading)',
+				},
+				chrome: {
+					from: 'var(--chrome-from)',
+					to: 'var(--chrome-to)',
+				},
+				gray: 'var(--gray)',
+			},
+			borderColor: {
+				DEFAULT: 'var(--color-border)',
+			},
 		},
 	},
-	plugins: [require('@tailwindcss/aspect-ratio')]
-,
+	plugins: [require('@tailwindcss/aspect-ratio')],
 }

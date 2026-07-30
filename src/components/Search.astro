@@ -21,7 +21,7 @@ const base = import.meta.env.BASE_URL;
         <div
             id="search-container"
             data-base-url={base}
-            class="mx-auto max-w-2xl transform divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-xl bg-white dark:bg-[oklch(26.9%_0_0)] dark:text-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all"
+            class="mx-auto max-w-2xl transform divide-y divide-gray-100 dark:divide-zinc-700 overflow-hidden rounded-xl bg-[var(--color-bg-elevated)] text-[var(--color-text)] shadow-2xl ring-1 ring-black/5 transition-all"
         >
             <div class="relative">
                 <svg
@@ -38,7 +38,7 @@ const base = import.meta.env.BASE_URL;
                 <input
                     type="text"
                     id="search-input"
-                    class="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-900 dark:text-white placeholder:text-gray-400 focus:ring-0 sm:text-sm"
+                    class="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:ring-0 sm:text-sm"
                     placeholder="Recherche"
                     autocomplete="off"
                 />
@@ -148,9 +148,9 @@ const base = import.meta.env.BASE_URL;
             resultsContainer.innerHTML = results
                 .map(
                     (result) => `
-                    <a href="${result.url}" class="group block p-4 rounded-lg hover:bg-yellow-50 dark:hover:bg-yellow-900/20 transition-colors no-underline border border-transparent hover:border-yellow-200">
-                        <h3 class="text-base font-bold text-gray-900 dark:text-white group-hover:text-yellow-600 mb-1">${result.meta.title}</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">${result.excerpt}</p>
+                    <a href="${result.url}" class="group block p-4 rounded-lg hover:bg-yellow-50 dark:hover:bg-yellow-900/20 transition-colors no-underline border border-transparent hover:border-[var(--brand)]/40">
+                        <h3 class="text-base font-bold text-[var(--color-text)] group-hover:text-[var(--accent)] mb-1">${result.meta.title}</h3>
+                        <p class="text-sm text-[var(--color-text-muted)] line-clamp-2">${result.excerpt}</p>
                     </a>
                 `,
                 )

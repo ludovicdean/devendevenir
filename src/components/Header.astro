@@ -7,7 +7,7 @@ import MobileMenuToggle from "./MobileMenuToggle.astro";
 ---
 
 <header
-  class="relative pt-2 bg-gradient-to-br from-neutral-800 to-neutral-400 dark:from-neutral-400 dark:to-neutral-800"
+  class="relative pt-2 bg-gradient-to-br from-[var(--chrome-from)] to-[var(--chrome-to)]"
 >
   <div id="desktopMenu" class="mx-auto w-[900px] max-w-[calc(100%-2rem)] px-4">
     <div class="flex items-center justify-between">
@@ -25,7 +25,7 @@ import MobileMenuToggle from "./MobileMenuToggle.astro";
             class="self-center whitespace-nowrap text-2xl font-semibold text-white"
           >
             Dev<span
-              class="inline-block animate-bounce text-yellow-400 ease-in-out"
+              class="inline-block animate-bounce text-[var(--brand)] ease-in-out"
               >En</span
             >Devenir
           </span>
