@@ -31,6 +31,21 @@ Content Collections:
 - Define schemas with Zod
 - getCollection() and getEntry()
 - Dynamic routing based on content
+- Use the schema `image()` helper for cover/banner images (not string URL paths)
+
+Images (`astro:assets`):
+- Store optimizable images under `src/` (e.g. `src/assets/`), never rely on `public/` for Image optimization
+- Files in `public/` are copied as-is and are NOT optimized by Astro
+- Prefer `<Image />` from `astro:assets` for local `src/` images
+- Content collection banners: `schema: ({ image }) => z.object({ banner: image() })` with a relative file path in frontmatter (e.g. `../../assets/banners/foo.webp`)
+- Astro emits hashed assets under `_astro/` and respects `base` (critical for GitHub Pages under `/devendevenir`)
+- Do not prepend `import.meta.env.BASE_URL` manually to `Image` / `image()` results — Astro already includes the base in `.src`
+- Inline MDX screenshots may stay in `public/` until migrated; prefer relative paths into `src/assets/` when optimizing them
+
+Path aliases:
+- `@components/*` → `src/components/*`
+- `@layouts/*` → `src/layouts/*`
+- `@utils/*` → `src/utils/*`
 
 Features:
 - View Transitions (<ViewTransitions />)
@@ -45,3 +60,4 @@ Best Practices:
 - Minimize client-side directives
 - Use scoped styles
 - Leverage Astro's image optimization
+- Run `npm run check` (`astro check`) before relying on a green build

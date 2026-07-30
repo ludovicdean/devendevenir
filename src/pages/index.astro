@@ -4,9 +4,9 @@ import TagsList from "@components/TagsList.astro";
 import LargeCard from "@components/LargeCard.astro";
 import Search from "@components/Search.astro";
 import PostsList from "@components/PostsList.astro";
-import { getPosts } from "src/utils/blogUtils";
-import { getTagsCount } from "src/utils/tagUtils";
-import BaseLayout from "src/layouts/BaseLayout.astro";
+import { getPosts } from "@utils/blogUtils";
+import { getTagsCount } from "@utils/tagUtils";
+import BaseLayout from "@layouts/BaseLayout.astro";
 
 const posts = await getPosts();
 

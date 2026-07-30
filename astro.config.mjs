@@ -22,7 +22,6 @@ const pagefindIgnorePlugin = {
 export default defineConfig({
   site: 'https://ludovicdean.github.io',
   base: astroBase,
-  middleware: ['./src/middleware.js'],
   integrations: [
     mermaid({
       theme: 'neutral',

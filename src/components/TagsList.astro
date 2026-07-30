@@ -1,4 +1,11 @@
 ---
+import type { z } from "astro/zod";
+import { TagCountSchema } from "../schemas/tagscount";
+
+type Props = {
+    tags: z.infer<typeof TagCountSchema>[];
+};
+
 const base = import.meta.env.BASE_URL;
 const { tags } = Astro.props;
 ---

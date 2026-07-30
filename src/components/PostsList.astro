@@ -1,5 +1,11 @@
 ---
+import type { CollectionEntry } from "astro:content";
 import SmallCard from "./SmallCard.astro";
+
+type Props = {
+    posts: CollectionEntry<"blog">[];
+};
+
 const { posts } = Astro.props;
 ---
 

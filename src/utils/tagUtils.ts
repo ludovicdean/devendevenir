@@ -9,9 +9,9 @@ export async function getTagsCount() {
     const allTagIds = posts
         .map(post => post.data.tags)
         .flat()
-        .filter(Boolean);
+        .filter((tagId): tagId is string => Boolean(tagId));
 
-    const tagCounts = allTagIds.reduce((acc, tagId) => {
+    const tagCounts = allTagIds.reduce<Record<string, number>>((acc, tagId) => {
         acc[tagId] = (acc[tagId] || 0) + 1;
         return acc;
     }, {});

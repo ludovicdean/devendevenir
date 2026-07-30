@@ -1,4 +1,4 @@
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 const base = import.meta.env.BASE_URL;
 
 export async function getPosts() {
@@ -20,7 +20,7 @@ export async function getUnpublishedPosts() {
     return posts;
 }
 
-export function getUrl(post) {
+export function getUrl(post: CollectionEntry<"blog">) {
     return post.data.url ?? `${base + "/blog/" + post.id}/`
 }
 
