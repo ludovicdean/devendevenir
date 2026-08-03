@@ -183,8 +183,27 @@ hr {
 
 ul,
 ol {
-	list-style-type: initial;
-	margin-left: 1, 5em;
-	list-style: inside;
+	list-style: disc outside;
+	margin-left: 1.5em;
+	padding-left: 0.5em;
 	padding-bottom: 1em;
+}
+
+ol {
+	list-style-type: decimal;
+}
+
+ul ul {
+	list-style-type: circle;
+	padding-bottom: 0;
+	margin-top: 0.35em;
+	margin-bottom: 0.35em;
+}
+
+ul ul ul {
+	list-style-type: square;
+}
+
+li {
+	margin-bottom: 0.25em;
 }
