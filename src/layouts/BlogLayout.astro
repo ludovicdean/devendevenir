@@ -7,13 +7,15 @@ import RelatedArticles from "@components/RelatedArticles.astro";
 import CallToAction from "@components/CallToAction.astro";
 import TableOfContents from "@components/TableOfContents.astro";
 import SeriesNav from "@components/SeriesNav.astro";
+import PostMeta from "@components/PostMeta.astro";
 
 type Props = {
   post: CollectionEntry<"blog">["data"];
   headings?: MarkdownHeading[];
+  readingMinutes: number;
 };
 
-const { post, headings = [] } = Astro.props;
+const { post, headings = [], readingMinutes } = Astro.props;
 const filteredHeadings = headings.filter((h) => h.depth <= 2);
 const isExternal = !!post.url;
 const ogImage = new URL(post.banner.src, Astro.site).href;
@@ -59,7 +61,12 @@ const ogImage = new URL(post.banner.src, Astro.site).href;
       </div>
       <div id="toc-anchor" class="mb-4 py-4 text-center leading-none">
         <h1 class="-mb-0.5">{post.title}</h1>
-        <hr />
+        <PostMeta
+          date={post.date}
+          updatedDate={post.updatedDate}
+          readingMinutes={readingMinutes}
+        />
+        <hr class="mt-4" />
       </div>
 
       {

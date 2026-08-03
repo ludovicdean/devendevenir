@@ -3,9 +3,13 @@ import { Image } from "astro:assets";
 import { getUrl } from "src/utils/blogUtils";
 
 const { post, "data-test-id": dataTestId } = Astro.props;
+const tagIds = (post.data.tags ?? []).join(" ");
 ---
 
-<article class="relative w-full list-none py-4">
+<article
+    class="relative w-full list-none py-4"
+    data-post-tags={tagIds}
+>
     <a
         href={getUrl(post)}
         class="no-underline block"

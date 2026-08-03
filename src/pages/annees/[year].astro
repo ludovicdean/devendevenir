@@ -1,17 +1,18 @@
 ---
 import BaseLayout from "src/layouts/BaseLayout.astro";
 import PostsList from "@components/PostsList.astro";
+import TagsList from "@components/TagsList.astro";
 import YearPagination from "@components/YearPagination.astro";
 import {
   getPostsByYear,
   getPostYears,
 } from "src/utils/blogUtils";
+import { getTagsCount } from "src/utils/tagUtils";
 
 export async function getStaticPaths() {
   const years = await getPostYears();
   const latestYear = years[0];
 
-  // Latest year lives on the homepage; only older years get archive pages.
   return years
     .filter((year) => year !== latestYear)
     .map((year) => ({
@@ -22,14 +23,35 @@ export async function getStaticPaths() {
 
 const { year, years } = Astro.props;
 const posts = await getPostsByYear(year);
+const allTags = await getTagsCount();
+const tagsCount = allTags
+  .map((tag) => ({
+    ...tag,
+    count: posts.filter((post) => post.data.tags?.includes(tag.id)).length,
+  }))
+  .filter((tag) => tag.count > 0);
 ---
 
 <BaseLayout
   title={`Articles ${year}`}
   description={`Articles publiés en ${year} sur Dev En Devenir`}
 >
-  <h1 class="mb-4 py-4 text-center leading-none">{year}</h1>
-  <hr />
-  <PostsList posts={posts} />
-  <YearPagination currentYear={year} years={years} />
+  <div data-tag-filter-root>
+    <h1 class="mb-4 py-4 text-center leading-none">{year}</h1>
+    <hr />
+    <TagsList tags={tagsCount} filterable />
+    <section data-year-posts>
+      <PostsList posts={posts} />
+      <YearPagination currentYear={year} years={years} />
+    </section>
+    <section data-tag-posts class="hidden" aria-live="polite">
+      <PostsList posts={posts} />
+      <p
+        data-tag-empty
+        class="hidden text-center text-[var(--color-text-muted)] py-8"
+      >
+        Aucun article pour ce tag en {year}.
+      </p>
+    </section>
+  </div>
 </BaseLayout>

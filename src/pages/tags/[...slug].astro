@@ -1,24 +1,37 @@
 ---
-import { getCollection, render } from "astro:content";
-import Tag from "../../layouts/TagLayout.astro";
+import { getCollection } from "astro:content";
+import BaseLayout from "src/layouts/BaseLayout.astro";
+import PostsList from "@components/PostsList.astro";
+import { getBlogsByTagId } from "src/utils/blogUtils";
 
 export async function getStaticPaths() {
   const tags = await getCollection("tags");
   return tags.map((tag) => ({
     params: { slug: tag.id },
-    props: { id: tag.id, data: tag.data },
+    props: {
+      id: tag.id,
+      name: tag.data.name,
+      description: tag.data.description,
+    },
   }));
 }
 
 type Props = {
   id: string;
-  data: any;
+  name: string;
+  description: string;
 };
 
-const { id, data } = Astro.props;
-const { Content } = await render({ id, ...data });
+const { id, name, description } = Astro.props;
+const filteredPosts = await getBlogsByTagId(id);
 ---
 
-<Tag id={id} {...data}>
-  <Content />
-</Tag>
+<BaseLayout
+  title={`Catégorie : ${name}`}
+  description={`Articles appartenant à la catégorie ${name}`}
+  data-pagefind-ignore="all"
+>
+  <h2 class="mb-4 py-4 text-center leading-none">{name}</h2>
+  <p>{description}</p>
+  <PostsList posts={filteredPosts} />
+</BaseLayout>
