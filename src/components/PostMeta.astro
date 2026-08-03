@@ -1,0 +1,42 @@
+---
+import { formatPostDate } from "src/utils/dateUtils";
+import { formatReadingTime } from "src/utils/readingTime";
+
+type Props = {
+    date?: Date;
+    updatedDate?: Date;
+    readingMinutes: number;
+};
+
+const { date, updatedDate, readingMinutes } = Astro.props;
+
+const showUpdated =
+    updatedDate instanceof Date &&
+    date instanceof Date &&
+    updatedDate.getTime() !== date.getTime();
+---
+
+<p
+    class="mt-3 mb-0 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-base text-[var(--color-text-muted)]"
+    data-testid="post-meta"
+>
+    {
+        date instanceof Date && (
+            <time datetime={date.toISOString()}>
+                Publié le {formatPostDate(date)}
+            </time>
+        )
+    }
+    {
+        showUpdated && updatedDate instanceof Date && (
+            <>
+                <span aria-hidden="true">·</span>
+                <time datetime={updatedDate.toISOString()}>
+                    Mis à jour le {formatPostDate(updatedDate)}
+                </time>
+            </>
+        )
+    }
+    <span aria-hidden="true">·</span>
+    <span>{formatReadingTime(readingMinutes)}</span>
+</p>

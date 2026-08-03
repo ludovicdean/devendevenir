@@ -4,13 +4,14 @@ import TagsList from "@components/TagsList.astro";
 import LargeCard from "@components/LargeCard.astro";
 import PostsList from "@components/PostsList.astro";
 import YearPagination from "@components/YearPagination.astro";
-import { getPostsByYear, getPostYears } from "src/utils/blogUtils";
+import { getPosts, getPostsByYear, getPostYears } from "src/utils/blogUtils";
 import { getTagsCount } from "src/utils/tagUtils";
 import BaseLayout from "src/layouts/BaseLayout.astro";
 
 const years = await getPostYears();
 const latestYear = years[0];
 const yearPosts = latestYear !== undefined ? await getPostsByYear(latestYear) : [];
+const allPosts = await getPosts();
 
 const latestPost = yearPosts[0];
 const remainingPosts = yearPosts.slice(1);
@@ -19,32 +20,43 @@ const tagsCount = await getTagsCount();
 ---
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
-  <p>
-    <span class="text-[var(--brand)] text-2xl">Le</span> blog écrit <span
-      class="font-bold text-2xl">par</span
-    > un développeur
-    <span class="font-bold text-2xl">pour</span> les développeurs !
-  </p>
-  <p>
-    Quand je ne trouve pas d'infos je compile les infos que je trouve et
-    j'écris l'article que j'aurais aimé trouver 😅.
-  </p>
-  <p>
-    Des questions purement techniques (et technologiques) sur le fonctionnement
-    d'un ordinateur jusqu'aux outils de documentation, en passant par la mise
-    en place de test, la rédaction de ces articles me permet de poser mes idées
-    et de m'en imprégner durablement.
-  </p>
-  <section>
-    <TagsList tags={tagsCount} />
-  </section>
-  <section>
-    {latestPost && <LargeCard post={latestPost} data-test-id="post-0" />}
-    {remainingPosts.length > 0 && <PostsList posts={remainingPosts} />}
-    {
-      latestYear !== undefined && (
-        <YearPagination currentYear={latestYear} years={years} />
-      )
-    }
-  </section>
+  <div data-tag-filter-root>
+    <p>
+      <span class="text-[var(--brand)] text-2xl">Le</span> blog écrit <span
+        class="font-bold text-2xl">par</span
+      > un développeur
+      <span class="font-bold text-2xl">pour</span> les développeurs !
+    </p>
+    <p>
+      Quand je ne trouve pas d'infos je compile les infos que je trouve et
+      j'écris l'article que j'aurais aimé trouver 😅.
+    </p>
+    <p>
+      Des questions purement techniques (et technologiques) sur le
+      fonctionnement d'un ordinateur jusqu'aux outils de documentation, en
+      passant par la mise en place de test, la rédaction de ces articles me
+      permet de poser mes idées et de m'en imprégner durablement.
+    </p>
+    <section>
+      <TagsList tags={tagsCount} filterable />
+    </section>
+    <section data-year-posts>
+      {latestPost && <LargeCard post={latestPost} data-test-id="post-0" />}
+      {remainingPosts.length > 0 && <PostsList posts={remainingPosts} />}
+      {
+        latestYear !== undefined && (
+          <YearPagination currentYear={latestYear} years={years} />
+        )
+      }
+    </section>
+    <section data-tag-posts class="hidden" aria-live="polite">
+      <PostsList posts={allPosts} />
+      <p
+        data-tag-empty
+        class="hidden text-center text-[var(--color-text-muted)] py-8"
+      >
+        Aucun article pour ce tag.
+      </p>
+    </section>
+  </div>
 </BaseLayout>

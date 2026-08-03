@@ -1,28 +1,134 @@
 ---
 const base = import.meta.env.BASE_URL;
-const { tags } = Astro.props;
+const { tags, filterable = false } = Astro.props;
+
+const pillClass =
+    "inline-flex items-center justify-center text-lg rounded-xl mx-2 px-4 my-2 bg-gradient-to-r from-[var(--chrome-from)] to-[var(--chrome-to)] font-bold text-white transition-shadow";
+const activeClass = "ring-1 ring-[var(--brand)] ring-offset-1 ring-offset-[var(--color-bg)]";
 ---
 
-<div class="pb-6 flex flex-wrap">
+<div
+    class="pb-6 flex flex-wrap items-center"
+    data-tag-filters={filterable ? "true" : undefined}
+    role={filterable ? "toolbar" : undefined}
+    aria-label={filterable ? "Filtrer par tag" : undefined}
+>
     {
-        tags.map((tag, index) => (
-            <span
-                class="inline-flex items-center justify-center text-lg rounded-xl mx-2 px-4 my-2 bg-gradient-to-r from-[var(--chrome-from)] to-[var(--chrome-to)] hover:animate-pulse"
+        filterable && (
+            <button
+                type="button"
+                class:list={[pillClass, activeClass]}
+                data-tag-id=""
+                data-tag-filter-btn
+                aria-pressed="true"
+                data-test-id="tag-all"
             >
-                <a
-                    href={`${base + "/tags/" + tag.id}/`}
-                    class="justify-center no-underline text-white font-bold hover:text-[var(--brand)]"
+                Tous
+            </button>
+        )
+    }
+    {
+        tags.map((tag, index) =>
+            filterable ? (
+                <button
+                    type="button"
+                    class={pillClass}
+                    data-tag-id={tag.id}
+                    data-tag-filter-btn
+                    aria-pressed="false"
                     data-test-id={`tag-${index}`}
                 >
                     {tag.name}
-                    <span
-                        class="text-[var(--brand)]"
-                        data-test-id={`count-${index}`}
-                    >
+                    <span class="text-[var(--brand)] ml-1" data-test-id={`count-${index}`}>
                         {tag.count}
                     </span>
-                </a>
-            </span>
-        ))
+                </button>
+            ) : (
+                <span class={pillClass}>
+                    <a
+                        href={`${base.replace(/\/$/, "")}/tags/${tag.id}/`}
+                        class="justify-center no-underline text-white font-bold hover:text-[var(--brand)]"
+                        data-test-id={`tag-${index}`}
+                    >
+                        {tag.name}
+                        <span class="text-[var(--brand)]" data-test-id={`count-${index}`}>
+                            {tag.count}
+                        </span>
+                    </a>
+                </span>
+            ),
+        )
     }
 </div>
+
+{
+    filterable && (
+        <script>
+            function initTagFilters() {
+                const toolbars = document.querySelectorAll("[data-tag-filters]");
+                toolbars.forEach((toolbar) => {
+                    if ((toolbar as HTMLElement).dataset.bound === "true") return;
+                    (toolbar as HTMLElement).dataset.bound = "true";
+
+                    const root =
+                        toolbar.closest("[data-tag-filter-root]") ?? document;
+                    const yearView = root.querySelector("[data-year-posts]");
+                    const tagView = root.querySelector("[data-tag-posts]");
+                    const emptyState = root.querySelector("[data-tag-empty]");
+                    const buttons = toolbar.querySelectorAll("[data-tag-filter-btn]");
+                    const activeClasses = [
+                        "ring-1",
+                        "ring-[var(--brand)]",
+                        "ring-offset-1",
+                        "ring-offset-[var(--color-bg)]",
+                    ];
+
+                    const setActiveButton = (activeBtn) => {
+                        buttons.forEach((btn) => {
+                            const isActive = btn === activeBtn;
+                            btn.setAttribute("aria-pressed", String(isActive));
+                            activeClasses.forEach((c) =>
+                                btn.classList.toggle(c, isActive),
+                            );
+                        });
+                    };
+
+                    const applyFilter = (tagId) => {
+                        if (!tagId) {
+                            yearView?.classList.remove("hidden");
+                            tagView?.classList.add("hidden");
+                            emptyState?.classList.add("hidden");
+                            return;
+                        }
+
+                        yearView?.classList.add("hidden");
+                        tagView?.classList.remove("hidden");
+
+                        const posts = tagView?.querySelectorAll("[data-post-tags]") ?? [];
+                        let visible = 0;
+                        posts.forEach((post) => {
+                            const tags = (post.getAttribute("data-post-tags") || "")
+                                .split(/\s+/)
+                                .filter(Boolean);
+                            const match = tags.includes(tagId);
+                            post.classList.toggle("hidden", !match);
+                            if (match) visible += 1;
+                        });
+
+                        emptyState?.classList.toggle("hidden", visible > 0);
+                    };
+
+                    buttons.forEach((btn) => {
+                        btn.addEventListener("click", () => {
+                            setActiveButton(btn);
+                            applyFilter(btn.getAttribute("data-tag-id") || "");
+                        });
+                    });
+                });
+            }
+
+            initTagFilters();
+            document.addEventListener("astro:page-load", initTagFilters);
+        </script>
+    )
+}
