@@ -1,0 +1,194 @@
+---
+title : HTML, partie 1
+date : Apr 08 2026
+tags :
+    - langages
+series:
+    name: "HTML"
+    part: 1
+description : "Découvrez les origines de HTML, son rôle et la structure de base d'une page web."
+banner: "../../assets/banners/yancy-min-842ofHC6MaI-unsplash.webp"
+
+author: "Yancy Min"
+authorLink: "https://unsplash.com/fr/@yancymin?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+unsplashLink: "https://unsplash.com/fr/photos/gros-plan-dune-description-textuelle-sur-un-ecran-dordinateur-842ofHC6MaI?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+---
+import HtmlExplorer from "@components/HtmlExplorer.astro";
+
+En début de reconversion, j’ai suivi un module d’une semaine consacré à un langage souvent sous-estimé et rarement étudié en profondeur : HTML. Il ne s’agit pas d’un langage de programmation comme Java ou C#, mais d’un langage de balisage. C’est pourtant lui que nous côtoyons le plus souvent au quotidien, puisqu’il structure les pages web que nous consultons. Il mérite donc qu’on s’y attarde.
+
+## Les origines
+
+À l’origine de HTML, on retrouve Tim Berners-Lee, le créateur du World Wide Web. Alors qu’il travaillait au CERN, il a imaginé un système permettant de structurer et de relier des documents grâce à des hyperliens.
+
+Pour créer le HTML, il s’est notamment inspiré du SGML (Standard Generalized Markup Language) et d’un format de documentation utilisé au CERN. Entre 1989 et 1991, il a posé les premières bases du Web et développé les outils nécessaires à son fonctionnement.
+
+En 1991, il a mis à disposition [le premier site web](https://info.cern.ch/). Ce site est consacré au projet World Wide Web lui-même. Il explique notamment le fonctionnement de l’hypertexte ainsi que la manière de créer et d’utiliser des pages web.
+
+## Que signifie HTML ?
+
+HTML signifie HyperText Markup Language, ou « langage de balisage d’hypertexte » en français.
+
+Le terme « balisage » désigne la manière dont on utilise des balises pour décrire la structure et le rôle d’un contenu. Le terme « hypertexte » désigne quant à lui un document contenant des liens permettant de naviguer vers d’autres documents ou ressources.
+
+Contrairement à un document classique, que l’on parcourt généralement de manière linéaire, un hypertexte permet de suivre différents chemins grâce aux hyperliens.
+
+## Le rôle du HTML
+HTML sert à structurer le contenu d’un document selon le rôle de chaque élément : titre, paragraphe, lien, image ou liste, par exemple. En général, on combine HTML avec CSS et JavaScript pour créer des pages web structurées et interactives :
+
+- HTML pour la structure.
+- CSS pour la présentation.
+- JavaScript pour l'interactivité.
+
+Sur une même page, on peut avoir à la fois du HTML, du CSS et du JavaScript, comme le montre l'exemple suivant :
+
+```html
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <title>Exemple HTML, CSS et JavaScript</title>
+
+    <style>
+      button {
+        background: royalblue;
+        color: white;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Bonjour</h1>
+
+    <button id="button">Cliquer</button>
+
+    <script>
+      document.querySelector("#button").addEventListener("click", () => {
+        alert("Bonjour depuis JavaScript !");
+      });
+    </script>
+  </body>
+</html>	
+```
+
+Ici, on voit que le CSS est contenu dans une balise `<style>`, et le JavaScript dans une balise `<script>`. On voit que le CSS utilise le sélecteur `#button` pour sélectionner le bouton et le mettre en forme. Le JavaScript l'utilise également pour sélectionner le bouton et associer un événement au clic sur ce bouton.
+
+Le navigateur interprète ensuite le document HTML et affiche son contenu. HTML et les navigateurs ont évolué ensemble dès les débuts du Web.
+
+Le HTML décrit principalement la structure et le rôle des éléments, plutôt que leur apparence. La mise en forme détaillée relève généralement du CSS. Chaque page a une structure de base commune.
+
+## Niveau 1 : la structure d'une page HTML
+
+Voici la structure de base d'un fichier HTML :
+
+```html
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ma première page HTML</title>
+  </head>
+  <body>
+    ...
+  </body>
+</html>
+```
+
+On trouve dans cette page HTML les éléments suivants :
+
+- `<!doctype html>` indique au navigateur qu’il doit interpréter le document en mode standard (et non en mode de compatibilité).
+- `<html>` est l’élément racine du document. Tous les autres éléments HTML, hormis le doctype, sont placés à l’intérieur.
+- `lang="fr"` est un attribut placé sur l’élément `<html>`. Il indique aux outils pouvant accéder à la page (navigateur, moteurs de recherche, lecteurs d'écran ...) que la langue principale du document est le français. 
+- `<head>` contient les métadonnées du document ainsi que les ressources qui lui sont associées. On peut notamment y trouver le titre de la page, son encodage, des feuilles de style et d’autres informations destinées au navigateur.
+- `<meta charset="utf-8">` définit l’encodage utilisé par la page. UTF-8 permet notamment d’afficher correctement les caractères accentués et de nombreux symboles.
+- `<meta name="viewport" content="width=device-width, initial-scale=1">` indique au navigateur mobile d’utiliser une largeur de viewport correspondant à celle de l’appareil et de définir une échelle initiale de 1. Cela ne suffit pas à rendre une page responsive : il faut également utiliser du CSS pour gérer les différentes tailles d'écran.
+- `<title>` définit le titre du document. Il apparaît généralement dans l’onglet du navigateur.
+- `<body>` contient le contenu du document ainsi que les éléments qui participent à son comportement. Il comporte notamment les titres, paragraphes, images, liens et autres éléments présentés à l’utilisateur.
+
+## Niveau 2 : la sémantique d'une page HTML
+
+En plus de son squelette, une page HTML comporte de nombreux autres éléments, dont le rôle est porté par le nom des balises. Examinons maintenant le corps de la page HTML :
+
+```html
+<body>
+  <header>
+    <nav>
+      <a href="/">Accueil</a>
+      <a href="/articles">Articles</a>
+    </nav>
+  </header>
+
+  <main>
+    <article>
+      <h1>Comprendre HTML</h1>
+
+      <p>
+        HTML permet de structurer le contenu d'une page web.
+      </p>
+
+      <h2>Les notions importantes</h2>
+
+      <p>
+        Une page HTML est composée d'éléments imbriqués les uns dans les autres.
+      </p>
+    </article>
+  </main>
+
+  <footer>
+    <p>Publié sur mon blog technique.</p>
+  </footer>
+</body>
+```
+
+Les éléments présents ont tous un rôle précis dans la structure de la page :
+
+- `<header>` : l'en-tête d'une page (ou d'une section).
+- `<nav>` : regroupe les principaux liens de navigation.
+- `<main>` : contient le contenu principal de la page. Un document ne doit généralement contenir qu'un seul élément `<main>`.
+- `<article>` : désigne un contenu autonome, réutilisable séparément du reste de la page.
+- `<h1>` : titre principal de la page. Il est généralement unique sur une page HTML. Il ne faut pas le confondre avec `<title>`, qui décrit le document dans l’onglet du navigateur.
+- `<h2>` : un titre de niveau 2 (il existe 6 niveaux de titres, de `<h1>` à `<h6>`).
+- `<footer>` : le pied de page d'une page (ou d'une section).
+
+Le composant ci-dessous permet de visualiser la structure d'une page HTML.
+
+<HtmlExplorer>
+<body>
+  <header>
+    <nav>
+      <a href="/">Accueil</a>
+      <span> | </span>
+      <a href="/articles">Articles</a>
+      <span> | </span>
+      <a href="/contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <article>
+      <h1>Comprendre HTML</h1>
+
+      <p>
+        HTML permet de structurer le contenu d'une page web.
+      </p>
+
+      <h2>Les notions importantes</h2>
+
+      <p>
+        Une page HTML est composée d'éléments imbriqués les uns dans les autres.
+      </p>
+    </article>
+  </main>
+
+  <footer>
+    Publié sur mon blog technique.
+  </footer>
+</body>
+</HtmlExplorer>
+
+Le respect de la sémantique est important pour le référencement naturel (SEO) et pour la lisibilité du code.
+
+## Conclusion
+
+Maintenant que les origines du HTML sont plus claires pour vous, vous avez maintenant les bases pour vous lancer dans la création de votre première page web. Je n'ai fait qu'effleurer la surface de ce langage, il reste encore beaucoup à explorer. Dans le prochain article de cette série, nous aborderons la structure des balises HTML, leur rôle et leurs attributs.
