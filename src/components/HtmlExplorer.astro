@@ -1,0 +1,405 @@
+<div class="html-explorer" data-html-explorer>
+    <button
+      type="button"
+      class="html-explorer__reset"
+      data-html-explorer-reset
+    >
+      Réinitialiser
+    </button>
+  
+    <div
+      class="html-explorer__tooltip"
+      data-html-explorer-tooltip
+      aria-hidden="true"
+    ></div>
+  
+    <div class="html-explorer__content">
+      <slot />
+    </div>
+  </div>
+  
+  <style>
+    .html-explorer {
+      position: relative;
+      margin: 2rem 0;
+      padding: 1rem;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      background: #f9fafb;
+      color: #1f2937;
+      touch-action: pan-y;
+    }
+  
+    .html-explorer__reset {
+      margin-bottom: 1rem;
+      padding: 0.4rem 0.7rem;
+      border: 1px solid #d1d5db;
+      border-radius: 0.35rem;
+      background: #ffffff;
+      color: #374151;
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.875rem;
+    }
+  
+    .html-explorer__reset:hover,
+    .html-explorer__reset:focus-visible {
+      border-color: #2563eb;
+      color: #2563eb;
+    }
+  
+    .html-explorer__reset:focus-visible {
+      outline: 2px solid #2563eb;
+      outline-offset: 2px;
+    }
+  
+    .html-explorer__content {
+      min-height: 10rem;
+      padding: 1.5rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.35rem;
+      background: #ffffff;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+  
+    /*
+     * Styles appliqués au contenu provenant du fichier MDX.
+     */
+    .html-explorer__content :global(h1),
+    .html-explorer__content :global(h2),
+    .html-explorer__content :global(h3) {
+      color: #111827;
+    }
+  
+    .html-explorer__content :global(a) {
+      color: #2563eb;
+    }
+  
+    /*
+     * Seul l'élément sélectionné reçoit une mise en évidence forte.
+     */
+    .html-explorer__content :global([data-html-highlighted]) {
+      outline: 2px solid #2563eb;
+      outline-offset: 3px;
+      background: #eff6ff !important;
+    }
+  
+    .html-explorer__tooltip {
+      position: fixed;
+      z-index: 1000;
+      display: none;
+      max-width: calc(100vw - 2rem);
+      padding: 0.35rem 0.55rem;
+      border-radius: 0.25rem;
+      background: #111827;
+      color: #ffffff;
+      font-family: monospace;
+      font-size: 0.75rem;
+      line-height: 1.3;
+      pointer-events: none;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 20%);
+    }
+  
+    @media (max-width: 640px) {
+      .html-explorer {
+        padding: 0.75rem;
+      }
+  
+      .html-explorer__content {
+        padding: 1rem;
+      }
+    }
+  </style>
+  
+  <script>
+    const explorers = document.querySelectorAll("[data-html-explorer]");
+  
+    explorers.forEach((explorer) => {
+      const content = explorer.querySelector(
+        ".html-explorer__content"
+      );
+  
+      const tooltip = explorer.querySelector(
+        "[data-html-explorer-tooltip]"
+      );
+  
+      const resetButton = explorer.querySelector(
+        "[data-html-explorer-reset]"
+      );
+  
+      if (!content || !tooltip) {
+        return;
+      }
+  
+      let highlightedElement = null;
+  
+      const semanticDescriptions = {
+        html: "Élément racine du document",
+        head: "Métadonnées du document",
+        body: "Contenu du document",
+        header: "En-tête",
+        nav: "Zone de navigation",
+        main: "Contenu principal",
+        article: "Contenu autonome",
+        section: "Section thématique",
+        aside: "Contenu complémentaire",
+        footer: "Pied de page",
+        h1: "Titre principal",
+        h2: "Titre de niveau 2",
+        h3: "Titre de niveau 3",
+        p: "Paragraphe",
+        ul: "Liste non ordonnée",
+        ol: "Liste ordonnée",
+        li: "Élément de liste",
+        a: "Lien",
+        img: "Image"
+      };
+  
+      function getElementLabel(element) {
+        const tagName = element.tagName.toLowerCase();
+        const description = semanticDescriptions[tagName];
+  
+        let selector = `<${tagName}`;
+  
+        if (element.id) {
+          selector += ` id="#${element.id}"`;
+        }
+  
+        if (element.classList.length > 0) {
+          const className = [...element.classList].join(".");
+          selector += ` class=".${className}"`;
+        }
+  
+        selector += ">";
+  
+        if (description) {
+          return `${selector} — ${description}`;
+        }
+  
+        return selector;
+      }
+  
+      function clearHighlight() {
+        if (highlightedElement) {
+          highlightedElement.removeAttribute(
+            "data-html-highlighted"
+          );
+  
+          highlightedElement = null;
+        }
+  
+        tooltip.style.display = "none";
+        tooltip.setAttribute("aria-hidden", "true");
+      }
+  
+      function showTooltip() {
+        tooltip.style.display = "block";
+        tooltip.setAttribute("aria-hidden", "false");
+      }
+  
+      function positionTooltipAtPointer(event) {
+        tooltip.style.left = `${event.clientX + 12}px`;
+        tooltip.style.top = `${event.clientY + 12}px`;
+  
+        requestAnimationFrame(() => {
+          const tooltipRectangle = tooltip.getBoundingClientRect();
+  
+          let left = event.clientX + 12;
+          let top = event.clientY + 12;
+  
+          if (tooltipRectangle.right > window.innerWidth - 8) {
+            left = event.clientX - tooltipRectangle.width - 12;
+          }
+  
+          if (tooltipRectangle.bottom > window.innerHeight - 8) {
+            top = event.clientY - tooltipRectangle.height - 12;
+          }
+  
+          tooltip.style.left = `${Math.max(8, left)}px`;
+          tooltip.style.top = `${Math.max(8, top)}px`;
+        });
+      }
+  
+      function positionTooltipBelowElement(element) {
+        const elementRectangle = element.getBoundingClientRect();
+  
+        showTooltip();
+  
+        requestAnimationFrame(() => {
+          const tooltipRectangle = tooltip.getBoundingClientRect();
+  
+          let left =
+            elementRectangle.left +
+            (elementRectangle.width - tooltipRectangle.width) / 2;
+  
+          let top = elementRectangle.bottom + 12;
+  
+          if (left < 8) {
+            left = 8;
+          }
+  
+          if (left + tooltipRectangle.width > window.innerWidth - 8) {
+            left = window.innerWidth - tooltipRectangle.width - 8;
+          }
+  
+          if (top + tooltipRectangle.height > window.innerHeight - 8) {
+            top = elementRectangle.top - tooltipRectangle.height - 12;
+          }
+  
+          tooltip.style.left = `${Math.max(8, left)}px`;
+          tooltip.style.top = `${Math.max(8, top)}px`;
+        });
+      }
+  
+      function highlightElement(element) {
+        if (highlightedElement === element) {
+          return;
+        }
+  
+        if (highlightedElement) {
+          highlightedElement.removeAttribute(
+            "data-html-highlighted"
+          );
+        }
+  
+        highlightedElement = element;
+  
+        if (!highlightedElement) {
+          clearHighlight();
+          return;
+        }
+  
+        highlightedElement.setAttribute(
+          "data-html-highlighted",
+          ""
+        );
+  
+        tooltip.textContent = getElementLabel(highlightedElement);
+        showTooltip();
+      }
+  
+      function getTargetElement(event) {
+        const target = event.target;
+  
+        if (!(target instanceof Element)) {
+          return null;
+        }
+  
+        const element = target.closest("*");
+  
+        if (
+          !element ||
+          !content.contains(element) ||
+          element === content ||
+          element === tooltip
+        ) {
+          return null;
+        }
+  
+        return element;
+      }
+  
+      /*
+       * Desktop : interaction au survol.
+       */
+      explorer.addEventListener("pointerover", (event) => {
+        if (event.pointerType === "touch") {
+          return;
+        }
+  
+        const element = getTargetElement(event);
+  
+        if (!element) {
+          return;
+        }
+  
+        highlightElement(element);
+        positionTooltipAtPointer(event);
+      });
+  
+      explorer.addEventListener("pointermove", (event) => {
+        if (event.pointerType === "touch") {
+          return;
+        }
+  
+        if (!highlightedElement) {
+          return;
+        }
+  
+        positionTooltipAtPointer(event);
+      });
+  
+      explorer.addEventListener("pointerleave", (event) => {
+        if (event.pointerType === "touch") {
+          return;
+        }
+  
+        clearHighlight();
+      });
+  
+      /*
+       * Mobile : interaction par tap.
+       */
+      explorer.addEventListener("pointerdown", (event) => {
+        if (event.pointerType !== "touch") {
+          return;
+        }
+  
+        const element = getTargetElement(event);
+  
+        if (!element) {
+          return;
+        }
+  
+        highlightElement(element);
+        positionTooltipBelowElement(element);
+      });
+  
+      /*
+       * Les liens ne doivent pas quitter la page pendant la démonstration.
+       * Supprime ce gestionnaire si les liens doivent rester actifs.
+       */
+      explorer.addEventListener("click", (event) => {
+        const target = event.target;
+  
+        if (!(target instanceof Element)) {
+          return;
+        }
+  
+        const link = target.closest("a");
+  
+        if (link) {
+          event.preventDefault();
+        }
+      });
+  
+      /*
+       * Accessibilité clavier pour les éléments naturellement focusables.
+       */
+      content.addEventListener("focusin", (event) => {
+        const element = event.target;
+  
+        if (!(element instanceof Element)) {
+          return;
+        }
+  
+        if (!content.contains(element)) {
+          return;
+        }
+  
+        highlightElement(element);
+        positionTooltipBelowElement(element);
+      });
+  
+      content.addEventListener("focusout", () => {
+        clearHighlight();
+      });
+  
+      resetButton?.addEventListener("click", () => {
+        clearHighlight();
+      });
+    });
+  </script>
