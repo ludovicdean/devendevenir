@@ -4,22 +4,29 @@ import { getYearUrl } from "src/utils/blogUtils";
 type Props = {
     currentYear: number;
     years: number[];
+    /** Visual placement: top uses a bottom border, bottom uses a top border. */
+    placement?: "top" | "bottom";
 };
 
-const { currentYear, years } = Astro.props;
+const { currentYear, years, placement = "bottom" } = Astro.props;
 const latestYear = years[0];
 const index = years.indexOf(currentYear);
 const newerYear = index > 0 ? years[index - 1] : null;
 const olderYear = index >= 0 && index < years.length - 1 ? years[index + 1] : null;
 const showNav = years.length > 1 && index >= 0;
+const placementClass =
+    placement === "top"
+        ? "mb-8 flex flex-wrap items-center justify-between gap-4 border-b border-[var(--color-border)] pb-8"
+        : "mt-12 mb-4 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--color-border)] pt-8";
 ---
 
 {
     showNav && (
         <nav
-            class="mt-12 mb-4 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--color-border)] pt-8"
+            class={placementClass}
             aria-label="Pagination par année"
             data-testid="year-pagination"
+            data-placement={placement}
         >
             {newerYear !== null ? (
                 <a

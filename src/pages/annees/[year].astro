@@ -41,8 +41,9 @@ const tagsCount = allTags
     <hr />
     <TagsList tags={tagsCount} filterable />
     <section data-year-posts>
+      <YearPagination currentYear={year} years={years} placement="top" />
       <PostsList posts={posts} />
-      <YearPagination currentYear={year} years={years} />
+      <YearPagination currentYear={year} years={years} placement="bottom" />
     </section>
     <section data-tag-posts class="hidden" aria-live="polite">
       <PostsList posts={posts} />

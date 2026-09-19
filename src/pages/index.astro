@@ -41,11 +41,24 @@ const tagsCount = await getTagsCount();
       <TagsList tags={tagsCount} filterable />
     </section>
     <section data-year-posts>
+      {
+        latestYear !== undefined && (
+          <YearPagination
+            currentYear={latestYear}
+            years={years}
+            placement="top"
+          />
+        )
+      }
       {latestPost && <LargeCard post={latestPost} data-test-id="post-0" />}
       {remainingPosts.length > 0 && <PostsList posts={remainingPosts} />}
       {
         latestYear !== undefined && (
-          <YearPagination currentYear={latestYear} years={years} />
+          <YearPagination
+            currentYear={latestYear}
+            years={years}
+            placement="bottom"
+          />
         )
       }
     </section>
