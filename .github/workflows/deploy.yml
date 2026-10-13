@@ -10,28 +10,47 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   ASTRO_BASE: ${{ github.ref == 'refs/heads/main' && '/devendevenir' || '/blog-preview' }}
+  # Unique per attempt so "Re-run" does not create a second "github-pages" artifact.
+  PAGES_ARTIFACT: github-pages-${{ github.run_attempt }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Debug ASTRO_BASE
         run: |
           echo "Branch: $GITHUB_REF"
           echo "ASTRO_BASE=$ASTRO_BASE"
-          echo "ASTRO_BASE content: '${ASTRO_BASE}'"
+          echo "PAGES_ARTIFACT=$PAGES_ARTIFACT"
 
-      - uses: withastro/action@v2.0.0
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
         env:
           ASTRO_BASE: ${{ env.ASTRO_BASE }}
 
-      - name: Deploy to production GitHub Pages (main branch)
+      - name: Upload GitHub Pages artifact
         if: github.ref == 'refs/heads/main'
-        uses: actions/deploy-pages@v4.0.5
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+          name: ${{ env.PAGES_ARTIFACT }}
 
       - name: Deploy to preview repo (non-main branches)
         if: github.ref != 'refs/heads/main'
@@ -48,3 +67,17 @@ jobs:
           git add .
           git commit -m "Deploy preview from branch $GITHUB_REF" || echo "No changes to commit"
           git push origin HEAD:gh-pages --force
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: ${{ env.PAGES_ARTIFACT }}
