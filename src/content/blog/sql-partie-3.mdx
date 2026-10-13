@@ -1,6 +1,6 @@
 ---
 title : "SQL partie 3"
-date : Jul 22 2026
+date : Oct 14 2026
 series: 
     name: "SQL"
     part: 3
@@ -13,7 +13,7 @@ authorLink: "https://unsplash.com/fr/@ayumikubo?utm_content=creditCopyText&utm_m
 unsplashLink: "https://unsplash.com/fr/photos/un-couple-de-personnes-qui-marchent-devant-un-immeuble-OSz9Qty-AUk?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
 ---
 
-Nous avons précédemment abordé les commandes SQL, en les répartissant en 5 sous-catégories, de la gestion de la structure de la base de données à la manipulation des données en passant par la gestion des droits d'accès. Il est temps de nous intéresser à d'autres notions, qui sont souvent utilisées par les développeurs : les jointures et les sous-requêtes.
+Nous avons précédemment abordé les commandes SQL, en les répartissant en 5 sous-catégories, de la gestion de la structure de la base de données à la manipulation des données en passant par la gestion des droits d'accès. Il est temps de nous intéresser à d'autres notions, qui sont fréquemment utilisées par les développeurs : les jointures et les sous-requêtes.
 
 ## Les jointures
 
@@ -133,7 +133,7 @@ GROUP BY id_scientifique
 HAVING COUNT(*) > 5;
 ```
 
-Sur des requêtes légères ont peut travailler avec des sous-requêtes, mais quand une sous-requête est complexe mais n'a pas d'utilité à être transformée en table, on peut travailler avec les CTE, Common Table Expression.
+Sur des requêtes légères ont peut travailler avec des sous-requêtes, mais quand une sous-requête est complexe mais n'est pas utile au point de créer une table, on peut travailler avec les Common Table Expression.
 
 ## Les CTE
 
@@ -155,7 +155,7 @@ WHERE Date_publication BETWEEN '1900-01-01' AND '1930-12-31';
 
 L'exemple que je donne ici complique volontairement les choses, et est juste fait pour vous expliquer le principe. On a vu plus haut que la même chose peut être réalisée avec une jointure et un WHERE. Il faut bien vous imaginer qu'une requête SQL peut faire plusieurs dizaines de lignes, avec un grand nombre de jointures, des conditions complexes etc. Et dans ce cas là, les CTE permettent de rendre le code plus lisible, et plus facile à maintenir.
 
-Quand une requête complexe a besoin d'être stockée en base de données, afin de pouvoir accéder en permanences aux données qu'elle produit, on utilise un nouvel objet SQL, une vue.
+Quand les données d'une requête complexe doivent être fréquemment réutilisées, on fait généralement appel à un nouvel objet SQL, une vue.
 
 ## Les vues
 
@@ -214,7 +214,7 @@ Vous les connaissez déjà pour la plupart, il s'agit des opérateurs d'égalit�
 
 ### Les opérateurs logiques
 
-Si vous avez déjà fait un peu de code, vous les reconnaîtrez, sauf qu'au lieu d'utiliser des `&&`, `||` et autres `!` on utilise des mots clés : 
+Si vous avez déjà fait un peu de code, vous les reconnaîtrez. Au lieu d'utiliser des `&&`, `||` et autres `!` on utilise des mots-clés (d'accord, ceux qui font du Kotlin et du C# dans des versions récentes connaissent aussi ces mots-clés) : 
 
 - `AND` (et) : dans une clause WHERE on l'utilise pour vérifier que deux conditions sont respectées ensemble.
 
@@ -255,7 +255,7 @@ SELECT *
 FROM scientifiques
 WHERE nom LIKE 'Einstein%';
 ```
-La position du `%` détermine l'endroit ou on ne cherche pas quelque choses de spécifique. `%` devant signifie "n'importe quoi avant", `%` derrière signifie "n'importe quoi après" et `%nst%` signifie "n'importe quoi avant et n'importe quoi après".
+La position du `%` détermine l'endroit ou on ne cherche pas quelque choses de spécifique. `%xxx` devant signifie "n'importe quoi avant", `xxx%` derrière signifie "n'importe quoi après" et `%xxx%` signifie "n'importe quoi avant et n'importe quoi après".
 
 - `NOT LIKE` : permet de vérifier si une chaîne de caractères ne correspond pas à un modèle.
 
@@ -332,7 +332,7 @@ SELECT *, CASE WHEN nb_citations >= 3 THEN 'premier' ELSE 'autre' END AS rang
 FROM scientifiques;
 ```
 
-Cela permet de retranscrire des champs de type BIT ou BOOLEAN avec un libellé, par exemple 'oui'/'non'.
+Cela permet de retranscrire des champs de type BIT ou BOOLEAN avec un libellé, par exemple 'oui'/'non'. On gagne ainsi en lisibilité des données issues de la base.
 
 - `DISTINCT` : permet de sélectionner les valeurs uniques d'un champ. Il permet de supprimer les doublons dans un SELECT :
 
@@ -342,14 +342,21 @@ SELECT DISTINCT pays
 FROM scientifiques;
 ```
 
-- `LIMIT` : permet de limiter le nombre de lignes retournées par une sélection.
+- `LIMIT` : permet de limiter le nombre de lignes retournées par une sélection. Encore une fois, les termes diffèrent d'un SGBD à l'autre, sur SQL Server on utilise `TOP`.
 
 ```sql
 -- On utilise LIMIT pour sélectionner les 3 premiers scientifiques.
 SELECT * FROM scientifiques LIMIT 3;
 ```
 
-Si aucun orde de tri n'est spécifié, le résultat aléatoire, seul le nombre de lignes retourné sera fixe.
+Si aucun orde de tri n'est spécifié, le résultat sera aléatoire, seul le nombre de lignes retourné sera fixe. On pourra fixer l'ordre avec un nouvel opérateur, `ORDER BY`.
+
+```sql
+-- On utilise ORDER BY pour trier les scientifiques par ordre alphabétique.
+SELECT * FROM scientifiques ORDER BY nom;
+```
+
+`ASC` désigne l'ordre croissant (de A à Z, de 0 à 9). `DESC` désigne l'ordre décroissant (de Z à A, de 9 à 0). Par défaut, si une requête a un ORDER BY sans préciser le sens, le résultat sera trié par ordre croissant.
 
 Cet article ne prétend pas être exhaustif, il existe encore bien des mots-clés en SQL que vous découvrirez avec la pratique. Cependant, je pense vous avoir donné des bases suffisantes pour débuter avec ce langage.
 
