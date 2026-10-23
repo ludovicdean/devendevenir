@@ -1,0 +1,90 @@
+---
+title : "Automatisez vos tâches avec n8n"
+date : Oct 19 2026
+tags :
+    - outils
+description : "On ne peut pas tout développer soi-même, parfois, on peut faire appel à des outils pour automatiser nos tâches."
+banner: "../../assets/banners/susan-q-yin-2JIvboGLeho-unsplash.webp"
+
+author: "Susan Q Yin"
+authorLink: "https://unsplash.com/fr/@syinq?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+unsplashLink: "https://unsplash.com/fr/photos/livres-sur-etagere-en-bois-marron-2JIvboGLeho?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+---
+
+Quand on fait du support informatique, ou quand on développe des applications, on a deux réactions possibles devant des tâches récurrentes : 
+
+- recommencer éternellement la même tâche.
+- ou automatiser la tâche.
+
+Il s'agit peut-être d'une déformation professionnelle, mais tout problème répétitif m'amène inexorablement à la même question, est-ce que je peux automatiser cette tâche ? Qu'il s'agisse de vérifier les dates d'ouverture des réservations dans un centre de loisirs (véridique !) ou de simplifier le processus de gestion de certains problèmes dans des tâches de support, il y a de fortes chances qu'automatiser la tâche soit possible. C'est là qu'entre en scène n8n.
+
+## Qu'est-ce que n8n ?
+
+n8n est un outil open source qui permet de créer des workflows automatisés. Il est très flexible et peut être utilisé pour automatiser de nombreuses tâches. Il a pour but de permettre à des outils tiers de communiquer entre eux, et de réaliser des tâches complexes. Il s'agit d'un outil no code, utilisable pour quiconque souhaite automatiser des processus, pas nécessairement dans le domaine de l'informatique. 
+
+## Pourquoi l'utiliser ?
+
+Rien de tel pour perdre un temps considérable que de naviguer sans cesse d'un outil à un autre, en multipliant les copier/coller en même temps que les risques d'erreurs. Au-delà de la simplification des processus, l'intérêt de n8n est également de gagner en fiabilité en faisant appel à des briques logicielles fournies par des entreprises ou des développeurs tiers.
+
+## Comment ça marche ?
+
+Un flux de travail n8n est constitué d'étapes de traitement, qui peuvent être des déclencheurs, des actions, des conditions, des envois de notifications etc. Chaque étape est connectée à une ou plusieurs autres étapes, réalisant de manière complémentaire des opérations diverses. Chacune de ces étapes attend des données en entrée, et produit des données en sortie, qui sont ensuite utilisables par les étapes suivantes.
+
+Si certaines étapes attendent des données à un format déterminé que les étapes précédentes ne produisent pas, il est possible de convertir ces données avec des blocs de code. Quand on souhaite réaliser des opérations avec une notion de réussite ou d'échec, il est possible de les gérer avec des blocs de code.
+
+## Installer n8n
+
+Vous pouvez installer n8n en local, ou encore sur un serveur. Comme tous les projets NodeJS, il est possible de l'installer avec npm, sous réserve de bien des surprises. Personnellement j'ai essayé, et je n'ai eu que des erreurs liées à certaines dépendances, difficiles à résoudre. J'ai donc renoncé à l'installer en local, pour me tourner vers un container Docker.
+
+Plusieurs solutions se présentent à vous :
+
+- Docker Desktop
+- Docker Engine + Docker Compose pour ceux qui préfèrent se passer d'une interface graphique.
+
+Une fois ces pré-requis satisfaits, vous pourrez suivre les instructions d'installation de n8n avec Docker [ici](https://docs.n8n.io/deploy/host-n8n/install-options/install-using-docker-compose).
+
+Lancez votre conteneur, et rendez-vous sur l'URL de votre instance n8n, sur http://localhost:5678.
+
+Vous devrez créer un compte n8n, avec adresse email et mot de passe. Ceci fait, vous pourrez vous connecter à n8n, et commencer à construire vos automatisations.
+
+![Page d'accueil de n8n.](/devendevenir/images/interface_graphique_n8n.png)
+
+## Créez votre premier flux de travail
+
+Pour commencer, vous pourrez créer un nouveau flux de travail, en cliquant sur le bouton "New Workflow" aperçu sur la capture juste au-dessus.
+
+![Création d'un nouveau flux de travail.](/devendevenir/images/creation_workflow_n8n.png)
+
+L'interface de création de flux de travail consiste en un canevas vide, sur lequel vous ajouterez les étapes comme des briques connectées les unes aux autres.
+
+Le panneau latéral gauche vous permettra de revenir à la page d'accueil (Overview). Les onglets présents en haut de la page vous permettront d'accéder à l'éditeur de flux de travail, aux exécutions de vos flux de travail, et aux évaluations, des tests avancés à exécuter pour vous assurer du bon fonctionnement de vos flux de travail.
+
+Le panneau latéral droit vous permettra de rechercher les briques logicielles nécessaires à votre flux de travail.
+
+Maintenant que l'interface graphique de n8n ne vous est plus totalement inconnue, vous pouvez créer votre premier flux de travail.
+
+## Etape n°1 : le déclencheur
+
+Pour qu'un flux de travail s'exécute, il a besoin d'une amorce, d'un déclencheur. Le seul but de cette étape est de démarrer le flux de travail. Une grande variété de déclencheurs est à votre disposition, et il est fort à parier que vous trouverez celui qui vous convient.
+
+Voici différents types de déclencheurs :
+
+- Déclencheur manuel : le flux de travail démarre au clic sur cette brique.
+- Déclencheur planifié : le flux de travail démarre selon une temporisation déterminée (toutes les 10 minutes, quotidiennement, etc.).
+- Formulaire : la soumission d'un formulaire web lance l'exécution.
+- Au déclenchement d'un autre flux de travail : le flux 1 lance le flux 2.
+
+## Etape n°2 : les actions
+
+Quoi de mieux pour vous présenter les actions que de prendre un exemple concret ?
+
+Je vais vous présenter ici le flux de travail que je suis en train de mettre en place pour simplifier la publication de mes articles sur le blog et la publication des posts LinkedIn associés à chacun de mes articles.
+
+La première étape consiste à récupérer les PR en cours sur mon blog, puis de saisir les informations nécessaires à la publication de l'article (date, heure, contenu du post Linkedin) avec un formulaire. Ces informations sont ensuite enregistrées dans une table n8n.
+
+![Formulaire de saisie des informations.](/devendevenir/images/n8n_flux_de_travail_1.png)
+
+Cet enchaînement de briques représente un premier flux de travail, que je déclenche moi-même. Les prochaines actions seront réalisées dans un second flux de travail, qui sera déclenché par un déclencheur planifié.
+
+Celui-ci ira lire le contenu de la table articles, cherchera si des articles ont une date de publication située dans le passé et si c'est le cas lanceront le processus de publication sur le blog et sur LinkedIn. On voit ici que l'étape de fusion de PR peut aboutir soit à un succès, soit à un échec. Chacun des cas est traité différement, afin que le flux de travail reste cohérent (pas de post Linkedin publié sans article publié sur le blog).
+
