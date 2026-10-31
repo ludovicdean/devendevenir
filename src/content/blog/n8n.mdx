@@ -2,9 +2,9 @@
 title : "Automatisez vos tâches avec n8n"
 date : Oct 31 2026
 tags :
-    - outils
-description : "On ne peut pas tout développer soi-même, parfois, on peut faire appel à des outils pour automatiser nos tâches."
-banner: "../../assets/banners/susan-q-yin-2JIvboGLeho-unsplash.webp"
+  - outils
+description : "L'automatisation avec n8n, un outil low-code aux larges possibilités."
+banner: "../../assets/banners/mina-rad-qFSQFSmfZkA-unsplash.webp"
 
 author: "Susan Q Yin"
 authorLink: "https://unsplash.com/fr/@syinq?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
@@ -16,75 +16,148 @@ Quand on fait du support informatique, ou quand on développe des applications, 
 - recommencer éternellement la même tâche.
 - ou automatiser la tâche.
 
-Il s'agit peut-être d'une déformation professionnelle, mais tout problème répétitif m'amène inexorablement à la même question, est-ce que je peux automatiser cette tâche ? Qu'il s'agisse de vérifier les dates d'ouverture des réservations dans un centre de loisirs (véridique !) ou de simplifier le processus de gestion de certains problèmes dans des tâches de support, il y a de fortes chances qu'automatiser la tâche soit possible. C'est là qu'entre en scène n8n.
+Il s'agit peut-être d'une déformation professionnelle, mais tout problème répétitif m'amène inexorablement à la même question : cette tâche est-elle automatisable ? Qu'il s'agisse de vérifier les dates d'ouverture des réservations dans un centre de loisirs (véridique !) ou de simplifier le processus de gestion de certains problèmes dans des tâches de support, il y a de fortes chances qu'automatiser la tâche soit possible. Et quand le temps nécessaire à développer sa propre solution est disproportionné par rapport au gain obtenu, on peut se tourner vers des outils d'automatisation comme n8n.
 
 ## Qu'est-ce que n8n ?
 
-n8n est un outil open source qui permet de créer des workflows automatisés. Il est très flexible et peut être utilisé pour automatiser de nombreuses tâches. Il a pour but de permettre à des outils tiers de communiquer entre eux, et de réaliser des tâches complexes. Il s'agit d'un outil no code, utilisable pour quiconque souhaite automatiser des processus, pas nécessairement dans le domaine de l'informatique. 
+n8n est un outil qui permet de créer des flux de travail automatisés, appelés workflows dans l'interface graphique. Il a pour but de permettre à des outils tiers de communiquer entre eux.
 
-## Pourquoi l'utiliser ?
+Chaque étape d'un flux de travail est appelée noeud. Chaque noeud peut être lié à un ou plusieurs autres noeuds, en entrée ou en sortie. L'enchaînement des noeuds forme un flux de travail.
 
-Rien de tel pour perdre un temps considérable que de naviguer sans cesse d'un outil à un autre, en multipliant les copier/coller en même temps que les risques d'erreurs. Au-delà de la simplification des processus, l'intérêt de n8n est également de gagner en fiabilité en faisant appel à des briques logicielles fournies par des entreprises ou des développeurs tiers.
+On parle d'un outil low-code, un éditeur de flux de travail utilisable avec peu de connaissances techniques tant que les opérations réalisées correspondent précisément aux noeuds proposés par n8n. Quand des opérations non proposées par des noeuds sont nécessaires, il est possible d'utiliser des noeuds de code personnalisés avec du JavaScript ou du Python.
 
-## Comment ça marche ?
+## Pourquoi utiliser n8n ?
 
-Un flux de travail n8n est constitué d'étapes de traitement, qui peuvent être des déclencheurs, des actions, des conditions, des envois de notifications etc. Chaque étape est connectée à une ou plusieurs autres étapes, réalisant de manière complémentaire des opérations diverses. Chacune de ces étapes attend des données en entrée, et produit des données en sortie, qui sont ensuite utilisables par les étapes suivantes.
+Rien de tel pour perdre un temps considérable que de naviguer sans cesse d'un outil à un autre, en multipliant les copier/coller en même temps que les risques d'erreurs. Les noeuds officiels sont des wrappers autour d'API tierces. Vous pourrez utiliser les APIs de vos applications favorites sans avoir à les réécrire vous-même.
 
-Si certaines étapes attendent des données à un format déterminé que les étapes précédentes ne produisent pas, il est possible de convertir ces données avec des blocs de code. Quand on souhaite réaliser des opérations avec une notion de réussite ou d'échec, il est possible de les gérer avec des blocs de code.
+Comme toujours il y a quelques idées à garder à l'esprit avant de se lancer. Au même titre que les bibliothèques que l'on utilise dans le code, les noeuds constituent des dépendances, avec tout le travail de maintenance que cela implique.
 
 ## Installer n8n
 
-Vous pouvez installer n8n en local, ou encore sur un serveur. Comme tous les projets NodeJS, il est possible de l'installer avec npm, sous réserve de bien des surprises. Personnellement j'ai essayé, et je n'ai eu que des erreurs liées à certaines dépendances, difficiles à résoudre. J'ai donc renoncé à l'installer en local, pour me tourner vers un container Docker.
+Vous pouvez installer n8n en local, ou encore sur un serveur. J'ai suivi les conseils prodigués dans la documentation et opté pour l'installation avec un container Docker, l'installation via npm étant déconseillée.
 
 Plusieurs solutions se présentent à vous :
 
 - Docker Desktop
 - Docker Engine + Docker Compose pour ceux qui préfèrent se passer d'une interface graphique.
 
-Une fois ces pré-requis satisfaits, vous pourrez suivre les instructions d'installation de n8n avec Docker [ici](https://docs.n8n.io/deploy/host-n8n/install-options/install-using-docker-compose).
+Suivez le guide d'installation pour Docker [ici](https://docs.n8n.io/deploy/host-n8n/install-options/install-using-docker-compose).
 
-Lancez votre conteneur, et rendez-vous sur l'URL de votre instance n8n, sur http://localhost:5678.
+n8n s'ouvrira sur le port 5678 par défaut, et les données de vos flux de travail seront stockées dans le répertoire /home/node/.n8n de votre conteneur. C'est également ici que seront stockés vos informations d'authentification.
 
-Vous devrez créer un compte n8n, avec adresse email et mot de passe. Ceci fait, vous pourrez vous connecter à n8n, et commencer à construire vos automatisations.
+Veillez à ajouter les deux lignes suivantes dans le fichier .env de votre conteneur pour que l'heure de votre instance n8n soit correcte :
+
+```
+GENERIC_TIMEZONE=Europe/Paris
+TZ=Europe/Paris
+```
+
+Vous devrez créer un compte n8n local, avec adresse email et mot de passe. Ceci fait, vous pourrez vous connecter à n8n, et commencer à construire vos automatisations.
 
 ![Page d'accueil de n8n.](/devendevenir/images/interface_graphique_n8n.png)
 
-## Créez votre premier flux de travail
+## L'interface de travail
 
 Pour commencer, vous pourrez créer un nouveau flux de travail, en cliquant sur le bouton "New Workflow" aperçu sur la capture juste au-dessus.
 
 ![Création d'un nouveau flux de travail.](/devendevenir/images/creation_workflow_n8n.png)
 
-L'interface de création de flux de travail consiste en un canevas vide, sur lequel vous ajouterez les étapes comme des briques connectées les unes aux autres.
+L'interface de création de flux de travail consiste en un canevas vide, sur lequel vous ajouterez les étapes comme des noeuds connectées les unes aux autres.
 
-Le panneau latéral gauche vous permettra de revenir à la page d'accueil (Overview). Les onglets présents en haut de la page vous permettront d'accéder à l'éditeur de flux de travail, aux exécutions de vos flux de travail, et aux évaluations, des tests avancés à exécuter pour vous assurer du bon fonctionnement de vos flux de travail.
+Le panneau latéral gauche vous permettra de revenir à la page d'accueil (Overview). Les onglets présents en haut de la page vous permettront d'accéder à l'éditeur de flux de travail, aux exécutions de vos flux de travail, et aux évaluations, que je n'utilise pas ici.
 
-Le panneau latéral droit vous permettra de rechercher les briques logicielles nécessaires à votre flux de travail.
+Le panneau latéral droit vous permettra de rechercher les noeuds nécessaires à votre flux de travail.
 
 Maintenant que l'interface graphique de n8n ne vous est plus totalement inconnue, vous pouvez créer votre premier flux de travail.
 
-## Etape n°1 : le déclencheur
+## Votre premier flux de travail
+
+Imaginons que vous souhaitiez recevoir dans votre boîte mail la météo de votre ville. Trois noeuds suffisent :
+
+- Schedule : un déclencheur lance le flux tous les jours à 7h.
+- HTTP Request : une action récupère la météo de votre ville.
+- Send Email : une action envoie un email avec la météo de votre ville.
+
+On voit que les noeuds sont soit des déclencheurs, soit des actions. Un double-clic ouvre le paramétrage. Le bouton `Execute step` lance l'exécution du noeud ouvert.
+
+![Flux de travail de la météo.](/devendevenir/images/n8n_flux_de_travail_meteo.png)
+
+![Paramétrage de l'action HTTP Request.](/devendevenir/images/n8n_edition_appel_api.png)
+
+HTTP Request lance un appel GET vers `https://api.open-meteo.com/v1/forecast`, sans authentification. Trois query parameters suffisent pour récupérer la météo de Paris :
+- `latitude` = `48.86`
+- `longitude` = `2.35`
+- `current` = `temperature_2m,weather_code`
+
+Les appels API sont bien entendu paramétrables. On peut définir l'ensemble des caractéristiques de ceux-ci, headers, body, token d'authentification, etc.
+
+La dernière étape du flux de travail est l'envoi de la météo du jour par mail. Afin de paramétrer cette étape, il faut renseigner un serveur SMTP, l'adresse d'envoi, l'adresse de destination, le sujet et le corps du mail.
+
+![Paramétrage de l'action HTTP Request.](/devendevenir/images/n8n_edition_envoi_mail.png)
+
+Tant que votre noeud ne sera pas correctement paramétré, il apparaîtra avec un triangle rouge en bas à droite du noeud.
+
+## Automatiser la publication de mes articles
+
+Prenons un exemple avec une plus grande complexité. Je vais vous présenter ici le flux de travail que je suis en train de mettre en place pour simplifier la publication de mes articles sur le blog et la publication des posts LinkedIn associés à chacun de mes articles.
+
+La première étape consiste à récupérer les pull requests en cours sur mon blog, puis à saisir les informations nécessaires à la publication de l'article (date, heure, contenu du post LinkedIn, lien de l'article) avec un formulaire. Ces informations sont ensuite enregistrées dans une table n8n.
+
+![Première version du flux de travail.](/devendevenir/images/n8n_flux_de_travail_1.png)
+
+Cet enchaînement de noeuds représente un premier flux de travail, que je déclenche moi-même. Le point final de ce flux de travail est la saisie d'informations dans une table n8n. Cette même table servira à un autre flux de travail qui sera déclenché par un déclencheur planifié.
+
+Celui-ci ira lire le contenu de la table n8n et cherchera si des articles au statut "pending" ont une date de publication située dans le passé. Si c'est le cas le flux de travail lancera le processus de publication sur le blog et sur LinkedIn. Dans un monde idéal le cheminement serait droit, mais en réalité chaque étape peut aboutir à un échec. De même que dans le code, on doit gérer les erreurs. L'image présentée ci-dessus représente le chemin parfait, mais n'est qu'une ébauche.
+
+## Les déclencheurs
 
 Pour qu'un flux de travail s'exécute, il a besoin d'une amorce, d'un déclencheur. Le seul but de cette étape est de démarrer le flux de travail. Une grande variété de déclencheurs est à votre disposition, et il est fort à parier que vous trouverez celui qui vous convient.
 
 Voici différents types de déclencheurs :
 
-- Déclencheur manuel : le flux de travail démarre au clic sur cette brique.
+- Déclencheur manuel : le flux de travail démarre au clic sur ce noeud.
 - Déclencheur planifié : le flux de travail démarre selon une temporisation déterminée (toutes les 10 minutes, quotidiennement, etc.).
 - Formulaire : la soumission d'un formulaire web lance l'exécution.
-- Au déclenchement d'un autre flux de travail : le flux 1 lance le flux 2.
+- Appel d'un autre flux : ce flux démarre quand un autre flux l'invoque.
 
-## Etape n°2 : les actions
+## Les informations d'authentification
 
-Quoi de mieux pour vous présenter les actions que de prendre un exemple concret ?
+Il ne vous aura pas échappé que je fais appel à des noeuds qui vont faire des requêtes HTTP vers Github. Ce type de noeud nécessite de fournir des informations d'authentification, type login/mot de passe ou token d'accès. Ces informations sont stockées dans n8n, sous l'appellation "credentials". Ces informations ne sont pas stockées dans les étapes elles-mêmes mais sont référencées au niveau de n8n. Toutes les étapes liées à une même application peuvent utiliser les mêmes credentials.
 
-Je vais vous présenter ici le flux de travail que je suis en train de mettre en place pour simplifier la publication de mes articles sur le blog et la publication des posts LinkedIn associés à chacun de mes articles.
+## Gérer les erreurs
 
-La première étape consiste à récupérer les PR en cours sur mon blog, puis de saisir les informations nécessaires à la publication de l'article (date, heure, contenu du post Linkedin) avec un formulaire. Ces informations sont ensuite enregistrées dans une table n8n.
+Voici la version complète du flux de travail qui recense mes articles en attente de publication.
 
-![Formulaire de saisie des informations.](/devendevenir/images/n8n_flux_de_travail_1.png)
+![Deuxième version du flux de travail.](/devendevenir/images/n8n_flux_de_travail_2.png)
 
-Cet enchaînement de briques représente un premier flux de travail, que je déclenche moi-même. Les prochaines actions seront réalisées dans un second flux de travail, qui sera déclenché par un déclencheur planifié.
+La partie supérieure du flux de travail représente l'enchaînement des étapes quand tout se passe bien, chaque noeud situé sur la ligne inférieure correspond au signalement d'une erreur. 
 
-Celui-ci ira lire le contenu de la table articles, cherchera si des articles ont une date de publication située dans le passé et si c'est le cas lanceront le processus de publication sur le blog et sur LinkedIn. On voit ici que l'étape de fusion de PR peut aboutir soit à un succès, soit à un échec. Chacun des cas est traité différement, afin que le flux de travail reste cohérent (pas de post Linkedin publié sans article publié sur le blog).
+![Paramétrage du déclencheur Schedule.](/devendevenir/images/n8n_parametrage_scheduler_settings.png)
 
+On constate la présence d'un deuxième onglet "Settings". Cet onglet permet d'indiquer au noeud de ne pas rattraper une exécution manquée, ou encore de relancer toute exécution manquée. On peut définir une politique de relance, et une gestion des erreurs personnalisée. En cas d'erreur, on peut choisir de transmettre le message d'erreur au noeud suivant, ou de le traiter comme une erreur via la sortie d'erreur.
+
+## Stocker des données
+
+On remarque que je n'appelle pas de base de données externe dans le flux de recensement des articles. Pour un stockage de données simple n8n propose des tables locales, dont on doit déterminer la structure. Une fois cette structure déterminée, on peut commencer à stocker des données. On peut accéder à ces tables directement depuis l'overview de n8n, dans l'onglet "Data Tables".
+
+![Aperçu des tables locales de n8n.](/devendevenir/images/n8n_data_tables_1.png)
+
+## Les noeuds personnalisables
+
+Dans vos flux de travail vous pouvez rencontrer des problèmes quant à la structure des données qui entrent dans un noeud. Dans le cas présent, lorsque je récupère les pull requests sur Github, je n'ai besoin que de l'identifiant et du titre de celle-ci. Pour la suite du traitement, je dois les concaténer pour alimenter mon formulaire. Et pour les étapes suivantes, je dois à nouveau les séparer. Ces traitements intermédiaires sont réalisés dans des blocs de code. 
+
+Ces blocs de code sont personnalisables, et vous pouvez les écrire en JavaScript ou en Python. Il existe également des blocs permettant de traiter des conditions (si/sinon), des boucles (pour chaque).
+
+## Enchaîner les flux de travail
+
+Dans mon cas, le flux de travail décrit plus haut n'est qu'une seule étape du traitement que je souhaite effectuer. Le flux se charge uniquement de recenser les articles en attente sur mon blog et d'inscrire dans une table les informations nécessaires à leur publication. Il ne m'est pas encore possible de lancer la publication automatique des articles. Je vais donc créer un second flux de travail dédié à ces opérations.
+
+Ici, l'exécution du second flux de travail sera lancée grâce à un déclencheur planifié. Celui-ci suit un schéma d'exécution déterminé, par exemple un déclenchement toutes les heures.
+
+![Deuxième flux de travail.](/devendevenir/images/n8n_flux_de_travail_publication.png)
+
+Découper un flux de travail en plusieurs sous-flux de travail permet de rendre les flux de travail plus faciles à maintenir et à comprendre. Les flux de travail peuvent être réutilisés par d'autres flux.
+
+## Conclusion
+
+Vous avez maintenant les bases pour créer vos propres flux de travail avec n8n. La communauté n8n est très active et crée continuellement de nouvelles intégrations. Vous pouvez également créer vos propres intégrations et les partager.

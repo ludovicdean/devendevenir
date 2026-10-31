@@ -1,0 +1,11 @@
+:80 {
+	root * /srv
+	encode gzip
+	redir / /devendevenir/ 302
+	handle_path /devendevenir/* {
+		# Static multi-page site: serve the file/dir, then index.html in that dir.
+		# Do NOT fall back to /index.html (that SPA pattern made every blog URL show the home page).
+		try_files {path} {path}/ {path}/index.html
+		file_server
+	}
+}
