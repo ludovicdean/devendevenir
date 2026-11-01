@@ -34,6 +34,7 @@ Le terme « balisage » désigne la manière dont on utilise des balises pour d�
 Contrairement à un document classique, que l’on parcourt généralement de manière linéaire, un hypertexte permet de suivre différents chemins grâce aux hyperliens.
 
 ## Le rôle du HTML
+
 HTML sert à structurer le contenu d’un document selon le rôle de chaque élément : titre, paragraphe, lien, image ou liste, par exemple. En général, on combine HTML avec CSS et JavaScript pour créer des pages web structurées et interactives :
 
 - HTML pour la structure.
@@ -47,29 +48,30 @@ Sur une même page, on peut avoir à la fois du HTML, du CSS et du JavaScript, c
 <html lang="fr">
   <head>
     <meta charset="utf-8">
-    <title>Exemple HTML, CSS et JavaScript</title>
-
-    <style>
-      button {
-        background: royalblue;
-        color: white;
-      }
-    </style>
+    <title>Exemple HTML</title>
   </head>
 
   <body>
     <h1>Bonjour</h1>
-
-    <button id="button">Cliquer</button>
-
-    <script>
-      document.querySelector("#button").addEventListener("click", () => {
-        alert("Bonjour depuis JavaScript !");
-      });
-    </script>
+    <p>Bienvenue sur mon blog !</p>
   </body>
 </html>	
 ```
+
+Voici le sens de chaque balise :
+
+- `<!doctype html>` indique au navigateur qu'il doit interpréter le document en mode standard (et non en mode de compatibilité). 
+- `<html>` est la racine du document HTML. 
+- `<head>` contient les métadonnées du document ainsi que les ressources qui lui sont associées. 
+- `<body>`, c'est elle qui porte le contenu de la page. 
+- `<h1>` est la balise de titre de niveau 1.
+- `<p>` est la balise de paragraphe.
+
+Et voici maintenant l'allure de votre page web :
+
+![Capture d'écran de la page web correspondant à l'extrait de code HTML précédent.](/devendevenir/images/html_structure_de_base_html_brut.png)
+
+On retrouve les éléments indiqués dans la balise `<body>` : le titre ainsi que le paragraphe. Il faut bien avouer que ce n'est pas très esthétique, mais pour le moment on parle uniquement de structure, non de design.
 
 Ici, on voit que le CSS est contenu dans une balise `<style>`, et le JavaScript dans une balise `<script>`. On voit que le CSS utilise le sélecteur `#button` pour sélectionner le bouton et le mettre en forme. Le JavaScript l'utilise également pour sélectionner le bouton et associer un événement au clic sur ce bouton.
 
