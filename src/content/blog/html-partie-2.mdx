@@ -6,17 +6,161 @@ tags :
 series:
     name: "HTML"
     part: 2
-description : "Plongeons dans les entrailles des balises HTML."
+description : "Apprenez à lire et utiliser les attributs des balises HTML."
 banner: "../../assets/banners/yancy-min-842ofHC6MaI-unsplash.webp"
-
 author: "Yancy Min"
 authorLink: "https://unsplash.com/fr/@yancymin?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
 unsplashLink: "https://unsplash.com/fr/photos/gros-plan-dune-description-textuelle-sur-un-ecran-dordinateur-842ofHC6MaI?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
 ---
-import HtmlExplorer from "@components/HtmlExplorer.astro";
+import Note from "@components/Note.astro";
 
-Si le HTML est comparable au squelette d'un site web, les attributs sont tous les éléments qui précisent le rôle des balises. Si une adresse postale a toujours la même structure (numéro, rue, code postal, ville), les attributs sont les valeurs réelles de ces informations.
+Si le HTML est comparable au squelette d'un site web, les attributs sont tous les éléments qui enrichissent les balises. Découvrons ensemble ce que sont les attributs en HTML.
 
-## Les attributs
+## La structure des attributs
 
-Certains attributs 
+Si une adresse postale a toujours la même structure (numéro, rue, code postal, ville), les attributs sont les valeurs réelles de ces informations. Chaque attribut d'une balise est constitué d'un nom et d'une valeur. La structure d'un attribut est la suivante :
+
+```html
+attribut="valeur"
+```
+
+Une balise html peut avoir plusieurs attributs. Elle aura alors cette structure :
+
+```html
+<balise attribut1="valeur1" attribut2="valeur2" attribut3="valeur3">
+contenu de la balise
+</balise>
+```
+
+Faire une liste exhaustive des balises et des attributs serait peu intéressant pour un article de blog, la documentation officielle de HTML est très riche et vous apportera toutes [les informations nécessaires](https://developer.mozilla.org/fr/docs/Web/HTML). 
+
+Je vais m'intéresser aux attributs que l'on voit couramment dans le code des pages web. 
+
+## Quelques exemples
+
+Dans le cas d'une image, on aura au minimum deux attributs, la source de l'image et l'alternative textuelle.
+
+```html
+<img src="chemin/vers/mon/image" alt="Description de l'image">
+```
+
+On pourra spécifier les dimensions de l'image en pixels avec les attributs `width` et `height`, le navigateur se chargera de réserver l'espace correspondant. On peut également ajouter un attribut `loading` afin de modifier le chargement de l'image (lazy loading dans le cas où le chargement de l'image n'est pas bloquant, eager dans le cas contraire). Le `title` est un attribut qui permet d'afficher le titre de l'image au survol de la souris.
+
+Notre balise image aura alors cette structure :
+
+```html
+<img 
+    src="chemin/vers/mon/image" 
+    title="Titre de l'image"
+    alt="Description de l'image" 
+    width="100" 
+    height="100" 
+    loading="lazy"
+/>
+```
+
+Quand un lecteur d'écran lit une page web et passe sur l'image, il lira à l'utilisateur l'alternative textuelle de l'image.
+
+Si certains attributs prennent des valeurs totalement personnalisées, certaines exigent des valeurs prédéfinies. L'attribut `loading` prend les valeurs `lazy` ou `eager` uniquement. Le navigateur chargera immédiatement une image dans le cas de `eager`, et chargera l'image au moment auquel le navigateur atteindra le point de la page où l'image est affichée dans le cas de `lazy`.
+
+Sur cet exemple, certains attributs sont obligatoires, et d'autres sont facultatifs :
+
+- Une balise `img` doit obligatoirement avoir un attribut `src` et un attribut `alt`. Les attributs déterminant les dimensions de l'image et le type de chargement sont quant à eux facultatifs.
+- Dans le cas d'un lien, la balise `<a>` doit obligatoirement avoir un attribut `href` qui permet de spécifier l'URL du lien.
+
+Si on reprend l'exemple de l'article précédent, le menu de la page contenait un lien vers la page des articles. L'URL est contenue dans le `href` de la balise `<a>`. 
+
+```html
+<a href="/articles">Articles</a>
+<a href="#archives">Archives</a>
+```
+
+Dans le premier cas, le clic sur le lien mènera à une autre page. Dans le second cas, le clic sur le lien mènera à une autre ancre sur la même page.
+
+Certains attributs sont des booléens. Ils n'ont alors pas nécessairement de valeur spécifiée dans le html, leur présence dans la balise est suffisante. On retrouve souvent l'attribut `disabled` pour désactiver un champ dans un formulaire, ou `required` pour rendre un champ de ce formulaire obligatoire. Leur seule présence indique que leur valeur est `true`.
+
+```html
+<input type="text" required>
+<input type="text" disabled>
+```
+
+De la même manière, l'attribut `hidden` permet de masquer un élément de la page.
+
+```html
+<p hidden>Ce paragraphe est masqué.</p>
+```
+
+L'espace normalement réservé pour le contenu de la balise est occupé par le reste du contenu de la page. L'utilisateur ne verra pas le contenu de la balise, mais la balise et son contenu seront présents dans le code source de la page.
+
+## Les attributs universels
+
+Les attributs universels sont des attributs applicables à toutes les balises HTML. Ils ont des rôles très différents. Voici ceux que vous rencontrerez le plus souvent :
+
+- l'identifiant `id`
+- la classe `class`
+- le rôle `role` 
+- la langue `lang`
+
+### L'identifiant unique
+
+Comme souvent en développement, un identifiant unique permet de sélectionner un élément dans une page HTML. C'est précisément le rôle que remplit l'attribut `id`. Sa valeur permettra à du JavaScript ou à du CSS de cibler cet élément, et aucun autre. Toute balise HTML peut avoir un attribut `id`, mais il ne conserve son sens que s'il est unique sur la page.
+
+<Note type="info">
+Ce n'est pas parce qu'un élément <strong>peut</strong> avoir un identifiant qu'il <strong>doit</strong> en avoir un. Si rien ne justifie l'utilisation d'un identifiant sur une balise, il faut alors s'abstenir d'en rajouter un.
+</Note>
+
+```html
+<p id="mon-identifiant">Ce paragraphe est unique.</p>
+```
+
+Pour prendre l'exemple de la page sur laquelle vous vous trouvez, le logo du blog est identifié par l'attribut `id="logo"`.
+
+### La classe 
+
+La classe est un attribut qui permet de regrouper des éléments dans une même catégorie. On peut l'utiliser pour appliquer les mêmes styles si on parle de CSS, ou le même comportement si on parle de JavaScript. Tout comme l'identifiant, toute balise HTML peut avoir un attribut `class`.
+
+L'attribut `class` ne modifie pas en lui-même la présentation ou le comportement, elle permet de cibler un ensemble d'éléments.
+
+```html
+<p class="ma-classe">Ce paragraphe possède la classe ma-classe.</p>
+```
+
+### Le rôle
+
+L'attribut `role` permet d'améliorer l'accessibilité de la page pour les utilisateurs de lecteurs d'écran, en précisant par exemple le rôle d'une balise quand il n'est pas porté nativement par celle-ci. On peut par exemple avoir des boutons ayant un rôle d'onglets sur une page web. Il n'existe pas de balise HTML native pour les onglets, on ajoutera donc un attribut `role="tab"` à la balise `button` :
+
+```html
+<div role="tablist">
+  <button role="tab">Onglet 1</button>
+  <button role="tab">Onglet 2</button>
+  <button role="tab">Onglet 3</button>
+</div>
+```
+
+Pour mettre en place le système d'onglets, il faudra utiliser du JavaScript.
+
+La balise `div` ne sert qu'à regrouper des balises afin de servir la structure d'une page web. Elle n'a pas de sémantique propre, on peut donc lui adjoindre un rôle afin d'enrichir l'arbre d'accessibilité de la page.
+
+<Note type="info">
+  L'arbre d'accessibilité est la structure d'une page web telle que vue par un lecteur d'écran. C'est une structure simplifiée de la page, qui ne conserve que les éléments essentiels pour la compréhension de la page. Chaque élément est identifié par son nom, sa description, son rôle et ses propriétés. Si vous êtes sur ordinateur, vous pouvez voir l'arbre d'accessibilité de la page en allant dans les outils de développement de votre navigateur.
+</Note>
+
+### La langue
+
+L'attribut `lang` permet de préciser la langue d'une page web. Il est utilisé pour aider les lecteurs d'écran à prononcer les mots correctement. Il est également utilisé pour les moteurs de recherche afin de mieux comprendre le contenu de la page. Si elle est généralement indiquée dans les premières lignes de votre page web, elle peut être précisée pour chaque élément de la page comme le montre l'exemple suivant :
+
+```html
+<html lang="fr">
+  <body>
+    <p lang="en">HTML stands for HyperText Markup Language.</p>
+  </body>
+</html>
+```
+
+Dans cet exemple, la page web est en français, mais le paragraphe contenu dans la balise `<p>` est en anglais. Les lecteurs d'écran se basent sur la langue d'un élément pour prononcer les mots correctement. Un élément à l'attribut `lang="fr"` sera prononcé en français, un élément à l'attribut `lang="en"` sera prononcé en anglais.
+
+## Conclusion
+
+à remanier refaire reformuler, réfléchir au prochain article.
+
+Une balise se lit en trois temps : son nom, ses attributs, son contenu. Certains attributs ne concernent qu'une balise, comme `src` ou `href`. D'autres sont au contraire universels : `id`, `class`, `role` et `lang`.
