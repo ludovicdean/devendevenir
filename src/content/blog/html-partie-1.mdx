@@ -7,11 +7,10 @@ series:
     name: "HTML"
     part: 1
 description : "Découvrez les origines de HTML, son rôle et la structure de base d'une page web."
-banner: "../../assets/banners/yancy-min-842ofHC6MaI-unsplash.webp"
-
-author: "Yancy Min"
-authorLink: "https://unsplash.com/fr/@yancymin?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
-unsplashLink: "https://unsplash.com/fr/photos/gros-plan-dune-description-textuelle-sur-un-ecran-dordinateur-842ofHC6MaI?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+banner: "../../assets/banners/mohammad-rahmani-oXlXu2qukGE-unsplash.webp"
+author: "Mohammad Rahmani" 
+authorLink: "https://unsplash.com/fr/@afgprogrammer"
+unsplashLink: "https://unsplash.com/fr/photos/ecran-dordinateur-affichant-le-code-web-oXlXu2qukGE"
 ---
 import HtmlExplorer from "@components/HtmlExplorer.astro";
 
@@ -168,7 +167,9 @@ Si certains éléments vous échappent encore, c'est tout à fait normal. Nous a
 </body>
 </HtmlExplorer>
 
-Le respect de la sémantique est important pour l'accessibilité (les lecteurs d'écran), le référencement naturel (SEO, bien que les choses bougent vite dans ce domaine, notamment avec l'IA) ainsi que pour la lisibilité du code.
+Le respect de la sémantique est important pour l'accessibilité (les lecteurs d'écran), le référencement naturel (SEO, bien que les choses bougent vite dans ce domaine, notamment avec l'IA) ainsi que pour la lisibilité du code. Quand une balise a pour seul rôle de permettre de gérer la mise en forme d'un élément, on utilise une balise particulière, la balise `div`. Elle permet de grouper des éléments afin de gérer leur mise en forme en prenant en compte tout leur contenu simultanément. Cette balise n'a aucun effet sur le contenu de la page tant qu'elle n'est pas mise en forme par du CSS.
+
+Souvent, quand la balise `div` est trop fréquemment utilisée dans une page web, on parle de soupe de div. L'utilisation trop fréquente de cette balise fait disparaître la sémantique de la page, et rend la lisibilité du code difficile. Un lecteur d'écran ne sera pas en mesure d'interpréter la page correctement, et donc de la restituer.
 
 ## Conclusion
 
