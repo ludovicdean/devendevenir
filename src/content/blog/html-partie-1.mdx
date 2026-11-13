@@ -7,33 +7,30 @@ series:
     name: "HTML"
     part: 1
 description : "Découvrez les origines de HTML, son rôle et la structure de base d'une page web."
-banner: "../../assets/banners/mohammad-rahmani-oXlXu2qukGE-unsplash.webp"
-author: "Mohammad Rahmani" 
-authorLink: "https://unsplash.com/fr/@afgprogrammer"
-unsplashLink: "https://unsplash.com/fr/photos/ecran-dordinateur-affichant-le-code-web-oXlXu2qukGE"
+banner: "../../assets/banners/yancy-min-842ofHC6MaI-unsplash.webp"
+
+author: "Yancy Min"
+authorLink: "https://unsplash.com/fr/@yancymin?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+unsplashLink: "https://unsplash.com/fr/photos/gros-plan-dune-description-textuelle-sur-un-ecran-dordinateur-842ofHC6MaI?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
 ---
 import HtmlExplorer from "@components/HtmlExplorer.astro";
 
-En début de reconversion, j’ai suivi un module d’une semaine consacré à un langage souvent sous-estimé et rarement étudié en profondeur : HTML. Il ne s’agit pas d’un langage de programmation comme Java ou C#, mais d’un langage de balisage. C’est pourtant lui que nous côtoyons le plus souvent au quotidien, puisqu’il structure les pages web que nous consultons. Il mérite donc qu’on s’y attarde.
+En début de reconversion, j’ai suivi un module d’une semaine consacré à un langage souvent sous-estimé et rarement étudié en profondeur : HTML. Il ne s’agit pas d’un langage de programmation comme Java ou C#, mais d’un langage de balisage. Cela signifie que des balises décrivent la structure et le rôle de chaque élément d'une page web. C’est pourtant lui que nous côtoyons le plus souvent au quotidien, puisqu’il structure les pages web que nous consultons. Il mérite donc qu’on s’y attarde.
 
 ## Les origines
 
-À l’origine de HTML, on retrouve Tim Berners-Lee, le créateur du World Wide Web. Alors qu’il travaillait au CERN, il a imaginé un système permettant de structurer et de relier des documents grâce à des hyperliens.
+À l’origine de HTML, on retrouve Tim Berners-Lee, le créateur du World Wide Web. Alors qu’il travaillait au CERN, il a imaginé un système permettant de structurer et de relier des documents grâce à des hyperliens, qui mènent d'un document à un autre.
 
 Pour créer le HTML, il s’est notamment inspiré du SGML (Standard Generalized Markup Language) et d’un format de documentation utilisé au CERN. Entre 1989 et 1991, il a posé les premières bases du Web et développé les outils nécessaires à son fonctionnement.
 
-En 1991, il a mis à disposition [le premier site web](https://info.cern.ch/). Ce site est consacré au projet World Wide Web lui-même. Il explique notamment le fonctionnement de l’hypertexte ainsi que la manière de créer et d’utiliser des pages web.
+En 1991, il a mis à disposition [le premier site web](https://info.cern.ch/). Ce site est consacré au projet World Wide Web lui-même. Il explique notamment le concept d'hypertexte, et sa capacité à relier des documents entre eux sans avoir à les parcourir dans leur ensemble.
 
 ## Que signifie HTML ?
 
-HTML signifie HyperText Markup Language, ou « langage de balisage d’hypertexte » en français.
-
-Le terme « balisage » désigne la manière dont on utilise des balises pour décrire la structure et le rôle d’un contenu. Le terme « hypertexte » désigne quant à lui un document contenant des liens permettant de naviguer vers d’autres documents ou ressources.
-
-Contrairement à un document classique, que l’on parcourt généralement de manière linéaire, un hypertexte permet de suivre différents chemins grâce aux hyperliens.
+HTML signifie HyperText Markup Language, ou « langage de balisage d’hypertexte » en français. Ce langage est à la croisée des deux idées que nous avons évoquées plus haut : le balisage et l'hypertexte.
 
 ## Le rôle du HTML
-HTML sert à structurer le contenu d’un document selon le rôle de chaque élément : titre, paragraphe, lien, image ou liste, par exemple. Le revers de la médaille est le fait que le HTML ne gère absolument pas la mise en forme du contenu.
+HTML sert à structurer le contenu d’un document selon le rôle de chaque élément : titre, paragraphe par exemple. Le revers de la médaille est le fait que le HTML ne gère absolument pas la mise en forme du contenu.
 
 Prenons l'exemple d'une page web réduite à sa plus simple expression comme l'extrait de code suivant :
 
@@ -55,8 +52,6 @@ Prenons l'exemple d'une page web réduite à sa plus simple expression comme l'e
 
 La page web affichée est certes structurée, mais elle n'est pas du tout esthétique. C'est ce qu'on aperçoit parfois quand un site web a un problème et s'ouvre sans avoir chargé les ressources permettant d'apporter la part esthétique du site web.
 
-Les éléments qui composent cet extrait de code sont appelés balises.
-
 ## Niveau 1 : la structure d'une page HTML
 
 Voici le sens de chaque balise dans l'extrait présenté juste au-dessus :
@@ -68,7 +63,9 @@ Voici le sens de chaque balise dans l'extrait présenté juste au-dessus :
 - `<h1>` est la balise de titre de niveau 1.
 - `<p>` est la balise de paragraphe.
 
-Quand on regarde ce code, on remarque que beaucoup de balises apparaissent plusieurs fois et se ressemblent. Voici les éléments qui composent une balise :
+### La structure d'une balise
+
+Une balise est généralement composée de deux parties comme le montre l'extrait de code suivant :
 
 ```html
 <nom_de_la_balise>contenu_de_la_balise</nom_de_la_balise>
@@ -76,19 +73,32 @@ Quand on regarde ce code, on remarque que beaucoup de balises apparaissent plusi
 
 La première balise est appelée balise ouvrante, la seconde est appelée balise fermante. Ce qui se trouve entre ces deux balises constitue son contenu. C'est généralement la partie visible par l'utilisateur. Si vous reprenez le code et la capture d'écran plus haut, vous remarquerez que les éléments visibles de la page web sont ceux qui sont entre les balises `<h1>` et `</h1>`, et `<p>` et `</p>`.
 
-Vous me direz peut-être "Pourquoi on ne voit pas le contenu de la balise `<title>` ?". Le title est une balise qui contient le texte de l'onglet du navigateur. C'est le texte qui vous permet de savoir que le douzième onglet en partant de la gauche c'est votre blog tech préféré, Dev En Devenir.
+### Les balises invisibles
 
-La balise `head` contient quant à elle les métadonnées de la page. Les métadonnées sont les informations qui décrivent la page, comme son titre, les liens vers les ressources CSS et JavaScript, ou encore les informations qui permettent de partager votre page sur les réseaux sociaux avec un titre, une description et une image spécifique.
+Certaines balises ne sont pas visibles sur une page web. Pourtant, elles ont un rôle important dans la structure de la page.
 
-Toutes les balises ne se ressemblent pas. Certaines sont invisibles aux utilisateurs, d'autres sont visibles. Par ailleurs, certaines balises sont auto-fermantes, comme la balise image `<img>`.
+La balise `head` contient les métadonnées de la page. Les métadonnées sont les informations qui décrivent la page, comme son titre, les liens vers les ressources CSS et JavaScript, ou encore les informations qui permettent de partager votre page sur les réseaux sociaux avec un titre, une description et une image spécifique.
 
-Aux éléments présentés plus haut il faut ajouter les balises `header`, `main` et `footer`. Avec ces balises, on peut commencer à s'intéresser à la sémantique d'une page HTML.
+On peut lister les balises invisibles sur les pages web suivantes :
+
+- `<title>` contient le texte qui s'affiche dans l'onglet de votre navigateur. 
+- `<meta>` contient des métadonnées qui ne sont pas visibles sur la page (charset, description, keywords, viewport, etc.).
+- `<link>` contient des liens vers les ressources CSS et/ou JavaScript.
+- `<script>` contient du code JavaScript.
+- `<style>` contient du code CSS.
+
+Après ce rapide tour d'horizon des balises invisibles, intéressons-nous maintenant à la sémantique d'une page HTML.
 
 ## Niveau 2 : la sémantique d'une page HTML
 
-Le header correspond à l'en-tête de la page, le main correspond au contenu principal de la page et le footer correspond au pied de page. Ces balises sont toutes les trois imbriquées dans la balise `body`.
+À la manière d'un livre ou d'un journal papier, une page web est faite de régions distinctes. C'est la structure des balises qui la définit. Dans un journal papier, une page a souvent les régions suivantes :
 
-Le nom des balises n'est pas choisi au hasard. Chaque balise a un rôle précis, et ce rôle est précisément porté par le nom de la balise. Examinons maintenant le corps de la page suivante :
+- en-tête
+- contenu principal
+- bandeau latéral
+- pied de page
+
+Le même principe s'applique à une page web. Le nom des balises n'est pas choisi au hasard. Chaque balise a un rôle précis, et ce rôle est précisément porté par le nom de la balise. Examinons maintenant le corps de la page suivante :
 
 ```html
 <body>
@@ -98,23 +108,23 @@ Le nom des balises n'est pas choisi au hasard. Chaque balise a un rôle précis,
       <a href="/articles">Articles</a>
     </nav>
   </header>
-
   <main>
     <article>
       <h1>Comprendre HTML</h1>
-
       <p>
         HTML permet de structurer le contenu d'une page web.
       </p>
-
       <h2>Les notions importantes</h2>
-
       <p>
         Une page HTML est composée d'éléments imbriqués les uns dans les autres.
       </p>
+      <aside>
+        <p>
+          HTML n'est pas un langage de programmation. Il décrit la structure du contenu, il ne calcule rien.
+        </p>
+      </aside>
     </article>
   </main>
-
   <footer>
     <p>Publié sur DevEnDevenir.</p>
   </footer>
@@ -131,45 +141,50 @@ Les éléments présents ont tous un rôle précis dans la structure de la page 
 - `<h1>` : titre principal de la page. Il est généralement unique sur une page HTML. Il ne faut pas le confondre avec `<title>`, qui décrit le document dans l’onglet du navigateur.
 - `<h2>` : un titre de niveau 2 (il existe 6 niveaux de titres, de `<h1>` à `<h6>`).
 - `<footer>` : le pied de page d'une page (ou d'une section).
+- `<aside>` : contient des informations complémentaires.
 
-
-Si certains éléments vous échappent encore, c'est tout à fait normal. Nous aborderons ceux-ci dans les prochains articles de la série. Vous pouvez visualiser ci-dessous la structure d'une page HTML.
+Nous aborderons ceux-ci dans les prochains articles de la série. Vous pouvez visualiser ci-dessous la structure d'une page HTML.
 
 <HtmlExplorer>
 <body>
   <header>
     <nav>
-      <a href="#">Accueil</a>
-      <span> | </span>
+      <a href="/">Accueil</a>
       <a href="/articles">Articles</a>
-      <span> | </span>
-      <a href="/contact">Contact</a>
     </nav>
   </header>
-
   <main>
     <article>
       <h1>Comprendre HTML</h1>
-
       <p>
         HTML permet de structurer le contenu d'une page web.
       </p>
-
       <h2>Les notions importantes</h2>
-
       <p>
         Une page HTML est composée d'éléments imbriqués les uns dans les autres.
       </p>
+      <aside>
+        <p>
+          HTML n'est pas un langage de programmation. Il décrit la structure du contenu, il ne calcule rien.
+        </p>
+      </aside>
     </article>
   </main>
-
-  <footer>Publié sur DevEnDevenir.</footer>
+  <footer>
+    <p>Publié sur DevEnDevenir.</p>
+  </footer>
 </body>
 </HtmlExplorer>
 
-Le respect de la sémantique est important pour l'accessibilité (les lecteurs d'écran), le référencement naturel (SEO, bien que les choses bougent vite dans ce domaine, notamment avec l'IA) ainsi que pour la lisibilité du code. Quand une balise a pour seul rôle de permettre de gérer la mise en forme d'un élément, on utilise une balise particulière, la balise `div`. Elle permet de grouper des éléments afin de gérer leur mise en forme en prenant en compte tout leur contenu simultanément. Cette balise n'a aucun effet sur le contenu de la page tant qu'elle n'est pas mise en forme par du CSS.
+Le respect de la sémantique est important pour l'accessibilité (les lecteurs d'écran), le référencement naturel (SEO, bien que les choses bougent vite dans ce domaine, notamment avec l'IA) ainsi que pour la lisibilité du code.
 
-Souvent, quand la balise `div` est trop fréquemment utilisée dans une page web, on parle de soupe de div. L'utilisation trop fréquente de cette balise fait disparaître la sémantique de la page, et rend la lisibilité du code difficile. Un lecteur d'écran ne sera pas en mesure d'interpréter la page correctement, et donc de la restituer.
+Avant de terminer cet article, nous allons nous intéresser à une balise particulière, la balise `<div>`. 
+
+## Niveau 3 : la balise `<div>`
+
+Quand une balise a pour seul rôle de permettre de gérer la mise en forme d'un élément, on utilise une balise particulière, la balise `div`. Elle permet de grouper des éléments afin de gérer leur mise en forme en prenant en compte tout leur contenu simultanément. Cette balise n'a aucun effet sur le contenu de la page tant qu'elle n'est pas mise en forme par du CSS.
+
+L'utilisation trop fréquente de cette balise fait disparaître la sémantique de la page, et rend la lisibilité du code difficile. Un lecteur d'écran ne sera pas en mesure d'interpréter la page correctement, et donc de la restituer aux utilisateurs.
 
 ## Conclusion
 
