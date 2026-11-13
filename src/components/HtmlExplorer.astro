@@ -68,6 +68,38 @@
     .html-explorer__content :global(a) {
       color: #2563eb;
     }
+
+    .html-explorer__content :global(nav) {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.25rem;
+    }
+
+    .html-explorer__content :global(article:has(> aside)) {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(9rem, 13rem);
+      column-gap: 1.25rem;
+      align-items: start;
+    }
+
+    .html-explorer__content :global(article:has(> aside) > :not(aside)) {
+      grid-column: 1;
+    }
+
+    .html-explorer__content :global(article > aside) {
+      grid-column: 2;
+      grid-row: 1 / -1;
+      margin: 0;
+      padding: 0.75rem 1rem;
+      border-right: 3px solid #93c5fd;
+      border-radius: 0.25rem;
+      background: #f8fafc;
+      color: #374151;
+    }
+
+    .html-explorer__content :global(aside p) {
+      margin: 0;
+    }
   
     /*
      * Seul l'élément sélectionné reçoit une mise en évidence forte.
@@ -103,6 +135,16 @@
   
       .html-explorer__content {
         padding: 1rem;
+      }
+
+      .html-explorer__content :global(article:has(> aside)) {
+        grid-template-columns: 1fr;
+      }
+
+      .html-explorer__content :global(article:has(> aside) > :not(aside)),
+      .html-explorer__content :global(article > aside) {
+        grid-column: 1;
+        grid-row: auto;
       }
     }
   </style>
