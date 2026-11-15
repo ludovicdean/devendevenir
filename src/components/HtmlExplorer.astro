@@ -150,28 +150,20 @@
   </style>
   
   <script>
-    const explorers = document.querySelectorAll("[data-html-explorer]");
+    const explorers = document.querySelectorAll<HTMLElement>("[data-html-explorer]");
   
     explorers.forEach((explorer) => {
-      const content = explorer.querySelector(
-        ".html-explorer__content"
-      );
+      const content = explorer.querySelector(".html-explorer__content");
+      const tooltip = explorer.querySelector("[data-html-explorer-tooltip]");
+      const resetButton = explorer.querySelector("[data-html-explorer-reset]");
   
-      const tooltip = explorer.querySelector(
-        "[data-html-explorer-tooltip]"
-      );
-  
-      const resetButton = explorer.querySelector(
-        "[data-html-explorer-reset]"
-      );
-  
-      if (!content || !tooltip) {
+      if (!(content instanceof HTMLElement) || !(tooltip instanceof HTMLElement)) {
         return;
       }
   
-      let highlightedElement = null;
+      let highlightedElement: Element | null = null;
   
-      const semanticDescriptions = {
+      const semanticDescriptions: Record<string, string> = {
         html: "Élément racine du document",
         head: "Métadonnées du document",
         body: "Contenu du document",
@@ -193,7 +185,7 @@
         img: "Image"
       };
   
-      function getElementLabel(element) {
+      const getElementLabel = (element: Element): string => {
         const tagName = element.tagName.toLowerCase();
         const description = semanticDescriptions[tagName];
   
@@ -204,7 +196,7 @@
         }
   
         if (element.classList.length > 0) {
-          const className = [...element.classList].join(".");
+          const className = Array.from(element.classList).join(".");
           selector += ` class=".${className}"`;
         }
   
@@ -215,27 +207,24 @@
         }
   
         return selector;
-      }
+      };
   
-      function clearHighlight() {
+      const clearHighlight = (): void => {
         if (highlightedElement) {
-          highlightedElement.removeAttribute(
-            "data-html-highlighted"
-          );
-  
+          highlightedElement.removeAttribute("data-html-highlighted");
           highlightedElement = null;
         }
   
         tooltip.style.display = "none";
         tooltip.setAttribute("aria-hidden", "true");
-      }
+      };
   
-      function showTooltip() {
+      const showTooltip = (): void => {
         tooltip.style.display = "block";
         tooltip.setAttribute("aria-hidden", "false");
-      }
+      };
   
-      function positionTooltipAtPointer(event) {
+      const positionTooltipAtPointer = (event: PointerEvent): void => {
         tooltip.style.left = `${event.clientX + 12}px`;
         tooltip.style.top = `${event.clientY + 12}px`;
   
@@ -256,9 +245,9 @@
           tooltip.style.left = `${Math.max(8, left)}px`;
           tooltip.style.top = `${Math.max(8, top)}px`;
         });
-      }
+      };
   
-      function positionTooltipBelowElement(element) {
+      const positionTooltipBelowElement = (element: Element): void => {
         const elementRectangle = element.getBoundingClientRect();
   
         showTooltip();
@@ -287,36 +276,25 @@
           tooltip.style.left = `${Math.max(8, left)}px`;
           tooltip.style.top = `${Math.max(8, top)}px`;
         });
-      }
+      };
   
-      function highlightElement(element) {
+      const highlightElement = (element: Element): void => {
         if (highlightedElement === element) {
           return;
         }
   
         if (highlightedElement) {
-          highlightedElement.removeAttribute(
-            "data-html-highlighted"
-          );
+          highlightedElement.removeAttribute("data-html-highlighted");
         }
   
         highlightedElement = element;
-  
-        if (!highlightedElement) {
-          clearHighlight();
-          return;
-        }
-  
-        highlightedElement.setAttribute(
-          "data-html-highlighted",
-          ""
-        );
+        highlightedElement.setAttribute("data-html-highlighted", "");
   
         tooltip.textContent = getElementLabel(highlightedElement);
         showTooltip();
-      }
+      };
   
-      function getTargetElement(event) {
+      const getTargetElement = (event: Event): Element | null => {
         const target = event.target;
   
         if (!(target instanceof Element)) {
@@ -335,7 +313,7 @@
         }
   
         return element;
-      }
+      };
   
       /*
        * Desktop : interaction au survol.
