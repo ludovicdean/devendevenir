@@ -28,3 +28,8 @@ test('Lien Talks/Podcasts fonctionne', async ({ page }) => {
     await page.getByTestId('talks-podcasts-desktop').click();
     await expect(page).toHaveURL(/devendevenir\/talks-podcasts/);
 });
+
+test('Lien Séries fonctionne', async ({ page }) => {
+    await page.getByTestId('series-desktop').click();
+    await expect(page).toHaveURL(/devendevenir\/series\/?$/);
+});

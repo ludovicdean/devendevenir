@@ -1,0 +1,82 @@
+---
+import BaseLayout from "src/layouts/BaseLayout.astro";
+import { getAllSeries, getUrl, seriesAnchorId } from "src/utils/blogUtils";
+import { formatReadingTime, getReadingTimeMinutes } from "src/utils/readingTime";
+
+const seriesList = await getAllSeries();
+
+function formatPartCount(count: number): string {
+  return count > 1 ? `${count} parties` : "1 partie";
+}
+---
+
+<BaseLayout
+  title="Séries"
+  description="Les articles à lire dans l'ordre : Git, SQL et les autres séries de Dev En Devenir."
+  data-pagefind-ignore="all"
+>
+  <h1 class="mb-4 py-4 text-center leading-none">Séries</h1>
+  <p>
+    Certains sujets ne tiennent pas en un seul article. Chaque série se lit
+    dans l'ordre des parties : la suivante reprend là où la précédente s'est
+    arrêtée.
+  </p>
+
+  {
+    seriesList.length === 0 && (
+      <p class="text-center text-[var(--color-text-muted)]">
+        Aucune série pour le moment.
+      </p>
+    )
+  }
+
+  <div class="flex flex-col gap-8">
+    {
+      seriesList.map((series) => (
+        <section
+          id={seriesAnchorId(series.name)}
+          class="rounded-xl border border-neutral-200 dark:border-zinc-700 bg-neutral-50 dark:bg-zinc-900 overflow-hidden scroll-mt-8"
+          aria-labelledby={`serie-${seriesAnchorId(series.name)}`}
+          data-testid={`serie-${seriesAnchorId(series.name)}`}
+        >
+          <div class="px-4 py-3 bg-gradient-to-r from-[var(--chrome-from)] to-[var(--chrome-to)]">
+            <h2
+              id={`serie-${seriesAnchorId(series.name)}`}
+              class="m-0 p-0 text-lg font-semibold text-white"
+            >
+              {series.name}
+            </h2>
+            <p class="m-0 text-sm text-white/80">
+              {formatPartCount(series.posts.length)} · {formatReadingTime(series.totalMinutes)}
+            </p>
+          </div>
+
+          {series.posts[0]?.data.description && (
+            <p class="px-4 pt-4 mb-0 text-base text-[var(--color-text-muted)]">
+              {series.posts[0].data.description}
+            </p>
+          )}
+
+          <ol class="list-none m-0 mt-2 p-0 divide-y divide-neutral-200 dark:divide-zinc-700">
+            {series.posts.map((post) => (
+              <li class="flex flex-wrap items-baseline gap-x-3 gap-y-1 px-4 py-3">
+                <span class="shrink-0 text-xs font-bold uppercase tracking-widest w-16 text-neutral-400 dark:text-zinc-500">
+                  Partie {post.data.series?.part}
+                </span>
+                <a
+                  href={getUrl(post)}
+                  class="min-w-0 flex-1 text-base no-underline text-neutral-700 dark:text-zinc-300 hover:text-yellow-600 dark:hover:text-yellow-400 transition-colors"
+                >
+                  {post.data.title}
+                </a>
+                <span class="shrink-0 text-sm text-[var(--color-text-muted)]">
+                  {formatReadingTime(getReadingTimeMinutes(post.body))}
+                </span>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ))
+    }
+  </div>
+</BaseLayout>

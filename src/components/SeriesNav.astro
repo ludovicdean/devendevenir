@@ -1,6 +1,5 @@
 ---
-import { getSeriesPosts } from "src/utils/blogUtils";
-import { getUrl } from "src/utils/blogUtils";
+import { getSeriesPosts, getUrl, seriesAnchorId } from "src/utils/blogUtils";
 
 type Props = {
     seriesName: string;
@@ -9,6 +8,7 @@ type Props = {
 
 const { seriesName, currentPart } = Astro.props;
 const seriesPosts = await getSeriesPosts(seriesName);
+const seriesHref = `${import.meta.env.BASE_URL}/series/#${seriesAnchorId(seriesName)}`;
 ---
 
 {
@@ -18,16 +18,27 @@ const seriesPosts = await getSeriesPosts(seriesName);
             aria-label={`Série : ${seriesName}`}
             data-pagefind-ignore
         >
-            <div class="flex items-center gap-2 px-4 py-3 bg-gradient-to-r from-[var(--chrome-from)] to-[var(--chrome-to)]">
-                <img
-                    src={import.meta.env.BASE_URL + "/images/logo.png"}
-                    alt=""
-                    aria-hidden="true"
-                    class="h-7 w-7 rounded-full object-cover"
-                />
-                <span class="text-white text-sm font-semibold tracking-wide">
-                    Série : <span class="text-[var(--brand)]">{seriesName}</span>
-                </span>
+            <div class="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 px-4 py-3 bg-gradient-to-r from-[var(--chrome-from)] to-[var(--chrome-to)]">
+                <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
+                    <img
+                        src={import.meta.env.BASE_URL + "/images/logo.png"}
+                        alt=""
+                        aria-hidden="true"
+                        class="h-7 w-7 rounded-full object-cover"
+                    />
+                    <span class="text-white text-sm font-semibold tracking-wide">
+                        Série : <span class="text-[var(--brand)]">{seriesName}</span>
+                    </span>
+                    <span class="text-white/80 text-sm">
+                        · Partie {currentPart} sur {seriesPosts.length}
+                    </span>
+                </div>
+                <a
+                    href={seriesHref}
+                    class="text-sm text-white no-underline hover:text-[var(--brand)] transition-colors"
+                >
+                    Toutes les séries
+                </a>
             </div>
 
             <ol class="list-none m-0 p-0 divide-y divide-neutral-200 dark:divide-zinc-700">

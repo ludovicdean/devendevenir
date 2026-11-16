@@ -31,3 +31,8 @@ test('Lien Talks/Podcasts fonctionne', async ({ page }) => {
     await openMobileMenu(page);
     await clickMobileHeaderLink(page, 'talks-podcasts-mobile', /devendevenir\/talks-podcasts\/?$/);
 });
+
+test('Lien Séries fonctionne', async ({ page }) => {
+    await openMobileMenu(page);
+    await clickMobileHeaderLink(page, 'series-mobile', /devendevenir\/series\/?$/);
+});

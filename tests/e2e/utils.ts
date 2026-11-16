@@ -2,7 +2,7 @@ import type { Page, BrowserContext } from '@playwright/test';
 import { expect } from '@playwright/test';
 
 export async function commonBeforeEach(page: Page) {
-    await page.goto('/devendevenir');
+    await page.goto('localhost:4321/devendevenir');
     await expect(page).toHaveTitle(/Dev En Devenir/);
     await expect(page.getByText('Le blog écrit par un développeur pour les développeurs !')).toBeVisible();
 }
