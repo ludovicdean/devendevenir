@@ -1,0 +1,46 @@
+---
+title : "CSS, partie 1"
+date : Nov 15 2026
+tags :
+    - langages
+series:
+    name: "CSS"
+    part: 1
+description : "Comprendre d'où vient CSS, comment une règle s'applique à une page, et habiller une page HTML brute."
+banner: "../../assets/banners/mohammad-rahmani-oXlXu2qukGE-unsplash.webp"
+author: "Mohammad Rahmani"
+authorlink: "https://unsplash.com/fr/@afgprogrammer"
+unsplashlink: "https://unsplash.com/fr/photos/ecran-dordinateur-affichant-le-code-web-oXlXu2qukGE"
+---
+
+Si vous avez lu ma dernière série d'articles sur le HTML, vous vous souvenez peut-être avoir croisé le terme CSS. Maintenant que nos articles sont structurés, il est temps de leur donner un style. Avouez que le texte noir sur fond blanc avec les liens bleus soulignés qui restent violets une fois qu'on a cliqué dessus c'est plutôt laid.
+
+Comme on va le voir dans les articles à venir, CSS est un langage qui permet de modifier l'apparence d'une page HTML
+
+## Les origines
+
+La proposition d'Håkon Wium Lie en 1994, le travail avec Bert Bos, CSS1 en recommandation W3C en décembre 1996. L'idée de la cascade : faire cohabiter les styles de l'auteur et ceux du lecteur.
+
+## Que signifie CSS
+
+Cascading Style Sheets, feuilles de style en cascade.
+
+## Le rôle du CSS
+
+HTML décrit le rôle de chaque élément, CSS décrit son apparence. Les trois endroits où écrire une règle, avec le fichier externe relié par `<link>` comme usage de référence.
+
+## Anatomie d'une règle
+
+Sélecteur, déclaration, propriété, valeur. Premier habillage de la page : couleur, police, fond.
+
+## La cascade et la spécificité
+
+L'ordre des règles, le poids d'un sélecteur (`élément`, `.classe`, `#id`), et `!important` comme signal qu'une règle a perdu la main.
+
+## Le modèle de boîte
+
+Contenu, `padding`, `border`, `margin`, et `box-sizing: border-box`.
+
+## L'héritage
+
+`color` et `font` se transmettent, `margin` non.
