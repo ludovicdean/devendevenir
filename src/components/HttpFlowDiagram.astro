@@ -1,0 +1,577 @@
+---
+interface Props {
+    version: "0.9" | "1.0" | "1.1" | "2" | "3";
+    caption?: string;
+}
+
+const { version, caption } = Astro.props;
+
+const meta: Record<
+    Props["version"],
+    { label: string; transport: string; hint: string }
+> = {
+    "0.9": {
+        label: "HTTP/0.9",
+        transport: "TCP · 1 requête, 1 réponse HTML",
+        hint: "Une seule ligne GET, pas d’en-têtes, la connexion se ferme ensuite.",
+    },
+    "1.0": {
+        label: "HTTP/1.0",
+        transport: "TCP · une connexion par ressource",
+        hint: "En-têtes et codes de statut apparaissent, mais chaque fichier rouvre une connexion.",
+    },
+    "1.1": {
+        label: "HTTP/1.1",
+        transport: "TCP · connexion persistante",
+        hint: "Plusieurs requêtes réutilisent la même connexion, une après l’autre.",
+    },
+    "2": {
+        label: "HTTP/2",
+        transport: "TCP · multiplexage binaire",
+        hint: "Plusieurs flux (streams) circulent en même temps sur une seule connexion.",
+    },
+    "3": {
+        label: "HTTP/3",
+        transport: "QUIC / UDP · flux indépendants",
+        hint: "Même idée de multiplexage, mais un paquet perdu ne bloque plus les autres flux.",
+    },
+};
+
+const info = meta[version];
+const uid = `http-flow-${version}-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<figure class="http-flow" data-http-flow data-version={version} id={uid}>
+    <div class="http-flow__toolbar">
+        <div class="http-flow__meta">
+            <span class="http-flow__badge">{info.label}</span>
+            <span class="http-flow__transport">{info.transport}</span>
+        </div>
+        <div class="http-flow__controls">
+            <button type="button" class="http-flow__btn" data-action="replay" aria-label={`Relancer le schéma ${info.label}`}>
+                Relancer
+            </button>
+        </div>
+    </div>
+
+    <div class="http-flow__stage" aria-hidden="true">
+        <div class="http-flow__endpoint http-flow__endpoint--client">
+            <span class="http-flow__endpoint-label">Navigateur</span>
+            <span class="http-flow__endpoint-sub">client</span>
+        </div>
+
+        <div class="http-flow__wire" data-wire>
+            <div class="http-flow__lane"></div>
+            {
+                version === "2" || version === "3" ? (
+                    <>
+                        <div class="http-flow__packet http-flow__packet--stream-a" data-packet="a"></div>
+                        <div class="http-flow__packet http-flow__packet--stream-b" data-packet="b"></div>
+                        <div class="http-flow__packet http-flow__packet--stream-c" data-packet="c"></div>
+                    </>
+                ) : (
+                    <div class="http-flow__packet http-flow__packet--single" data-packet="main"></div>
+                )
+            }
+            {
+                version === "3" && (
+                    <div class="http-flow__glitch" data-glitch>
+                        paquet perdu
+                    </div>
+                )
+            }
+        </div>
+
+        <div class="http-flow__endpoint http-flow__endpoint--server">
+            <span class="http-flow__endpoint-label">Serveur</span>
+            <span class="http-flow__endpoint-sub">httpd</span>
+        </div>
+    </div>
+
+    <div class="http-flow__log" data-log role="status" aria-live="polite"></div>
+    <p class="http-flow__hint">{info.hint}</p>
+    {caption && <figcaption class="http-flow__caption">{caption}</figcaption>}
+</figure>
+
+<style>
+    .http-flow {
+        margin: 1.75rem 0;
+        padding: 1rem 1.1rem 1.15rem;
+        border: 1px solid color-mix(in srgb, var(--color-text) 14%, transparent);
+        border-radius: 0.75rem;
+        background:
+            radial-gradient(120% 80% at 0% 0%, color-mix(in srgb, var(--brand) 16%, transparent), transparent 55%),
+            radial-gradient(100% 70% at 100% 100%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 50%),
+            color-mix(in srgb, var(--color-bg) 92%, var(--color-text));
+    }
+
+    .http-flow__toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+    }
+
+    .http-flow__meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 0.5rem 0.85rem;
+    }
+
+    .http-flow__badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.2rem 0.55rem;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--brand) 28%, transparent);
+        color: var(--color-heading);
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+    }
+
+    .http-flow__transport {
+        color: color-mix(in srgb, var(--color-text) 78%, transparent);
+        font-size: 0.9rem;
+    }
+
+    .http-flow__btn {
+        appearance: none;
+        border: 1px solid color-mix(in srgb, var(--brand) 55%, var(--color-text));
+        background: color-mix(in srgb, var(--brand) 18%, transparent);
+        color: var(--color-heading);
+        border-radius: 0.45rem;
+        padding: 0.35rem 0.8rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .http-flow__btn:hover {
+        background: color-mix(in srgb, var(--brand) 32%, transparent);
+    }
+
+    .http-flow__btn:active {
+        transform: scale(0.97);
+    }
+
+    .http-flow__stage {
+        display: grid;
+        grid-template-columns: minmax(4.5rem, 1fr) minmax(8rem, 3fr) minmax(4.5rem, 1fr);
+        align-items: center;
+        gap: 0.5rem;
+        min-height: 7.5rem;
+    }
+
+    .http-flow__endpoint {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.15rem;
+        min-height: 4.5rem;
+        padding: 0.65rem 0.4rem;
+        border-radius: 0.65rem;
+        border: 1px solid color-mix(in srgb, var(--color-text) 16%, transparent);
+        background: color-mix(in srgb, var(--color-bg) 88%, white);
+        text-align: center;
+    }
+
+    :global(html.dark) .http-flow__endpoint {
+        background: color-mix(in srgb, var(--color-bg) 70%, #111);
+    }
+
+    .http-flow__endpoint-label {
+        font-weight: 700;
+        color: var(--color-heading);
+        font-size: 0.92rem;
+    }
+
+    .http-flow__endpoint-sub {
+        font-size: 0.75rem;
+        color: color-mix(in srgb, var(--color-text) 65%, transparent);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+
+    .http-flow__wire {
+        position: relative;
+        height: 4.8rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .http-flow__lane {
+        position: absolute;
+        inset-inline: 0.2rem;
+        top: 50%;
+        height: 3px;
+        transform: translateY(-50%);
+        border-radius: 999px;
+        background: linear-gradient(
+            90deg,
+            color-mix(in srgb, var(--brand) 55%, transparent),
+            color-mix(in srgb, var(--accent) 55%, transparent)
+        );
+        opacity: 0.55;
+    }
+
+    .http-flow__packet {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: max-content;
+        max-width: 7.5rem;
+        padding: 0.22rem 0.45rem;
+        border-radius: 0.4rem;
+        font-size: 0.72rem;
+        font-weight: 700;
+        line-height: 1.2;
+        white-space: nowrap;
+        transform: translate(-10%, -50%);
+        opacity: 0;
+        pointer-events: none;
+        box-shadow: 0 4px 14px color-mix(in srgb, black 18%, transparent);
+    }
+
+    .http-flow__packet--single {
+        background: var(--brand);
+        color: #1a1a1a;
+    }
+
+    .http-flow__packet--stream-a {
+        background: #38bdf8;
+        color: #0f172a;
+        top: 28%;
+    }
+
+    .http-flow__packet--stream-b {
+        background: var(--brand);
+        color: #1a1a1a;
+        top: 50%;
+    }
+
+    .http-flow__packet--stream-c {
+        background: #a78bfa;
+        color: #1e1b4b;
+        top: 72%;
+    }
+
+    .http-flow__glitch {
+        position: absolute;
+        left: 42%;
+        top: 8%;
+        padding: 0.15rem 0.4rem;
+        border-radius: 0.35rem;
+        background: color-mix(in srgb, #ef4444 85%, black);
+        color: white;
+        font-size: 0.68rem;
+        font-weight: 700;
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    .http-flow__log {
+        margin-top: 0.85rem;
+        min-height: 2.6rem;
+        padding: 0.55rem 0.7rem;
+        border-radius: 0.5rem;
+        background: color-mix(in srgb, var(--color-text) 6%, transparent);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.82rem;
+        color: var(--color-text);
+        white-space: pre-wrap;
+    }
+
+    .http-flow__hint {
+        margin: 0.7rem 0 0;
+        font-size: 0.92rem;
+        color: color-mix(in srgb, var(--color-text) 82%, transparent);
+    }
+
+    .http-flow__caption {
+        margin-top: 0.55rem;
+        font-size: 0.85rem;
+        color: color-mix(in srgb, var(--color-text) 70%, transparent);
+        text-align: center;
+    }
+
+    @media (max-width: 640px) {
+        .http-flow__stage {
+            grid-template-columns: 1fr;
+            gap: 0.65rem;
+        }
+
+        .http-flow__wire {
+            order: 0;
+            height: 5.2rem;
+        }
+
+        .http-flow__endpoint--client {
+            order: -1;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .http-flow__packet,
+        .http-flow__glitch {
+            transition: none !important;
+            animation: none !important;
+        }
+    }
+</style>
+
+<script>
+    type Step = { text: string; ms: number; run?: () => void };
+
+    function initHttpFlow(root: HTMLElement) {
+        if (root.dataset.ready === "true") return;
+        root.dataset.ready = "true";
+
+        const version = root.dataset.version || "1.1";
+        const logEl = root.querySelector<HTMLElement>("[data-log]");
+        const btn = root.querySelector<HTMLButtonElement>('[data-action="replay"]');
+        const packetMain = root.querySelector<HTMLElement>('[data-packet="main"]');
+        const packetA = root.querySelector<HTMLElement>('[data-packet="a"]');
+        const packetB = root.querySelector<HTMLElement>('[data-packet="b"]');
+        const packetC = root.querySelector<HTMLElement>('[data-packet="c"]');
+        const glitch = root.querySelector<HTMLElement>("[data-glitch]");
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        let timers: number[] = [];
+
+        const clearTimers = () => {
+            timers.forEach((id) => window.clearTimeout(id));
+            timers = [];
+        };
+
+        const setLog = (text: string) => {
+            if (logEl) logEl.textContent = text;
+        };
+
+        const movePacket = (
+            el: HTMLElement | null,
+            label: string,
+            from: number,
+            to: number,
+            duration: number
+        ) => {
+            if (!el) return;
+            el.textContent = label;
+            el.style.transition = "none";
+            el.style.opacity = "1";
+            el.style.left = `${from}%`;
+            el.style.transform = "translate(-50%, -50%)";
+            // force reflow
+            void el.offsetWidth;
+            if (reduceMotion) {
+                el.style.left = `${to}%`;
+                return;
+            }
+            el.style.transition = `left ${duration}ms cubic-bezier(0.4, 0, 0.2, 1), opacity 180ms ease`;
+            el.style.left = `${to}%`;
+        };
+
+        const hidePackets = () => {
+            [packetMain, packetA, packetB, packetC].forEach((el) => {
+                if (!el) return;
+                el.style.transition = "none";
+                el.style.opacity = "0";
+                el.style.left = "0%";
+            });
+            if (glitch) {
+                glitch.style.transition = "none";
+                glitch.style.opacity = "0";
+                glitch.style.transform = "scale(0.9)";
+            }
+        };
+
+        const schedule = (steps: Step[]) => {
+            clearTimers();
+            hidePackets();
+            let elapsed = 0;
+            steps.forEach((step) => {
+                const id = window.setTimeout(() => {
+                    setLog(step.text);
+                    step.run?.();
+                }, elapsed);
+                timers.push(id);
+                elapsed += reduceMotion ? Math.min(step.ms, 200) : step.ms;
+            });
+        };
+
+        const play = () => {
+            if (version === "0.9") {
+                schedule([
+                    {
+                        text: "GET /index.html",
+                        ms: 900,
+                        run: () => movePacket(packetMain, "GET /index.html", 8, 88, 900),
+                    },
+                    {
+                        text: "<html>…</html>\n(pas d’en-têtes, pas de code de statut)",
+                        ms: 1100,
+                        run: () => movePacket(packetMain, "HTML", 88, 8, 1100),
+                    },
+                    {
+                        text: "Connexion TCP fermée. Pour une image, on recommence à zéro.",
+                        ms: 700,
+                        run: () => {
+                            if (packetMain) packetMain.style.opacity = "0";
+                        },
+                    },
+                ]);
+                return;
+            }
+
+            if (version === "1.0") {
+                schedule([
+                    {
+                        text: "Connexion 1 · GET /index.html HTTP/1.0",
+                        ms: 850,
+                        run: () => movePacket(packetMain, "HTML ?", 8, 88, 850),
+                    },
+                    {
+                        text: "HTTP/1.0 200 OK · Content-Type: text/html",
+                        ms: 950,
+                        run: () => movePacket(packetMain, "200 HTML", 88, 8, 950),
+                    },
+                    {
+                        text: "Connexion fermée → nouvelle connexion pour style.css",
+                        ms: 850,
+                        run: () => movePacket(packetMain, "CSS ?", 8, 88, 850),
+                    },
+                    {
+                        text: "HTTP/1.0 200 OK · Content-Type: text/css",
+                        ms: 950,
+                        run: () => movePacket(packetMain, "200 CSS", 88, 8, 950),
+                    },
+                    {
+                        text: "Encore une connexion pour logo.webp… Coûteux en latence.",
+                        ms: 600,
+                        run: () => {
+                            if (packetMain) packetMain.style.opacity = "0";
+                        },
+                    },
+                ]);
+                return;
+            }
+
+            if (version === "1.1") {
+                schedule([
+                    {
+                        text: "Ouverture TCP · Host: devendevenir.fr",
+                        ms: 700,
+                        run: () => movePacket(packetMain, "GET HTML", 8, 88, 700),
+                    },
+                    {
+                        text: "200 OK (HTML) · Connection: keep-alive",
+                        ms: 850,
+                        run: () => movePacket(packetMain, "200 HTML", 88, 8, 850),
+                    },
+                    {
+                        text: "Même connexion · GET /style.css",
+                        ms: 750,
+                        run: () => movePacket(packetMain, "GET CSS", 8, 88, 750),
+                    },
+                    {
+                        text: "200 OK (CSS) · puis GET /logo.webp",
+                        ms: 750,
+                        run: () => movePacket(packetMain, "GET IMG", 8, 88, 750),
+                    },
+                    {
+                        text: "200 OK (image) · les requêtes restent séquentielles sur le fil.",
+                        ms: 700,
+                        run: () => movePacket(packetMain, "200 IMG", 88, 8, 700),
+                    },
+                ]);
+                return;
+            }
+
+            if (version === "2") {
+                schedule([
+                    {
+                        text: "Une connexion TCP · 3 streams en parallèle",
+                        ms: 350,
+                        run: () => {
+                            movePacket(packetA, "HTML →", 8, 88, 900);
+                            movePacket(packetB, "CSS →", 8, 78, 1100);
+                            movePacket(packetC, "IMG →", 8, 70, 1300);
+                        },
+                    },
+                    {
+                        text: "Les trames s’entrelacent : plus d’attente stricte entre fichiers.",
+                        ms: 1200,
+                        run: () => {
+                            movePacket(packetA, "← HTML", 88, 8, 900);
+                            movePacket(packetB, "← CSS", 78, 8, 1050);
+                            movePacket(packetC, "← IMG", 70, 8, 1200);
+                        },
+                    },
+                    {
+                        text: "Attention : un paquet TCP perdu bloque encore toute la connexion.",
+                        ms: 800,
+                    },
+                ]);
+                return;
+            }
+
+            // HTTP/3
+            schedule([
+                {
+                    text: "QUIC sur UDP · handshake TLS intégré",
+                    ms: 400,
+                    run: () => {
+                        movePacket(packetA, "HTML →", 8, 88, 850);
+                        movePacket(packetB, "CSS →", 8, 80, 1000);
+                        movePacket(packetC, "IMG →", 8, 72, 1150);
+                    },
+                },
+                {
+                    text: "Le flux CSS perd un paquet…",
+                    ms: 700,
+                    run: () => {
+                        if (glitch) {
+                            glitch.style.transition = "opacity 200ms ease, transform 200ms ease";
+                            glitch.style.opacity = "1";
+                            glitch.style.transform = "scale(1)";
+                        }
+                        if (packetB) {
+                            packetB.style.opacity = "0.35";
+                        }
+                    },
+                },
+                {
+                    text: "HTML et image continuent. Seul CSS attend la retransmission.",
+                    ms: 1100,
+                    run: () => {
+                        movePacket(packetA, "← HTML", 88, 8, 850);
+                        movePacket(packetC, "← IMG", 72, 8, 950);
+                    },
+                },
+                {
+                    text: "HTTP/3 garde la sémantique HTTP, change le transport.",
+                    ms: 800,
+                    run: () => {
+                        if (glitch) glitch.style.opacity = "0";
+                        movePacket(packetB, "← CSS", 55, 8, 900);
+                    },
+                },
+            ]);
+        };
+
+        btn?.addEventListener("click", play);
+        play();
+    }
+
+    function boot() {
+        document.querySelectorAll<HTMLElement>("[data-http-flow]").forEach(initHttpFlow);
+    }
+
+    boot();
+    document.addEventListener("astro:page-load", boot);
+</script>
