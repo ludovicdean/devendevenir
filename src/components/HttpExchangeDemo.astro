@@ -1,0 +1,382 @@
+---
+interface Props {
+    caption?: string;
+}
+
+const { caption } = Astro.props;
+const uid = `http-exchange-${Math.random().toString(36).slice(2, 8)}`;
+
+const steps = [
+    {
+        title: "1 · Le navigateur prépare la demande",
+        detail: "On veut la page d’accueil. La méthode GET dit « lire », sans modifier quoi que ce soit sur le serveur.",
+        side: "client",
+        message: `GET / HTTP/1.1
+Host: www.devendevenir.fr
+Accept: text/html`,
+    },
+    {
+        title: "2 · La requête traverse le réseau",
+        detail: "Le message part vers le serveur. Avec HTTPS, le contenu est chiffré en transit, mais la structure HTTP reste la même.",
+        side: "wire",
+        message: `→ requête HTTP
+→ TCP (ou QUIC pour HTTP/3)
+→ serveur joignable`,
+    },
+    {
+        title: "3 · Le serveur répond",
+        detail: "Le statut 200 OK confirme que la ressource existe. Content-Type indique au navigateur qu’il reçoit du HTML.",
+        side: "server",
+        message: `HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 1284
+
+<!DOCTYPE html>
+<html lang="fr">…</html>`,
+    },
+    {
+        title: "4 · Le navigateur affiche la page",
+        detail: "Le HTML arrive. S’il référence CSS et images, de nouvelles requêtes HTTP suivront — c’est là que la version du protocole change vraiment la donne.",
+        side: "client",
+        message: `Page reçue
+→ parse HTML
+→ découvre /style.css
+→ découvre /logo.webp`,
+    },
+] as const;
+---
+
+<figure class="http-exchange" data-http-exchange id={uid}>
+    <div class="http-exchange__layout">
+        <div class="http-exchange__panels" aria-hidden="true">
+            <div class="http-exchange__panel" data-side="client">
+                <span>Navigateur</span>
+            </div>
+            <div class="http-exchange__rail">
+                <div class="http-exchange__pulse" data-pulse></div>
+            </div>
+            <div class="http-exchange__panel" data-side="server">
+                <span>Serveur</span>
+            </div>
+        </div>
+
+        <div class="http-exchange__body">
+            <p class="http-exchange__title" data-title>{steps[0].title}</p>
+            <p class="http-exchange__detail" data-detail>{steps[0].detail}</p>
+            <pre class="http-exchange__message" data-message><code>{steps[0].message}</code></pre>
+        </div>
+    </div>
+
+    <div class="http-exchange__controls">
+        <button type="button" class="http-exchange__btn" data-action="prev" disabled>
+            Précédent
+        </button>
+        <div class="http-exchange__dots" role="tablist" aria-label="Étapes de l’échange HTTP">
+            {
+                steps.map((_, index) => (
+                    <button
+                        type="button"
+                        class:list={["http-exchange__dot", index === 0 && "is-active"]}
+                        data-step={index}
+                        aria-label={`Aller à l’étape ${index + 1}`}
+                        aria-current={index === 0 ? "step" : undefined}
+                    />
+                ))
+            }
+        </div>
+        <button type="button" class="http-exchange__btn http-exchange__btn--primary" data-action="next">
+            Suivant
+        </button>
+    </div>
+
+    {caption && <figcaption class="http-exchange__caption">{caption}</figcaption>}
+</figure>
+
+<script define:vars={{ stepsJson: JSON.stringify(steps) }}>
+    const steps = JSON.parse(stepsJson);
+
+    function initExchange(root) {
+        if (root.dataset.ready === "true") return;
+        root.dataset.ready = "true";
+
+        let index = 0;
+        const titleEl = root.querySelector("[data-title]");
+        const detailEl = root.querySelector("[data-detail]");
+        const messageEl = root.querySelector("[data-message] code") || root.querySelector("[data-message]");
+        const pulse = root.querySelector("[data-pulse]");
+        const prevBtn = root.querySelector('[data-action="prev"]');
+        const nextBtn = root.querySelector('[data-action="next"]');
+        const dots = Array.from(root.querySelectorAll("[data-step]"));
+        const panels = {
+            client: root.querySelector('[data-side="client"]'),
+            server: root.querySelector('[data-side="server"]'),
+        };
+
+        const render = () => {
+            const step = steps[index];
+            if (!step) return;
+            if (titleEl) titleEl.textContent = step.title;
+            if (detailEl) detailEl.textContent = step.detail;
+            if (messageEl) messageEl.textContent = step.message;
+
+            dots.forEach((dot, i) => {
+                const active = i === index;
+                dot.classList.toggle("is-active", active);
+                if (active) dot.setAttribute("aria-current", "step");
+                else dot.removeAttribute("aria-current");
+            });
+
+            if (prevBtn) prevBtn.disabled = index === 0;
+            if (nextBtn) {
+                nextBtn.disabled = index === steps.length - 1;
+                nextBtn.textContent = index === steps.length - 1 ? "Terminé" : "Suivant";
+            }
+
+            Object.values(panels).forEach((panel) => panel?.classList.remove("is-active"));
+            if (step.side === "client") panels.client?.classList.add("is-active");
+            if (step.side === "server") panels.server?.classList.add("is-active");
+            if (step.side === "wire") {
+                panels.client?.classList.add("is-active");
+                panels.server?.classList.add("is-active");
+            }
+
+            if (pulse) {
+                pulse.dataset.dir = step.side === "server" ? "back" : "forth";
+                pulse.classList.remove("is-running");
+                void pulse.offsetWidth;
+                pulse.classList.add("is-running");
+            }
+        };
+
+        const go = (next) => {
+            index = Math.max(0, Math.min(steps.length - 1, next));
+            render();
+        };
+
+        prevBtn?.addEventListener("click", () => go(index - 1));
+        nextBtn?.addEventListener("click", () => go(index + 1));
+        dots.forEach((dot) => {
+            dot.addEventListener("click", () => {
+                const step = Number(dot.getAttribute("data-step"));
+                if (!Number.isNaN(step)) go(step);
+            });
+        });
+
+        render();
+    }
+
+    function boot() {
+        document.querySelectorAll("[data-http-exchange]").forEach(initExchange);
+    }
+
+    boot();
+    document.addEventListener("astro:page-load", boot);
+</script>
+
+<style>
+    .http-exchange {
+        margin: 1.75rem 0;
+        padding: 1rem 1.1rem 1.1rem;
+        border: 1px solid color-mix(in srgb, var(--color-text) 14%, transparent);
+        border-radius: 0.75rem;
+        background: color-mix(in srgb, var(--color-bg) 94%, var(--color-text));
+    }
+
+    .http-exchange__layout {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .http-exchange__panels {
+        display: grid;
+        grid-template-columns: 1fr minmax(3rem, 1.2fr) 1fr;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+    .http-exchange__panel {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 3.2rem;
+        padding: 0.5rem;
+        border-radius: 0.6rem;
+        border: 1px solid color-mix(in srgb, var(--color-text) 14%, transparent);
+        font-weight: 700;
+        color: var(--color-heading);
+        transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+    }
+
+    .http-exchange__panel.is-active {
+        border-color: color-mix(in srgb, var(--brand) 70%, transparent);
+        background: color-mix(in srgb, var(--brand) 18%, transparent);
+        transform: translateY(-1px);
+    }
+
+    .http-exchange__rail {
+        position: relative;
+        height: 0.35rem;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--color-text) 16%, transparent);
+        overflow: hidden;
+    }
+
+    .http-exchange__pulse {
+        position: absolute;
+        top: 50%;
+        left: 8%;
+        width: 0.85rem;
+        height: 0.85rem;
+        border-radius: 999px;
+        background: var(--brand);
+        transform: translate(-50%, -50%);
+        opacity: 0;
+    }
+
+    .http-exchange__pulse.is-running {
+        animation: http-pulse-forth 1.1s ease forwards;
+    }
+
+    .http-exchange__pulse.is-running[data-dir="back"] {
+        animation-name: http-pulse-back;
+    }
+
+    @keyframes http-pulse-forth {
+        0% {
+            left: 8%;
+            opacity: 0;
+        }
+        15% {
+            opacity: 1;
+        }
+        85% {
+            opacity: 1;
+        }
+        100% {
+            left: 92%;
+            opacity: 0;
+        }
+    }
+
+    @keyframes http-pulse-back {
+        0% {
+            left: 92%;
+            opacity: 0;
+        }
+        15% {
+            opacity: 1;
+        }
+        85% {
+            opacity: 1;
+        }
+        100% {
+            left: 8%;
+            opacity: 0;
+        }
+    }
+
+    .http-exchange__title {
+        margin: 0 0 0.35rem;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--color-heading);
+    }
+
+    .http-exchange__detail {
+        margin: 0 0 0.75rem;
+        color: color-mix(in srgb, var(--color-text) 88%, transparent);
+        font-size: 0.95rem;
+    }
+
+    .http-exchange__message {
+        margin: 0;
+        padding: 0.75rem 0.85rem;
+        border-radius: 0.5rem;
+        background: #0f172a;
+        color: #e2e8f0;
+        font-size: 0.82rem;
+        line-height: 1.45;
+        overflow-x: auto;
+    }
+
+    :global(html.light) .http-exchange__message {
+        background: #111827;
+    }
+
+    .http-exchange__controls {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        margin-top: 1rem;
+    }
+
+    .http-exchange__dots {
+        display: flex;
+        gap: 0.4rem;
+    }
+
+    .http-exchange__dot {
+        width: 0.65rem;
+        height: 0.65rem;
+        border-radius: 999px;
+        border: none;
+        padding: 0;
+        background: color-mix(in srgb, var(--color-text) 25%, transparent);
+        cursor: pointer;
+    }
+
+    .http-exchange__dot.is-active {
+        background: var(--brand);
+        transform: scale(1.15);
+    }
+
+    .http-exchange__btn {
+        appearance: none;
+        border: 1px solid color-mix(in srgb, var(--color-text) 22%, transparent);
+        background: transparent;
+        color: var(--color-heading);
+        border-radius: 0.45rem;
+        padding: 0.35rem 0.75rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .http-exchange__btn:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+    }
+
+    .http-exchange__btn--primary {
+        border-color: color-mix(in srgb, var(--brand) 55%, var(--color-text));
+        background: color-mix(in srgb, var(--brand) 20%, transparent);
+    }
+
+    .http-exchange__caption {
+        margin-top: 0.7rem;
+        text-align: center;
+        font-size: 0.85rem;
+        color: color-mix(in srgb, var(--color-text) 70%, transparent);
+    }
+
+    @media (max-width: 640px) {
+        .http-exchange__panels {
+            grid-template-columns: 1fr;
+        }
+
+        .http-exchange__rail {
+            height: 0.45rem;
+            margin: 0.15rem 0;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .http-exchange__pulse.is-running,
+        .http-exchange__pulse.is-running[data-dir="back"] {
+            animation: none;
+            opacity: 1;
+            left: 50%;
+        }
+    }
+</style>
