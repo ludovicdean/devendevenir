@@ -60,6 +60,16 @@ GET /index.html
 
 La réponse, c’est directement le document HTML. Pas de code `200` ou `404` : en cas de problème, le serveur renvoyait souvent une page HTML expliquant l’erreur… pour un humain, pas pour un programme.
 
+```mermaid
+sequenceDiagram
+    participant N as Navigateur
+    participant S as Serveur
+    Note over N,S: TCP ouvert
+    N->>S: GET /index.html
+    S-->>N: document HTML (corps seul)
+    Note over N,S: Connexion fermée<br/>(pas d'en-têtes, pas de statut)
+```
+
 <HttpFlowDiagram version="0.9" caption="HTTP/0.9 : une requête, une réponse HTML, puis la connexion se ferme." />
 
 Limite immédiate : on ne peut pas indiquer qu’on envoie une image, du CSS ou du JSON. Le web des débuts, c’est surtout du texte hyperlié.
@@ -85,6 +95,24 @@ Content-Length: 1374
 
 On peut enfin transporter autre chose que du HTML. En revanche, chaque ressource a tendance à ouvrir **sa propre connexion TCP**. Pour une page + un CSS + une image, on paie trois fois le coût d’ouverture de connexion.
 
+```mermaid
+sequenceDiagram
+    participant N as Navigateur
+    participant S as Serveur
+    Note over N,S: Connexion TCP n°1
+    N->>S: GET /index.html HTTP/1.0
+    S-->>N: 200 OK · Content-Type: text/html
+    Note over N,S: Connexion fermée
+    Note over N,S: Connexion TCP n°2
+    N->>S: GET /style.css HTTP/1.0
+    S-->>N: 200 OK · Content-Type: text/css
+    Note over N,S: Connexion fermée
+    Note over N,S: Connexion TCP n°3
+    N->>S: GET /logo.webp HTTP/1.0
+    S-->>N: 200 OK · Content-Type: image/webp
+    Note over N,S: Connexion fermée
+```
+
 <HttpFlowDiagram version="1.0" caption="HTTP/1.0 : metadata riches, mais une connexion par fichier." />
 
 ## HTTP/1.1 : le protocole standardisé du web « classique »
@@ -104,6 +132,20 @@ Connection: keep-alive
 
 Sur notre fil, la page HTML, le CSS et le logo peuvent voyager sur **une** connexion. Les requêtes restent toutefois largement **séquentielles** : on attend souvent la réponse précédente avant d’enchaîner vraiment librement. Le fameux *head-of-line blocking* au niveau HTTP commence ici à se faire sentir dès que le réseau rame.
 
+```mermaid
+sequenceDiagram
+    participant N as Navigateur
+    participant S as Serveur
+    Note over N,S: Une seule connexion TCP (keep-alive)
+    N->>S: GET / HTTP/1.1<br/>Host: www.devendevenir.fr
+    S-->>N: 200 OK (HTML)
+    N->>S: GET /style.css HTTP/1.1
+    S-->>N: 200 OK (CSS)
+    N->>S: GET /logo.webp HTTP/1.1
+    S-->>N: 200 OK (image)
+    Note over N,S: Requêtes ordonnées sur le même fil
+```
+
 <HttpFlowDiagram version="1.1" caption="HTTP/1.1 : une connexion réutilisée, des allers-retours encore ordonnés." />
 
 ## HTTP/2 : binaire, compressé, multiplexé
@@ -117,6 +159,24 @@ Les gains visibles pour notre page d’accueil :
 - priorité entre flux ;
 - (historiquement) le *server push*, peu utiliséé aujourd’hui et retiré des plans majeurs des navigateurs.
 
+```mermaid
+sequenceDiagram
+    participant N as Navigateur
+    participant S as Serveur
+    Note over N,S: Une connexion TCP · trames binaires
+    par Stream 1 · HTML
+        N->>S: HEADERS GET /
+        S-->>N: DATA index.html
+    and Stream 3 · CSS
+        N->>S: HEADERS GET /style.css
+        S-->>N: DATA style.css
+    and Stream 5 · image
+        N->>S: HEADERS GET /logo.webp
+        S-->>N: DATA logo.webp
+    end
+    Note over N,S: Multiplexage OK, mais un paquet TCP perdu<br/>bloque encore toute la connexion
+```
+
 <HttpFlowDiagram version="2" caption="HTTP/2 : plusieurs streams colorés sur la même connexion TCP." />
 
 Un point subtil : HTTP/2 résout le blocage en tête de file **au niveau HTTP**. Mais si un paquet TCP est perdu, toute la connexion TCP attend — et donc tous les streams. Le goulot descend d’un étage.
@@ -126,6 +186,25 @@ Un point subtil : HTTP/2 résout le blocage en tête de file **au niveau HTTP**.
 **HTTP/3** (RFC 9114, 2022) garde encore la sémantique HTTP. Ce qui change, c’est le véhicule : fini TCP comme transport principal, place à **QUIC**, un protocole bâti sur **UDP**, avec chiffrement TLS 1.3 intégré au handshake.
 
 Conséquence pour notre trio HTML / CSS / image : si le flux CSS perd un paquet, les flux HTML et image peuvent continuer. Chaque stream a sa propre gestion de perte. C’est la réponse au *head-of-line blocking* hérité de TCP.
+
+```mermaid
+sequenceDiagram
+    participant N as Navigateur
+    participant S as Serveur
+    Note over N,S: QUIC sur UDP · TLS 1.3 intégré
+    par Stream HTML
+        N->>S: GET /
+        S-->>N: 200 OK (HTML)
+    and Stream CSS
+        N->>S: GET /style.css
+        Note right of S: Paquet perdu<br/>retransmission locale
+        S-->>N: 200 OK (CSS, un peu plus tard)
+    and Stream image
+        N->>S: GET /logo.webp
+        S-->>N: 200 OK (image)
+    end
+    Note over N,S: HTML et image ne patientent pas<br/>derrière le CSS
+```
 
 <HttpFlowDiagram version="3" caption="HTTP/3 : multiplexage sur QUIC ; un flux peut ramer sans figer les autres." />
 
